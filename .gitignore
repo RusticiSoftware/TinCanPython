@@ -1,0 +1,12 @@
+# Third party libraries
+
+# buildables
+doc/api
+
+# bad
+.DS_Store
+*.swp
+tmp/
+
+# wild
+todo.md
