@@ -1,6 +1,7 @@
 import unittest
 from TinCanObjects.Verb import Verb
 from TinCanObjects.LanguageMap import LanguageMap
+from TinCanObjects.Errors.LanguageMapInitError import LanguageMapInitError
 
 class TestVerb(unittest.TestCase):
 
@@ -38,7 +39,23 @@ class TestVerb(unittest.TestCase):
        self.assertEqual(verb.id, 'test')
        self.assertIsNone(verb.display)
 
-   def test_VerbFromJSONEmpty(self):
+   def test_VerbInitUnpack(self):
+       obj = {"id": "test", "display": {"test": "test"}}
+       verb = Verb(**obj)
+       self.assertEqual(verb.id, 'test')
+       self.assertEqual(len(vars(verb.display)), 1)
+       self.assertIn('test', vars(verb.display))
+
+   def test_VerbInitExceptionUnpackFlatDisplay(self):
+       obj = {"id":"test", "display": "test"}
+       try:
+           verb = Verb(**obj)
+       except LanguageMapInitError:
+           self.assertTrue(1)
+       else:
+           self.assertTrue(0)
+
+   def test_VerbFromJSONExceptionEmpty(self):
        verb = Verb()
        try:
            verb.fromJSON('')
@@ -53,12 +70,12 @@ class TestVerb(unittest.TestCase):
        self.assertEqual(verb.id, 'test')
        self.assertIsNone(verb.display)
 
-   def test_VerbFromJSONFlatDisplay(self):
+   def test_VerbFromJSONExceptionFlatDisplay(self):
        verb = Verb()
        try:
            verb.fromJSON('{"id":"test", "display":"test"}')
-       except TypeError as e:
-           self.assertEqual(str(e), "Display value parameter not coercible into a LanguageMap")
+       except LanguageMapInitError:
+           self.assertTrue(1)
        else:
            self.assertTrue(0)
 
