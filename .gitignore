@@ -8,6 +8,7 @@ doc/api
 *.swp
 tmp/
 .idea
+*.pyc
 
 # wild
 todo.md
