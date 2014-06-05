@@ -43,6 +43,7 @@ class TestVerb(unittest.TestCase):
        obj = {"id": "test", "display": {"test": "test"}}
        verb = Verb(**obj)
        self.assertEqual(verb.id, 'test')
+       self.assertIsInstance(verb.display, LanguageMap)
        self.assertEqual(len(vars(verb.display)), 1)
        self.assertIn('test', vars(verb.display))
 
