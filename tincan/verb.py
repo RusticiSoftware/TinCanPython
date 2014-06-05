@@ -1,5 +1,5 @@
-from TinCanBaseObject import TinCanBaseObject
-from LanguageMap import LanguageMap
+from tincanbase import TinCanBaseObject
+from languagemap import LanguageMap
 """
 .. module:: Verb
    :synopsis: A Verb object that contains an id and a display

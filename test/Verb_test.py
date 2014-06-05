@@ -1,7 +1,7 @@
 import unittest
-from TinCanObjects.Verb import Verb
-from TinCanObjects.LanguageMap import LanguageMap
-from TinCanObjects.Errors.LanguageMapInitError import LanguageMapInitError
+from tincan.verb import Verb
+from tincan.languagemap import LanguageMap
+from tincan.errors.languagemap_initerror import LanguageMapInitError
 
 class TestVerb(unittest.TestCase):
 
