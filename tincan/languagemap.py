@@ -1,7 +1,7 @@
 from tincanbase import TinCanBaseObject
 from errors.languagemap_initerror import LanguageMapInitError
 """
-.. module:: LanguageMap
+.. module:: languagemap
    :synopsis: A simple wrapper for a map containing language mappings
 
 .. moduleauthor:: Rustici Software

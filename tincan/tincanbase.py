@@ -1,6 +1,6 @@
 import json
 """
-.. module:: TinCanBaseObject
+.. module:: tincanbase
    :synopsis: A Base level object that provides common functionality to other TinCan object
 
 .. moduleauthor:: Rustici Software
