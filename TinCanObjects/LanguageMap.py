@@ -12,6 +12,9 @@ class LanguageMap(TinCanBaseObject):
    def __init__(self, map = None):
        """Initializes a LanguageMap with the given mapping
 
+       A language map is always intended to have a value, and therefore throws an exception \
+       in the case of an empty argument
+
        :param map: The intended language mapping
        :type map: dict
 
