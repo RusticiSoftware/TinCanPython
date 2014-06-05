@@ -25,10 +25,10 @@ class RemoteLRS(object):
         if "http" in request.resource:
             url = request.resource
         else:
-            if self.endpoint[-1] == "/":
-                url = self.endpoint + request.resource
-            else:
-                url = self.endpoint + "/" + request.resource
+            url = self.endpoint
+            if url.endswith("/"):
+                url += "/"
+            url += request.resource
 
         parsed = urlparse(url)
 
@@ -40,19 +40,20 @@ class RemoteLRS(object):
 
         headers.update(request.headers)
 
-        #TODO: unnecessary?
-        for k, v in request.query_params:
-            request.query_params[k] = unicode(v).encode('utf-8')
-
-        request.query_params = urllib.urlencode(request.query_params)
+        params = request.query_params
+        params = {k: unicode(params[k]).encode('utf-8') for k in params.keys()}
+        params = urllib.urlencode(params)
 
         if parsed.scheme == "https":
             web_req = httplib.HTTPSConnection(parsed.hostname)
         else:
             web_req = httplib.HTTPConnection(parsed.hostname)
 
-        #TODO: needs an added '?' for query parameters?
-        web_req.request(request.method, parsed.path, request.query_params, request.headers)
+        path = parsed.path
+        if params:
+            path += "?"
+
+        web_req.request(request.method, path, params, headers)
 
         if request.content is not None:
             web_req.send(request.content)
@@ -62,7 +63,7 @@ class RemoteLRS(object):
         if (200 <= response.status < 300) or (response.status == 404 and request.ignore404):
             success = True
         elif 300 <= response.status < 400:
-            #TODO: throw exception here?
+            raise Exception("Bad Response Status Code: " + response.status)
             success = False
         else:
             success = False
@@ -80,28 +81,24 @@ class RemoteLRS(object):
 
         return lrs_response
 
+    def save_statement(self, statement):
+        #TODO: verify is instance of statement? (can't do yet)
 
+        request = HTTPRequest.HTTPRequest(endpoint=self.endpoint, resource="statements", method="POST")
 
+        if statement.id is not None:
+            request.method = "PUT"
+            request.query_params["statementId"] = statement.id
 
+        request.headers["Content-Type"] = "application/json"
+        #request.content = #JSON encoded statement
 
+        lrs_response = self.send_request(request)
 
+        if lrs_response.success:
+            if statement.id is not None:
+                pass
+                #lrs_response.id = #JSON decoded statement id
+            lrs_response.content = statement
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return lrs_response
