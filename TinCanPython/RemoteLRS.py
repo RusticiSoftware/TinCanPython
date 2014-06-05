@@ -79,29 +79,3 @@ class RemoteLRS(object):
             #lrs_response.content = lrs_response.response.content (from JSON)
 
         return lrs_response
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
