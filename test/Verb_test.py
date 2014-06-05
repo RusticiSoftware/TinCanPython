@@ -55,9 +55,12 @@ class TestVerb(unittest.TestCase):
 
    def test_VerbFromJSONFlatDisplay(self):
        verb = Verb()
-       verb.fromJSON('{"id":"test", "display":"test"}')
-       self.assertEqual(verb.id, 'test')
-       self.assertIsNone(verb.display)
+       try:
+           verb.fromJSON('{"id":"test", "display":"test"}')
+       except TypeError as e:
+           self.assertEqual(str(e), "Display value parameter not coercible into a LanguageMap")
+       else:
+           self.assertTrue(0)
 
    def test_VerbFromJSON(self):
        verb = Verb()
