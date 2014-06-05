@@ -30,8 +30,3 @@ class Verb(TinCanBaseObject):
 
    def __repr__(self):
        return '%s' % (self.__dict__)
-
-   def _fromJSON(self):
-       if self.display is not None and len(vars(self.display)) == 0:
-           raise TypeError("Display value parameter not coercible into a LanguageMap")
-

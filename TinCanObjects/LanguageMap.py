@@ -1,4 +1,5 @@
 from TinCanBaseObject import TinCanBaseObject
+from Errors.LanguageMapInitError import LanguageMapInitError
 """
 .. module:: LanguageMap
    :synopsis: A simple wrapper for a map containing language mappings
@@ -18,6 +19,8 @@ class LanguageMap(TinCanBaseObject):
        if map is not None and isinstance(map, dict):
            for k, v in map.iteritems():
                setattr(self, k, v)
+       else:
+           raise LanguageMapInitError("Arguments cannot be coerced into a LanguageMap")
 
    def __repr__(self):
        return '%s' % (self.__dict__)

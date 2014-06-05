@@ -1,0 +1,2 @@
+class LanguageMapInitError(Exception):
+   pass
