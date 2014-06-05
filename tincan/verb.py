@@ -1,7 +1,7 @@
 from tincanbase import TinCanBaseObject
 from languagemap import LanguageMap
 """
-.. module:: Verb
+.. module:: verb
    :synopsis: A Verb object that contains an id and a display
 
 .. moduleauthor:: Rustici Software
