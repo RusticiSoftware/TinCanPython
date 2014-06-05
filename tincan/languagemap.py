@@ -1,5 +1,5 @@
-from TinCanBaseObject import TinCanBaseObject
-from Errors.LanguageMapInitError import LanguageMapInitError
+from tincanbase import TinCanBaseObject
+from errors.languagemap_initerror import LanguageMapInitError
 """
 .. module:: LanguageMap
    :synopsis: A simple wrapper for a map containing language mappings
