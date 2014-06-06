@@ -13,10 +13,13 @@ class TemplateTest(unittest.TestCase):
 
     def setUp(self):
         # Set up variables before each test
+        #self.my_var = True
+        #self.connection = lrs_setup_connection()
         pass
 
     def tearDown(self):
         # Tear down variables after each test
+        #self.connection.close()
         pass
 
     def test_asserts(self):
