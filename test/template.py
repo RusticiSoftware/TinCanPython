@@ -19,12 +19,15 @@ class TemplateTest(unittest.TestCase):
         # Tear down variables after each test
         pass
 
-    def test_test(self):
+    def test_asserts(self):
         self.assertTrue(True, "True should be true!")
         self.assertFalse(False, "False should be false!")
         self.assertEquals(1, 1, "1 should equal 1!")
         self.assertNotEqual(1, 2, "1 should not equal 2!")
         self.assertRaises(Exception, raise_exception, 1, 2, c=3, d=4)
+
+    def test_sanity(self):
+        self.assertEquals(1+1, 2, "INSANITY! 1+1 != 2")
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TemplateTest)
