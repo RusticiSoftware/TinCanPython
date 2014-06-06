@@ -7,6 +7,8 @@ doc/api
 .DS_Store
 *.swp
 tmp/
+*.pyc
+.idea/
 
 # wild
 todo.md
