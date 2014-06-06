@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import unittest
-
+#from resources import lrs_properties
 
 def raise_exception(*args, **kwargs):
     print "Called raise_exception({args}, {kwargs})" % (args, kwargs)
