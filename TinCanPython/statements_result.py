@@ -1,0 +1,2 @@
+class StatementsResult(object):
+    pass

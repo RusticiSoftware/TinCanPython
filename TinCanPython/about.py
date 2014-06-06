@@ -1,0 +1,2 @@
+class About(object):
+    pass
