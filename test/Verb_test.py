@@ -49,21 +49,13 @@ class TestVerb(unittest.TestCase):
 
    def test_VerbInitExceptionUnpackFlatDisplay(self):
        obj = {"id":"test", "display": "test"}
-       try:
+       with self.assertRaises(LanguageMapInitError):
            verb = Verb(**obj)
-       except LanguageMapInitError:
-           self.assertTrue(1)
-       else:
-           self.assertTrue(0)
 
    def test_VerbFromJSONExceptionEmpty(self):
        verb = Verb()
-       try:
+       with self.assertRaises(ValueError):
            verb.fromJSON('')
-       except ValueError:
-           self.assertTrue(1)
-       else:
-           self.assertTrue(0)
 
    def test_VerbFromJSONId(self):
        verb = Verb()
@@ -73,12 +65,8 @@ class TestVerb(unittest.TestCase):
 
    def test_VerbFromJSONExceptionFlatDisplay(self):
        verb = Verb()
-       try:
+       with self.assertRaises(LanguageMapInitError):
            verb.fromJSON('{"id":"test", "display":"test"}')
-       except LanguageMapInitError:
-           self.assertTrue(1)
-       else:
-           self.assertTrue(0)
 
    def test_VerbFromJSON(self):
        verb = Verb()
