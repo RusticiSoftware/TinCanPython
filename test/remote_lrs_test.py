@@ -1,7 +1,7 @@
 import unittest
 from TinCanPython.remote_lrs import RemoteLRS
 from TinCanPython.lrs_response import LRSResponse
-from TinCanPython.versions import Version
+from TinCanPython.version import Version
 from resources import lrs_properties
 
 

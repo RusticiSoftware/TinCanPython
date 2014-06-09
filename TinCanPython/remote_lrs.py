@@ -11,7 +11,7 @@ from statement import Statement
 from activity import Activity
 from statements_result import StatementsResult
 from about import About
-from versions import Version
+from version import Version
 from document import Document
 
 """
@@ -79,6 +79,8 @@ class RemoteLRS(object):
         if params:
             path += "?"
 
+        #TODO:make sure that HTTPConnection doesn't already put in the "?"
+
         web_req.request(request.method, path, params, headers)
 
         if request.content is not None:
@@ -99,7 +101,7 @@ class RemoteLRS(object):
         :return: LRS Response object with the returned LRS about object as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(endpoint=self._endpoint, resource="about", method="GET")
+        request = HTTPRequest(self._endpoint, "about", "GET")
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
@@ -205,9 +207,9 @@ class RemoteLRS(object):
         params = {}
 
         param_keys = ["registration", "since", "until", "limit", "ascending", "related_activities",
-                        "related_agents", "format", "attachments"]
+                      "related_agents", "format", "attachments"]
 
-        for k, v in query.items():
+        for k, v in query.iteritems():
             if v is not None:
                 if k == "agent":
                     params[k] = v.to_json(self._version)
