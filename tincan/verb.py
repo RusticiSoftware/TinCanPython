@@ -81,4 +81,3 @@ class Verb(TinCanBaseObject):
         """Retrieve the display of the verb
         """
         return self.display
-
