@@ -18,6 +18,7 @@ import unittest
 from tincan.languagemap import LanguageMap
 from tincan.languagemap import LanguageMapTypeError
 
+
 class TestLanguageMap(unittest.TestCase):
 
     def test_InitNoArgs(self):
@@ -40,7 +41,7 @@ class TestLanguageMap(unittest.TestCase):
 
     def test_InitExceptionNestedObject(self):
         with self.assertRaises(LanguageMapTypeError):
-           lmap = LanguageMap({"en-US": {"nested": "object"}})
+            lmap = LanguageMap({"en-US": {"nested": "object"}})
 
     def test_InitDict(self):
         lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
