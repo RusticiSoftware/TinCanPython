@@ -8,6 +8,8 @@ doc/api
 *.swp
 tmp/
 .idea
+test/resources/lrs_properties.py
+*.pyc
 
 # wild
 todo.md
