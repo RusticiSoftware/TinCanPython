@@ -22,7 +22,7 @@ class ScoreTest(TinCanBaseTestCase):
         res.response = "Heres a response"
         res.score = self.score
         res.success = False
-
+        
         self.assertSerializeDeserialize(res)
 
     def test_serialize_deserialize_init(self):
@@ -41,3 +41,4 @@ class ScoreTest(TinCanBaseTestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ScoreTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
+

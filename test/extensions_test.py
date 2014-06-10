@@ -25,3 +25,4 @@ class ExtensionsTest(TinCanBaseTestCase):
 
         ext = Extensions(data=data)
         self.assertSerializeDeserialize(ext)
+
