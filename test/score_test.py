@@ -2,7 +2,7 @@
 
 import unittest
 
-from TinCanPython.score import Score
+from tincan.score import Score
 from test_utils import TinCanBaseTestCase
 
 

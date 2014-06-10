@@ -3,9 +3,9 @@
 import unittest
 from datetime import timedelta
 
-from TinCanPython.score import Score
-from TinCanPython.extensions import Extensions
-from TinCanPython.result import Result
+from tincan.score import Score
+from tincan.extensions import Extensions
+from tincan.result import Result
 from test_utils import TinCanBaseTestCase
 
 

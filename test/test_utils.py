@@ -4,8 +4,8 @@ import unittest
 import json
 
 ## TODO: re-enable this
-# from TinCanPython.agent import Agent, AgentAccount
-from TinCanPython.tcapi_version import TCAPIVersion
+# from tincan.agent import Agent, AgentAccount
+from tincan.tcapi_version import TCAPIVersion
 
 
 class TinCanBaseTestCase(unittest.TestCase):
@@ -41,14 +41,18 @@ class TinCanBaseTestCase(unittest.TestCase):
         """
         tested_versions = [version] if version is not None else TCAPIVersion.values()
         for version in tested_versions:
+            constructor = obj.__class__
             json_obj = obj.to_json(version)
-            constructor = obj.__class__ if not isinstance(obj, dict) else dict
             unpacked_json = json.loads(json_obj)
             clone = constructor(**unpacked_json)
 
-            self.assertEqual(isinstance(obj, dict), isinstance(clone, dict))
+            self.assertEqual(obj.__class__, clone.__class__)
 
-            orig_dict = obj if isinstance(obj, dict) else obj.__dict__
-            clone_dict = clone if isinstance(clone, dict) else clone.__dict__
+            if isinstance(obj, dict):
+                orig_dict = obj
+                clone_dict = clone
+            else:
+                orig_dict = obj.__dict__
+                clone_dict = clone.__dict__
 
             self.assertEqual(orig_dict, clone_dict)

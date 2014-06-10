@@ -1,13 +1,9 @@
-import json
+#!/usr/bin/env python
 
-"""
-.. module:: statements_result
-   :synopsis: Statements result model class, returned by LRS calls to get
-              multiple statements.
-"""
+from tincan.tincanbase import TinCanBaseObject
 
 
-class StatementsResult(object):
+class StatementsResult(TinCanBaseObject):
     """
     Statements result model class, returned by LRS calls to get
     multiple statements.
