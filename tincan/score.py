@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from TinCanPython.tincanbase import TinCanBaseObject
+from tincan.tincanbase import TinCanBaseObject
 
 
 class Score(TinCanBaseObject):

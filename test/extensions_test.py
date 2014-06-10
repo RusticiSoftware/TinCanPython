@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from TinCanPython.extensions import Extensions
+from tincan.extensions import Extensions
 from test_utils import TinCanBaseTestCase
 
 
