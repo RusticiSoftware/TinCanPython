@@ -42,6 +42,7 @@ class SerializableBase(Base):
         :param json_data: The JSON string to convert
         :type json_data: str
 
+        :raises: TypeError, ValueError, LanguageMapInitError
         """
         data = json.loads(json_data)
         result = cls(**data)
