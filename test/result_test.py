@@ -22,7 +22,7 @@ class ScoreTest(TinCanBaseTestCase):
         res.response = "Heres a response"
         res.score = self.score
         res.success = False
-        
+
         self.assertSerializeDeserialize(res)
 
     def test_serialize_deserialize_init(self):
