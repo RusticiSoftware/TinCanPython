@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-from datetime import datetime, timedelta
+import unittest
+from datetime import timedelta
 
-from score import Score
-from extensions import Extensions
-from result import Result
-
+from TinCanPython.score import Score
+from TinCanPython.extensions import Extensions
+from TinCanPython.result import Result
 from test_utils import TinCanBaseTestCase
 
 
@@ -22,9 +22,8 @@ class ScoreTest(TinCanBaseTestCase):
         res.response = "Heres a response"
         res.score = self.score
         res.success = False
-        
-        self.assertSerializeDeserialize(res)
 
+        self.assertSerializeDeserialize(res)
 
     def test_serialize_deserialize_init(self):
         data = {
@@ -38,3 +37,7 @@ class ScoreTest(TinCanBaseTestCase):
         res = Result(**data)
 
         self.assertSerializeDeserialize(res)
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ScoreTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-from score import Score
+import unittest
+
+from TinCanPython.score import Score
 from test_utils import TinCanBaseTestCase
 
 
@@ -18,3 +20,7 @@ class ScoreTest(TinCanBaseTestCase):
         s = Score(max=100.0, min=0.0, raw=80.0, scaled=0.8)
 
         self.assertSerializeDeserialize(s)
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ScoreTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

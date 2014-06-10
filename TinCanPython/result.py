@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from tincanbase import TinCanBaseObject
+from TinCanPython.tincanbase import TinCanBaseObject
 
 
 class Result(TinCanBaseObject):
@@ -32,4 +32,3 @@ class Result(TinCanBaseObject):
         filtered_keys = [k for k in kwargs.keys() if k in self._allowed_properties]
         for k in filtered_keys:
             setattr(self, k, kwargs[k])
-

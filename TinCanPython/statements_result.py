@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from tincanbase import TinCanBaseObject
+from TinCanPython.tincanbase import TinCanBaseObject
 
 
 class StatementsResult(TinCanBaseObject):
