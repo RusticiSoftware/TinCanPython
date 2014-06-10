@@ -5,7 +5,7 @@ import json
 
 ## TODO: re-enable this
 # from tincan.agent import Agent, AgentAccount
-from tincan.tcapi_version import TCAPIVersion
+from tincan.version import Version
 
 
 class TinCanBaseTestCase(unittest.TestCase):
@@ -39,7 +39,7 @@ class TinCanBaseTestCase(unittest.TestCase):
         :param version: The version according to whose schema we will test.
         :type version: str
         """
-        tested_versions = [version] if version is not None else TCAPIVersion.values()
+        tested_versions = [version] if version is not None else Version.values()
         for version in tested_versions:
             constructor = obj.__class__
             json_obj = obj.to_json(version)
