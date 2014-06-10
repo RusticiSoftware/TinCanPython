@@ -4,6 +4,7 @@ from tincan.tincanbase import TinCanBaseObject
 from tincan.score import Score
 from tincan.extensions import Extensions
 
+
 class Result(TinCanBaseObject):
     """
     Stores the state of an activity.
