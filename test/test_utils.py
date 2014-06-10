@@ -3,8 +3,8 @@
 import unittest
 import json
 
-#from agent import Agent, AgentAccount
-from tcapi_version import TCAPIVersion
+# from TinCanPython.agent import Agent, AgentAccount
+from TinCanPython.tcapi_version import TCAPIVersion
 
 
 class TinCanBaseTestCase(unittest.TestCase):

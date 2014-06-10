@@ -9,7 +9,6 @@ def raise_exception(*args, **kwargs):
     raise Exception()
 
 
-# TODO
 class TemplateTest(unittest.TestCase):
 
     def setUp(self):
@@ -30,12 +29,16 @@ class TemplateTest(unittest.TestCase):
         self.assertNotEqual(1, 2, "1 should not equal 2!")
         self.assertRaises(Exception, raise_exception, 1, 2, c=3, d=4)
 
+        d = {'a': 'My value'}
+        self.assertIsInstance(d, dict, "d should be a dict!")
+        self.assertIn('a', d, "d should contain 'a'!")
+        self.assertNotIn('b', d, "d should not contain 'b'!")
+
     def test_sanity(self):
         self.assertEquals(1+1, 2, "INSANITY! 1+1 != 2")
 
     def test_lrs_properties(self):
         self.assertIsNotNone(lrs_properties.username)
-        print lrs_properties.username
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TemplateTest)
