@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import unittest
-#from resources import lrs_properties
+from resources import lrs_properties
+
 
 def raise_exception(*args, **kwargs):
     print "Called raise_exception({args}, {kwargs})" % (args, kwargs)
@@ -31,6 +32,10 @@ class TemplateTest(unittest.TestCase):
 
     def test_sanity(self):
         self.assertEquals(1+1, 2, "INSANITY! 1+1 != 2")
+
+    def test_lrs_properties(self):
+        self.assertIsNotNone(lrs_properties.username)
+        print lrs_properties.username
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TemplateTest)

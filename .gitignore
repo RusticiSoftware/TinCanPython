@@ -12,6 +12,7 @@ test/resources/lrs_properties.py
 *.swp
 tmp/
 .idea/
+test/resources/lrs_properties.py
 
 # wild
 todo.md
