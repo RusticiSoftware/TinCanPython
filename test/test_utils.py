@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import unittest
-import json
 
 ## TODO: re-enable this
 # from tincan.agent import Agent, AgentAccount
@@ -39,12 +38,11 @@ class TinCanBaseTestCase(unittest.TestCase):
         :param version: The version according to whose schema we will test.
         :type version: str
         """
-        tested_versions = [version] if version is not None else Version.values()
+        tested_versions = [version] if version is not None else Version.supported
         for version in tested_versions:
-            constructor = obj.__class__
+            constructor = obj.__class__.from_json
             json_obj = obj.to_json(version)
-            unpacked_json = json.loads(json_obj)
-            clone = constructor(**unpacked_json)
+            clone = constructor(json_obj)
 
             self.assertEqual(obj.__class__, clone.__class__)
 

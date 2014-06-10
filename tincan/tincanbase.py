@@ -59,7 +59,7 @@ class TinCanBaseObject(object):
         :param json_data: The JSON string to convert
         :type json_data: str
 
-        :raises: TypeError, ValueError, LangaugeMapInitError
+        :raises: TypeError, ValueError, LanguageMapInitError
 
         """
         data = json.loads(json_data)
@@ -69,7 +69,7 @@ class TinCanBaseObject(object):
         return result
 
     def to_json(self, version=Version.latest, encoder=IgnoreNoneEncoder):
-        """Tries to convert an object into a JSON respresentation and return \
+        """Tries to convert an object into a JSON representation and return \
         the resulting string
 
         An Object can define how it is serialized by providing an _as_version() \
