@@ -3,11 +3,13 @@
 import unittest
 import json
 
+## TODO: re-enable this
 # from TinCanPython.agent import Agent, AgentAccount
 from TinCanPython.tcapi_version import TCAPIVersion
 
 
 class TinCanBaseTestCase(unittest.TestCase):
+    ## TODO: re-enable this
     # def get_agent(self, name, id_type, id_fields):
     #     agent = Agent()
     #     agent.name = name
