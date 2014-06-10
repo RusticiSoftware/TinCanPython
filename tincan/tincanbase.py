@@ -15,7 +15,7 @@
 """
 
 import json
-from versions import Version
+from version import Version
 
 """
 .. module:: tincanbase
