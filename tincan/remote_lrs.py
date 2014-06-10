@@ -3,6 +3,7 @@ import urllib
 import json
 import base64
 
+from tincanbase import IgnoreNoneEncoder
 from urlparse import urlparse
 from lrs_response import LRSResponse
 from http_request import HTTPRequest
@@ -12,11 +13,16 @@ from activity import Activity
 from statements_result import StatementsResult
 from about import About
 from version import Version
-from document import Document
+from tincan.document import (
+    BaseDocument,
+    StateDocument,
+    ActivityProfileDocument,
+    AgentProfileDocument
+)
 
 """
 .. module:: remote_lrs
-   :synopsis: The RemoteLRS objects implements LRS communication.
+   :synopsis: The RemoteLRS class implements LRS communication.
 """
 
 
@@ -77,11 +83,9 @@ class RemoteLRS(object):
 
         path = parsed.path
         if params:
-            path += "?"
+            path += "?" + params
 
-        #TODO:make sure that HTTPConnection doesn't already put in the "?"
-
-        web_req.request(request.method, path, params, headers)
+        web_req.request(request.method, path, headers)
 
         if request.content is not None:
             web_req.send(request.content)
@@ -101,7 +105,7 @@ class RemoteLRS(object):
         :return: LRS Response object with the returned LRS about object as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(self._endpoint, "about", "GET")
+        request = HTTPRequest(self._endpoint, "GET", "about")
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
@@ -120,20 +124,20 @@ class RemoteLRS(object):
         if not isinstance(statement, Statement):
             statement = Statement(statement)
 
-        request = HTTPRequest(self._endpoint, "statements", "POST")
+        request = HTTPRequest(self._endpoint, "POST", "statements")
 
         if statement.id is not None:
             request.method = "PUT"
             request.query_params["statementId"] = statement.id
 
         request.headers["Content-Type"] = "application/json"
-        request.content = statement.to_json(self._version)
+        request.content = statement.as_version(self._version)
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
             if statement.id is None:
-                statement.id = (Statement.from_json(lrs_response.response.read())).id
+                statement.id = json.load(lrs_response.response.read())[0]
             lrs_response.content = statement
 
         return lrs_response
@@ -146,16 +150,23 @@ class RemoteLRS(object):
         :return: LRS Response object with the saved list of statements as content
         :rtype: LRSResponse
         """
-        #TODO: verify all statements are instances of statements and versioned to this.version
+        def make_statement(s):
+            return s if isinstance(s, Statement) else Statement(s)
 
-        request = HTTPRequest(self._endpoint, "statements", "POST")
+        statements = [make_statement(s) for s in statements]
+
+        request = HTTPRequest(self._endpoint, "POST", "statements")
         request.headers["Content-Type"] = "application/json"
-        #TODO: request.content = #JSON encoded statements
+
+        request.content = json.dump([s.as_version(self._version) for s in statements], cls=IgnoreNoneEncoder)
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            #TODO: set id for each statement form lrs response
+            id_list = json.load(lrs_response.response.read())
+            for s, id in zip(statements, id_list):
+                s.id = id
+
             lrs_response.content = statements
 
         return lrs_response
@@ -206,13 +217,22 @@ class RemoteLRS(object):
         """
         params = {}
 
-        param_keys = ["registration", "since", "until", "limit", "ascending", "related_activities",
-                      "related_agents", "format", "attachments"]
+        param_keys = [
+            "registration",
+            "since",
+            "until",
+            "limit",
+            "ascending",
+            "related_activities",
+            "related_agents",
+            "format",
+            "attachments",
+        ]
 
         for k, v in query.iteritems():
             if v is not None:
                 if k == "agent":
-                    params[k] = v.to_json(self._version)
+                    params[k] = v.as_version(self._version)
                 elif k == "verb" or k == "activity":
                     params[k] = v.id
                 elif k in param_keys:
@@ -246,7 +266,7 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = StatementsResult.from_json(lrs_response.response.read())
+            lrs_response.content = StatementsResult(lrs_response.response.read())
 
         return lrs_response
 
@@ -271,7 +291,7 @@ class RemoteLRS(object):
             agent = Agent(agent)
 
         request = HTTPRequest(self._endpoint, "GET", "activities/state")
-        request.query_params = {"activityId": activity.id, "agent": agent.to_json(self._version)}
+        request.query_params = {"activityId": activity.id, "agent": agent.as_version(self._version)}
 
         if registration is not None:
             request.query_params["registration"] = registration
@@ -281,7 +301,6 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            #TODO:look more into this decoding the ids
             lrs_response.content = json.load(lrs_response.response.read())
 
         return lrs_response
@@ -297,7 +316,7 @@ class RemoteLRS(object):
         :type state_id: str
         :param registration: registration UUID of desired state
         :type registration: str
-        :return: LRS Response object with retrieved state as content
+        :return: LRS Response object with retrieved state document as content
         :rtype: LRSResponse
         """
         if not isinstance(activity, Activity):
@@ -308,7 +327,11 @@ class RemoteLRS(object):
 
         request = HTTPRequest(self._endpoint, "GET", "activities/state", ignore404=True)
 
-        request.query_params = {"activityId": activity.id, "agent": agent.to_json(self._version), "stateId": state_id}
+        request.query_params = {
+            "activityId": activity.id,
+            "agent": agent.as_version(self._version),
+            "stateId": state_id
+        }
 
         if registration is not None:
             request.query_params["registration"] = registration
@@ -316,62 +339,46 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            #TODO: populate state object and set to content of lrs_response (see PHP RemoteLRS 438-459)
-            pass
+            doc = StateDocument(id=state_id, content=lrs_response.response.read(), activity=activity, agent=agent)
+            if registration is not None:
+                doc.registration = registration
+
+            headers = lrs_response.response.getheader()
+            if "lastModified" in headers and headers["lastModified"] is not None:
+                doc.time_stamp = headers["lastModified"]
+            if "contentType" in headers and headers["contentType"] is not None:
+                doc.content_type = headers["contentType"]
+            if "etag" in headers and headers["etag"] is not None:
+                doc.etag = headers["etag"]
+
+            lrs_response.content = doc
 
         return lrs_response
 
-    def save_state(self, activity, agent, state_id, content, content_type="application/octet-stream",
-                   etag=None, registration=None):
+    def save_state(self, state):
         """Save a state doc to the LRS
 
-        :param activity: Activity object of state to be saved
-        :type activity: Activity
-        :param agent: Agent object of state to be saved
-        :type agent: Agent
-        :param state_id: UUID of state to be saved
-        :type state_id: str
-        :param content: Content of the state to be saved
-        :param content_type: content type of state's content; defaults to "application/octet-stream"
-        :type content_type: str
-        :param etag: etag of state to be saved
-        :type etag: str
-        :param registration: registration UUID of state to be saved
-        :type registration: str
+        :param state: State document to be saved
+        :type state: StateDocument
         :return: LRS Response object with saved state as content
         :rtype: LRSResponse
         """
-        #TODO: need :type content: for documentation? If so, is it a str, bytearray, or something else?
+        request = HTTPRequest(self._endpoint, "PUT", "activities/state", content=state.content)
+        request.headers["Content-Type"] = state.content_type
 
-        if not isinstance(activity, Activity):
-            activity = Activity(activity)
+        if state.etag is not None:
+            request.headers["If-Match"] = state.etag
 
-        if not isinstance(agent, Agent):
-            agent = Agent(agent)
-
-        request = HTTPRequest(self._endpoint, "PUT", "activities/state")
-
-        request.query_params = {"activityId": activity.id, "agent": agent.to_json(self._version), "stateId": state_id}
-
-        if registration is not None:
-            request.query_params["registration"] = registration
-
-        request.content = content
-
-        request.headers["Content-Type"] = content_type
-
-        if etag is not None:
-            request.headers["If-Match"] = etag
+        request.query_params = {"stateId": state.id,
+                                "activityId": state.activity.id,
+                                "agent": state.agent.as_version(self._version)}
 
         lrs_response = self.send_request(request)
+        lrs_response.content = state
 
-        if lrs_response.success:
-            #TODO: populate state object and set to content of lrs_response (see PHP RemoteLRS 505-522)
-            pass
+        return self.send_request(request)
 
-        return lrs_response
-
-    def _delete_state(self, activity, agent, state_id=None, registration=None):
+    def _delete_state(self, activity, agent, state_id=None, registration=None, etag=None):
         """Private method to delete a specified state from the LRS
 
         :param activity: Activity object of state to be deleted
@@ -382,6 +389,8 @@ class RemoteLRS(object):
         :type state_id: str
         :param registration: registration UUID of state to be deleted
         :type registration: str
+        :param etag: etag of state to be deleted
+        :type etag: str
         :return: LRS Response object with deleted state as content
         :rtype: LRSResponse
         """
@@ -393,7 +402,11 @@ class RemoteLRS(object):
 
         request = HTTPRequest(self._endpoint, "DELETE", "activities/state")
 
-        request.query_params = {"activityId": activity.id, "agent": agent.to_json(self._version)}
+        if etag is not None:
+            request.headers["If-Match"] = etag
+
+        request.query_params = {"activityId": activity.id,
+                                "agent": agent.as_version(self._version)}
 
         if state_id is not None:
             request.query_params["stateId"] = state_id
@@ -405,19 +418,15 @@ class RemoteLRS(object):
 
         return lrs_response
 
-    def delete_state(self, activity, agent, state_id):
+    def delete_state(self, state):
         """Delete a specified state from the LRS
 
-        :param activity: Activity object of state to be deleted
-        :type activity: Activity
-        :param agent: Agent object of state to be deleted
-        :type agent: Agent
-        :param state_id: UUID of state to be deleted
-        :type state_id: str
+        :param state: State document to be deleted
+        :type state: StateDocument
         :return: LRS Response object
         :rtype: LRSResponse
         """
-        return self._delete_state(activity, agent, state_id)
+        return self._delete_state(state.activity, state.agent, state_id=state.id, etag=state.etag)
 
     def clear_state(self, activity, agent, registration=None):
         """Clear state(s) with specified activity and agent
@@ -431,8 +440,7 @@ class RemoteLRS(object):
         :return: LRS Response object
         :rtype: LRSResponse
         """
-
-        return self._delete_state(activity, agent, registration)
+        return self._delete_state(activity, agent, registration=registration)
 
     def retrieve_activity_profile_ids(self, activity, since=None):
         """Retrieve activity profile id(s) with the specified parameters
@@ -444,7 +452,6 @@ class RemoteLRS(object):
         :return: LRS Response object with list of retrieved activity profile id's as content
         :rtype: LRSResponse
         """
-
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
@@ -458,7 +465,6 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            #TODO: look more into this parsing
             lrs_response.content = json.load(lrs_response.response.read())
 
         return lrs_response
@@ -473,7 +479,6 @@ class RemoteLRS(object):
         :return: LRS Response object with an activity profile doc as content
         :rtype: LRSResponse
         """
-
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
@@ -484,64 +489,54 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            #TODO: build activity profile from response content
-            pass
+            doc = ActivityProfileDocument(id=profile_id, content=lrs_response.response.read(), activity=activity)
+
+            headers = lrs_response.response.getheader()
+            if "lastModified" in headers and headers["lastModified"] is not None:
+                doc.time_stamp = headers["lastModified"]
+            if "contentType" in headers and headers["contentType"] is not None:
+                doc.content_type = headers["contentType"]
+            if "etag" in headers and headers["etag"] is not None:
+                doc.etag = headers["etag"]
+
+            lrs_response.content = doc
 
         return lrs_response
 
-    def save_activity_profile(self, activity, profile_id, content, content_type="application/octet-stream", etag=None):
+    def save_activity_profile(self, profile):
         """Save an activity profile doc to the LRS
 
-        :param activity: Activity object of the activity profile to be saved
-        :type activity: Activity
-        :param profile_id: UUID of the profile to be saved
-        :type profile_id: str
-        :param content: content of the activity profile to be saved
-        :param content_type: content type of activity profile's content; defaults to "application/octet-stream"
-        :type content_type: str
-        :param etag: etag of activity profile to be saved
-        :type etag: str
+        :param profile: Activity profile doc to be saved
+        :type profile: ActivityProfileDocument
         :return: LRS Response object with the saved activity profile doc as content
         :rtype: LRSResponse
         """
-        #TODO: need :type content: for documentation? If so, is it a str, bytearray, or something else?
+        request = HTTPRequest(self._endpoint, "PUT", "activities/profile", content=profile.content)
+        request.headers["Content-Type"] = profile.content_type
 
-        if not isinstance(activity, Activity):
-            activity = Activity(activity)
+        if profile.etag is not None:
+            request.headers["If-Match"] = profile.etag
 
-        request = HTTPRequest(self._endpoint, "PUT", "activities/profile", content=content)
-
-        request.query_params = {"profileId": profile_id, "activityId": activity.id}
-
-        request.headers["Content-Type"] = content_type
-
-        if etag is not None:
-            request.headers["If-Match"] = etag
+        request.query_params = {"profileId": profile.id, "activityId": profile.activity.id}
 
         lrs_response = self.send_request(request)
-
-        if lrs_response.success:
-            #TODO: build activity profile from response
-            pass
+        lrs_response.content = profile
 
         return lrs_response
 
-    def delete_activity_profile(self, activity, profile_id):
+    def delete_activity_profile(self, profile):
         """Delete activity profile doc from LRS
 
-        :param activity: Activity object of activity profile to be deleted
-        :type activity: Activity
-        :param profile_id: UUID of activity profile to be deleted
-        :type profile_id: str
+        :param profile: Activity profile document to be deleted
+        :type profile: ActivityProfileDocument
         :return: LRS Response object
         :rtype: LRSResponse
         """
-        if not isinstance(activity, Activity):
-            activity = Activity(activity)
-
         request = HTTPRequest(self._endpoint, "DELETE", "activities/profile")
+        request.query_params = {"profileId": profile.id, "activityId": profile.activity.id}
 
-        request.query_params = {"profileId": profile_id, "activityId": activity.id}
+        if profile.etag is not None:
+            request.headers["If-Match"] = profile.etag
 
         return self.send_request(request)
 
@@ -555,13 +550,12 @@ class RemoteLRS(object):
         :return: LRS Response object with list of retrieved agent profile id's as content
         :rtype: LRSResponse
         """
-
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
         request = HTTPRequest(self._endpoint, "GET", "agents/profile")
 
-        request.query_params["agent"] = agent.to_json()
+        request.query_params["agent"] = agent.as_version(self._version)
 
         if since is not None:
             request.query_params["since"] = since
@@ -569,7 +563,6 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            #TODO: look more into this parsing
             lrs_response.content = json.load(lrs_response.response.read())
 
         return lrs_response
@@ -584,75 +577,64 @@ class RemoteLRS(object):
         :return: LRS Response object with an agent profile doc as content
         :rtype: LRSResponse
         """
-
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
         request = HTTPRequest(self._endpoint, "GET", "agents/profile", ignore404=True)
 
-        request.query_params = {"profileId": profile_id, "agent": agent.to_json()}
+        request.query_params = {"profileId": profile_id, "agent": agent.as_version(self._version)}
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            #TODO: build agent profile from response content
-            pass
+            doc = AgentProfileDocument(id=profile_id, content=lrs_response.response.read(), agent=agent)
+
+            headers = lrs_response.response.getheader()
+            if "lastModified" in headers and headers["lastModified"] is not None:
+                doc.time_stamp = headers["lastModified"]
+            if "contentType" in headers and headers["contentType"] is not None:
+                doc.content_type = headers["contentType"]
+            if "etag" in headers and headers["etag"] is not None:
+                doc.etag = headers["etag"]
+
+            lrs_response.content = doc
 
         return lrs_response
 
-    def save_agent_profile(self, agent, profile_id, content, content_type="application/octet-stream", etag=None):
+    def save_agent_profile(self, profile):
         """Save an agent profile doc to the LRS
 
-        :param agent: Agent object of the agent profile to be saved
-        :type agent: Agent
-        :param profile_id: UUID of the profile to be saved
-        :type profile_id: str
-        :param content: content of the agent profile to be saved
-        :param content_type: content type of agent profile's content; defaults to "application/octet-stream"
-        :type content_type: str
-        :param etag: etag of agent profile to be saved
-        :type etag: str
+        :param profile: Agent profile doc to be saved
+        :type profile: AgentProfileDocument
         :return: LRS Response object with the saved agent profile doc as content
         :rtype: LRSResponse
         """
-        #TODO: need :type content: for documentation? If so, is it a str, bytearray, or something else?
+        request = HTTPRequest(self._endpoint, "PUT", "agents/profile", content=profile.content)
+        request.headers["Content-Type"] = profile.content_type
 
-        if not isinstance(agent, Agent):
-            agent = Agent(agent)
+        if profile.etag is not None:
+            request.headers["If-Match"] = profile.etag
 
-        request = HTTPRequest(self._endpoint, "PUT", "agents/profile", content=content)
-
-        request.query_params = {"profileId": profile_id, "agent": agent.to_json()}
-
-        request.headers["Content-Type"] = content_type
-
-        if etag is not None:
-            request.headers["If-Match"] = etag
+        request.query_params = {"profileId": profile.id, "agent": profile.agent.as_version(self._version)}
 
         lrs_response = self.send_request(request)
-
-        if lrs_response.success:
-            #TODO: build agent profile from response
-            pass
+        lrs_response.content = profile
 
         return lrs_response
 
-    def delete_agent_profile(self, agent, profile_id):
+    def delete_agent_profile(self, profile):
         """Delete agent profile doc from LRS
 
-        :param agent: Agent object of agent profile to be deleted
-        :type agent: Agent
-        :param profile_id: UUID of agent profile to be deleted
-        :type profile_id: str
+        :param profile: Agent profile document to be deleted
+        :type profile: AgentProfileDocument
         :return: LRS Response object
         :rtype: LRSResponse
         """
-        if not isinstance(agent, Agent):
-            agent = Agent(agent)
-
         request = HTTPRequest(self._endpoint, "DELETE", "agents/profile")
+        request.query_params = {"profileId": profile.id, "agent": profile.agent.as_version(self._version)}
 
-        request.query_params = {"profileId": profile_id, "agent": agent.to_json()}
+        if profile.etag is not None:
+            request.headers["If-Match"] = profile.etag
 
         return self.send_request(request)
 
@@ -708,7 +690,7 @@ class RemoteLRS(object):
         if auth is not None:
             self._auth = auth
         elif username is not None and password is not None:
-            self._auth = "Basic " + base64.b64encode(username) + ":" + base64.b64encode(password)
+            self._auth = "Basic " + base64.b64encode(username + ":" + password)
         else:
             raise Exception("set_auth must be called with auth or with username and password")
 
