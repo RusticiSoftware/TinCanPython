@@ -1,0 +1,134 @@
+tincan package
+==============
+
+Submodules
+----------
+
+About module
+-------------------
+
+.. automodule:: tincan.about
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Activity module
+----------------------
+
+.. automodule:: tincan.activity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Agent module
+-------------------
+
+.. automodule:: tincan.agent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Agent Account module
+--------------------------
+
+.. automodule:: tincan.agentaccount
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Attachment module
+------------------------
+
+.. automodule:: tincan.attachment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Group module
+-------------------
+
+.. automodule:: tincan.group
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Http Request module
+--------------------------
+
+.. automodule:: tincan.http_request
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Language Map module
+-------------------------
+
+.. automodule:: tincan.languagemap
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+LRS Response module
+--------------------------
+
+.. automodule:: tincan.lrs_response
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Remote LRS module
+------------------------
+
+.. automodule:: tincan.remote_lrs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Statement module
+-----------------------
+
+.. automodule:: tincan.statement
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Statements Result module
+-------------------------------
+
+.. automodule:: tincan.statements_result
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+TinCan Base module
+------------------------
+
+.. automodule:: tincan.tincanbase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Verb module
+------------------
+
+.. automodule:: tincan.verb
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Version module
+---------------------
+
+.. automodule:: tincan.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tincan
+    :members:
+    :undoc-members:
+    :show-inheritance:
