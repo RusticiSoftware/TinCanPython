@@ -45,12 +45,10 @@ class Result(TinCanBaseObject):
         """
         Converts to TinCan objects if possible.
         """
-        if attr == 'score':
-            pass
         if attr not in self._allowed_properties:
             raise AttributeError(
                 "Attribute '%s' of '%s' object cannot be set" % (attr, self.__class__.__name__))
-        elif attr in self._nested_objects and value is not None:
+        elif value is not None and attr in self._nested_objects:
             cls = self._nested_objects[attr]
             self.__dict__[attr] = value if isinstance(value, cls) else cls(**value)
         else:
