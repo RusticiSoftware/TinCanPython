@@ -9,6 +9,7 @@ doc/api
 tmp/
 .idea
 *.pyc
+test/resources/lrs_properties.py
 
 # wild
 todo.md
