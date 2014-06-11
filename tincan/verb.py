@@ -1,18 +1,16 @@
-"""
-    Copyright 2014 Rustici Software
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-"""
+#    Copyright 2014 Rustici Software
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
 
 from tincanbase import TinCanBaseObject
 from languagemap import LanguageMap
@@ -29,11 +27,11 @@ class Verb(TinCanBaseObject):
     def __init__(self, id=None, display=None):
         """Initializes a Verb Object with the given id and display
 
-        :param verb_id: The id of the verb
-        :type verb_id: str
+        :param id: The id of the verb
+        :type id: str
         :param display: The LanguageMap indicating how the verb object \
         should be displayed
-        :type display: dict, :mod:`LanguageMap`
+        :type display: dict, :mod:`tincan.languagemap`
 
         """
         self.set_id(id)
@@ -65,7 +63,7 @@ class Verb(TinCanBaseObject):
         """Provides error checking when setting the display property
 
         :param display: The desired value for display
-        :type display: dict, :mod:`LanguageMap`
+        :type display: dict, :mod:`tincan.languagemap`
 
         """
         if display is not None:
