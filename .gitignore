@@ -5,6 +5,7 @@
 docs/build
 docs/source/modules.rst
 docs/source/tincan.rst
+test/resources/lrs_properties.py
 
 # bad
 .DS_Store
