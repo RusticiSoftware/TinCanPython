@@ -27,8 +27,8 @@ from activity import Activity
 from statements_result import StatementsResult
 from about import About
 from version import Version
-from tincan.document import (
-    BaseDocument,
+from tincan.documents import (
+    Document,
     StateDocument,
     ActivityProfileDocument,
     AgentProfileDocument
@@ -105,6 +105,8 @@ class RemoteLRS(object):
             web_req.send(request.content)
 
         response = web_req.getresponse()
+
+        web_req.close()
 
         if (200 <= response.status < 300) or (response.status == 404 and request.ignore404):
             success = True
