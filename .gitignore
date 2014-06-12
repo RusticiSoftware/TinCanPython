@@ -1,15 +1,17 @@
 # Third party libraries
 
 # buildables
-doc/api
+*.pyc
+docs/build
+docs/source/modules.rst
+docs/source/tincan.rst
+test/resources/lrs_properties.py
 
 # bad
 .DS_Store
 *.swp
 tmp/
 .idea
-test/resources/lrs_properties.py
-*.pyc
 
 # wild
 todo.md

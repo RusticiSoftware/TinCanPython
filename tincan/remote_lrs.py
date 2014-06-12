@@ -1,3 +1,17 @@
+#    Copyright 2014 Rustici Software
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
 import httplib
 import urllib
 import json
@@ -52,9 +66,9 @@ class RemoteLRS(object):
         """Establishes connection and returns http response based off of request.
 
         :param request: HTTPRequest object
-        :type request: HTTPRequest
+        :type request: :mod:tincan.http_request`
         :returns: LRS Response object
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
 
         if "http" in request.resource:
@@ -103,7 +117,7 @@ class RemoteLRS(object):
         """Gets about response from LRS
 
         :return: LRS Response object with the returned LRS about object as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         request = HTTPRequest(self._endpoint, "GET", "about")
         lrs_response = self.send_request(request)
@@ -119,7 +133,7 @@ class RemoteLRS(object):
         :param statement: Statement object to be saved
         :type statement: Statement
         :return: LRS Response object with the saved statement as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         if not isinstance(statement, Statement):
             statement = Statement(statement)
@@ -148,7 +162,7 @@ class RemoteLRS(object):
         :param statements: A list of statement objects to be saved
         :type statements: list
         :return: LRS Response object with the saved list of statements as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         def make_statement(s):
             return s if isinstance(s, Statement) else Statement(s)
@@ -177,7 +191,7 @@ class RemoteLRS(object):
         :param statement_id: The UUID of the desired statement
         :type statement_id: str
         :return: LRS Response object with the retrieved statement as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         request = HTTPRequest(self._endpoint, "GET", "statements")
         request.query_params["statementId"] = statement_id
@@ -195,7 +209,7 @@ class RemoteLRS(object):
         :param statement_id: The UUID of the desired voided statement
         :type statement_id: str
         :return: LRS Response object with the retrieved voided statement as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         request = HTTPRequest(self._endpoint, "GET", "statements")
         request.query_params["voidedStatementId"] = statement_id
@@ -213,7 +227,7 @@ class RemoteLRS(object):
         :param query: Dictionary of query parameters and their values
         :type query: dict
         :return: LRS Response object with the returned StatementsResult object as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         params = {}
 
@@ -254,7 +268,7 @@ class RemoteLRS(object):
         :param more_url: URL from a StatementsResult object used to retrieve more statements
         :type more_url: str
         :return: LRS Response object with the returned StatementsResult object as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         if isinstance(more_url, StatementsResult):
             more_url = more_url.more
@@ -274,15 +288,15 @@ class RemoteLRS(object):
         """Retrieve state id's from the LRS with the provided parameters
 
         :param activity: Activity object of desired states
-        :type activity: Activity
+        :type activity: :mod:`tincan.activity`
         :param agent: Agent object of desired states
-        :type agent: Agent
+        :type agent: :mod:`tincan.agent`
         :param registration: Registration UUID of desired states
         :type registration: str
         :param since: Retrieve state id's since this time
         :type since: str
         :return: LRS Response object with the retrieved state id's as content
-        :rtype: LRSResponse
+        :rtype: :mod:`tincan.lrs_response`
         """
         if not isinstance(activity, Activity):
             activity = Activity(activity)
