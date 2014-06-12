@@ -27,8 +27,8 @@ from tincan.activity import Activity
 from tincan.statements_result import StatementsResult
 from tincan.about import About
 from tincan.version import Version
-from tincan.document import (
-    BaseDocument,
+from tincan.documents import (
+    Document,
     StateDocument,
     ActivityProfileDocument,
     AgentProfileDocument
