@@ -17,7 +17,7 @@ class ResultTest(TinCanBaseTestCase):
     def test_serialize_deserialize(self):
         res = Result()
         res.completion = True
-        ## TODO: allow serializing/de-serializing timedelta objects ?
+        ##TODO: add converters for ISO 8601 duration <-> timedelta
         # res.duration = timedelta(seconds=1.75)
         res.duration = 'P1.75S'     # ISO 8601
         res.extensions = self.extensions
@@ -30,7 +30,7 @@ class ResultTest(TinCanBaseTestCase):
     def test_serialize_deserialize_init(self):
         data = {
             'completion': True,
-            ## TODO: allow serializing/de-serializing timedelta objects ?
+            ##TODO: add converters for ISO 8601 duration <-> timedelta
             # 'duration': timedelta(seconds=1.75),
             'duration': 'P1.75S',   # ISO 8601
             'extensions': self.extensions,

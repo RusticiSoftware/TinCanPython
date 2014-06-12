@@ -14,7 +14,7 @@ class Score(TinCanBaseObject):
         'max',
     ]
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         :param scaled: scaled score, 0.0-1.0
         :type scaled: float
@@ -25,6 +25,19 @@ class Score(TinCanBaseObject):
         :param max: maximum score possible
         :type max: float
         """
+        # Copy construction
+        if args and len(args) == 1:
+            obj = args[0]
+
+            # Copy properties from obj
+            new_kwargs = obj if isinstance(obj, dict) else obj.__dict__
+
+            # make kwargs overwrite fields of copied object
+            if kwargs:
+                new_kwargs.update(kwargs)
+            kwargs = new_kwargs
+
+        # Only use the properties in self._allowed_properties
         filtered_keys = [k for k in kwargs if k in self._allowed_properties]
         for k in filtered_keys:
             setattr(self, k, kwargs[k])
