@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from tincan.tincanbase import TinCanBaseObject
+from tincan.base import Base
 
 
-class StatementsResult(TinCanBaseObject):
+class StatementsResult(Base):
     """
     Statements result model class, returned by LRS calls to get
     multiple statements.

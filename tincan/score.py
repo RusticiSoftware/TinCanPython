@@ -1,46 +1,127 @@
 #!/usr/bin/env python
 
-from tincan.tincanbase import TinCanBaseObject
+from tincan.serializable_base import SerializableBase
 
 
-class Score(TinCanBaseObject):
+class Score(SerializableBase):
+
+    """Contains the scaled, raw, min and max scores.
+
+    Can be created from either a dict, another Score, or from kwargs.
+
+    :param scaled: scaled score, 0.0-1.0
+    :type scaled: float
+    :param raw: raw score
+    :type raw: float
+    :param min: minimum score possible
+    :type min: float
+    :param max: maximum score possible
+    :type max: float
     """
-    Contains the scaled, raw, min and max scores.
-    """
-    _allowed_properties = [
+
+    _props = [
         'scaled',
         'raw',
         'min',
         'max',
     ]
 
-    def __init__(self, *args, **kwargs):
-        """
-        :param scaled: scaled score, 0.0-1.0
-        :type scaled: float
-        :param raw: raw score
-        :type raw: float
-        :param min: minimum score possible
-        :type min: float
-        :param max: maximum score possible
-        :type max: float
-        """
-        # Copy construction
-        if args and len(args) == 1:
-            obj = args[0]
+    @property
+    def scaled(self):
+        return self._scaled
 
-            # Copy properties from obj
-            new_kwargs = obj if isinstance(obj, dict) else obj.__dict__
+    @scaled.setter
+    def scaled(self, value):
+        if value is None or isinstance(value, float):
+            self._scaled = value
+            return
+        try:
+            self._scaled = float(value)
+        except Exception as e:
+            msg = (
+                "Property 'scaled' in a 'tincan.%s' object must be set with a "
+                "float or None." %
+                self.__class__.__name__
+            )
+            msg += e.message
+            raise TypeError(msg)
 
-            # make kwargs overwrite fields of copied object
-            if kwargs:
-                new_kwargs.update(kwargs)
-            kwargs = new_kwargs
+    @scaled.deleter
+    def scaled(self):
+        del self._scaled
 
-        # Only use the properties in self._allowed_properties
-        filtered_keys = [k for k in kwargs if k in self._allowed_properties]
-        for k in filtered_keys:
-            setattr(self, k, kwargs[k])
 
-    def __eq__(self, other):
-        return isinstance(other, Score) and self.__dict__ == other.__dict__
+    @property
+    def raw(self):
+        return self._raw
+
+    @raw.setter
+    def raw(self, value):
+        if value is None or isinstance(value, float):
+            self._raw = value
+            return
+        try:
+            self._raw = float(value)
+        except Exception as e:
+            msg = (
+                "Property 'raw' in a 'tincan.%s' object must be set with a "
+                "float or None." %
+                self.__class__.__name__
+            )
+            msg += e.message
+            raise TypeError(msg)
+
+    @raw.deleter
+    def raw(self):
+        del self._raw
+
+
+    @property
+    def min(self):
+        return self._min
+
+    @min.setter
+    def min(self, value):
+        if value is None or isinstance(value, float):
+            self._min = value
+            return
+        try:
+            self._min = float(value)
+        except Exception as e:
+            msg = (
+                "Property 'min' in a 'tincan.%s' object must be set with a "
+                "float or None." %
+                self.__class__.__name__
+            )
+            msg += e.message
+            raise TypeError(msg)
+
+    @min.deleter
+    def min(self):
+        del self._min
+    
+    
+    @property
+    def max(self):
+        return self._max
+
+    @max.setter
+    def max(self, value):
+        if value is None or isinstance(value, float):
+            self._max = value
+            return
+        try:
+            self._max = float(value)
+        except Exception as e:
+            msg = (
+                "Property 'max' in a 'tincan.%s' object must be set with a "
+                "float or None." %
+                self.__class__.__name__
+            )
+            msg += e.message
+            raise TypeError(msg)
+
+    @max.deleter
+    def max(self):
+        del self._max
+

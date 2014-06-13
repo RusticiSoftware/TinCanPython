@@ -42,6 +42,13 @@ class ResultTest(TinCanBaseTestCase):
 
         self.assertSerializeDeserialize(res)
 
+    def test_bad_property_init(self):
+        with self.assertRaises(AttributeError):
+            Result(bad_name=2)
+
+        with self.assertRaises(AttributeError):
+            Result({'bad_name': 2})
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ResultTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

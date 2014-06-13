@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from tincan.tincanbase import TinCanBaseObject
+from tincan.serializable_base import SerializableBase
 from tincan.version import Version
 
 
-class Extensions(TinCanBaseObject, dict):
+class Extensions(dict, SerializableBase):
     """
     Contains domain-specific custom data.
 

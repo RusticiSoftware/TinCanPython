@@ -59,7 +59,7 @@ class Base(object):
             super(Base, self).__setattr__(attr, value)
         elif attr not in self._props:
             raise AttributeError(
-                "Property '%s' cannot be set on a 'tincan.%s' object. Allowed attributes: %s" %
+                "Property '%s' cannot be set on a 'tincan.%s' object. Allowed properties: %s" %
                 (
                     attr,
                     self.__class__.__name__,
@@ -67,3 +67,6 @@ class Base(object):
                 ))
         else:
             super(Base, self).__setattr__(attr, value)
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__

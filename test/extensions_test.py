@@ -2,7 +2,7 @@
 
 from tincan.extensions import Extensions
 from test_utils import TinCanBaseTestCase
-
+import unittest
 
 class ExtensionsTest(TinCanBaseTestCase):
     def test_serialize_deserialize(self):
@@ -25,4 +25,8 @@ class ExtensionsTest(TinCanBaseTestCase):
 
         ext = Extensions(data=data)
         self.assertSerializeDeserialize(ext)
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ExtensionsTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 

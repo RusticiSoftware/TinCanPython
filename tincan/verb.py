@@ -12,8 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from serializablebase import SerializableBase
-from languagemap import LanguageMap
+from tincan.serializable_base import SerializableBase
+from tincan.languagemap import LanguageMap
 
 """
 .. module:: verb

@@ -15,11 +15,11 @@
 """
 
 import json
-from base import Base
-from version import Version
+from tincan.base import Base
+from tincan.version import Version
 
 """
-.. module:: serializablebase
+.. module:: serializable_base
    :synopsis: A base object that provides the common initializer from :mod:`base`
    as well as common serialization functionality
 
@@ -34,7 +34,7 @@ class SerializableBase(Base):
         type as self
 
         A class can provide a _fromJSON implementation in order to do specific
-         type checking or other custom implementation details. This method
+        type checking or other custom implementation details. This method
         will throw a ValueError for invalid JSON, a TypeError for
         improperly constructed, but valid JSON, and any custom errors
         that can be be propagated from class constructors.
@@ -51,7 +51,7 @@ class SerializableBase(Base):
         return result
 
     def to_json(self, version=Version.latest):
-        """Tries to convert an object into a JSON respresentation and return
+        """Tries to convert an object into a JSON representation and return
         the resulting string
 
         An Object can define how it is serialized by providing an _as_version()
