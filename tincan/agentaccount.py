@@ -37,7 +37,7 @@ class AgentAccount(SerializableBase):
 
         """
 
-        super(AgentAccount, self).__init__(args, kwargs)
+        super(AgentAccount, self).__init__(*args, **kwargs)
 
     @property
     def name(self):

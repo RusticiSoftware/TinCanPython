@@ -56,7 +56,7 @@ class Agent(SerializableBase):
         self._account = None
         self._objecttype = None
 
-        super(Agent, self).__init__(args, kwargs)
+        super(Agent, self).__init__(*args, **kwargs)
 
     @property
     def objecttype(self):
