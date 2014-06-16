@@ -32,10 +32,10 @@ class ActivityProfileDocument(Document):
     :type activity: Activity
     """
 
-    _properties = list(Document._properties)
+    _props = list(Document._props)
 
-    _properties.extend([
-        "activity",
+    _props.extend([
+        'activity',
     ])
 
     @property
@@ -49,12 +49,12 @@ class ActivityProfileDocument(Document):
         :param value: Desired object for the document's activity
         :type value: Activity
         """
-        if not isinstance(value, Activity):
+        if not isinstance(value, Activity) and value is not None:
             try:
                 value = Activity(value)
             except:
                 raise TypeError(
-                    "Property 'activity' in 'tincan.%s' must be set with a type "
+                    "Property 'activity' in 'tincan.documents.%s' must be set with a type "
                     "that can be constructed into an Activity object." % self.__class__.__name__
                 )
         self._activity = value
