@@ -14,45 +14,32 @@
 from httplib import HTTPResponse
 
 from tincan.http_request import HTTPRequest
+from tincan.tincanbase import Base
 
-class LRSResponse(object):
+
+class LRSResponse(Base):
+    """Creates a new LRSResponse object, either from a dict, another object, or from kwargs
+
+    :param success: True if the LRS return a successful status (sometimes includes 404), False otherwise
+    :type success: bool
+    :param request: HTTPRequest object that was sent to the LRS
+    :type request: HTTPRequest
+    :param response: HTTPResponse object that was received from the LRS
+    :type response: HTTPResponse
+    :param content: Parsed content received from the LRS
     """
-    Defines the LRSResponse class which is received from LRS communication.
-    """
-    _required_properties = [
-        "success",
-        "request",
-        "response",
+
+    _props_req = [
+        'success',
+        'request',
+        'response',
     ]
 
-    _properties = [
-        "content",
+    _props = [
+        'content',
     ]
 
-    _properties.extend(_required_properties)
-
-
-    def __init__(self, *args, **kwargs):
-        """
-
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        for k in self._required_properties:
-            setattr(self, k, None)
-
-        #copy construction
-        new_kwargs = {}
-        for obj in args:
-            new_kwargs.update(obj if isinstance(obj, dict) else obj.__dict__)
-
-        if kwargs:
-            new_kwargs.update(kwargs)
-
-        filtered_keys = [k for k in new_kwargs.keys() if k in self._properties]
-        for k in filtered_keys:
-            setattr(self, k, new_kwargs[k])
+    _props.extend(_props_req)
 
     @property
     def success(self):
@@ -60,15 +47,13 @@ class LRSResponse(object):
 
     @success.setter
     def success(self, value):
-        """Setter for the _success attribute
+        """Setter for the _success attribute. Tries to convert to bool.
 
-        :param value: Desired value for the object's success
+        :param value: The LRSResponse's success
         :type value: bool
         """
-        if value is not None and not isinstance(value, bool):
-            raise TypeError(
-                "Property 'success' in 'tincan.%s' must be set with a boolean." % self.__class__.__name__
-            )
+        if value is not None:
+            value = bool(value)
         self._success = value
 
     @success.deleter
@@ -81,15 +66,14 @@ class LRSResponse(object):
 
     @request.setter
     def request(self, value):
-        """Setter for the _request attribute
+        """Setter for the _request attribute. Tries to convert to an HTTPRequest object.
 
-        :param value: Desired object for the response's request attribute
+        :param value: The LRSResponse's request attribute
         :type value: HTTPRequest
         """
         if value is not None and not isinstance(value, HTTPRequest):
-            raise TypeError(
-                "Property 'request' in 'tincan.%s' must be set with an HTTPRequest object" % self.__class__.__name__
-            )
+            value = HTTPRequest(value)
+
         self._request = value
 
     @request.deleter
@@ -102,9 +86,9 @@ class LRSResponse(object):
 
     @response.setter
     def response(self, value):
-        """Setter for the _response attribute
+        """Setter for the _response attribute.
 
-        :param value: Desired object for the response's response attribute
+        :param value: The LRSResponse's response attribute
         :type value: HTTPResponse
         """
         if value is not None and not isinstance(value, HTTPResponse):

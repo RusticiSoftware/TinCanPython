@@ -38,12 +38,12 @@ class StateDocument(Document):
     :type registration: str
     """
 
-    _properties = list(Document._properties)
+    _props = list(Document._props)
 
-    _properties.extend([
-        "agent",
-        "activity",
-        "registration",
+    _props.extend([
+        'agent',
+        'activity',
+        'registration',
     ])
 
     @property
@@ -52,17 +52,17 @@ class StateDocument(Document):
 
     @agent.setter
     def agent(self, value):
-        """Setter for the _agent attribute
+        """Setter for the _agent attribute. Tries to convert to Agent.
 
         :param value: Desired object for the document's agent
         :type value: Agent
         """
-        if not isinstance(value, Agent):
+        if not isinstance(value, Agent) and value is not None:
             try:
                 value = Agent(value)
             except:
                 raise TypeError(
-                    "Property 'agent' in 'tincan.%s' must be set with a type "
+                    "Property 'agent' in 'tincan.documents.%s' must be set with a type "
                     "that can be constructed into an Agent object." % self.__class__.__name__
                 )
         self._agent = value
@@ -77,17 +77,17 @@ class StateDocument(Document):
 
     @activity.setter
     def activity(self, value):
-        """Setter for the _activity attribute
+        """Setter for the _activity attribute. Tries to convert to Activity.
 
         :param value: Desired object for the document's activity
         :type value: Activity
         """
-        if not isinstance(value, Activity):
+        if not isinstance(value, Activity) and value is not None:
             try:
                 value = Activity(value)
             except:
                 raise TypeError(
-                    "Property 'activity' in 'tincan.%s' must be set with a type "
+                    "Property 'activity' in 'tincan.documents.%s' must be set with a type "
                     "that can be constructed into an Activity object." % self.__class__.__name__
                 )
         self._activity = value
@@ -102,15 +102,13 @@ class StateDocument(Document):
 
     @registration.setter
     def registration(self, value):
-        """Setter for the _registration attribute
+        """Setter for the _registration attribute. Tries to convert to string.
 
         :param value: Desired value for the document's registration id
         :type value: str | uuid.UUID
         """
-        if isinstance(value, uuid.UUID):
+        if not isinstance(value, basestring) and value is not None:
             str(value)
-        elif value is not None and not isinstance(value, basestring):
-            raise TypeError("registration can only be set with a str or UUID")
 
         self._registration = value
 

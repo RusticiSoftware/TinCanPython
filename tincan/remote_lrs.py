@@ -101,19 +101,20 @@ class RemoteLRS(object):
 
         web_req.request(request.method, path, headers)
 
-        if request.content is not None:
+        if hasattr(request, "content") and request.content is not None:
             web_req.send(request.content)
 
         response = web_req.getresponse()
 
         web_req.close()
 
-        if (200 <= response.status < 300) or (response.status == 404 and request.ignore404):
+        if (200 <= response.status < 300
+           or (response.status == 404 and hasattr(request, "ignore404") and request.ignore404)):
             success = True
         else:
             success = False
 
-        return LRSResponse(success, request, response)
+        return LRSResponse(success=success, request=request, response=response)
 
     def about(self):
         """Gets about response from LRS
@@ -121,7 +122,7 @@ class RemoteLRS(object):
         :return: LRS Response object with the returned LRS about object as content
         :rtype: :mod:`tincan.lrs_response`
         """
-        request = HTTPRequest(self._endpoint, "GET", "about")
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="about")
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
@@ -140,7 +141,7 @@ class RemoteLRS(object):
         if not isinstance(statement, Statement):
             statement = Statement(statement)
 
-        request = HTTPRequest(self._endpoint, "POST", "statements")
+        request = HTTPRequest(endpoint=self._endpoint, method="POST", resource="statements")
 
         if statement.id is not None:
             request.method = "PUT"
@@ -171,7 +172,7 @@ class RemoteLRS(object):
 
         statements = [make_statement(s) for s in statements]
 
-        request = HTTPRequest(self._endpoint, "POST", "statements")
+        request = HTTPRequest(endpoint=self._endpoint, method="POST", resource="statements")
         request.headers["Content-Type"] = "application/json"
 
         request.content = json.dump([s.as_version(self._version) for s in statements], cls=IgnoreNoneEncoder)
@@ -195,7 +196,7 @@ class RemoteLRS(object):
         :return: LRS Response object with the retrieved statement as content
         :rtype: :mod:`tincan.lrs_response`
         """
-        request = HTTPRequest(self._endpoint, "GET", "statements")
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="statements")
         request.query_params["statementId"] = statement_id
 
         lrs_response = self.send_request(request)
@@ -213,7 +214,7 @@ class RemoteLRS(object):
         :return: LRS Response object with the retrieved voided statement as content
         :rtype: :mod:`tincan.lrs_response`
         """
-        request = HTTPRequest(self._endpoint, "GET", "statements")
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="statements")
         request.query_params["voidedStatementId"] = statement_id
 
         lrs_response = self.send_request(request)
@@ -254,7 +255,7 @@ class RemoteLRS(object):
                 elif k in param_keys:
                     params[k] = v
 
-        request = HTTPRequest(self._endpoint, "GET", "statements")
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="statements")
         request.query_params = params
 
         lrs_response = self.send_request(request)
@@ -277,7 +278,7 @@ class RemoteLRS(object):
 
         more_url = self.get_endpoint_server_root() + more_url
 
-        request = HTTPRequest(self._endpoint, "GET", more_url)
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource=more_url)
 
         lrs_response = self.send_request(request)
 
@@ -306,7 +307,7 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(self._endpoint, "GET", "activities/state")
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/state")
         request.query_params = {"activityId": activity.id, "agent": agent.as_version(self._version)}
 
         if registration is not None:
@@ -341,7 +342,7 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(self._endpoint, "GET", "activities/state", ignore404=True)
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/state", ignore404=True)
 
         request.query_params = {
             "activityId": activity.id,
@@ -379,7 +380,7 @@ class RemoteLRS(object):
         :return: LRS Response object with saved state as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(self._endpoint, "PUT", "activities/state", content=state.content)
+        request = HTTPRequest(endpoint=self._endpoint, method="PUT", resource="activities/state", content=state.content)
         request.headers["Content-Type"] = state.content_type
 
         if state.etag is not None:
@@ -416,7 +417,7 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(self._endpoint, "DELETE", "activities/state")
+        request = HTTPRequest(endpoint=self._endpoint, method="DELETE", resource="activities/state")
 
         if etag is not None:
             request.headers["If-Match"] = etag
@@ -471,7 +472,7 @@ class RemoteLRS(object):
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
-        request = HTTPRequest(self._endpoint, "GET", "activities/profile")
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/profile")
 
         request.query_params["activityId"] = activity.id
 
@@ -498,7 +499,7 @@ class RemoteLRS(object):
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
-        request = HTTPRequest(self._endpoint, "GET", "activities/profile", ignore404=True)
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/profile", ignore404=True)
 
         request.query_params = {"profileId": profile_id, "activityId": activity.id}
 
@@ -527,7 +528,7 @@ class RemoteLRS(object):
         :return: LRS Response object with the saved activity profile doc as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(self._endpoint, "PUT", "activities/profile", content=profile.content)
+        request = HTTPRequest(endpoint=self._endpoint, method="PUT", resource="activities/profile", content=profile.content)
         request.headers["Content-Type"] = profile.content_type
 
         if profile.etag is not None:
@@ -548,7 +549,7 @@ class RemoteLRS(object):
         :return: LRS Response object
         :rtype: LRSResponse
         """
-        request = HTTPRequest(self._endpoint, "DELETE", "activities/profile")
+        request = HTTPRequest(endpoint=self._endpoint, method="DELETE", resource="activities/profile")
         request.query_params = {"profileId": profile.id, "activityId": profile.activity.id}
 
         if profile.etag is not None:
@@ -569,7 +570,7 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(self._endpoint, "GET", "agents/profile")
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="agents/profile")
 
         request.query_params["agent"] = agent.as_version(self._version)
 
@@ -596,7 +597,7 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(self._endpoint, "GET", "agents/profile", ignore404=True)
+        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="agents/profile", ignore404=True)
 
         request.query_params = {"profileId": profile_id, "agent": agent.as_version(self._version)}
 
@@ -625,7 +626,7 @@ class RemoteLRS(object):
         :return: LRS Response object with the saved agent profile doc as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(self._endpoint, "PUT", "agents/profile", content=profile.content)
+        request = HTTPRequest(endpoint=self._endpoint, method="PUT", resource="agents/profile", content=profile.content)
         request.headers["Content-Type"] = profile.content_type
 
         if profile.etag is not None:
@@ -646,7 +647,7 @@ class RemoteLRS(object):
         :return: LRS Response object
         :rtype: LRSResponse
         """
-        request = HTTPRequest(self._endpoint, "DELETE", "agents/profile")
+        request = HTTPRequest(endpoint=self._endpoint, method="DELETE", resource="agents/profile")
         request.query_params = {"profileId": profile.id, "agent": profile.agent.as_version(self._version)}
 
         if profile.etag is not None:

@@ -12,21 +12,178 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-class HTTPRequest(object):
-    def __init__(self, endpoint=None, method=None, resource=None, headers=None,
-                 query_params=None, content=None, ignore404=False):
-        self.endpoint = endpoint
-        self.method = method
-        self.resource = resource
-        self.content = content
-        self.ignore404 = ignore404
+from tincan.tincanbase import Base
 
-        if headers is None:
-            self.headers = {}
-        else:
-            self.headers = headers
 
-        if query_params is None:
-            self.query_params = {}
-        else:
-            self.query_params = query_params
+class HTTPRequest(Base):
+    """Creates a new HTTPRequest object, either from a dict, another object, or from kwargs
+
+    :param endpoint: The remote lrs endpoint used the HTTP connection
+    :type endpoint: str
+    :param method: Method for the HTTP connection ("GET", "POST", "DELETE", etc.)
+    :type method: str
+    :param resource: Resource for the LRS HTTP connection ("about", "statements", "activities/state", etc.)
+    :type resource: str
+    :param headers: Headers for the HTTP connection ("If-Match", "Content-Type", etc.)
+    :type headers: dict(str:str)
+    :param query_params: Query parameters for the HTTP connection ("registration", "since", "statementId", etc.)
+    :type query_params: dict(str:str)
+    :param content: Content body for the HTTP connection. Valid json string.
+    :type content: str
+    :param ignore404: True if this request should consider a 404 response successful, False otherwise
+    :type ignore404: bool
+    """
+
+    _props_req = [
+        "method",
+        "resource",
+        "headers",
+        "query_params",
+    ]
+
+    _props = [
+        "endpoint",
+        "content",
+        "ignore404",
+    ]
+
+    _props.extend(_props_req)
+    
+    @property
+    def endpoint(self):
+        return self._endpoint
+
+    @endpoint.setter
+    def endpoint(self, value):
+        """Setter for the _endpoint attribute. Tries to convert to string.
+
+        :param value: The request's endpoint
+        :type value: str
+        """
+        if not isinstance(value, basestring) and value is not None:
+            str(value)
+        self._endpoint = value
+
+    @endpoint.deleter
+    def endpoint(self):
+        del self._endpoint
+
+    @property
+    def method(self):
+        return self._method
+
+    @method.setter
+    def method(self, value):
+        """Setter for the _method attribute. Tries to convert to string.
+        
+        :param value: The request's method
+        :type value: str
+        """
+        if not isinstance(value, basestring) and value is not None:
+            str(value)
+        self._method = value
+
+    @method.deleter
+    def method(self):
+        del self._method
+
+    @property
+    def resource(self):
+        return self._resource
+
+    @resource.setter
+    def resource(self, value):
+        """Setter for the _resource attribute. Tries to convert to string.
+        
+        :param value: The request's resource
+        :type value: str
+        """
+        if not isinstance(value, basestring) and value is not None:
+            str(value)
+        self._resource = value
+
+    @resource.deleter
+    def resource(self):
+        del self._resource
+        
+    @property
+    def headers(self):
+        return self._headers
+
+    @headers.setter
+    def headers(self, value):
+        """Setter for the _headers attribute.
+
+        :param value: The request's headers
+        :type value: dict
+        """
+        if value is None:
+            value = {}
+        elif not isinstance(value, dict):
+            raise TypeError(
+                "Property 'headers' in 'tincan.%s' must be set with a dict." % self.__class__.__name__
+            )
+        self._headers = value
+
+    @headers.deleter
+    def headers(self):
+        del self._headers
+        
+    @property
+    def query_params(self):
+        return self._query_params
+
+    @query_params.setter
+    def query_params(self, value):
+        """Setter for the _query_params attribute.
+
+        :param value: The request's query parameters
+        :type value: dict
+        """
+        if value is None:
+            value = {}
+        elif not isinstance(value, dict):
+            raise TypeError(
+                "Property 'query_params' in 'tincan.%s' must be set with a dict." % self.__class__.__name__
+            )
+        self._query_params = value
+
+    @query_params.deleter
+    def query_params(self):
+        del self._query_params
+        
+    @property
+    def content(self):
+        return self._content
+
+    @content.setter
+    def content(self, value):
+        """Setter for the _content attribute. Tries to convert to string.
+
+        :param value: The request's content
+        :type value: str
+        """
+        if not isinstance(value, basestring) and value is not None:
+            value = str(value)
+        self._content = value
+
+    @content.deleter
+    def content(self):
+        del self._content
+        
+    @property
+    def ignore404(self):
+        return self._ignore404
+
+    @ignore404.setter
+    def ignore404(self, value):
+        """Setter for the _ignore404 attribute. Tries to convert to bool.
+
+        :param value: If true, this request treats 404 statuses as successful
+        :type value: bool
+        """
+        self._ignore404 = bool(value)
+
+    @ignore404.deleter
+    def ignore404(self):
+        del self._ignore404

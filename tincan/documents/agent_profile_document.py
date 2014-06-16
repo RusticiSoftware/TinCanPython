@@ -32,10 +32,10 @@ class AgentProfileDocument(Document):
     :type agent: Agent
     """
 
-    _properties = list(Document._properties)
+    _props = list(Document._props)
 
-    _properties.extend([
-        "agent",
+    _props.extend([
+        'agent',
     ])
 
     @property
@@ -49,12 +49,12 @@ class AgentProfileDocument(Document):
         :param value: Desired object for the document's agent
         :type value: Agent
         """
-        if not isinstance(value, Agent):
+        if not isinstance(value, Agent) and value is not None:
             try:
                 value = Agent(value)
             except:
                 raise TypeError(
-                    "Property 'agent' in 'tincan.%s' must be set with a type "
+                    "Property 'agent' in 'tincan.documents.%s' must be set with a type "
                     "that can be constructed into an Agent object." % self.__class__.__name__
                 )
         self._agent = value
