@@ -14,7 +14,7 @@
 
 import unittest
 from tincan.verb import Verb
-from tincan.languagemap import LanguageMap
+from tincan.language_map import LanguageMap
 
 
 class TestVerb(unittest.TestCase):

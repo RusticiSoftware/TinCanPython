@@ -17,16 +17,16 @@ import urllib
 import json
 import base64
 
-from tincanbase import IgnoreNoneEncoder
 from urlparse import urlparse
-from lrs_response import LRSResponse
-from http_request import HTTPRequest
-from agent import Agent
-from statement import Statement
-from activity import Activity
-from statements_result import StatementsResult
-from about import About
-from version import Version
+from tincan.serializable_base import SerializableBase
+from tincan.lrs_response import LRSResponse
+from tincan.http_request import HTTPRequest
+from tincan.agent import Agent
+from tincan.statement import Statement
+from tincan.activity import Activity
+from tincan.statements_result import StatementsResult
+from tincan.about import About
+from tincan.version import Version
 from tincan.document import (
     BaseDocument,
     StateDocument,
@@ -40,7 +40,7 @@ from tincan.document import (
 """
 
 
-class RemoteLRS(object):
+class RemoteLRS(SerializableBase):
 
     def __init__(self, version=Version.latest, endpoint=None, username=None, password=None, auth=None):
         """RemoteLRS Constructor

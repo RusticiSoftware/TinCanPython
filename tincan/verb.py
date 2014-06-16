@@ -13,7 +13,7 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
-from tincan.languagemap import LanguageMap
+from tincan.language_map import LanguageMap
 
 """
 .. module:: verb

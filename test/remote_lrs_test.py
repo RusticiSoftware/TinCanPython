@@ -8,7 +8,7 @@ from tincan.version import Version
 from resources import lrs_properties
 from tincan.activity import Activity
 from tincan.activity_definition import ActivityDefinition
-from tincan.languagemap import LanguageMap
+from tincan.language_map import LanguageMap
 from tincan.verb import Verb
 from tincan.agent import Agent
 from tincan.statement import Statement
