@@ -26,6 +26,23 @@ class ExtensionsTest(TinCanBaseTestCase):
         ext = Extensions(data=data)
         self.assertSerializeDeserialize(ext)
 
+    def test_read_write(self):
+        ext = Extensions()
+        self.assertEqual(len(ext), 0, 'Empty Extensions inited as non-empty!')
+
+        ext['http://example.com/int'] = 10
+        self.assertIn('http://example.com/int', ext, 'Could not add item to Extensions!')
+        self.assertEqual(10, ext['http://example.com/int'])
+        self.assertEqual(len(ext), 1, 'Extensions is the wrong size!')
+
+        ext['http://example.com/int'] += 5
+        self.assertEqual(15, ext['http://example.com/int'], 'Could not modify item in Extensions!')
+
+        del ext['http://example.com/int']
+        self.assertNotIn('http://example.com/int', ext, 'Could not delete item from Extensions!')
+        self.assertEqual(len(ext), 0, 'Could not empty the Extensions object!')
+
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ExtensionsTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

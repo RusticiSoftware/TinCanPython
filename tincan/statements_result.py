@@ -15,17 +15,59 @@ class StatementsResult(Base):
     rest. None otherwise.
     """
 
-    def __init__(self, jobj):
-        """Instantiate the StatementsResult object
+    _props = [
+        'statements',
+        'more',
+    ]
 
-        :param jobj: JSON object that will be used to construct the object
-        :type jobj: JSON object
-        """
-        content = json.load(object)
-        if "more" in content and content["more"] is not None:
-            self.more_url = content["more"]
+    @property
+    def statements(self):
+        return self._statements
 
-        if "statements" in content and content["statements"] is not None:
-            self.statements = []
-            for s in content["statements"]:
-                self.statements.append(s)
+    @statements.setter
+    def statements(self, value):
+        if value is None or isinstance(value, list):
+            self._statements = value
+            return
+        try:
+            if isinstance(value, dict):
+                raise Exception('Expected a list, got a dict: %s' % repr(value))
+
+            self._statements = list(value)
+        except Exception as e:
+            msg = (
+                "Property 'statements' in a 'tincan.%s' object must be set with a "
+                "list or None." %
+                self.__class__.__name__
+            )
+            msg += e.message
+            raise TypeError(msg)
+
+    @statements.deleter
+    def statements(self):
+        del self._statements
+        
+    
+    @property
+    def more(self):
+        return self._more
+
+    @more.setter
+    def more(self, value):
+        if value is None or isinstance(value, basestring):
+            self._more = value
+            return
+        try:
+            self._more = str(value)
+        except Exception as e:
+            msg = (
+                "Property 'more' in a 'tincan.%s' object must be set with a "
+                "str or None." %
+                self.__class__.__name__
+            )
+            msg += e.message
+            raise TypeError(msg)
+
+    @more.deleter
+    def more(self):
+        del self._more
