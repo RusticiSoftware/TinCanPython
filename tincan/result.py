@@ -59,7 +59,8 @@ class Result(SerializableBase):
 
     @score.setter
     def score(self, value):
-        """Setter for the _score attribute. Tries to convert to Score object.
+        """Setter for the _score attribute. Tries to convert to
+        tincan.Score object.
 
         :param value: The Result's score data.
         :type tincan.Score | dict | None
@@ -89,6 +90,12 @@ class Result(SerializableBase):
 
     @success.setter
     def success(self, value):
+        """Setter for the _success attribute. Tries to convert to bool.
+
+        :param value: whether the activity was successful
+        :type value: bool | None
+        """
+
         self._success = value if value is None else bool(value)
 
     @success.deleter
@@ -102,6 +109,12 @@ class Result(SerializableBase):
 
     @completion.setter
     def completion(self, value):
+        """Setter for the _completion attribute. Tries to convert to bool.
+
+        :param value: whether the activity was completed
+        :type value: bool | None
+        """
+
         self._completion = value if value is None else bool(value)
 
     @completion.deleter
@@ -116,6 +129,14 @@ class Result(SerializableBase):
     ##TODO: add converters for ISO 8601 duration <-> timedelta
     @duration.setter
     def duration(self, value):
+        """Setter for the _duration attribute. Currently tries to
+        convert to ISO 8601 duration string, but in future will try
+        to convert to a timedelta object.
+
+        :param value: how long the activity took
+        :type value: str | None
+        """
+
         if value is None or isinstance(value, basestring):
             self._duration = value
             return
@@ -139,6 +160,13 @@ class Result(SerializableBase):
 
     @response.setter
     def response(self, value):
+        """Setter for the _response attribute. Tries to convert to
+        bytearray.
+
+        :param value: the response data
+        :type value: bytearray | str | unicode | None
+        """
+
         try:
             self._response = value if value is None else make_bytearray(value)
         except Exception as e:
@@ -162,6 +190,13 @@ class Result(SerializableBase):
 
     @extensions.setter
     def extensions(self, value):
+        """Setter for the _extensions attribute. Tries to convert to
+        tincan.Extensions object.
+
+        :param value: custom additions to TinCan
+        :type value: tincan.Extensions | dict | None
+        """
+
         if value is None or isinstance(value, Extensions):
             self._extensions = value
             return

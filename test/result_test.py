@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import unittest
-from datetime import timedelta
 
 from tincan.score import Score
 from tincan.extensions import Extensions

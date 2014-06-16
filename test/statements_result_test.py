@@ -33,11 +33,11 @@ class StatementsResultTest(TinCanBaseTestCase):
         self.assertEqual(sr.statements[3], 4, 'Did not append value!')
 
         with self.assertRaises(AttributeError):
-            temp = sr.more
+            unused = sr.more
 
         sr.more = 'http://www.example.com/more/1234'
 
-        self.assertEqual(sr.more, 'http://www.example.com/more/1234', 'Did not set more!')
+        self.assertEqual(sr.more, 'http://www.example.com/more/1234', 'Did not set sr.more!')
 
 
 if __name__ == '__main__':

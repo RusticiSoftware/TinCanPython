@@ -44,6 +44,12 @@ class Score(SerializableBase):
 
     @scaled.setter
     def scaled(self, value):
+        """Setter for the _scaled attribute. Tries to convert to float.
+
+        :param value: the scaled score, 0.0-1.0
+        :type value: float | None
+        """
+
         if value is None or isinstance(value, float):
             self._scaled = value
             return
@@ -69,6 +75,11 @@ class Score(SerializableBase):
 
     @raw.setter
     def raw(self, value):
+        """Setter for the _raw attribute. Tries to convert to float.
+
+        :param value: the raw score
+        :type value: float | None
+        """
         if value is None or isinstance(value, float):
             self._raw = value
             return
@@ -94,6 +105,12 @@ class Score(SerializableBase):
 
     @min.setter
     def min(self, value):
+        """Setter for the _min attribute. Tries to convert to float.
+
+        :param value: the minimum possible score
+        :type value: float | None
+        """
+
         if value is None or isinstance(value, float):
             self._min = value
             return
@@ -119,6 +136,12 @@ class Score(SerializableBase):
 
     @max.setter
     def max(self, value):
+        """Setter for the _max attribute. Tries to convert to float.
+
+        :param value: the maximum possible score
+        :type value: float | None
+        """
+
         if value is None or isinstance(value, float):
             self._max = value
             return

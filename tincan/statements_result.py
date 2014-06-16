@@ -48,6 +48,13 @@ class StatementsResult(SerializableBase):
 
     @statements.setter
     def statements(self, value):
+        """Setter for the _statements attribute. Tries to convert to
+        list of tincan.Statement.
+
+        :param value: list of statements
+        :type value: list[tincan.Statement] | None
+        """
+
         if isinstance(value, list):
             self._statements = value
             return
@@ -75,6 +82,13 @@ class StatementsResult(SerializableBase):
 
     @more.setter
     def more(self, value):
+        """Setter for the _more attribute. Tries to convert to
+        string.
+
+        :param value: if statements is incomplete, a URI to get the rest
+        :type value: str | unicode | None
+        """
+
         if value is None or isinstance(value, basestring):
             self._more = value
             return
