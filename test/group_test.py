@@ -18,59 +18,59 @@ from tincan.agent import Agent
 
 class TestGroup(unittest.TestCase):
 
-	def test_InitEmpty(self):
-		group = Group()
-		self.assertEquals(group.members, [])
+    def test_InitEmpty(self):
+        group = Group()
+        self.assertEquals(group.members, [])
 
-	def test_InitMember(self):
-		group = Group(members=[Agent(name='test')])
-		self.assertIsInstance(group.members[0], Agent)
+    def test_InitMember(self):
+        group = Group(members=[Agent(name='test')])
+        self.assertIsInstance(group.members[0], Agent)
 
-	def test_InitMemberAnon(self):
-		group = Group(members=['{"name":"test"}'])
-		self.assertIsInstance(group.members[0], Agent)
+    def test_InitMemberAnon(self):
+        group = Group(members=['{"name":"test"}'])
+        self.assertIsInstance(group.members[0], Agent)
 
-	def test_FromJSONExceptionEmpty(self):
-		with self.assertRaises(ValueError):
-			group = Group.from_json('')
+    def test_FromJSONExceptionEmpty(self):
+        with self.assertRaises(ValueError):
+            group = Group.from_json('')
 
-	def test_FromJSONEmptyObject(self):
-		group = Group.from_json('{}')
-		self.assertEquals(group.members, [])
+    def test_FromJSONEmptyObject(self):
+        group = Group.from_json('{}')
+        self.assertEquals(group.members, [])
 
-	def test_FromJSONMembers(self):
-		group = Group.from_json('''{"members":"[{'name':'test'}, Agent(name='test')]"}''')
-		for k in group.members:
-			self.assertIsInstance(k, Agent)
+    def test_FromJSONMembers(self):
+        group = Group.from_json('''{"members":"[{'name':'test'}, Agent(name='test')]"}''')
+        for k in group.members:
+            self.assertIsInstance(k, Agent)
 
-	def test_FromJSONExceptionBadJSON(self):
-		with self.assertRaises(ValueError):
-			group = Group.from_json('{"bad JSON"}')
+    def test_FromJSONExceptionBadJSON(self):
+        with self.assertRaises(ValueError):
+            group = Group.from_json('{"bad JSON"}')
 
-#	def test_FromJSONExceptionMalformedJSON(self):
-#		with self.assertRaises(TypeError):
-#			group = Group.from_json('{"test":"invalid property"}')
+#    def test_FromJSONExceptionMalformedJSON(self):
+#        with self.assertRaises(TypeError):
+#            group = Group.from_json('{"test":"invalid property"}')
 
-#	def test_FromJSONExceptionPartiallyMalformedJSON(self):
-#		with self.assertRaises(TypeError):
-#			group = Group.from_json('''{"test":"invalidproperty", "members":"[{'name':'test'}, Agent(name='test')]"}''')
+#    def test_FromJSONExceptionPartiallyMalformedJSON(self):
+#        with self.assertRaises(TypeError):
+#            group = Group.from_json('''{"test":"invalidproperty", "members":"[{'name':'test'}, Agent(name='test')]"}''')
 
-	def test_AddMemberAnon(self):
-		group = Group()
-		group.addmember('{"name":"test"}')
-		self.assertIsInstance(group.members[0], Agent)
+    def test_AddMemberAnon(self):
+        group = Group()
+        group.addmember('{"name":"test"}')
+        self.assertIsInstance(group.members[0], Agent)
 
-	def test_AddMember(self):
-		group = Group()
-		group.addmember(Agent(name='test'))
-		self.assertIsInstance(group.members[0], Agent)
+    def test_AddMember(self):
+        group = Group()
+        group.addmember(Agent(name='test'))
+        self.assertIsInstance(group.members[0], Agent)
 
-	def test_InitUnpack(self):
-		obj = {"members":"[Agent(name='test')]"}
-		group = Group(**obj)
-		self.assertIsInstance(group.members[0], Agent)
-		self.assertIsInstance(group.members[1], Agent)
+    def test_InitUnpack(self):
+        obj = {"members":"[Agent(name='test')]"}
+        group = Group(**obj)
+        self.assertIsInstance(group.members[0], Agent)
+        self.assertIsInstance(group.members[1], Agent)
 
 if __name__ == '__main__':
-	suite = unittest.TestLoader().loadTestsFromTestCase(TestGroup)
-	unittest.TextTestRunner(verbosity = 2).run(suite)
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestGroup)
+    unittest.TextTestRunner(verbosity = 2).run(suite)

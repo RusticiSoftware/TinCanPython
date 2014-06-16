@@ -22,70 +22,61 @@ from serializablebase import SerializableBase
 """
 
 class AgentAccount(SerializableBase):
-	_props = [
-		"name",
-	    "homepage"
-	]
+    _props = [
+        "name",
+        "homepage"
+    ]
 
-	def __init__(self, *args, **kwargs):
-		"""
+    def __init__(self, *args, **kwargs):
+        """
 
-		:param name: The account name
-		:type name: str
-		:param homepage: The URL for the account's page
-		:type homepage: str
+        :param name: The account name
+        :type name: str
+        :param homepage: The URL for the account's page
+        :type homepage: str
 
-		"""
+        """
 
-		new_kwargs = {}
-		for obj in args:
-			new_kwargs.update(obj if isinstance(obj, dict) else obj.__dict__)
+        super(AgentAccount, self).__init__(args, kwargs)
 
-		if kwargs:
-			new_kwargs.update(kwargs)
+    @property
+    def name(self):
+        return self._name
 
-		filtered_keys = [k for k in new_kwargs.keys() if k in self._props]
-		for k in filtered_keys:
-			setattr(self, k, new_kwargs[k])
+    @name.setter
+    def name(self, value):
+        """Setter for the _name attribute.
 
-	@property
-	def name(self):
-		return self._name
+        :param value: The account's name
+        :type value: str
 
-	@name.setter
-	def name(self, value):
-		"""Setter for the _name attribute.
+        """
+        if value is not None:
+            if value == '' or not isinstance(value, basestring):
+                raise TypeError("Property 'name' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+        self._name = value
 
-		:param value: The account's name
-		:type value: str
+    @name.deleter
+    def name(self):
+        del self._name
 
-		"""
-		if value is not None:
-			if value == '' or not isinstance(value, basestring):
-				raise TypeError("Property 'name' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
-		self._name = value
+    @property
+    def homepage(self):
+        return self._homepage
 
-	@name.deleter
-	def name(self):
-		del self._name
+    @homepage.setter
+    def homepage(self, value):
+        """Setter for the _homepage attribute
 
-	@property
-	def homepage(self):
-		return self._homepage
+        :param value: The account's homepage
+        :type value: str
 
-	@homepage.setter
-	def homepage(self, value):
-		"""Setter for the _homepage attribute
+        """
+        if value is not None:
+            if value == '' or not isinstance(value, basestring):
+                raise TypeError("Property 'homepage' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+        self._homepage = value
 
-		:param value: The account's homepage
-		:type value: str
-
-		"""
-		if value is not None:
-			if value == '' or not isinstance(value, basestring):
-				raise TypeError("Property 'homepage' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
-		self._homepage = value
-
-	@homepage.deleter
-	def homepage(self):
-		del self._homepage
+    @homepage.deleter
+    def homepage(self):
+        del self._homepage

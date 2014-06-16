@@ -17,191 +17,179 @@ from serializablebase import SerializableBase
 from tincan.agentaccount import AgentAccount
 
 class Agent(SerializableBase):
-	_required_props = [
-		"objecttype"
-	]
+    _props_req = [
+        "objecttype"
+    ]
 
-	_props = [
-		"name",
-	    "mbox",
-	    "mboxsha1sum",
-	    "openid",
-	    "account"
-	]
+    _props = [
+        "name",
+        "mbox",
+        "mboxsha1sum",
+        "openid",
+        "account"
+    ]
 
-	_props.extend(_required_props)
+    _props.extend(_props_req)
 
-	def __init__(self, *args, **kwargs):
-		"""
+    def __init__(self, *args, **kwargs):
+        """
 
-		:param name: The name of this agent
-		:type name: str
-		:param mbox: The mailto address for this agent
-		:type mbox: str
-		:param mboxsha1sum: The sha1sum of the mbox of this agent
-		:type mboxsha1sum: str
-		:param openid: The openid for this agent
-		:type openid: str
-		:param account: The alternative account for this agent (e.g. a Twitter handle)
-		:type account: :mod:`tincan.agentaccount`
-		:param objecttype: The object type for this agent. Defaults to "Agent"
-		:type objecttype: str
+        :param name: The name of this agent
+        :type name: str
+        :param mbox: The mailto address for this agent
+        :type mbox: str
+        :param mboxsha1sum: The sha1sum of the mbox of this agent
+        :type mboxsha1sum: str
+        :param openid: The openid for this agent
+        :type openid: str
+        :param account: The alternative account for this agent (e.g. a Twitter handle)
+        :type account: :mod:`tincan.agentaccount`
+        :param objecttype: The object type for this agent. Defaults to "Agent"
+        :type objecttype: str
 
-		"""
+        """
 
-		self._name = None
-		self._mbox = None
-		self._mboxsha1sum = None
-		self._openid = None
-		self._account = None
-		self._objecttype = None
+        self._name = None
+        self._mbox = None
+        self._mboxsha1sum = None
+        self._openid = None
+        self._account = None
+        self._objecttype = None
 
-		for k in self._required_props:
-			setattr(self, k, None)
+        super(Agent, self).__init__(args, kwargs)
 
-		new_kwargs = {}
-		for obj in args:
-			new_kwargs.update(obj if isinstance(obj, dict) else obj.__dict__)
+    @property
+    def objecttype(self):
+        return self._objecttype
 
-		if kwargs:
-			new_kwargs.update(kwargs)
+    @objecttype.setter
+    def objecttype(self, value):
+        """Setter for the _objecttype attribute
+        
+        :param value: The agent's objecttype
+        :type value: str
+        
+        """
+        newtype = "Agent"
+        if value is not None:
+            if value == '' or not isinstance(value, basestring):
+                raise TypeError("Property 'objecttype' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            else: newtype = value
+        self._objecttype = newtype
 
-		filtered_keys = [k for k in new_kwargs.keys() if k in self._props]
-		for k in filtered_keys:
-			setattr(self, k, new_kwargs[k])
+    @objecttype.deleter
+    def objecttype(self):
+        del self._objecttype
 
-	@property
-	def objecttype(self):
-		return self._objecttype
+    @property
+    def name(self):
+        return self._name
 
-	@objecttype.setter
-	def objecttype(self, value):
-		"""Setter for the _objecttype attribute
-		
-		:param value: The agent's objecttype
-		:type value: str
-		
-		"""
-		newtype = "Agent"
-		if value is not None:
-			if value == '' or not isinstance(value, basestring):
-				raise TypeError("Property 'objecttype' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
-			else: newtype = value
-		self._objecttype = newtype
+    @name.setter
+    def name(self, value):
+        """Setter for the _name attribute
 
-	@objecttype.deleter
-	def objecttype(self):
-		del self._objecttype
+        :param value: The agent's name
+        :type value: str
+        
+        """
+        if value is not None:
+            if value == '' or not isinstance(value, basestring):
+                raise TypeError("Property 'name' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+        self._name = value
 
-	@property
-	def name(self):
-		return self._name
+    @name.deleter
+    def name(self):
+        del self._name
 
-	@name.setter
-	def name(self, value):
-		"""Setter for the _name attribute
+    @property
+    def mbox(self):
+        return self._mbox
 
-		:param value: The agent's name
-		:type value: str
-		
-		"""
-		if value is not None:
-			if value == '' or not isinstance(value, basestring):
-				raise TypeError("Property 'name' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
-		self._name = value
+    @mbox.setter
+    def mbox(self, value):
+        """Setter for the _mbox attribute
 
-	@name.deleter
-	def name(self):
-		del self._name
+        :param value: The agent's mbox
+        :type value: str
+        
+        """
+        if value is not None:
+            if value == '' or not isinstance(value, basestring):
+                raise TypeError("Property 'mbox' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+        if not value.startswith("mailto:"):
+            value = "mailto:" + value
+        self._mbox = value
 
-	@property
-	def mbox(self):
-		return self._mbox
+    @mbox.deleter
+    def mbox(self):
+        del self._mbox
 
-	@mbox.setter
-	def mbox(self, value):
-		"""Setter for the _mbox attribute
+    @property
+    def mboxsha1sum(self):
+        return self._mboxsha1sum
 
-		:param value: The agent's mbox
-		:type value: str
-		
-		"""
-		if value is not None:
-			if value == '' or not isinstance(value, basestring):
-				raise TypeError("Property 'mbox' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
-		if not value.startswith("mailto:"):
-			value = "mailto:" + value
-		self._mbox = value
+    @mboxsha1sum.setter
+    def mboxsha1sum(self, value):
+        """Setter for the _mboxsha1sum attribute
 
-	@mbox.deleter
-	def mbox(self):
-		del self._mbox
+        :param value: The agent's mboxsha1sum
+        :type value: str
 
-	@property
-	def mboxsha1sum(self):
-		return self._mboxsha1sum
+        """
+        if value is not None:
+            if value == '' or not isinstance(value, basestring):
+                raise TypeError("Property 'mboxsha1sum' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+        self._mboxsha1sum = value
 
-	@mboxsha1sum.setter
-	def mboxsha1sum(self, value):
-		"""Setter for the _mboxsha1sum attribute
+    @mboxsha1sum.deleter
+    def mboxsha1sum(self):
+        del self._mboxsha1sum
 
-		:param value: The agent's mboxsha1sum
-		:type value: str
+    @property
+    def openid(self):
+        return self._openid
 
-		"""
-		if value is not None:
-			if value == '' or not isinstance(value, basestring):
-				raise TypeError("Property 'mboxsha1sum' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
-		self._mboxsha1sum = value
+    @openid.setter
+    def openid(self, value):
+        """Setter for the _openid attribute
 
-	@mboxsha1sum.deleter
-	def mboxsha1sum(self):
-		del self._mboxsha1sum
+        :param value: The agent's openid
+        :type value: str
+        
+        """
+        if value is not None:
+            if value == '' or not isinstance(value, basestring):
+                raise TypeError("Property 'openid' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+        self._openid = value
 
-	@property
-	def openid(self):
-		return self._openid
+    @openid.deleter
+    def openid(self):
+        del self._openid
 
-	@openid.setter
-	def openid(self, value):
-		"""Setter for the _openid attribute
+    @property
+    def account(self):
+        return self._account
 
-		:param value: The agent's openid
-		:type value: str
-		
-		"""
-		if value is not None:
-			if value == '' or not isinstance(value, basestring):
-				raise TypeError("Property 'openid' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
-		self._openid = value
+    @account.setter
+    def account(self, value):
+        """Setter for the _account attribute. Tries to convert to :mod:`tincan.AgentAccount`
 
-	@openid.deleter
-	def openid(self):
-		del self._openid
+        :param value: The agent's account
+        :type value: :mod:`tincan.AgentAccount`
 
-	@property
-	def account(self):
-		return self._account
+        """
+        if value is not None:
+            if not value:
+                value = None
+            elif isinstance(value, basestring):
+                value = AgentAccount(name=ast.literal_eval(value)["name"], homepage=ast.literal_eval(value)["homepage"])
+            elif not isinstance(value, AgentAccount):
+                value = AgentAccount(name=value["name"], homepage=value["homepage"])
+            elif len(vars(value)) == 0:
+                value = None
+        self._account = value
 
-	@account.setter
-	def account(self, value):
-		"""Setter for the _account attribute. Tries to convert to :mod:`tincan.AgentAccount`
-
-		:param value: The agent's account
-		:type value: :mod:`tincan.AgentAccount`
-
-		"""
-		if value is not None:
-			if not value:
-				value = None
-			elif isinstance(value, basestring):
-				value = AgentAccount(name=ast.literal_eval(value)["name"], homepage=ast.literal_eval(value)["homepage"])
-			elif not isinstance(value, AgentAccount):
-				value = AgentAccount(name=value["name"], homepage=value["homepage"])
-			elif len(vars(value)) == 0:
-				value = None
-		self._account = value
-
-	@account.deleter
-	def account(self):
-		del self._account
+    @account.deleter
+    def account(self):
+        del self._account
