@@ -21,38 +21,23 @@ class TestAgent(unittest.TestCase):
     def test_InitEmpty(self):
         agent = Agent()
         self.assertEqual(agent.objecttype, "Agent")
-        self.assertIsNone(agent.name)
-        self.assertIsNone(agent.mbox)
-        self.assertIsNone(agent.mboxsha1sum)
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_InitName(self):
         agent = Agent(name='test')
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')
-        self.assertIsNone(agent.mbox)
-        self.assertIsNone(agent.mboxsha1sum)
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_InitMboxNoMailto(self):
         agent = Agent(name='test', mbox='test@test.com')
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertIsNone(agent.mboxsha1sum)
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_InitMboxMailto(self):
         agent = Agent(name='test', mbox='mailto:test@test.com')
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertIsNone(agent.mboxsha1sum)
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_InitMboxSha1(self):
         agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test')
@@ -60,8 +45,6 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
         self.assertEqual(agent.mboxsha1sum, 'test')
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_InitOpenId(self):
         agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='test')
@@ -70,7 +53,6 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
         self.assertEqual(agent.mboxsha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
-        self.assertIsNone(agent.account)
 
     def test_InitEmptyAccount(self):
         agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='test', account={})
@@ -109,36 +91,20 @@ class TestAgent(unittest.TestCase):
         self.accountVerificationHelper(agent.account)
 
     def test_InitExceptionEmptyName(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(name='')
 
-    def test_InitExceptionBadName(self):
-        with self.assertRaises(TypeError):
-            agent = Agent(name={})
-
     def test_InitExceptionEmptyMbox(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(name='test', mbox='')
 
-    def test_InitExceptionBadMbox(self):
-        with self.assertRaises(TypeError):
-            agent = Agent(name='test', mbox={})
-
     def test_InitExceptionEmptymboxsha1sum(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='')
 
-    def test_InitExceptionBadmboxsha1sum(self):
-        with self.assertRaises(TypeError):
-            agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum={})
-
     def test_InitExceptionEmptyOpenid(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='')
-
-    def test_InitExceptionBadOpenid(self):
-        with self.assertRaises(TypeError):
-            agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid={})
 
     def test_FromJSONEmpty(self):
         with self.assertRaises(ValueError):
@@ -148,28 +114,19 @@ class TestAgent(unittest.TestCase):
         agent = Agent.from_json('{"name":"test"}')
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')
-        self.assertIsNone(agent.mbox)
-        self.assertIsNone(agent.mboxsha1sum)
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
+
 
     def test_FromJSONMboxNoMailto(self):
         agent = Agent.from_json('{"name":"test", "mbox":"test@test.com"}')
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertIsNone(agent.mboxsha1sum)
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_FromJSONMboxMailto(self):
         agent = Agent.from_json('{"name":"test", "mbox":"mailto:test@test.com"}')
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertIsNone(agent.mboxsha1sum)
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_FromJSONMboxSha1(self):
         agent = Agent.from_json('{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test"}')
@@ -177,8 +134,6 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
         self.assertEqual(agent.mboxsha1sum, 'test')
-        self.assertIsNone(agent.openid)
-        self.assertIsNone(agent.account)
 
     def test_FromJSONOpenId(self):
         agent = Agent.from_json('{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test"}')
@@ -187,7 +142,6 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
         self.assertEqual(agent.mboxsha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
-        self.assertIsNone(agent.account)
 
     def test_FromJSONAccount(self):
         agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":"{'name':'test', 'homepage':'test.com'}"}''')
@@ -219,42 +173,22 @@ class TestAgent(unittest.TestCase):
 
     def test_InitExceptionUnpackEmptyName(self):
         obj = {"name":""}
-        with self.assertRaises(TypeError):
-            agent = Agent(**obj)
-
-    def test_InitExceptionUnpackBadName(self):
-        obj = {"name":{}}
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(**obj)
 
     def test_InitExceptionUnpackEmptyMbox(self):
         obj = {"name":"test", "mbox":""}
-        with self.assertRaises(TypeError):
-            agent = Agent(**obj)
-
-    def test_InitExceptionUnpackBadMbox(self):
-        obj = {"name":"test", "mbox":{}}
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(**obj)
 
     def test_InitExceptionUnpackEmptymboxsha1sum(self):
         obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":""}
-        with self.assertRaises(TypeError):
-            agent = Agent(**obj)
-
-    def test_InitExceptionUnpackBadmboxsha1sum(self):
-        obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":{}}
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(**obj)
 
     def test_InitExceptionUnpackEmptyOpenid(self):
         obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":""}
-        with self.assertRaises(TypeError):
-            agent = Agent(**obj)
-
-    def test_InitExceptionUnpackBadOpenid(self):
-        obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":{}}
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             agent = Agent(**obj)
 
     def accountVerificationHelper(self, account):

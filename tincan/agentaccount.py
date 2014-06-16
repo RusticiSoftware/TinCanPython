@@ -52,8 +52,10 @@ class AgentAccount(SerializableBase):
 
         """
         if value is not None:
-            if value == '' or not isinstance(value, basestring):
-                raise TypeError("Property 'name' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            if not isinstance(value, basestring):
+                value = str(value)
+            elif value is '':
+                raise ValueError("Property name can not be set to an empty string")
         self._name = value
 
     @name.deleter
@@ -73,8 +75,10 @@ class AgentAccount(SerializableBase):
 
         """
         if value is not None:
-            if value == '' or not isinstance(value, basestring):
-                raise TypeError("Property 'homepage' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            if not isinstance(value, basestring):
+                value = str(value)
+            elif value is '':
+                raise ValueError("Property homepage can not be set to an empty string")
         self._homepage = value
 
     @homepage.deleter

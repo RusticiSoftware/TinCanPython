@@ -49,13 +49,6 @@ class Agent(SerializableBase):
 
         """
 
-        self._name = None
-        self._mbox = None
-        self._mboxsha1sum = None
-        self._openid = None
-        self._account = None
-        self._objecttype = None
-
         super(Agent, self).__init__(*args, **kwargs)
 
     @property
@@ -64,7 +57,7 @@ class Agent(SerializableBase):
 
     @objecttype.setter
     def objecttype(self, value):
-        """Setter for the _objecttype attribute
+        """Setter for the _objecttype attribute. Tries to convert to string.
         
         :param value: The agent's objecttype
         :type value: str
@@ -72,8 +65,10 @@ class Agent(SerializableBase):
         """
         newtype = "Agent"
         if value is not None:
-            if value == '' or not isinstance(value, basestring):
-                raise TypeError("Property 'objecttype' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            if not isinstance(value, basestring):
+                value = str(value)
+            elif value is '':
+                raise ValueError("Property objecttype can not be set to an empty string")
             else: newtype = value
         self._objecttype = newtype
 
@@ -87,15 +82,17 @@ class Agent(SerializableBase):
 
     @name.setter
     def name(self, value):
-        """Setter for the _name attribute
+        """Setter for the _name attribute. Tries to convert to string.
 
         :param value: The agent's name
         :type value: str
         
         """
         if value is not None:
-            if value == '' or not isinstance(value, basestring):
-                raise TypeError("Property 'name' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            if not isinstance(value, basestring):
+                value = str(value)
+            elif value is '':
+                raise ValueError("Property name can not be set to an empty string")
         self._name = value
 
     @name.deleter
@@ -108,15 +105,17 @@ class Agent(SerializableBase):
 
     @mbox.setter
     def mbox(self, value):
-        """Setter for the _mbox attribute
+        """Setter for the _mbox attribute. Tries to convert to string.
 
         :param value: The agent's mbox
         :type value: str
         
         """
         if value is not None:
-            if value == '' or not isinstance(value, basestring):
-                raise TypeError("Property 'mbox' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            if not isinstance(value, basestring):
+                value = str(value)
+            elif value is '':
+                raise ValueError("Property mbox can not be set to an empty string")
         if not value.startswith("mailto:"):
             value = "mailto:" + value
         self._mbox = value
@@ -131,15 +130,17 @@ class Agent(SerializableBase):
 
     @mboxsha1sum.setter
     def mboxsha1sum(self, value):
-        """Setter for the _mboxsha1sum attribute
+        """Setter for the _mboxsha1sum attribute. Tries to convert to string.
 
         :param value: The agent's mboxsha1sum
         :type value: str
 
         """
         if value is not None:
-            if value == '' or not isinstance(value, basestring):
-                raise TypeError("Property 'mboxsha1sum' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            if not isinstance(value, basestring):
+                value = str(value)
+            elif value is '':
+                raise ValueError("Property mboxsha1sum can not be set to an empty string")
         self._mboxsha1sum = value
 
     @mboxsha1sum.deleter
@@ -152,15 +153,17 @@ class Agent(SerializableBase):
 
     @openid.setter
     def openid(self, value):
-        """Setter for the _openid attribute
+        """Setter for the _openid attribute. Tries to convert to string.
 
         :param value: The agent's openid
         :type value: str
         
         """
         if value is not None:
-            if value == '' or not isinstance(value, basestring):
-                raise TypeError("Property 'openid' in 'tincan.%s' object must be set with a string."%self.__class__.__name__)
+            if not isinstance(value, basestring):
+                value = str(value)
+            elif value is '':
+                raise ValueError("Property openid can not be set to an empty string")
         self._openid = value
 
     @openid.deleter
