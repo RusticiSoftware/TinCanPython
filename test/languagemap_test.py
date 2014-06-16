@@ -14,31 +14,30 @@
 
 import unittest
 from tincan.languagemap import LanguageMap
-from tincan.languagemap import LanguageMapTypeError
 
 
 class TestLanguageMap(unittest.TestCase):
 
     def test_InitNoArgs(self):
         lmap = LanguageMap()
-        self.assertEqual(lmap.get_mapping(), {})
+        self.assertEqual(lmap, {})
         self.assertIsInstance(lmap, LanguageMap)
 
     def test_InitEmpty(self):
         lmap = LanguageMap({})
-        self.assertEqual(lmap.get_mapping(), {})
+        self.assertEqual(lmap, {})
         self.assertIsInstance(lmap, LanguageMap)
 
     def test_InitExceptionNotMap(self):
-        with self.assertRaises(LanguageMapTypeError):
+        with self.assertRaises(ValueError):
             lmap = LanguageMap('not map')
 
     def test_InitExceptionBadMap(self):
-        with self.assertRaises(LanguageMapTypeError):
+        with self.assertRaises(ValueError):
             lmap = LanguageMap({"bad map"})
 
     def test_InitExceptionNestedObject(self):
-        with self.assertRaises(LanguageMapTypeError):
+        with self.assertRaises(TypeError):
             lmap = LanguageMap({"en-US": {"nested": "object"}})
 
     def test_InitDict(self):
@@ -57,13 +56,8 @@ class TestLanguageMap(unittest.TestCase):
 
     def test_InitUnpackExceptionNestedObject(self):
         obj = {"en-US": {"nested": "object"}}
-        with self.assertRaises(LanguageMapTypeError):
+        with self.assertRaises(TypeError):
             lmap = LanguageMap(**obj)
-
-    def test_InitUnpackMapArg(self):
-        obj = {"map": {"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"}}
-        lmap = LanguageMap(**obj)
-        self.mapVerificationHelper(lmap)
 
     def test_FromJSON(self):
         lmap = LanguageMap.from_json('{"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"}')
@@ -74,18 +68,23 @@ class TestLanguageMap(unittest.TestCase):
             lmap = LanguageMap.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionNestedObject(self):
-        with self.assertRaises(LanguageMapTypeError):
+        with self.assertRaises(TypeError):
             lmap = LanguageMap.from_json('{"fr-CA": "test", "en-US": {"nested": "object"}}')
 
     def test_FromJSONEmptyObject(self):
         lmap = LanguageMap.from_json('{}')
         self.assertIsInstance(lmap, LanguageMap)
-        self.assertEqual(lmap.get_mapping(), {})
+        self.assertEqual(lmap, {})
 
-    def test_AsVersion(self):
+    def test_AsVersionEmpty(self):
         lmap = LanguageMap()
         check = lmap.as_version()
-        self.assertEqual(lmap, check)
+        self.assertEqual(check, {})
+
+    def test_AsVersionNotEmpty(self):
+        lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
+        check = lmap.as_version()
+        self.assertEqual(check, {"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
 
     def test_ToJSONFromJSON(self):
         json_str = '{"fr-CA": "CA-test", "en-US": "US-test", "fr-FR": "FR-test"}'
@@ -100,7 +99,7 @@ class TestLanguageMap(unittest.TestCase):
 
     def test_getItemException(self):
         lmap = LanguageMap()
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(KeyError):
             lmap['en-Anything']
 
     def test_setItem(self):
@@ -112,50 +111,16 @@ class TestLanguageMap(unittest.TestCase):
 
     def test_setItemException(self):
         lmap = LanguageMap()
-        with self.assertRaises(LanguageMapTypeError):
-            lmap['en-US'] = {"test": "notstring"}
-        self.assertEqual(lmap.get_mapping(), {})
-
-    def test_setMapping(self):
-        lmap = LanguageMap({"hy-PH": "test", "ph-HY": "test", "en-AT": "test"})
-        lmap.set_mapping({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
-        self.mapVerificationHelper(lmap)
-
-    def test_setMappingExceptionNoArgs(self):
-        lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
         with self.assertRaises(TypeError):
-            lmap.set_mapping()
-        self.mapVerificationHelper(lmap)
-
-    def test_setMappingEmpty(self):
-        lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
-        lmap.set_mapping({})
-        self.assertEqual(len(lmap.get_mapping()), 0)
-
-    def test_setMappingExceptionNestedObject(self):
-        lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
-        with self.assertRaises(LanguageMapTypeError):
-            lmap.set_mapping({"fr-CA": "test", "en-US": {"nested": "object"}})
-        self.mapVerificationHelper(lmap)
-
-    def test_setMappingExceptionBadMap(self):
-        lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
-        with self.assertRaises(LanguageMapTypeError):
-            lmap.set_mapping({"bad map"})
-        self.mapVerificationHelper(lmap)
-
-    def test_setMappingExceptionNotMap(self):
-        lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
-        with self.assertRaises(LanguageMapTypeError):
-            lmap.set_mapping("not a map")
-        self.mapVerificationHelper(lmap)
+            lmap['en-US'] = {"test": "notstring"}
+        self.assertEqual(lmap, {})
 
     def mapVerificationHelper(self, lmap):
         self.assertIsInstance(lmap, LanguageMap)
-        self.assertEqual(len(lmap.get_mapping()), 3)
-        self.assertIn('en-US', lmap.get_mapping())
-        self.assertIn('fr-CA', lmap.get_mapping())
-        self.assertIn('fr-FR', lmap.get_mapping())
+        self.assertEqual(len(lmap), 3)
+        self.assertIn('en-US', lmap)
+        self.assertIn('fr-CA', lmap)
+        self.assertIn('fr-FR', lmap)
         self.assertEqual(lmap['en-US'], 'US-test')
         self.assertEqual(lmap['fr-CA'], 'CA-test')
         self.assertEqual(lmap['fr-FR'], 'FR-test')
