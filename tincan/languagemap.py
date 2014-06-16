@@ -12,7 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincanbase import TinCanBaseObject
+from serializablebase import SerializableBase
+from version import Version
 
 """
 .. module:: languagemap
@@ -21,18 +22,14 @@ from tincanbase import TinCanBaseObject
 """
 
 
-class LanguageMapTypeError(Exception):
-    pass
+class LanguageMap(dict, SerializableBase):
 
-
-class LanguageMap(TinCanBaseObject):
-
-    def __init__(self, map=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         """Initializes a LanguageMap with the given mapping
 
         This constructor takes in two arguments, but will only acknowledge one.
-        The kwargs parameter is to support the from_json method, and the \
-        unpacking (**) operator. If the 'map' argument is specified, kwargs \
+        The kwargs parameter is to support the from_json method, and the
+        unpacking (**) operator. If the 'map' argument is specified, kwargs
         will be ignored.
 
         :param map: The intended language mapping
@@ -41,23 +38,9 @@ class LanguageMap(TinCanBaseObject):
         :raises: LanguageMapTypeError
 
         """
-        self.set_mapping(map)
-        if map is None and kwargs:
-            self.set_mapping(kwargs)
-
-    def __repr__(self):
-        return '%s' % self.__dict__
-
-    def __getitem__(self, prop):
-        """Allows bracket notation for retrieving values with hyphenated keys
-
-        :param prop: The property to return
-        :type prop: str
-
-        :raises: AttributeError
-
-        """
-        return getattr(self, prop)
+        check_args = dict(*args, **kwargs)
+        map(lambda(k,v): (k, self.check_basestring(v)), check_args.iteritems())
+        super(LanguageMap, self).__init__(check_args)
 
     def __setitem__(self, prop, value):
         """Allows bracket notation for setting values with hyphenated keys
@@ -70,40 +53,25 @@ class LanguageMap(TinCanBaseObject):
         :raises: NameError, LanguageMapTypeError
 
         """
-        if isinstance(value, basestring):
-            setattr(self, prop, value)
-        else:
-            raise LanguageMapTypeError("Value must be of type string")
+        self.check_basestring(value)
+        super(LanguageMap, self).__setitem__(prop, value)
 
-    def set_mapping(self, map):
-        """Provides error checking when setting the mapping
+    def _as_version(self, version=Version.latest):
+        """Overrides :mod:`base`.as_version. Returns a dict that represents
+        the LanugageMap
 
-        :param map: The map that contains the desired keys and values
-        :type map: dict, LanguageMap
-
-        :raises: LanguageMapTypeError
+        :param version: the desired target version for the LanguageMap
+        :type version: str
 
         """
-        if map is not None:
-            new_map = {}
-            if isinstance(map, dict):
-                for k, v in map.iteritems():
-                    if not isinstance(v, basestring):
-                        raise LanguageMapTypeError("Mapping may not contain nested objects or None")
-                    new_map[k] = v
-            elif isinstance(map, LanguageMap):
-                for k, v in vars(map).iteritems():
-                    if not isinstance(v, basestring):
-                        raise LanguageMapTypeError("Mapping may not contain nested objects or None")
-                    new_map[k] = v
-            else:
-                raise LanguageMapTypeError("Arguments cannot be coerced into a LanguageMap")
+        return dict(self)
 
-            self.__dict__ = new_map
+    def check_basestring(self, value):
+        """Ensures that value is an instance of basestring
 
-    def get_mapping(self):
-        """Retrieve the mapping
+        :param value: the value to check
+        :type value: any
 
-        .. note:: calling this method is identical to calling vars(languagemap_inst)
         """
-        return self.__dict__
+        if not isinstance(value, basestring):
+            raise TypeError("Value must be of type basestring")

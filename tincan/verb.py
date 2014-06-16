@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincanbase import TinCanBaseObject
+from serializablebase import SerializableBase
 from languagemap import LanguageMap
 
 """
@@ -22,60 +22,65 @@ from languagemap import LanguageMap
 """
 
 
-class Verb(TinCanBaseObject):
+class Verb(SerializableBase):
 
-    def __init__(self, id=None, display=None):
-        """Initializes a Verb Object with the given id and display
+    _props_req = [
+        'id',
+    ]
 
-        :param id: The id of the verb
-        :type id: str
-        :param display: The LanguageMap indicating how the verb object \
-        should be displayed
-        :type display: dict, :mod:`tincan.languagemap`
+    _props = [
+        'display'
+    ]
 
-        """
-        self.set_id(id)
-        self.set_display(display)
+    _props.extend(_props_req)
 
     def __repr__(self):
         return 'Verb: %s' % self.__dict__
 
-    def set_id(self, id):
-        """Provides error checking when setting the id property
+    @property
+    def id(self):
+        return self._id
 
-        :param id: The desired value for id
-        :type id: str
+    @id.setter
+    def id(self, value):
+        """Setter for the _id attribute. Tries to convert to str
 
-        :raises: ValueError
-
-        """
-        if id is not None:
-            if id == '' or not isinstance(id, basestring):
-                raise ValueError("id cannot be set to an empty string or non-string type")
-        self.id = id
-
-    def get_id(self):
-        """Retrieve the id of the verb
-        """
-        return self.id
-
-    def set_display(self, display):
-        """Provides error checking when setting the display property
-
-        :param display: The desired value for display
-        :type display: dict, :mod:`tincan.languagemap`
+        :param value: The desired value for id
+        :type value: basestring
 
         """
-        if display is not None:
-            if not display:
-                display = None
-            elif not isinstance(display, LanguageMap):
-                display = LanguageMap(display)
-            elif len(vars(display)) == 0:
-                display = None
-        self.display = display
+        if value is not None:
+            if value == '':
+                raise ValueError(
+                    "Property 'id' in 'tincan.%s' object must be not empty." \
+                    % self.__class__.__name__)
+        self._id = None if value is None else str(value)
 
-    def get_display(self):
-        """Retrieve the display of the verb
+    @id.deleter
+    def id(self):
+        del self._id
+
+    @property
+    def display(self):
+        return self._display
+
+    @display.setter
+    def display(self, value):
+        """Setter for the _display attribute. Tries to convert to str
+
+        :param value: The desired value for display
+        :type value: LanguageMap | dict
+
         """
-        return self.display
+        if value is not None:
+            if not value:
+                value = None
+            elif not isinstance(value, LanguageMap):
+                value = LanguageMap(value)
+            elif len(value) == 0:
+                value = None
+            self._display = value
+
+    @display.deleter
+    def display(self):
+        del self._display
