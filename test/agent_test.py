@@ -1,6 +1,6 @@
-# Copyright 2014 Rustici Software
+#    Copyright 2014 Rustici Software
 #
-#   Licensed under the Apache License, Version 2.0 (the "License");
+#    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
 #
@@ -14,7 +14,7 @@
 
 import unittest
 from tincan.agent import Agent
-from tincan.agentaccount import AgentAccount
+from tincan.agent_account import AgentAccount
 
 class TestAgent(unittest.TestCase):
 
@@ -144,7 +144,7 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent.openid, 'test')
 
     def test_FromJSONAccount(self):
-        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":"{'name':'test', 'homepage':'test.com'}"}''')
+        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}}''')
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
@@ -153,7 +153,7 @@ class TestAgent(unittest.TestCase):
         self.accountVerificationHelper(agent.account)
 
     def test_FromJSONObjectType(self):
-        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":"{'name':'test', 'homepage':'test.com'}", "objecttype":"Test"}''')
+        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}, "objecttype":"Test"}''')
         self.assertEqual(agent.objecttype, 'Test')
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
@@ -162,7 +162,7 @@ class TestAgent(unittest.TestCase):
         self.accountVerificationHelper(agent.account)
 
     def test_InitUnpack(self):
-        obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":"{'name':'test', 'homepage':'test.com'}"}
+        obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":{'name':'test', 'homepage':'test.com'}}
         agent = Agent(**obj)
         self.assertEqual(agent.objecttype, "Agent")
         self.assertEqual(agent.name, 'test')

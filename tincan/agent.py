@@ -12,9 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-import ast
-from serializablebase import SerializableBase
-from tincan.agentaccount import AgentAccount
+from tincan.serializablebase import SerializableBase
+from tincan.agent_account import AgentAccount
 
 class Agent(SerializableBase):
     _props_req = [
@@ -185,10 +184,8 @@ class Agent(SerializableBase):
         if value is not None:
             if not value:
                 value = None
-            elif isinstance(value, basestring):
-                value = AgentAccount(name=ast.literal_eval(value)["name"], homepage=ast.literal_eval(value)["homepage"])
             elif not isinstance(value, AgentAccount):
-                value = AgentAccount(name=value["name"], homepage=value["homepage"])
+                value = AgentAccount(value)
             elif len(vars(value)) == 0:
                 value = None
         self._account = value
