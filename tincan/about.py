@@ -41,7 +41,7 @@ class About(SerializableBase):
 
         if value is None:
             self._version = Version.latest
-        elif isinstance(object, basestring):
+        elif isinstance(value, basestring):
             if value not in Version.supported:
                 raise ValueError(
                     "Tried to set property 'version' in a 'tincan.%s' object "
@@ -53,6 +53,8 @@ class About(SerializableBase):
                         ', '.join(map(repr, Version.supported)),
                     )
                 )
+
+            self._version = value
         else:
             raise TypeError(
                 "Property 'version' in a 'tincan.%s' object must be set with a "
