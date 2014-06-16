@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from tincan.base import Base
+from tincan.serializable_base import SerializableBase
 
 
-class StatementsResult(Base):
+class StatementsResult(SerializableBase):
     """
     Statements result model class, returned by LRS calls to get
     multiple statements.
@@ -15,10 +15,14 @@ class StatementsResult(Base):
     rest. None otherwise.
     """
 
-    _props = [
+    _props_req = [
         'statements',
+    ]
+
+    _props = [
         'more',
     ]
+    _props.extend(_props_req)
 
     @property
     def statements(self):
@@ -26,8 +30,11 @@ class StatementsResult(Base):
 
     @statements.setter
     def statements(self, value):
-        if value is None or isinstance(value, list):
+        if isinstance(value, list):
             self._statements = value
+            return
+        if value is None:
+            self._statements = []
             return
         try:
             if isinstance(value, dict):
@@ -43,10 +50,6 @@ class StatementsResult(Base):
             msg += e.message
             raise TypeError(msg)
 
-    @statements.deleter
-    def statements(self):
-        del self._statements
-        
     
     @property
     def more(self):

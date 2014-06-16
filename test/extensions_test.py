@@ -4,6 +4,7 @@ from tincan.extensions import Extensions
 from test_utils import TinCanBaseTestCase
 import unittest
 
+
 class ExtensionsTest(TinCanBaseTestCase):
     def test_serialize_deserialize(self):
         ext = Extensions()
@@ -23,7 +24,7 @@ class ExtensionsTest(TinCanBaseTestCase):
             # 'http://example.com/object': get_agent('Random', 'mbox', 'mailto:random@example.com'),
         }
 
-        ext = Extensions(data=data)
+        ext = Extensions(data)
         self.assertSerializeDeserialize(ext)
 
     def test_read_write(self):
