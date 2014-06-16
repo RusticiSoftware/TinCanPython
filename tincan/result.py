@@ -4,21 +4,11 @@ from tincan.serializable_base import SerializableBase
 from tincan.score import Score
 from tincan.extensions import Extensions
 from tincan.version import Version
+from tincan.conversions.bytearray import make_bytearray
 ##TODO: add converters for ISO 8601 duration <-> timedelta
 # from tincan.iso8601 import make_timedelta, make_duration
 
 # from datetime import timedelta
-
-
-def make_bytearray(value):
-    if isinstance(value, unicode):
-        return bytearray(value, 'utf-8')
-    else:
-        return bytearray(value)
-
-
-def jsonify_bytearray(value):
-    return value.decode('utf-8')
 
 
 class Result(SerializableBase):

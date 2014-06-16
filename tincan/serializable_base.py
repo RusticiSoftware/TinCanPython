@@ -17,6 +17,7 @@
 import json
 from tincan.base import Base
 from tincan.version import Version
+from tincan.conversions.bytearray import jsonify_bytearray
 
 """
 .. module:: serializable_base
@@ -46,7 +47,7 @@ class SerializableBase(Base):
         """
         data = json.loads(json_data)
         result = cls(**data)
-        if "_from_json" in dir(result):
+        if hasattr(result, "_from_json"):
             result._from_json()
         return result
 
@@ -87,6 +88,8 @@ class SerializableBase(Base):
                 result[k] = v._as_version(version)
             elif isinstance(v, SerializableBase):
                 result[k] = v.as_version(version)
+            elif isinstance(v, bytearray):
+                result[k] = jsonify_bytearray(v)
             else:
                 result[k] = v
         result = self._filter_none(result)
