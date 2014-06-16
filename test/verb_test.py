@@ -14,103 +14,88 @@
 
 import unittest
 from tincan.verb import Verb
-from tincan.languagemap import LanguageMap, LanguageMapTypeError
+from tincan.languagemap import LanguageMap
+
 
 class TestVerb(unittest.TestCase):
 
     def test_InitEmpty(self):
         verb = Verb()
-        self.assertIsNone(verb.get_id())
-        self.assertIsNone(verb.get_display())
+        self.assertIsNone(verb.id)
 
     def test_InitExceptionEmptyId(self):
         with self.assertRaises(ValueError):
-            verb = Verb('')
+            verb = Verb(id='')
 
     def test_InitId(self):
-        verb = Verb('test')
-        self.assertEqual(verb.get_id(), 'test')
-        self.assertIsNone(verb.get_display())
-
-    def test_InitExceptionBadId(self):
-        with self.assertRaises(ValueError):
-            verb = Verb(id={})
+        verb = Verb(id='test')
+        self.assertEqual(verb.id, 'test')
 
     def test_InitDisplay(self):
         verb = Verb(display={"en-US": "test"})
-        self.assertIsNone(verb.get_id())
-        self.displayVerificationHelper(verb.get_display())
+        self.assertIsNone(verb.id)
+        self.displayVerificationHelper(verb.display)
 
     def test_InitEmptyDisplay(self):
-        verb = Verb('test', {})
-        self.assertEqual(verb.get_id(), 'test')
-        self.assertIsNone(verb.get_display())
+        verb = Verb(id='test', display={})
+        self.assertEqual(verb.id, 'test')
+        self.assertIsNone(verb.display)
 
     def test_InitAnonDisplay(self):
-        verb = Verb('test', {"en-US": "test"})
-        self.assertEqual(verb.get_id(), 'test')
-        self.displayVerificationHelper(verb.get_display())
+        verb = Verb(id='test', display={"en-US": "test"})
+        self.assertEqual(verb.id, 'test')
+        self.displayVerificationHelper(verb.display)
 
     def test_InitLanguageMapDisplay(self):
-        verb = Verb('test', LanguageMap({"en-US": "test"}))
-        self.assertEqual(verb.get_id(), 'test')
-        self.displayVerificationHelper(verb.get_display())
+        verb = Verb(id='test', display=LanguageMap({"en-US": "test"}))
+        self.assertEqual(verb.id, 'test')
+        self.displayVerificationHelper(verb.display)
 
     def test_InitEmptyLanguageMapDisplay(self):
-        verb = Verb('test', LanguageMap({}))
-        self.assertEqual(verb.get_id(), 'test')
-        self.assertIsNone(verb.get_display())
+        verb = Verb(id='test', display=LanguageMap({}))
+        self.assertEqual(verb.id, 'test')
+        self.assertIsNone(verb.display)
 
     def test_InitUnpackDisplay(self):
         obj = {"display": {"en-US": "test"}}
         verb = Verb(**obj)
-        self.displayVerificationHelper(verb.get_display())
+        self.displayVerificationHelper(verb.display)
 
     def test_InitUnpack(self):
         obj = {"id": "test", "display": {"en-US": "test"}}
         verb = Verb(**obj)
-        self.assertEqual(verb.get_id(), 'test')
-        self.displayVerificationHelper(verb.get_display())
+        self.assertEqual(verb.id, 'test')
+        self.displayVerificationHelper(verb.display)
 
     def test_InitExceptionUnpackEmptyId(self):
         obj = {"id": ""}
         with self.assertRaises(ValueError):
             verb = Verb(**obj)
 
-    def test_InitExceptionUnpackBadId(self):
-        obj = {"id": {}}
-        with self.assertRaises(ValueError):
-            verb = Verb(**obj)
-
     def test_InitExceptionUnpackFlatDisplay(self):
         obj = {"id": "test", "display": "test"}
-        with self.assertRaises(LanguageMapTypeError):
+        with self.assertRaises(ValueError):
             verb = Verb(**obj)
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
             verb = Verb.from_json('{"bad JSON"}')
 
-    def test_FromJSONExceptionBadId(self):
-        with self.assertRaises(ValueError):
-            verb = Verb.from_json('{"id": {}}')
-
     def test_FromJSONExceptionMalformedJSON(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(AttributeError):
             verb = Verb.from_json('{"test": "invalid property"}')
 
     """ An exception is best here to keep client code from thinking its doing \
     something its not when instantiating a Verb """
 
     def test_FromJSONExceptionPartiallyMalformedJSON(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(AttributeError):
             verb = Verb.from_json('{"test": "invalid property", "id": \
             "valid property"}')
 
     def test_FromJSONEmptyObject(self):
         verb = Verb.from_json('{}')
-        self.assertIsNone(verb.get_id())
-        self.assertIsNone(verb.get_display())
+        self.assertIsNone(verb.id)
 
     def test_FromJSONExceptionEmptyId(self):
         with self.assertRaises(ValueError):
@@ -122,37 +107,47 @@ class TestVerb(unittest.TestCase):
 
     def test_FromJSONId(self):
         verb = Verb.from_json('{"id": "test"}')
-        self.assertEqual(verb.get_id(), 'test')
-        self.assertIsNone(verb.get_display())
+        self.assertEqual(verb.id, 'test')
 
     def test_FromJSONExceptionFlatDisplay(self):
-        with self.assertRaises(LanguageMapTypeError):
+        with self.assertRaises(ValueError):
             verb = Verb.from_json('{"id": "test", "display": "flatdisplay"}')
 
     def test_FromJSON(self):
         verb = Verb.from_json('{"id": "test", "display": {"en-US": "test"}}')
-        self.assertEqual(verb.get_id(), 'test')
-        self.displayVerificationHelper(verb.get_display())
+        self.assertEqual(verb.id, 'test')
+        self.displayVerificationHelper(verb.display)
+
+    def test_AsVersionEmpty(self):
+        verb = Verb()
+        verb2 = verb.as_version()
+        self.assertEqual(verb2, {})
+
+    def test_AsVersionNotEmpty(self):
+        verb = Verb(id='test')
+        verb2 = verb.as_version()
+        self.assertEqual(verb2, {'id': 'test'})
 
     def test_AsVersion(self):
-        verb = Verb()
-        verb2 = verb.as_version("1.0.0")
-        self.assertEqual(verb2, verb)
+        verb = Verb(id='test', display={'en-US': 'test'})
+        verb2 = verb.as_version()
+        self.assertEqual(verb2, {'id': 'test', 'display': {'en-US': 'test'}})
+
+    def test_AsVersionIgnoreNone(self):
+        verb = Verb(display={'en-US': 'test'})
+        verb2 = verb.as_version()
+        self.assertEqual(verb2, {'display': {'en-US': 'test'}})
 
     def test_ToJSONFromJSON(self):
         json_str = '{"id": "test", "display": {"en-US": "test"}}'
         verb = Verb.from_json(json_str)
-        self.assertEqual(verb.get_id(), 'test')
-        self.displayVerificationHelper(verb.get_display())
+        self.assertEqual(verb.id, 'test')
+        self.displayVerificationHelper(verb.display)
         self.assertEqual(verb.to_json(), json_str)
 
     def test_ToJSON(self):
         verb = Verb(**{"id": "test", "display": {"en-US": "test"}})
         self.assertEqual(verb.to_json(), '{"id": "test", "display": {"en-US": "test"}}')
-
-    def test_ToJSONIgnoreNoneDisplay(self):
-        verb = Verb('test')
-        self.assertEqual(verb.to_json(), '{"id": "test"}')
 
     def test_ToJSONIgnoreNoneId(self):
         verb = Verb(display={"en-US": "test"})
@@ -163,48 +158,36 @@ class TestVerb(unittest.TestCase):
         self.assertEqual(verb.to_json(), '{}')
 
     def test_setId(self):
-        verb = Verb('test')
-        verb.set_id('newId')
-        self.assertEqual(verb.get_id(), 'newId')
-        self.assertIsNone(verb.get_display())
+        verb = Verb(id='test')
+        verb.id = 'newId'
+        self.assertEqual(verb.id, 'newId')
 
     def test_setIdExceptionEmptyString(self):
-        verb = Verb('test')
+        verb = Verb(id='test')
         with self.assertRaises(ValueError):
-            verb.set_id('')
-        self.assertEqual(verb.get_id(), 'test')
-        self.assertIsNone(verb.get_display())
-
-    def test_setIdExceptionNotString(self):
-        verb = Verb('test')
-        with self.assertRaises(ValueError):
-            verb.set_id({"not": "string"})
-        self.assertEqual(verb.get_id(), 'test')
-        self.assertIsNone(verb.get_display())
+            verb.id = ''
+        self.assertEqual(verb.id, 'test')
 
     def test_setDisplay(self):
         verb = Verb(display=LanguageMap({"fr-CA": "not test"}))
-        verb.set_display({"en-US": "test"})
-        self.assertIsNone(verb.get_id())
-        self.displayVerificationHelper(verb.get_display())
+        verb.display = {"en-US": "test"}
+        self.assertIsNone(verb.id)
+        self.displayVerificationHelper(verb.display)
 
     def test_setDisplayExceptionNestedObject(self):
         verb = Verb(display=LanguageMap({"en-US": "test"}))
-        with self.assertRaises(LanguageMapTypeError):
-            verb.set_display({"fr-CA": {"nested": "object"}})
-        self.displayVerificationHelper(verb.get_display())
+        with self.assertRaises(TypeError):
+            verb.display = {"fr-CA": {"nested": "object"}}
+        self.displayVerificationHelper(verb.display)
 
     def test_setDisplayExceptionBadMap(self):
         verb = Verb(display=LanguageMap({"en-US": "test"}))
-        with self.assertRaises(LanguageMapTypeError):
-            verb.set_display({"bad map"})
-        self.displayVerificationHelper(verb.get_display())
+        with self.assertRaises(ValueError):
+            verb.display = {"bad map"}
+        self.displayVerificationHelper(verb.display)
 
     def displayVerificationHelper(self, display):
         self.assertIsInstance(display, LanguageMap)
-        self.assertEqual(len(vars(display)), 1)
-        self.assertIn('en-US', vars(display))
+        self.assertEqual(len(display), 1)
+        self.assertIn('en-US', display)
         self.assertEqual(display['en-US'], 'test')
-
-#suite = unittest.TestLoader().loadTestsFromTestCase(TestVerb)
-#unittest.TextTestRunner(verbosity=2).run(suite)
