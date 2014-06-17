@@ -14,7 +14,7 @@
 
 import unittest
 from tincan.attachment import Attachment
-from tincan.languagemap import LanguageMap
+from tincan.language_map import LanguageMap
 
 class TestAttachment(unittest.TestCase):
 
