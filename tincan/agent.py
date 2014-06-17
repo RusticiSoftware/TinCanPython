@@ -65,7 +65,7 @@ class Agent(SerializableBase):
         newtype = "Agent"
         if value is not None:
             if not isinstance(value, basestring):
-                value = str(value)
+                newtype = str(value)
             elif value is '':
                 raise ValueError("Property objecttype can not be set to an empty string")
             else: newtype = value
