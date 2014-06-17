@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 import datetime
-from tincan.tincanbase import Base
+from tincan.base import Base
 
 
 class Document(Base):
@@ -32,8 +32,8 @@ class Document(Base):
 
     _props = [
         'id',
-        'content_type',
         'content',
+        'content_type',
         'etag',
         'time_stamp',
     ]

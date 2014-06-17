@@ -78,10 +78,10 @@ class DocumentTest(unittest.TestCase):
 
     def test_setters(self):
         doc = Document()
-        doc.id = "test",
-        doc.content_type = "test type",
-        doc.content = bytearray("test bytearray", "utf-8"),
-        doc.etag = "test etag",
+        doc.id = "test"
+        doc.content_type = "test type"
+        doc.content = bytearray("test bytearray", "utf-8")
+        doc.etag = "test etag"
         doc.time_stamp = "test time_stamp"
 
         self.assertEqual(doc.id, "test")
@@ -114,3 +114,7 @@ class DocumentTest(unittest.TestCase):
         dt = datetime.datetime.now()
         doc.time_stamp = dt
         self.assertEqual(doc.time_stamp, dt.isoformat())
+
+if __name__ == "__main__":
+    suite = unittest.TestLoader().loadTestsFromTestCase(DocumentTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

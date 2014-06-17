@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.tincanbase import Base
+from tincan.base import Base
 
 
 class HTTPRequest(Base):
@@ -83,10 +83,6 @@ class HTTPRequest(Base):
             str(value)
         self._method = value
 
-    @method.deleter
-    def method(self):
-        del self._method
-
     @property
     def resource(self):
         return self._resource
@@ -101,10 +97,6 @@ class HTTPRequest(Base):
         if not isinstance(value, basestring) and value is not None:
             str(value)
         self._resource = value
-
-    @resource.deleter
-    def resource(self):
-        del self._resource
         
     @property
     def headers(self):
@@ -117,18 +109,11 @@ class HTTPRequest(Base):
         :param value: The request's headers
         :type value: dict
         """
-        if value is None:
-            value = {}
-        elif not isinstance(value, dict):
-            raise TypeError(
-                "Property 'headers' in 'tincan.%s' must be set with a dict." % self.__class__.__name__
-            )
-        self._headers = value
+        val_dict = {}
+        if value is not None:
+            val_dict.update(value if isinstance(value, dict) else vars(value))
+        self._headers = val_dict
 
-    @headers.deleter
-    def headers(self):
-        del self._headers
-        
     @property
     def query_params(self):
         return self._query_params
@@ -140,17 +125,10 @@ class HTTPRequest(Base):
         :param value: The request's query parameters
         :type value: dict
         """
-        if value is None:
-            value = {}
-        elif not isinstance(value, dict):
-            raise TypeError(
-                "Property 'query_params' in 'tincan.%s' must be set with a dict." % self.__class__.__name__
-            )
-        self._query_params = value
-
-    @query_params.deleter
-    def query_params(self):
-        del self._query_params
+        val_dict = {}
+        if value is not None:
+            val_dict.update(value if isinstance(value, dict) else vars(value))
+        self._query_params = val_dict
         
     @property
     def content(self):
