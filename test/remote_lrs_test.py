@@ -32,11 +32,11 @@ from tincan.result import Result
 from tincan.substatement import SubStatement
 from tincan.about import About
 from tincan.statements_result import StatementsResult
-from tincan.documement import (
-    BaseDocument,
+from tincan.documents import (
+    Document,
     StateDocument,
     ActivityProfileDocument,
-    AgentProfileDocument
+    AgentProfileDocument,
 )
 
 
@@ -48,8 +48,8 @@ class RemoteLRSTest(unittest.TestCase):
         self.username = lrs_properties.username
         self.password = lrs_properties.password
         self.lrs = RemoteLRS(
-            self.version,
-            self.endpoint,
+            version=self.version,
+            version=self.endpoint,
             username=self.username,
             password=self.password
         )
@@ -101,7 +101,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.substatement = SubStatement(
             actor=self.agent,
             verb=self.verb,
-            target=self.parent
+            object=self.parent
         )
 
     def setUp(self):
@@ -113,9 +113,9 @@ class RemoteLRSTest(unittest.TestCase):
     def test_instantiation(self):
         lrs = RemoteLRS()
         self.assertIsInstance(lrs, RemoteLRS)
-        self.assertIsNone(lrs.get_endpoint())
-        self.assertIsNone(lrs.get_auth())
-        self.assertEqual(Version.latest, lrs.get_version())
+        self.assertIsNone(lrs.endpoint)
+        self.assertIsNone(lrs.auth)
+        self.assertEqual(Version.latest, lrs.version)
 
     def test_about(self):
         response = self.lrs.about()
@@ -135,7 +135,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            target=self.activity
+            object=self.activity
         )
         response = self.lrs.save_statement(statement)
 
@@ -148,7 +148,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            target=self.activity,
+            object=self.activity,
             id=str(uuid.uuid4())
         )
         response = self.lrs.save_statement(statement)
@@ -161,7 +161,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            target=self.statement_ref,
+            object=self.statement_ref,
             id=str(uuid.uuid4())
         )
         response = self.lrs.save_statement(statement)
@@ -174,7 +174,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            target=self.substatement,
+            object=self.substatement,
             id=str(uuid.uuid4())
         )
         response = self.lrs.save_statement(statement)
@@ -187,12 +187,12 @@ class RemoteLRSTest(unittest.TestCase):
         statement1 = Statement(
             actor=self.agent,
             verb=self.verb,
-            target=self.parent
+            object=self.parent
         )
         statement2 = Statement(
             actor=self.agent,
             verb=self.verb,
-            target=self.activity,
+            object=self.activity,
             context=self.context
         )
         response = self.lrs.save_statements([statement1, statement2])
@@ -208,7 +208,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            target=self.activity,
+            object=self.activity,
             context=self.context,
             result=self.result,
             id=str(uuid.uuid4())

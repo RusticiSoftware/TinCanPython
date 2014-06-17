@@ -25,7 +25,7 @@ class StatementsResult(object):
         :param jobj: JSON object that will be used to construct the object
         :type jobj: JSON object
         """
-        content = json.load(object)
+        content = json.load(jobj)
         if "more" in content and content["more"] is not None:
             self.more_url = content["more"]
 

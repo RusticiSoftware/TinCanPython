@@ -21,7 +21,7 @@ from tincan.languagemap import LanguageMap
 
 class ActivityProfileDocumentTest(unittest.TestCase):
 
-    def __init__(self):
+    def setUp(self):
         self.activity = Activity(
             id="http://tincanapi.com/TinCanPython/Test/Unit/0",
             definition=ActivityDefinition()
@@ -31,9 +31,6 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         self.activity.definition.description(LanguageMap(
             {"en-US": "Unit test in the test suite for the Python library"})
         )
-
-    def setUp(self):
-        pass
 
     def tearDown(self):
         pass
@@ -95,12 +92,12 @@ class ActivityProfileDocumentTest(unittest.TestCase):
 
     def test_setters(self):
         doc = ActivityProfileDocument()
-        doc.id = "test",
-        doc.content_type = "test type",
-        doc.content = bytearray("test bytearray", "utf-8"),
-        doc.etag = "test etag",
+        doc.id = "test"
+        doc.content_type = "test type"
+        doc.content = bytearray("test bytearray", "utf-8")
+        doc.etag = "test etag"
         doc.time_stamp = "test time_stamp"
-        doc.activity=self.activity,
+        doc.activity = self.activity
 
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
@@ -130,3 +127,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         doc.activity = {"id": "http://tincanapi.com/TinCanPython/Test/Unit/0"}
 
         self.assertEquals(doc.activity, Activity(id="http://tincanapi.com/TinCanPython/Test/Unit/0"))
+
+if __name__ == "__main__":
+    suite = unittest.TestLoader().loadTestsFromTestCase(ActivityProfileDocumentTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

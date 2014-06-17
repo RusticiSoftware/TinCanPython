@@ -17,18 +17,17 @@ import urllib
 import json
 import base64
 
-from tincanbase import IgnoreNoneEncoder
 from urlparse import urlparse
-from lrs_response import LRSResponse
-from http_request import HTTPRequest
-from agent import Agent
-from statement import Statement
-from activity import Activity
-from statements_result import StatementsResult
-from about import About
-from version import Version
+from tincan.lrs_response import LRSResponse
+from tincan.http_request import HTTPRequest
+from tincan.agent import Agent
+from tincan.statement import Statement
+from tincan.activity import Activity
+from tincan.statements_result import StatementsResult
+from tincan.about import About
+from tincan.version import Version
+from tincan.base import Base
 from tincan.documents import (
-    Document,
     StateDocument,
     ActivityProfileDocument,
     AgentProfileDocument
@@ -40,27 +39,47 @@ from tincan.documents import (
 """
 
 
-class RemoteLRS(object):
+class RemoteLRS(Base):
+    """RemoteLRS Class
 
-    def __init__(self, version=Version.latest, endpoint=None, username=None, password=None, auth=None):
-        """RemoteLRS Constructor
+    :param endpoint: lrs endpoint
+    :type endpoint: str
+    :param version: Version used for lrs communication
+    :type version: str
+    :param username: username for lrs
+    :type username: str
+    :param password: password for lrs
+    :type password: str
+    :param auth: Authentication string
+    :type auth: str
+    """
 
-        :param endpoint: lrs endpoint
-        :type endpoint: str
-        :param version: Version used for lrs communication
-        :type version: str
-        :param username: username for lrs
-        :type username: str
-        :param password: password for lrs
-        :type password: str
-        :param auth: Authentication object
-        :type auth: dict
-        """
-        self.set_version(version)
-        if endpoint is not None:
-            self.set_endpoint(endpoint)
-        if auth is not None or (username is not None and password is not None):
-            self.set_auth(auth, username, password)
+    _props_req = [
+        "version",
+        "endpoint",
+        "auth",
+    ]
+
+    _props = []
+
+    _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        if (
+            "username" in kwargs
+            and kwargs["username"] is not None
+            and "password" in kwargs
+            and kwargs["password"] is not None
+            and not "auth" in kwargs
+        ):
+            #The base64 encode tacks on a \n character to the string which needs to be removed.
+            auth = "Basic " + base64.encodestring(str(kwargs["username"]) + ":" + str(kwargs["password"]))[:-1]
+
+            kwargs.pop("username")
+            kwargs.pop("password")
+            kwargs["auth"] = auth
+
+        super(RemoteLRS, self).__init__(*args, **kwargs)
 
     def send_request(self, request):
         """Establishes connection and returns http response based off of request.
@@ -74,13 +93,13 @@ class RemoteLRS(object):
         if "http" in request.resource:
             url = request.resource
         else:
-            url = self._endpoint
+            url = self.endpoint
             url += request.resource
 
-        headers = {"X-Experience-API-Version": self._version}
+        headers = {"X-Experience-API-Version": self.version}
 
-        if self._auth is not None:
-            headers["Authorization"] = self._auth
+        if self.auth is not None:
+            headers["Authorization"] = self.auth
 
         headers.update(request.headers)
 
@@ -99,13 +118,13 @@ class RemoteLRS(object):
         if params:
             path += "?" + params
 
-        web_req.request(request.method, path, headers)
-
         if hasattr(request, "content") and request.content is not None:
-            web_req.send(request.content)
+            web_req.request(request.method, path, body=request.content, headers=headers)
+        else:
+            web_req.request(request.method, path, headers=headers)
 
         response = web_req.getresponse()
-
+        data = response.read()
         web_req.close()
 
         if (200 <= response.status < 300
@@ -114,7 +133,7 @@ class RemoteLRS(object):
         else:
             success = False
 
-        return LRSResponse(success=success, request=request, response=response)
+        return LRSResponse(success=success, request=request, response=response, data=data)
 
     def about(self):
         """Gets about response from LRS
@@ -122,11 +141,11 @@ class RemoteLRS(object):
         :return: LRS Response object with the returned LRS about object as content
         :rtype: :mod:`tincan.lrs_response`
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="about")
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="about")
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = About.from_json(lrs_response.response.read())
+            lrs_response.content = About.from_json(lrs_response.data)
 
         return lrs_response
 
@@ -141,20 +160,20 @@ class RemoteLRS(object):
         if not isinstance(statement, Statement):
             statement = Statement(statement)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="POST", resource="statements")
+        request = HTTPRequest(endpoint=self.endpoint, method="POST", resource="statements")
 
         if statement.id is not None:
             request.method = "PUT"
             request.query_params["statementId"] = statement.id
 
         request.headers["Content-Type"] = "application/json"
-        request.content = statement.as_version(self._version)
+        request.content = statement.to_json(self.version)
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
             if statement.id is None:
-                statement.id = json.load(lrs_response.response.read())[0]
+                statement.id = json.loads(lrs_response.data)[0]
             lrs_response.content = statement
 
         return lrs_response
@@ -172,15 +191,15 @@ class RemoteLRS(object):
 
         statements = [make_statement(s) for s in statements]
 
-        request = HTTPRequest(endpoint=self._endpoint, method="POST", resource="statements")
+        request = HTTPRequest(endpoint=self.endpoint, method="POST", resource="statements")
         request.headers["Content-Type"] = "application/json"
 
-        request.content = json.dump([s.as_version(self._version) for s in statements], cls=IgnoreNoneEncoder)
+        request.content = json.dump([s.to_json(self.version) for s in statements])
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            id_list = json.load(lrs_response.response.read())
+            id_list = json.loads(lrs_response.data)
             for s, id in zip(statements, id_list):
                 s.id = id
 
@@ -196,13 +215,13 @@ class RemoteLRS(object):
         :return: LRS Response object with the retrieved statement as content
         :rtype: :mod:`tincan.lrs_response`
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="statements")
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="statements")
         request.query_params["statementId"] = statement_id
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = Statement.from_json(lrs_response.response.read())
+            lrs_response.content = Statement.from_json(lrs_response.data)
 
         return lrs_response
 
@@ -214,13 +233,13 @@ class RemoteLRS(object):
         :return: LRS Response object with the retrieved voided statement as content
         :rtype: :mod:`tincan.lrs_response`
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="statements")
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="statements")
         request.query_params["voidedStatementId"] = statement_id
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = Statement.from_json(lrs_response.response.read())
+            lrs_response.content = Statement.from_json(lrs_response.data)
 
         return lrs_response
 
@@ -249,19 +268,19 @@ class RemoteLRS(object):
         for k, v in query.iteritems():
             if v is not None:
                 if k == "agent":
-                    params[k] = v.as_version(self._version)
+                    params[k] = v.to_json(self.version)
                 elif k == "verb" or k == "activity":
                     params[k] = v.id
                 elif k in param_keys:
                     params[k] = v
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="statements")
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="statements")
         request.query_params = params
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = StatementsResult.from_json(lrs_response.response.read())
+            lrs_response.content = StatementsResult.from_json(lrs_response.data)
 
         return lrs_response
 
@@ -278,12 +297,12 @@ class RemoteLRS(object):
 
         more_url = self.get_endpoint_server_root() + more_url
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource=more_url)
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource=more_url)
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = StatementsResult(lrs_response.response.read())
+            lrs_response.content = StatementsResult(lrs_response.data)
 
         return lrs_response
 
@@ -307,8 +326,8 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/state")
-        request.query_params = {"activityId": activity.id, "agent": agent.as_version(self._version)}
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/state")
+        request.query_params = {"activityId": activity.id, "agent": agent.to_json(self.version)}
 
         if registration is not None:
             request.query_params["registration"] = registration
@@ -318,7 +337,7 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = json.load(lrs_response.response.read())
+            lrs_response.content = json.loads(lrs_response.data)
 
         return lrs_response
 
@@ -342,11 +361,11 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/state", ignore404=True)
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/state", ignore404=True)
 
         request.query_params = {
             "activityId": activity.id,
-            "agent": agent.as_version(self._version),
+            "agent": agent.to_json(self.version),
             "stateId": state_id
         }
 
@@ -356,11 +375,11 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            doc = StateDocument(id=state_id, content=lrs_response.response.read(), activity=activity, agent=agent)
+            doc = StateDocument(id=state_id, content=lrs_response.data, activity=activity, agent=agent)
             if registration is not None:
                 doc.registration = registration
 
-            headers = lrs_response.response.getheader()
+            headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
                 doc.time_stamp = headers["lastModified"]
             if "contentType" in headers and headers["contentType"] is not None:
@@ -380,15 +399,20 @@ class RemoteLRS(object):
         :return: LRS Response object with saved state as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="PUT", resource="activities/state", content=state.content)
-        request.headers["Content-Type"] = state.content_type
+        request = HTTPRequest(endpoint=self.endpoint, method="PUT", resource="activities/state")
+        if hasattr(state, "content"):
+            request.content = state.content
+            request.headers["Content-Type"] = state.content_type
+        else:
+            #TODO:Is this the correct way to handle this? Do something here?
+            pass
 
         if state.etag is not None:
             request.headers["If-Match"] = state.etag
 
         request.query_params = {"stateId": state.id,
                                 "activityId": state.activity.id,
-                                "agent": state.agent.as_version(self._version)}
+                                "agent": state.agent.to_json(self.version)}
 
         lrs_response = self.send_request(request)
         lrs_response.content = state
@@ -417,13 +441,13 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="DELETE", resource="activities/state")
+        request = HTTPRequest(endpoint=self.endpoint, method="DELETE", resource="activities/state")
 
         if etag is not None:
             request.headers["If-Match"] = etag
 
         request.query_params = {"activityId": activity.id,
-                                "agent": agent.as_version(self._version)}
+                                "agent": agent.to_json(self.version)}
 
         if state_id is not None:
             request.query_params["stateId"] = state_id
@@ -472,7 +496,7 @@ class RemoteLRS(object):
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/profile")
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/profile")
 
         request.query_params["activityId"] = activity.id
 
@@ -482,7 +506,7 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = json.load(lrs_response.response.read())
+            lrs_response.content = json.loads(lrs_response.data)
 
         return lrs_response
 
@@ -499,16 +523,16 @@ class RemoteLRS(object):
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="activities/profile", ignore404=True)
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/profile", ignore404=True)
 
         request.query_params = {"profileId": profile_id, "activityId": activity.id}
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            doc = ActivityProfileDocument(id=profile_id, content=lrs_response.response.read(), activity=activity)
+            doc = ActivityProfileDocument(id=profile_id, content=lrs_response.data, activity=activity)
 
-            headers = lrs_response.response.getheader()
+            headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
                 doc.time_stamp = headers["lastModified"]
             if "contentType" in headers and headers["contentType"] is not None:
@@ -528,8 +552,13 @@ class RemoteLRS(object):
         :return: LRS Response object with the saved activity profile doc as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="PUT", resource="activities/profile", content=profile.content)
-        request.headers["Content-Type"] = profile.content_type
+        request = HTTPRequest(endpoint=self.endpoint, method="PUT", resource="activities/profile")
+        if hasattr(profile, "content"):
+            request.content = profile.content
+            request.headers["Content-Type"] = profile.content_type
+        else:
+            #TODO:Is this the correct way to handle this? Do something here?
+            pass
 
         if profile.etag is not None:
             request.headers["If-Match"] = profile.etag
@@ -549,7 +578,7 @@ class RemoteLRS(object):
         :return: LRS Response object
         :rtype: LRSResponse
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="DELETE", resource="activities/profile")
+        request = HTTPRequest(endpoint=self.endpoint, method="DELETE", resource="activities/profile")
         request.query_params = {"profileId": profile.id, "activityId": profile.activity.id}
 
         if profile.etag is not None:
@@ -570,9 +599,9 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="agents/profile")
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="agents/profile")
 
-        request.query_params["agent"] = agent.as_version(self._version)
+        request.query_params["agent"] = agent.to_json(self.version)
 
         if since is not None:
             request.query_params["since"] = since
@@ -580,7 +609,7 @@ class RemoteLRS(object):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = json.load(lrs_response.response.read())
+            lrs_response.content = json.loads(lrs_response.data)
 
         return lrs_response
 
@@ -597,16 +626,16 @@ class RemoteLRS(object):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self._endpoint, method="GET", resource="agents/profile", ignore404=True)
+        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="agents/profile", ignore404=True)
 
-        request.query_params = {"profileId": profile_id, "agent": agent.as_version(self._version)}
+        request.query_params = {"profileId": profile_id, "agent": agent.to_json(self.version)}
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            doc = AgentProfileDocument(id=profile_id, content=lrs_response.response.read(), agent=agent)
+            doc = AgentProfileDocument(id=profile_id, content=lrs_response.data, agent=agent)
 
-            headers = lrs_response.response.getheader()
+            headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
                 doc.time_stamp = headers["lastModified"]
             if "contentType" in headers and headers["contentType"] is not None:
@@ -626,13 +655,18 @@ class RemoteLRS(object):
         :return: LRS Response object with the saved agent profile doc as content
         :rtype: LRSResponse
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="PUT", resource="agents/profile", content=profile.content)
-        request.headers["Content-Type"] = profile.content_type
+        request = HTTPRequest(endpoint=self.endpoint, method="PUT", resource="agents/profile")
+        if hasattr(profile, "content"):
+            request.content = profile.content
+            request.headers["Content-Type"] = profile.content_type
+        else:
+            #TODO:Is this the correct way to handle this? Do something here?
+            pass
 
-        if profile.etag is not None:
+        if hasattr(profile, "etag") and profile.etag is not None:
             request.headers["If-Match"] = profile.etag
 
-        request.query_params = {"profileId": profile.id, "agent": profile.agent.as_version(self._version)}
+        request.query_params = {"profileId": profile.id, "agent": profile.agent.to_json(self.version)}
 
         lrs_response = self.send_request(request)
         lrs_response.content = profile
@@ -647,77 +681,69 @@ class RemoteLRS(object):
         :return: LRS Response object
         :rtype: LRSResponse
         """
-        request = HTTPRequest(endpoint=self._endpoint, method="DELETE", resource="agents/profile")
-        request.query_params = {"profileId": profile.id, "agent": profile.agent.as_version(self._version)}
+        request = HTTPRequest(endpoint=self.endpoint, method="DELETE", resource="agents/profile")
+        request.query_params = {"profileId": profile.id, "agent": profile.agent.to_json(self.version)}
 
-        if profile.etag is not None:
+        if hasattr(profile, "etag") and profile.etag is not None:
             request.headers["If-Match"] = profile.etag
 
         return self.send_request(request)
 
-    def set_endpoint(self, endpoint):
-        """Sets the target LRS endpoint
-
-        :param endpoint: Endpoint of target LRS
-        :type endpoint: str
-        """
-        if not endpoint.endswith("/"):
-            endpoint += "/"
-
-        self._endpoint = endpoint
-
-    def get_endpoint(self):
-        """Get the endpoint of this RemoteLRS object
-
-        :return: Endpoint of target LRS
-        :rtype: str
-        """
+    @property
+    def endpoint(self):
         return self._endpoint
 
-    def set_version(self, version):
-        """Set the version to be used by this RemoteLRS object. Raises an exception for unsupported versions.
+    @endpoint.setter
+    def endpoint(self, value):
+        """Setter for the _endpoint attribute. Tries to convert to string. Appends a "/" if necessary.
 
-        :param version: Version to be used
-        :type version: str
+        :param value: Endpoint of target LRS
+        :type value: str
         """
-        if not version in Version.supported:
-            raise Exception("Unsupported Version")
+        if value is not None:
+            if not isinstance(value, basestring):
+                value = str(value)
+            if not value.endswith("/"):
+                value += "/"
 
-        self._version = version
+        self._endpoint = value
 
-    def get_version(self):
-        """Get the version being used by this RemoteLRS object.
-
-        :return: version being used
-        :rtype: str
-        """
+    @property
+    def version(self):
         return self._version
 
-    def set_auth(self, auth=None, username=None, password=None):
-        """Set the authority for this RemoteLRS object. Must be called with auth or with username and password.
-        If not, an exception is thrown.
+    @version.setter
+    def version(self, value):
+        """Setter for the _version attribute. Tries to convert to string.
+         Raises an exception for unsupported versions.
 
-        :param auth: Authority for this RemoteLRS object
-        :type auth: str
-        :param username: Username for the authority
-        :type username: str
-        :param password: Password for this authority
-        :type password: str
+        :param value: Version to be used
+        :type value: str
         """
-        if auth is not None:
-            self._auth = auth
-        elif username is not None and password is not None:
-            self._auth = "Basic " + base64.b64encode(username + ":" + password)
+        if value is not None:
+            if not isinstance(value, basestring):
+                str(value)
+            if not value in Version.supported:
+                raise Exception("Unsupported Version")
         else:
-            raise Exception("set_auth must be called with auth or with username and password")
+            value = Version.latest
 
-    def get_auth(self):
-        """Get the authority being used for this Remote LRS object
+        self._version = value
 
-        :return: Authority for this Remote LRS object
-        :rtype: str
-        """
+    @property
+    def auth(self):
         return self._auth
+
+    @auth.setter
+    def auth(self, value):
+        """Setter the _auth attribute. Tries to convert to string.
+
+        :param value: Authority for this RemoteLRS object
+        :type value: str
+        """
+        if value is not None and not isinstance(value, basestring):
+            str(value)
+        self._auth = value
 
     def get_endpoint_server_root(self):
         """Parses RemoteLRS object's endpoint and returns its root

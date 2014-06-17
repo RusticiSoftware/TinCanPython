@@ -14,7 +14,7 @@
 from httplib import HTTPResponse
 
 from tincan.http_request import HTTPRequest
-from tincan.tincanbase import Base
+from tincan.base import Base
 
 
 class LRSResponse(Base):
@@ -26,6 +26,8 @@ class LRSResponse(Base):
     :type request: HTTPRequest
     :param response: HTTPResponse object that was received from the LRS
     :type response: HTTPResponse
+    :param data: Body of the HTTPResponse
+    :type data: str
     :param content: Parsed content received from the LRS
     """
 
@@ -33,6 +35,7 @@ class LRSResponse(Base):
         'success',
         'request',
         'response',
+        'data',
     ]
 
     _props = [
@@ -52,13 +55,7 @@ class LRSResponse(Base):
         :param value: The LRSResponse's success
         :type value: bool
         """
-        if value is not None:
-            value = bool(value)
-        self._success = value
-
-    @success.deleter
-    def success(self):
-        del self._success
+        self._success = bool(value)
 
     @property
     def request(self):
@@ -76,17 +73,13 @@ class LRSResponse(Base):
 
         self._request = value
 
-    @request.deleter
-    def request(self):
-        del self._request
-
     @property
     def response(self):
         return self._response
 
     @response.setter
     def response(self, value):
-        """Setter for the _response attribute.
+        """Setter for the _response attribute. Must be set with None or an HTTPResponse object.
 
         :param value: The LRSResponse's response attribute
         :type value: HTTPResponse
@@ -97,9 +90,20 @@ class LRSResponse(Base):
             )
         self._response = value
 
-    @response.deleter
-    def response(self):
-        del self._response
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, value):
+        """Setter for the _data attribute. Should be set from response.read()
+
+        :param value: The body of the response object for the LRSResponse
+        :type value: str
+        """
+        if value is not None and not isinstance(value, basestring):
+            str(value)
+        self._data = value
 
     @property
     def content(self):

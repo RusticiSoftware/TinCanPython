@@ -19,11 +19,8 @@ from tincan.agent import Agent
 
 class AgentProfileDocumentTest(unittest.TestCase):
 
-    def __init__(self):
-        self.agent = Agent(id="mailto:tincanpython@tincanapi.com")
-
     def setUp(self):
-        pass
+        self.agent = Agent(mbox="mailto:tincanpython@tincanapi.com")
 
     def tearDown(self):
         pass
@@ -85,12 +82,12 @@ class AgentProfileDocumentTest(unittest.TestCase):
 
     def test_setters(self):
         doc = AgentProfileDocument()
-        doc.id = "test",
-        doc.content_type = "test type",
-        doc.content = bytearray("test bytearray", "utf-8"),
-        doc.etag = "test etag",
+        doc.id = "test"
+        doc.content_type = "test type"
+        doc.content = bytearray("test bytearray", "utf-8")
+        doc.etag = "test etag"
         doc.time_stamp = "test time_stamp"
-        doc.agent=self.agent,
+        doc.agent = self.agent
 
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
@@ -117,5 +114,10 @@ class AgentProfileDocumentTest(unittest.TestCase):
 
     def test_agent_setter(self):
         doc = AgentProfileDocument()
-        doc.agent = {"id": "mailto:tincanpython@tincanapi.com"}
-        self.assertEqual(doc.agent, self.agent)
+        doc.agent = {"mbox": "mailto:tincanpython@tincanapi.com"}
+        self.assertIsInstance(doc.agent, Agent)
+        self.assertEqual(doc.agent.mbox, self.agent.mbox)
+
+if __name__ == "__main__":
+    suite = unittest.TestLoader().loadTestsFromTestCase(AgentProfileDocumentTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

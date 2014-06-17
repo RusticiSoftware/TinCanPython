@@ -22,8 +22,8 @@ from tincan.languagemap import LanguageMap
 
 class StateDocumentTest(unittest.TestCase):
 
-    def __init__(self):
-        self.agent = Agent(id="mailto:tincanpython@tincanapi.com")
+    def setUp(self):
+        self.agent = Agent(mbox="mailto:tincanpython@tincanapi.com")
 
         self.activity = Activity(
             id="http://tincanapi.com/TinCanPython/Test/Unit/0",
@@ -34,9 +34,6 @@ class StateDocumentTest(unittest.TestCase):
         self.activity.definition.description(LanguageMap(
             {"en-US": "Unit test in the test suite for the Python library"})
         )
-
-    def setUp(self):
-        pass
 
     def tearDown(self):
         pass
@@ -106,14 +103,14 @@ class StateDocumentTest(unittest.TestCase):
 
     def test_setters(self):
         doc = StateDocument()
-        doc.id = "test",
-        doc.content_type = "test type",
-        doc.content = bytearray("test bytearray", "utf-8"),
-        doc.etag = "test etag",
+        doc.id = "test"
+        doc.content_type = "test type"
+        doc.content = bytearray("test bytearray", "utf-8")
+        doc.etag = "test etag"
         doc.time_stamp = "test time_stamp"
-        doc.agent=self.agent,
-        doc.activity=self.activity,
-        doc.registration="test registration"
+        doc.agent = self.agent
+        doc.activity = self.activity
+        doc.registration = "test registration"
 
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
@@ -146,7 +143,7 @@ class StateDocumentTest(unittest.TestCase):
 
     def test_agent_setter(self):
         doc = StateDocument()
-        doc.agent = {"id": "mailto:tincanpython@tincanapi.com"}
+        doc.agent = {"openid": "mailto:tincanpython@tincanapi.com"}
         self.assertEqual(doc.agent, self.agent)
 
     def test_activity_setter(self):
@@ -154,3 +151,7 @@ class StateDocumentTest(unittest.TestCase):
         doc.activity = {"id": "http://tincanapi.com/TinCanPython/Test/Unit/0"}
 
         self.assertEquals(doc.activity, Activity(id="http://tincanapi.com/TinCanPython/Test/Unit/0"))
+
+if __name__ == "__main__":
+    suite = unittest.TestLoader().loadTestsFromTestCase(StateDocumentTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
