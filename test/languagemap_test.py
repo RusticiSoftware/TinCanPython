@@ -13,7 +13,7 @@
 #    limitations under the License.
 
 import unittest
-from tincan.languagemap import LanguageMap
+from tincan.language_map import LanguageMap
 
 
 class TestLanguageMap(unittest.TestCase):

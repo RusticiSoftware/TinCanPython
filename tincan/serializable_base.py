@@ -1,25 +1,24 @@
-"""
-    Copyright 2014 Rustici Software
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-"""
+#    Copyright 2014 Rustici Software
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
 
 import json
-from base import Base
-from version import Version
+from tincan.base import Base
+from tincan.version import Version
+from tincan.conversions.bytearray import jsonify_bytearray
 
 """
-.. module:: serializablebase
+.. module:: serializable_base
    :synopsis: A base object that provides the common initializer from :mod:`base`
    as well as common serialization functionality
 
@@ -34,7 +33,7 @@ class SerializableBase(Base):
         type as self
 
         A class can provide a _fromJSON implementation in order to do specific
-         type checking or other custom implementation details. This method
+        type checking or other custom implementation details. This method
         will throw a ValueError for invalid JSON, a TypeError for
         improperly constructed, but valid JSON, and any custom errors
         that can be be propagated from class constructors.
@@ -42,15 +41,16 @@ class SerializableBase(Base):
         :param json_data: The JSON string to convert
         :type json_data: str
 
+        :raises: TypeError, ValueError, LanguageMapInitError
         """
         data = json.loads(json_data)
         result = cls(**data)
-        if "_from_json" in dir(result):
+        if hasattr(result, "_from_json"):
             result._from_json()
         return result
 
     def to_json(self, version=Version.latest):
-        """Tries to convert an object into a JSON respresentation and return
+        """Tries to convert an object into a JSON representation and return
         the resulting string
 
         An Object can define how it is serialized by providing an _as_version()
@@ -86,6 +86,8 @@ class SerializableBase(Base):
                 result[k] = v._as_version(version)
             elif isinstance(v, SerializableBase):
                 result[k] = v.as_version(version)
+            elif isinstance(v, bytearray):
+                result[k] = jsonify_bytearray(v)
             else:
                 result[k] = v
         result = self._filter_none(result)
