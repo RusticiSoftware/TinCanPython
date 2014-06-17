@@ -54,7 +54,7 @@ class AgentAccount(SerializableBase):
         if value is not None:
             if not isinstance(value, basestring):
                 value = str(value)
-            elif value is '':
+            elif value == '':
                 raise ValueError("Property name can not be set to an empty string")
         self._name = value
 
@@ -77,7 +77,7 @@ class AgentAccount(SerializableBase):
         if value is not None:
             if not isinstance(value, basestring):
                 value = str(value)
-            elif value is '':
+            elif value == '':
                 raise ValueError("Property homepage can not be set to an empty string")
         self._homepage = value
 

@@ -66,7 +66,7 @@ class Agent(SerializableBase):
         if value is not None:
             if not isinstance(value, basestring):
                 newtype = str(value)
-            elif value is '':
+            elif value == '':
                 raise ValueError("Property objecttype can not be set to an empty string")
             else: newtype = value
         self._objecttype = newtype
@@ -90,7 +90,7 @@ class Agent(SerializableBase):
         if value is not None:
             if not isinstance(value, basestring):
                 value = str(value)
-            elif value is '':
+            elif value == '':
                 raise ValueError("Property name can not be set to an empty string")
         self._name = value
 
@@ -113,7 +113,7 @@ class Agent(SerializableBase):
         if value is not None:
             if not isinstance(value, basestring):
                 value = str(value)
-            elif value is '':
+            elif value == '':
                 raise ValueError("Property mbox can not be set to an empty string")
         if not value.startswith("mailto:"):
             value = "mailto:" + value
@@ -138,7 +138,7 @@ class Agent(SerializableBase):
         if value is not None:
             if not isinstance(value, basestring):
                 value = str(value)
-            elif value is '':
+            elif value == '':
                 raise ValueError("Property mboxsha1sum can not be set to an empty string")
         self._mboxsha1sum = value
 
@@ -161,7 +161,7 @@ class Agent(SerializableBase):
         if value is not None:
             if not isinstance(value, basestring):
                 value = str(value)
-            elif value is '':
+            elif value == '':
                 raise ValueError("Property openid can not be set to an empty string")
         self._openid = value
 
