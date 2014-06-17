@@ -17,7 +17,7 @@ from tincan.agent_account import AgentAccount
 
 class Agent(SerializableBase):
     _props_req = [
-        "objecttype"
+        "object_type"
     ]
 
     _props = [
@@ -43,22 +43,22 @@ class Agent(SerializableBase):
         :type openid: str
         :param account: The alternative account for this agent (e.g. a Twitter handle)
         :type account: :mod:`tincan.agentaccount`
-        :param objecttype: The object type for this agent. Defaults to "Agent"
-        :type objecttype: str
+        :param object_type: The object type for this agent. Defaults to "Agent"
+        :type object_type: str
 
         """
 
         super(Agent, self).__init__(*args, **kwargs)
 
     @property
-    def objecttype(self):
-        return self._objecttype
+    def object_type(self):
+        return self._object_type
 
-    @objecttype.setter
-    def objecttype(self, value):
-        """Setter for the _objecttype attribute. Tries to convert to string.
+    @object_type.setter
+    def object_type(self, value):
+        """Setter for the _object_type attribute. Tries to convert to string.
         
-        :param value: The agent's objecttype
+        :param value: The agent's object_type
         :type value: str
         
         """
@@ -67,13 +67,13 @@ class Agent(SerializableBase):
             if not isinstance(value, basestring):
                 newtype = str(value)
             elif value == '':
-                raise ValueError("Property objecttype can not be set to an empty string")
+                raise ValueError("Property object_type can not be set to an empty string")
             else: newtype = value
-        self._objecttype = newtype
+        self._object_type = newtype
 
-    @objecttype.deleter
-    def objecttype(self):
-        del self._objecttype
+    @object_type.deleter
+    def object_type(self):
+        del self._object_type
 
     @property
     def name(self):
