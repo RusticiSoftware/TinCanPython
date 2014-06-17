@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.serializablebase import SerializableBase
+from tincan.serializable_base import SerializableBase
 from tincan.agent_account import AgentAccount
 
 class Agent(SerializableBase):
