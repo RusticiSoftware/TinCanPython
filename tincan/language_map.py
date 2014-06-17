@@ -12,8 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.serializable_base import SerializableBase
-from tincan.version import Version
+from serializable_base import SerializableBase
+from version import Version
 
 """
 .. module:: languagemap
@@ -27,19 +27,13 @@ class LanguageMap(dict, SerializableBase):
     def __init__(self, *args, **kwargs):
         """Initializes a LanguageMap with the given mapping
 
-        This constructor takes in two arguments, but will only acknowledge one.
-        The kwargs parameter is to support the from_json method, and the
-        unpacking (**) operator. If the 'map' argument is specified, kwargs
-        will be ignored.
-
-        :param map: The intended language mapping
-        :type map: dict, LanguageMap
-
-        :raises: LanguageMapTypeError
+        This constructor will first check the arguments for flatness
+        to avoid nested languagemaps (which are invalid) and then
+        call the base dict constructor
 
         """
         check_args = dict(*args, **kwargs)
-        map(lambda(k,v): (k, self.check_basestring(v)), check_args.iteritems())
+        map(lambda(k,v): (k, self._check_basestring(v)), check_args.iteritems())
         super(LanguageMap, self).__init__(check_args)
 
     def __setitem__(self, prop, value):
@@ -53,7 +47,7 @@ class LanguageMap(dict, SerializableBase):
         :raises: NameError, LanguageMapTypeError
 
         """
-        self.check_basestring(value)
+        self._check_basestring(value)
         super(LanguageMap, self).__setitem__(prop, value)
 
     def _as_version(self, version=Version.latest):
@@ -66,7 +60,7 @@ class LanguageMap(dict, SerializableBase):
         """
         return dict(self)
 
-    def check_basestring(self, value):
+    def _check_basestring(self, value):
         """Ensures that value is an instance of basestring
 
         :param value: the value to check
