@@ -40,19 +40,6 @@ from tincan.documents import (
 
 
 class RemoteLRS(Base):
-    """RemoteLRS Class
-
-    :param endpoint: lrs endpoint
-    :type endpoint: str
-    :param version: Version used for lrs communication
-    :type version: str
-    :param username: username for lrs
-    :type username: str
-    :param password: password for lrs
-    :type password: str
-    :param auth: Authentication string
-    :type auth: str
-    """
 
     _props_req = [
         "version",
@@ -65,6 +52,19 @@ class RemoteLRS(Base):
     _props.extend(_props_req)
 
     def __init__(self, *args, **kwargs):
+        """RemoteLRS Constructor
+
+        :param endpoint: lrs endpoint
+        :type endpoint: str
+        :param version: Version used for lrs communication
+        :type version: str
+        :param username: Username for lrs. Used to build the authentication string.
+        :type username: str
+        :param password: Password for lrs. Used to build the authentication string.
+        :type password: str
+        :param auth: Authentication string
+        :type auth: str
+        """
         if (
             "username" in kwargs
             and kwargs["username"] is not None
@@ -85,17 +85,10 @@ class RemoteLRS(Base):
         """Establishes connection and returns http response based off of request.
 
         :param request: HTTPRequest object
-        :type request: :mod:tincan.http_request`
+        :type request: :mod:`tincan.http_request.HTTPRequest`
         :returns: LRS Response object
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :mod:`tincan.lrs_response.LRSResponse`
         """
-
-        if "http" in request.resource:
-            url = request.resource
-        else:
-            url = self.endpoint
-            url += request.resource
-
         headers = {"X-Experience-API-Version": self.version}
 
         if self.auth is not None:
@@ -106,6 +99,12 @@ class RemoteLRS(Base):
         params = request.query_params
         params = {k: unicode(params[k]).encode('utf-8') for k in params.keys()}
         params = urllib.urlencode(params)
+
+        if "http" in request.resource:
+            url = request.resource
+        else:
+            url = self.endpoint
+            url += request.resource
 
         parsed = urlparse(url)
 
@@ -119,29 +118,49 @@ class RemoteLRS(Base):
             path += "?" + params
 
         if hasattr(request, "content") and request.content is not None:
-            web_req.request(request.method, path, body=request.content, headers=headers)
+            web_req.request(
+                method=request.method,
+                url=path,
+                body=request.content,
+                headers=headers
+            )
         else:
-            web_req.request(request.method, path, headers=headers)
+            web_req.request(
+                method=request.method,
+                url=path,
+                headers=headers
+            )
 
         response = web_req.getresponse()
         data = response.read()
         web_req.close()
 
         if (200 <= response.status < 300
-           or (response.status == 404 and hasattr(request, "ignore404") and request.ignore404)):
+            or (response.status == 404
+                and hasattr(request, "ignore404")
+                and request.ignore404)):
             success = True
         else:
             success = False
 
-        return LRSResponse(success=success, request=request, response=response, data=data)
+        return LRSResponse(
+            success=success,
+            request=request,
+            response=response,
+            data=data
+        )
 
     def about(self):
         """Gets about response from LRS
 
         :return: LRS Response object with the returned LRS about object as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="about")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="about"
+        )
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
@@ -153,15 +172,18 @@ class RemoteLRS(Base):
         """Save statement to LRS and update statement id if necessary
 
         :param statement: Statement object to be saved
-        :type statement: Statement
+        :type statement: :class:`tincan.statement.Statement`
         :return: LRS Response object with the saved statement as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(statement, Statement):
             statement = Statement(statement)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="POST", resource="statements")
-
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="POST",
+            resource="statements"
+        )
         if statement.id is not None:
             request.method = "PUT"
             request.query_params["statementId"] = statement.id
@@ -184,14 +206,18 @@ class RemoteLRS(Base):
         :param statements: A list of statement objects to be saved
         :type statements: list
         :return: LRS Response object with the saved list of statements as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        def make_statement(s):
-            return s if isinstance(s, Statement) else Statement(s)
+        def make_statement(st):
+            return st if isinstance(st, Statement) else Statement(st)
 
         statements = [make_statement(s) for s in statements]
 
-        request = HTTPRequest(endpoint=self.endpoint, method="POST", resource="statements")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="POST",
+            resource="statements"
+        )
         request.headers["Content-Type"] = "application/json"
 
         request.content = json.dump([s.to_json(self.version) for s in statements])
@@ -213,9 +239,13 @@ class RemoteLRS(Base):
         :param statement_id: The UUID of the desired statement
         :type statement_id: str
         :return: LRS Response object with the retrieved statement as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="statements")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="statements"
+        )
         request.query_params["statementId"] = statement_id
 
         lrs_response = self.send_request(request)
@@ -231,9 +261,13 @@ class RemoteLRS(Base):
         :param statement_id: The UUID of the desired voided statement
         :type statement_id: str
         :return: LRS Response object with the retrieved voided statement as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="statements")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="statements"
+        )
         request.query_params["voidedStatementId"] = statement_id
 
         lrs_response = self.send_request(request)
@@ -249,7 +283,7 @@ class RemoteLRS(Base):
         :param query: Dictionary of query parameters and their values
         :type query: dict
         :return: LRS Response object with the returned StatementsResult object as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         params = {}
 
@@ -274,7 +308,11 @@ class RemoteLRS(Base):
                 elif k in param_keys:
                     params[k] = v
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="statements")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="statements"
+        )
         request.query_params = params
 
         lrs_response = self.send_request(request)
@@ -290,14 +328,18 @@ class RemoteLRS(Base):
         :param more_url: URL from a StatementsResult object used to retrieve more statements
         :type more_url: str
         :return: LRS Response object with the returned StatementsResult object as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if isinstance(more_url, StatementsResult):
             more_url = more_url.more
 
         more_url = self.get_endpoint_server_root() + more_url
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource=more_url)
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource=more_url
+        )
 
         lrs_response = self.send_request(request)
 
@@ -310,15 +352,15 @@ class RemoteLRS(Base):
         """Retrieve state id's from the LRS with the provided parameters
 
         :param activity: Activity object of desired states
-        :type activity: :mod:`tincan.activity`
+        :type activity: :class:`tincan.activity.Activity`
         :param agent: Agent object of desired states
-        :type agent: :mod:`tincan.agent`
+        :type agent: :class:`tincan.agent.Agent`
         :param registration: Registration UUID of desired states
         :type registration: str
         :param since: Retrieve state id's since this time
         :type since: str
         :return: LRS Response object with the retrieved state id's as content
-        :rtype: :mod:`tincan.lrs_response`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(activity, Activity):
             activity = Activity(activity)
@@ -326,8 +368,15 @@ class RemoteLRS(Base):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/state")
-        request.query_params = {"activityId": activity.id, "agent": agent.to_json(self.version)}
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="activities/state"
+        )
+        request.query_params = {
+            "activityId": activity.id,
+            "agent": agent.to_json(self.version)
+        }
 
         if registration is not None:
             request.query_params["registration"] = registration
@@ -345,15 +394,15 @@ class RemoteLRS(Base):
         """Retrieve state from LRS with the provided parameters
 
         :param activity: Activity object of desired state
-        :type activity: Activity
+        :type activity: :class:`tincan.activity.Activity`
         :param agent: Agent object of desired state
-        :type agent: Agent
+        :type agent: :class:`tincan.agent.Agent`
         :param state_id: UUID of desired state
         :type state_id: str
         :param registration: registration UUID of desired state
         :type registration: str
         :return: LRS Response object with retrieved state document as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(activity, Activity):
             activity = Activity(activity)
@@ -361,7 +410,12 @@ class RemoteLRS(Base):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/state", ignore404=True)
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="activities/state",
+            ignore404=True
+        )
 
         request.query_params = {
             "activityId": activity.id,
@@ -375,7 +429,12 @@ class RemoteLRS(Base):
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            doc = StateDocument(id=state_id, content=lrs_response.data, activity=activity, agent=agent)
+            doc = StateDocument(
+                id=state_id,
+                content=lrs_response.data,
+                activity=activity,
+                agent=agent
+            )
             if registration is not None:
                 doc.registration = registration
 
@@ -395,11 +454,15 @@ class RemoteLRS(Base):
         """Save a state doc to the LRS
 
         :param state: State document to be saved
-        :type state: StateDocument
+        :type state: :class:`tincan.documents.state_document.StateDocument`
         :return: LRS Response object with saved state as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="PUT", resource="activities/state")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="PUT",
+            resource="activities/state"
+        )
         if hasattr(state, "content"):
             request.content = state.content
             request.headers["Content-Type"] = state.content_type
@@ -410,10 +473,11 @@ class RemoteLRS(Base):
         if state.etag is not None:
             request.headers["If-Match"] = state.etag
 
-        request.query_params = {"stateId": state.id,
-                                "activityId": state.activity.id,
-                                "agent": state.agent.to_json(self.version)}
-
+        request.query_params = {
+            "stateId": state.id,
+            "activityId": state.activity.id,
+            "agent": state.agent.to_json(self.version)
+        }
         lrs_response = self.send_request(request)
         lrs_response.content = state
 
@@ -423,9 +487,9 @@ class RemoteLRS(Base):
         """Private method to delete a specified state from the LRS
 
         :param activity: Activity object of state to be deleted
-        :type activity: Activity
+        :type activity: :class:`tincan.activity.Activity`
         :param agent: Agent object of state to be deleted
-        :type agent: Agent
+        :type agent: :class:`tincan.agent.Agent`
         :param state_id: UUID of state to be deleted
         :type state_id: str
         :param registration: registration UUID of state to be deleted
@@ -433,7 +497,7 @@ class RemoteLRS(Base):
         :param etag: etag of state to be deleted
         :type etag: str
         :return: LRS Response object with deleted state as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(activity, Activity):
             activity = Activity(activity)
@@ -441,14 +505,19 @@ class RemoteLRS(Base):
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="DELETE", resource="activities/state")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="DELETE",
+            resource="activities/state"
+        )
 
         if etag is not None:
             request.headers["If-Match"] = etag
 
-        request.query_params = {"activityId": activity.id,
-                                "agent": agent.to_json(self.version)}
-
+        request.query_params = {
+            "activityId": activity.id,
+            "agent": agent.to_json(self.version)
+        }
         if state_id is not None:
             request.query_params["stateId"] = state_id
 
@@ -463,41 +532,53 @@ class RemoteLRS(Base):
         """Delete a specified state from the LRS
 
         :param state: State document to be deleted
-        :type state: StateDocument
+        :type state: :class:`tincan.documents.state_document.StateDocument`
         :return: LRS Response object
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        return self._delete_state(state.activity, state.agent, state_id=state.id, etag=state.etag)
+        return self._delete_state(
+            activity=state.activity,
+            agent=state.agent,
+            state_id=state.id,
+            etag=state.etag
+        )
 
     def clear_state(self, activity, agent, registration=None):
         """Clear state(s) with specified activity and agent
 
         :param activity: Activity object of state(s) to be deleted
-        :type activity: Activity
+        :type activity: :class:`tincan.activity.Activity`
         :param agent: Agent object of state(s) to be deleted
-        :type agent: Agent
+        :type agent: :class:`tincan.agent.Agent`
         :param registration: registration UUID of state(s) to be deleted
         :type registration: str
         :return: LRS Response object
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        return self._delete_state(activity, agent, registration=registration)
+        return self._delete_state(
+            activity=activity,
+            agent=agent,
+            registration=registration
+        )
 
     def retrieve_activity_profile_ids(self, activity, since=None):
         """Retrieve activity profile id(s) with the specified parameters
 
         :param activity: Activity object of desired activity profiles
-        :type activity: Activity
+        :type activity: :class:`tincan.activity.Activity`
         :param since: Retrieve activity profile id's since this time
         :type since: str
         :return: LRS Response object with list of retrieved activity profile id's as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/profile")
-
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="activities/profile"
+        )
         request.query_params["activityId"] = activity.id
 
         if since is not None:
@@ -514,24 +595,33 @@ class RemoteLRS(Base):
         """Retrieve activity profile with the specified parameters
 
         :param activity: Activity object of the desired activity profile
-        :type activity: Activity
+        :type activity: :class:`tincan.activity.Activity`
         :param profile_id: UUID of the desired profile
         :type profile_id: str
         :return: LRS Response object with an activity profile doc as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(activity, Activity):
             activity = Activity(activity)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="activities/profile", ignore404=True)
-
-        request.query_params = {"profileId": profile_id, "activityId": activity.id}
-
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="activities/profile",
+            ignore404=True
+        )
+        request.query_params = {
+            "profileId": profile_id,
+            "activityId": activity.id
+        }
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            doc = ActivityProfileDocument(id=profile_id, content=lrs_response.data, activity=activity)
-
+            doc = ActivityProfileDocument(
+                id=profile_id,
+                content=lrs_response.data,
+                activity=activity
+            )
             headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
                 doc.time_stamp = headers["lastModified"]
@@ -548,11 +638,15 @@ class RemoteLRS(Base):
         """Save an activity profile doc to the LRS
 
         :param profile: Activity profile doc to be saved
-        :type profile: ActivityProfileDocument
+        :type profile: :class:`tincan.documents.activity_profile_document.ActivityProfileDocument`
         :return: LRS Response object with the saved activity profile doc as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="PUT", resource="activities/profile")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="PUT",
+            resource="activities/profile"
+        )
         if hasattr(profile, "content"):
             request.content = profile.content
             request.headers["Content-Type"] = profile.content_type
@@ -563,8 +657,10 @@ class RemoteLRS(Base):
         if profile.etag is not None:
             request.headers["If-Match"] = profile.etag
 
-        request.query_params = {"profileId": profile.id, "activityId": profile.activity.id}
-
+        request.query_params = {
+            "profileId": profile.id,
+            "activityId": profile.activity.id
+        }
         lrs_response = self.send_request(request)
         lrs_response.content = profile
 
@@ -574,12 +670,19 @@ class RemoteLRS(Base):
         """Delete activity profile doc from LRS
 
         :param profile: Activity profile document to be deleted
-        :type profile: ActivityProfileDocument
+        :type profile: :class:`tincan.documents.activity_profile_document.ActivityProfileDocument`
         :return: LRS Response object
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="DELETE", resource="activities/profile")
-        request.query_params = {"profileId": profile.id, "activityId": profile.activity.id}
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="DELETE",
+            resource="activities/profile"
+        )
+        request.query_params = {
+            "profileId": profile.id,
+            "activityId": profile.activity.id
+        }
 
         if profile.etag is not None:
             request.headers["If-Match"] = profile.etag
@@ -590,17 +693,20 @@ class RemoteLRS(Base):
         """Retrieve agent profile id(s) with the specified parameters
 
         :param agent: Agent object of desired agent profiles
-        :type agent: Agent
+        :type agent: :class:`tincan.agent.Agent`
         :param since: Retrieve agent profile id's since this time
         :type since: str
         :return: LRS Response object with list of retrieved agent profile id's as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="agents/profile")
-
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="agents/profile"
+        )
         request.query_params["agent"] = agent.to_json(self.version)
 
         if since is not None:
@@ -617,24 +723,34 @@ class RemoteLRS(Base):
         """Retrieve agent profile with the specified parameters
 
         :param agent: Agent object of the desired agent profile
-        :type agent: Agent
+        :type agent: :class:`tincan.agent.Agent`
         :param profile_id: UUID of the desired agent profile
         :type profile_id: str
         :return: LRS Response object with an agent profile doc as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         if not isinstance(agent, Agent):
             agent = Agent(agent)
 
-        request = HTTPRequest(endpoint=self.endpoint, method="GET", resource="agents/profile", ignore404=True)
-
-        request.query_params = {"profileId": profile_id, "agent": agent.to_json(self.version)}
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="GET",
+            resource="agents/profile",
+            ignore404=True
+        )
+        request.query_params = {
+            "profileId": profile_id,
+            "agent": agent.to_json(self.version)
+        }
 
         lrs_response = self.send_request(request)
 
         if lrs_response.success:
-            doc = AgentProfileDocument(id=profile_id, content=lrs_response.data, agent=agent)
-
+            doc = AgentProfileDocument(
+                id=profile_id,
+                content=lrs_response.data,
+                agent=agent
+            )
             headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
                 doc.time_stamp = headers["lastModified"]
@@ -651,11 +767,15 @@ class RemoteLRS(Base):
         """Save an agent profile doc to the LRS
 
         :param profile: Agent profile doc to be saved
-        :type profile: AgentProfileDocument
+        :type profile: :class:`tincan.documents.agent_profile_document.AgentProfileDocument`
         :return: LRS Response object with the saved agent profile doc as content
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="PUT", resource="agents/profile")
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="PUT",
+            resource="agents/profile"
+        )
         if hasattr(profile, "content"):
             request.content = profile.content
             request.headers["Content-Type"] = profile.content_type
@@ -666,8 +786,10 @@ class RemoteLRS(Base):
         if hasattr(profile, "etag") and profile.etag is not None:
             request.headers["If-Match"] = profile.etag
 
-        request.query_params = {"profileId": profile.id, "agent": profile.agent.to_json(self.version)}
-
+        request.query_params = {
+            "profileId": profile.id,
+            "agent": profile.agent.to_json(self.version)
+        }
         lrs_response = self.send_request(request)
         lrs_response.content = profile
 
@@ -677,12 +799,19 @@ class RemoteLRS(Base):
         """Delete agent profile doc from LRS
 
         :param profile: Agent profile document to be deleted
-        :type profile: AgentProfileDocument
+        :type profile: :class:`tincan.documents.agent_profile_document.AgentProfileDocument`
         :return: LRS Response object
-        :rtype: LRSResponse
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        request = HTTPRequest(endpoint=self.endpoint, method="DELETE", resource="agents/profile")
-        request.query_params = {"profileId": profile.id, "agent": profile.agent.to_json(self.version)}
+        request = HTTPRequest(
+            endpoint=self.endpoint,
+            method="DELETE",
+            resource="agents/profile"
+        )
+        request.query_params = {
+            "profileId": profile.id,
+            "agent": profile.agent.to_json(self.version)
+        }
 
         if hasattr(profile, "etag") and profile.etag is not None:
             request.headers["If-Match"] = profile.etag
