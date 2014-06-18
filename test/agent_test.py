@@ -40,53 +40,53 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
 
     def test_InitMboxSha1(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test')
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test')
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
 
     def test_InitOpenId(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='test')
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test')
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
 
     def test_InitEmptyAccount(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='test', account={})
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account={})
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
         self.assertIsNone(agent.account)
 
     def test_InitAnonAccount(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='test', account={"name": "test", "homepage": "test.com"})
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account={"name": "test", "homepage": "test.com"})
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
         self.accountVerificationHelper(agent.account)
 
     def test_InitAccount(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='test', account=AgentAccount(name="test", homepage="test.com"))
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account=AgentAccount(name="test", homepage="test.com"))
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
         self.accountVerificationHelper(agent.account)
 
     def test_Initobject_type(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='test', account=AgentAccount(name="test", homepage="test.com"), object_type='Agent')
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account=AgentAccount(name="test", homepage="test.com"), object_type='Agent')
         self.assertEqual(agent.object_type, 'Agent')
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
         self.accountVerificationHelper(agent.account)
 
@@ -98,13 +98,13 @@ class TestAgent(unittest.TestCase):
         with self.assertRaises(ValueError):
             agent = Agent(name='test', mbox='')
 
-    def test_InitExceptionEmptymboxsha1sum(self):
+    def test_InitExceptionEmptymbox_sha1sum(self):
         with self.assertRaises(ValueError):
-            agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='')
+            agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='')
 
     def test_InitExceptionEmptyOpenid(self):
         with self.assertRaises(ValueError):
-            agent = Agent(name='test', mbox='mailto:test@test.com', mboxsha1sum='test', openid='')
+            agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='')
 
     def test_FromJSONEmpty(self):
         with self.assertRaises(ValueError):
@@ -129,45 +129,45 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
 
     def test_FromJSONMboxSha1(self):
-        agent = Agent.from_json('{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test"}')
+        agent = Agent.from_json('{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test"}')
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
 
     def test_FromJSONOpenId(self):
-        agent = Agent.from_json('{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test"}')
+        agent = Agent.from_json('{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test"}')
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
 
     def test_FromJSONAccount(self):
-        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}}''')
+        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}}''')
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
         self.accountVerificationHelper(agent.account)
 
     def test_FromJSONobject_type(self):
-        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}, "object_type":"Test"}''')
+        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}, "object_type":"Test"}''')
         self.assertEqual(agent.object_type, 'Test')
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
         self.accountVerificationHelper(agent.account)
 
     def test_InitUnpack(self):
-        obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":"test", "account":{'name':'test', 'homepage':'test.com'}}
+        obj = {"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{'name':'test', 'homepage':'test.com'}}
         agent = Agent(**obj)
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
-        self.assertEqual(agent.mboxsha1sum, 'test')
+        self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
         self.accountVerificationHelper(agent.account)
 
@@ -181,13 +181,13 @@ class TestAgent(unittest.TestCase):
         with self.assertRaises(ValueError):
             agent = Agent(**obj)
 
-    def test_InitExceptionUnpackEmptymboxsha1sum(self):
-        obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":""}
+    def test_InitExceptionUnpackEmptymbox_sha1sum(self):
+        obj = {"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":""}
         with self.assertRaises(ValueError):
             agent = Agent(**obj)
 
     def test_InitExceptionUnpackEmptyOpenid(self):
-        obj = {"name":"test", "mbox":"mailto:test@test.com", "mboxsha1sum":"test", "openid":""}
+        obj = {"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":""}
         with self.assertRaises(ValueError):
             agent = Agent(**obj)
 
