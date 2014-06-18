@@ -23,7 +23,7 @@ class Agent(SerializableBase):
     _props = [
         "name",
         "mbox",
-        "mboxsha1sum",
+        "mbox_sha1sum",
         "openid",
         "account"
     ]
@@ -37,8 +37,8 @@ class Agent(SerializableBase):
         :type name: str
         :param mbox: The mailto address for this agent
         :type mbox: str
-        :param mboxsha1sum: The sha1sum of the mbox of this agent
-        :type mboxsha1sum: str
+        :param mbox_sha1sum: The sha1sum of the mbox of this agent
+        :type mbox_sha1sum: str
         :param openid: The openid for this agent
         :type openid: str
         :param account: The alternative account for this agent (e.g. a Twitter handle)
@@ -124,14 +124,14 @@ class Agent(SerializableBase):
         del self._mbox
 
     @property
-    def mboxsha1sum(self):
-        return self._mboxsha1sum
+    def mbox_sha1sum(self):
+        return self._mbox_sha1sum
 
-    @mboxsha1sum.setter
-    def mboxsha1sum(self, value):
-        """Setter for the _mboxsha1sum attribute. Tries to convert to string.
+    @mbox_sha1sum.setter
+    def mbox_sha1sum(self, value):
+        """Setter for the _mbox_sha1sum attribute. Tries to convert to string.
 
-        :param value: The agent's mboxsha1sum
+        :param value: The agent's mbox_sha1sum
         :type value: str
 
         """
@@ -139,12 +139,12 @@ class Agent(SerializableBase):
             if not isinstance(value, basestring):
                 value = str(value)
             elif value == '':
-                raise ValueError("Property mboxsha1sum can not be set to an empty string")
-        self._mboxsha1sum = value
+                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+        self._mbox_sha1sum = value
 
-    @mboxsha1sum.deleter
-    def mboxsha1sum(self):
-        del self._mboxsha1sum
+    @mbox_sha1sum.deleter
+    def mbox_sha1sum(self):
+        del self._mbox_sha1sum
 
     @property
     def openid(self):
