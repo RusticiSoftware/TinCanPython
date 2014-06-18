@@ -96,7 +96,7 @@ def jsonify_timedelta(value):
     ## build date
     date = ''
     if days:
-        date = days + 'D'
+        date = '%sD' % days
 
     ## build time
     time = u'T'
@@ -113,10 +113,13 @@ def jsonify_timedelta(value):
 
     # seconds
     if seconds.is_integer():
-        seconds = '{:02}'.format(seconds)
+        seconds = '{:02}'.format(int(seconds))
     else:
         # 9 chars long w/leading 0, 6 digits after decimal
         seconds = '%09.6f' % seconds
+        # remove trailing zeros
+        seconds = seconds.rstrip('0')
+
     time += '{}S'.format(seconds)
 
     return u'P' + date + time
