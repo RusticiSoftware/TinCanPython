@@ -14,7 +14,7 @@
 
 from tincan.serializable_base import SerializableBase
 from tincan.language_map import LanguageMap
-#from tincan.extensions import Extensions
+from tincan.extensions import Extensions
 from tincan.interaction_component import InteractionComponent
 from tincan.interaction_component_list import InteractionComponentList
 
@@ -293,9 +293,8 @@ class ActivityDefinition(SerializableBase):
         :type value: :mod:`extensions`
 
         """
-       # if not isinstance(value, Extensions):
-           # value = Extensions(value)
-       # self._extensions = value
+        if value is not None and not isinstance(value, Extensions):
+            value = Extensions(value)
         self._extensions = value
 
     @extensions.deleter
