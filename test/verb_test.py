@@ -36,11 +36,6 @@ class TestVerb(unittest.TestCase):
         self.assertIsNone(verb.id)
         self.displayVerificationHelper(verb.display)
 
-    def test_InitEmptyDisplay(self):
-        verb = Verb(id='test', display={})
-        self.assertEqual(verb.id, 'test')
-        self.assertIsNone(verb.display)
-
     def test_InitAnonDisplay(self):
         verb = Verb(id='test', display={"en-US": "test"})
         self.assertEqual(verb.id, 'test')
@@ -50,11 +45,6 @@ class TestVerb(unittest.TestCase):
         verb = Verb(id='test', display=LanguageMap({"en-US": "test"}))
         self.assertEqual(verb.id, 'test')
         self.displayVerificationHelper(verb.display)
-
-    def test_InitEmptyLanguageMapDisplay(self):
-        verb = Verb(id='test', display=LanguageMap({}))
-        self.assertEqual(verb.id, 'test')
-        self.assertIsNone(verb.display)
 
     def test_InitUnpackDisplay(self):
         obj = {"display": {"en-US": "test"}}

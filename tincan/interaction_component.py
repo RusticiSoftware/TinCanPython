@@ -16,29 +16,29 @@ from tincan.serializable_base import SerializableBase
 from tincan.language_map import LanguageMap
 
 """
-.. module:: verb
-   :synopsis: A Verb object that contains an id and a display
+.. module:: interactioncomponent
+   :synopsis: Provides action-level granularity to an object of a \
+   statement. E.g. The text of a multiple choice question.
 
 """
 
 
-class Verb(SerializableBase):
+class InteractionComponent(SerializableBase):
 
     _props_req = [
         'id',
     ]
 
     _props = [
-        'display'
+        'description',
     ]
 
     _props.extend(_props_req)
 
-    def __repr__(self):
-        return 'Verb: %s' % self.__dict__
-
     @property
     def id(self):
+        """Retrieve the id of the component
+        """
         return self._id
 
     @id.setter
@@ -51,27 +51,27 @@ class Verb(SerializableBase):
         """
         if value is not None:
             if value == '':
-                raise ValueError(
-                    "Property 'id' in 'tincan.%s' object must be not empty." \
-                    % self.__class__.__name__)
+                raise ValueError("id cannot be set to an empty string or non-string type")
         self._id = None if value is None else str(value)
 
     @property
-    def display(self):
-        return self._display
+    def description(self):
+        """Retrieve the description of the component
+        """
+        return self._description
 
-    @display.setter
-    def display(self, value):
-        """Setter for the _display attribute. Tries to convert to str
+    @description.setter
+    def description(self, value):
+        """Setter for the _description attribute. Tries to convert to LanguageMap
 
-        :param value: The desired value for display
+        :param value: The desired value for description
         :type value: LanguageMap | dict
 
         """
         if value is not None and not isinstance(value, LanguageMap):
             value = LanguageMap(value)
-        self._display = value
+        self._description = value
 
-    @display.deleter
-    def display(self):
-        del self._display
+    @description.deleter
+    def description(self):
+        del self._description

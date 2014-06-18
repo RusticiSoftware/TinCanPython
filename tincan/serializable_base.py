@@ -27,6 +27,18 @@ from tincan.conversions.bytearray import jsonify_bytearray
 
 class SerializableBase(Base):
 
+    _props_corrected = {
+        '_more_info': 'moreInfo',
+        '_interaction_type': 'interactionType',
+        '_correct_responses_pattern': 'correctResponsesPattern',
+        '_object_type': 'objectType',
+        '_usage_type': 'usageType',
+        '_content_type': 'contentType',
+        '_fileurl': 'fileUrl',
+        '_context_activities': 'contextActivities',
+        '_home_page': 'homePage'
+    }
+
     @classmethod
     def from_json(cls, json_data):
         """Tries to convert a JSON representation to an object of the same
@@ -44,7 +56,7 @@ class SerializableBase(Base):
         :raises: TypeError, ValueError, LanguageMapInitError
         """
         data = json.loads(json_data)
-        result = cls(**data)
+        result = cls(data)
         if hasattr(result, "_from_json"):
             result._from_json()
         return result
@@ -79,18 +91,27 @@ class SerializableBase(Base):
         :type version: str
 
         """
-        result = {}
-        it = dict(self) if isinstance(self, dict) else dict(vars(self))
-        for k, v in it.iteritems():
-            if hasattr(v, "_as_version"):
-                result[k] = v._as_version(version)
-            elif isinstance(v, SerializableBase):
-                result[k] = v.as_version(version)
-            elif isinstance(v, bytearray):
-                result[k] = jsonify_bytearray(v)
-            else:
-                result[k] = v
-        result = self._filter_none(result)
+
+        result = {} if not isinstance(self, list) else []
+        it = dict(self) if isinstance(self, dict) else dict(vars(self)) if not isinstance(self, list) else list(self)
+        if not isinstance(self, list):
+            for k, v in it.iteritems():
+                k = self._props_corrected.get(k, k)
+                if hasattr(v, "_as_version"):
+                    result[k] = v._as_version(version)
+                elif isinstance(v, SerializableBase):
+                    result[k] = v.as_version(version)
+                else:
+                    result[k] = v
+            result = self._filter_none(result)
+        else:
+            for v in it:
+                if hasattr(v, "_as_version"):
+                    result.append(v._as_version(version))
+                elif isinstance(v, SerializableBase):
+                    result.append(v.as_version(version))
+                else:
+                    result.append(v)
         return result
 
     def _filter_none(self, obj):
