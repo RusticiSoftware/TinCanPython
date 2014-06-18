@@ -13,17 +13,43 @@
 #    limitations under the License.
 
 """
-Functions for converting data to bytearrays and bytearrays to json-friendly
-types.
+Functions for converting data to ``bytearray``s and ``bytearray``s to
+JSON-friendly types.
 """
 
 
 def make_bytearray(value):
-    if isinstance(value, unicode):
-        return bytearray(value, 'utf-8')
-    else:
-        return bytearray(value)
+    """Tries to convert the given value to a ``bytearray``.
 
+    :param value: something to convert
+    :type value: str | unicode | bytearray
+    :return: the value after conversion
+    :rtype bytearray
+    """
+
+    try:
+        if isinstance(value, unicode):
+            return bytearray(value, 'utf-8')
+        else:
+            return bytearray(value)
+    except Exception as e:
+        msg = (
+            "Could not convert the given value of type '%s' to "
+            "a bytearray: %s" %
+            (
+                value.__class__.__name__,
+                repr(value),
+            )
+        )
+        raise TypeError(msg) if isinstance(e, TypeError) else ValueError(msg)
 
 def jsonify_bytearray(value):
+    """Converts a ``bytearray`` to a unicode string for JSON-ification.
+
+    :param value: something to convert
+    :type value: bytearray
+    :return: the value after conversion
+    :rtype unicode
+    """
+
     return value.decode('utf-8')
