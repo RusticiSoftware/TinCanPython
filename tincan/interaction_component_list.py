@@ -12,9 +12,9 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from serializable_base import SerializableBase
-from interaction_component import InteractionComponent
-from version import Version
+from tincan.serializable_base import SerializableBase
+from tincan.interaction_component import InteractionComponent
+from tincan.version import Version
 
 """
 .. module:: interactioncomponentlist

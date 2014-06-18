@@ -12,8 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from serializable_base import SerializableBase
-from language_map import LanguageMap
+from tincan.serializable_base import SerializableBase
+from tincan.language_map import LanguageMap
 
 """
 .. module:: interactioncomponent
