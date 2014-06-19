@@ -34,31 +34,54 @@ class About(SerializableBase):
     @version.setter
     def version(self, value):
         """Setter for the _version attribute. Makes sure that the
-        version is supported before setting it.
+        versions given are supported before setting.
 
-        :param value: the new version string
+        :param value: list of the versions supported
+        :type value: list | tuple | None
         """
+        def check_version(v):
+            """Checks a single version string for validity. Raises
+            if invalid.
+
+            :param v: the version string to check
+            :raises ValueError
+            """
+            if v in Version.supported:
+                return
+
+            # Construct the error message
+            if isinstance(value, (list, tuple)):
+                value_str = repr(v) + ' in ' + repr(value)
+            else:
+                value_str = repr(v)
+
+            msg = (
+                "Tried to set property 'version' in a 'tincan.%s' object "
+                "with an invalid value: %s\n"
+                "Allowed versions are: %s" %
+                (
+                    self.__class__.__name__,
+                    value_str,
+                    ', '.join(map(repr, Version.supported)),
+                )
+            )
+
+            raise ValueError(msg)
+
 
         if value is None:
-            self._version = Version.latest
+            self._version = [Version.latest]
         elif isinstance(value, basestring):
-            if value not in Version.supported:
-                raise ValueError(
-                    "Tried to set property 'version' in a 'tincan.%s' object "
-                    "to an invalid version: %s. "
-                    "Allowed versions are: %s" %
-                    (
-                        self.__class__.__name__,
-                        repr(value),
-                        ', '.join(map(repr, Version.supported)),
-                    )
-                )
-
-            self._version = value
+            check_version(value)
+            self._version = [value]
+        elif isinstance(value, (list, tuple)):
+            for v in value:
+                check_version(v)
+            self._version = list(value)
         else:
             raise TypeError(
                 "Property 'version' in a 'tincan.%s' object must be set with a "
-                "str or unicode. Tried to set it with: %s" %
+                "list, tuple, str, unicode or None. Tried to set it with: %s" %
                 (
                     self.__class__.__name__,
                     repr(value),

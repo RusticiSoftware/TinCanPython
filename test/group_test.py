@@ -22,6 +22,15 @@ class TestGroup(unittest.TestCase):
         group = Group()
         self.assertEquals(group.members, [])
 
+    def test_InitBadObjectType(self):
+        with self.assertRaises(ValueError):
+            group = Group(object_type='test')
+
+    def test_InitObjectType(self):
+        group = Group(object_type='Group')
+        self.assertEqual(group.object_type, 'Group')
+        self.assertEqual(group.members, [])
+
     def test_InitMember(self):
         group = Group(members=[Agent(name='test')])
         self.assertIsInstance(group.members[0], Agent)

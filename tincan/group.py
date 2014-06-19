@@ -27,6 +27,7 @@ from tincan.version import Version
 class Group(SerializableBase):
 
     _props = [
+	    "object_type",
         "members"
     ]
 
@@ -43,6 +44,8 @@ class Group(SerializableBase):
     def addmember(self, value):
         """Adds a single member to this group's list of members
 
+        :param object_type: The objet type for this group. Will always be "Group"
+        :type objec_type: str
         :param value: The member to add to this group
         :type value: :mod:`tincan.agent`
 
@@ -60,7 +63,7 @@ class Group(SerializableBase):
 
     @members.setter
     def members(self, value):
-        """Setter for the _members attribute
+        """Setter for the _members attribute. Tries to convert each object to Agent
 
         :param value: The group's members
         :type value: list
@@ -82,6 +85,28 @@ class Group(SerializableBase):
     @members.deleter
     def members(self):
         del self._members
+
+    @property
+    def object_type(self):
+        return self._object_type
+
+    @object_type.setter
+    def object_type(self, value):
+        """Setter for the _object_type attribute. Tries to convert to str
+
+        :param value: The group's object type
+        :type value: str
+
+        """
+        if value != "Group":
+            raise ValueError("Object_type must be 'Group'")
+        elif not isinstance(value, basestring):
+            value = str(value)
+        self._object_type = value
+
+    @object_type.deleter
+    def object_type(self):
+        del self._object_type
 
     def _as_version(self, version=Version.latest):
         return {'members': [l.as_version(version) for l in self.members]}
