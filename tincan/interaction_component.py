@@ -37,37 +37,35 @@ class InteractionComponent(SerializableBase):
 
     @property
     def id(self):
-        """Retrieve the id of the component
-        """
+        """Id for Agent
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._id
 
     @id.setter
     def id(self, value):
-        """Setter for the _id attribute. Tries to convert to str
-
-        :param value: The desired value for id
-        :type value: basestring
-
-        """
         if value is not None:
             if value == '':
                 raise ValueError("id cannot be set to an empty string or non-string type")
-        self._id = None if value is None else str(value)
+        self._id = None if value is None else unicode(value)
 
     @property
     def description(self):
-        """Retrieve the description of the component
-        """
+        """Description for Agent
+
+		:setter: Tries to convert to LanguageMap
+		:setter type: :mod:`tincan.LanguageMap`
+		:rtype: :mod:`tincan.LanguageMap`
+
+		"""
         return self._description
 
     @description.setter
     def description(self, value):
-        """Setter for the _description attribute. Tries to convert to LanguageMap
-
-        :param value: The desired value for description
-        :type value: LanguageMap | dict
-
-        """
         if value is not None and not isinstance(value, LanguageMap):
             value = LanguageMap(value)
         self._description = value

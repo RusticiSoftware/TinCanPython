@@ -27,35 +27,24 @@ class AgentAccount(SerializableBase):
         "homepage"
     ]
 
-    def __init__(self, *args, **kwargs):
-        """
-
-        :param name: The account name
-        :type name: str
-        :param homepage: The URL for the account's page
-        :type homepage: str
-
-        """
-
-        super(AgentAccount, self).__init__(*args, **kwargs)
-
     @property
     def name(self):
+        """Name for Account
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._name
 
     @name.setter
     def name(self, value):
-        """Setter for the _name attribute.
-
-        :param value: The account's name
-        :type value: str
-
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property name can not be set to an empty string")
+            if value == '':
+                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._name = value
 
     @name.deleter
@@ -64,21 +53,22 @@ class AgentAccount(SerializableBase):
 
     @property
     def homepage(self):
+        """Homepage for Account
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._homepage
 
     @homepage.setter
     def homepage(self, value):
-        """Setter for the _homepage attribute
-
-        :param value: The account's homepage
-        :type value: str
-
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property homepage can not be set to an empty string")
+            if value == '':
+                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._homepage = value
 
     @homepage.deleter

@@ -22,16 +22,6 @@ from tincan.serializable_base import SerializableBase
 
 
 class StatementsResult(SerializableBase):
-    """
-    Statements result model class, returned by LRS calls to get
-    multiple statements.
-
-    Attributes:
-    statements - a list containing partial results from the LRS
-    query.
-    more - If there are more results, a URL pointing to the
-    rest. None otherwise.
-    """
 
     _props_req = [
         'statements',
@@ -44,17 +34,17 @@ class StatementsResult(SerializableBase):
 
     @property
     def statements(self):
+        """Statements for StatementsResult
+
+		:setter: Tries to convert each element to Statement
+		:setter type: list[:mod:`tincan.Statement`]
+		:rtype: list[:mod:`tincan.Statement`]
+
+		"""
         return self._statements
 
     @statements.setter
     def statements(self, value):
-        """Setter for the _statements attribute. Tries to convert to
-        list of tincan.Statement.
-
-        :param value: list of statements
-        :type value: list[tincan.Statement] | None
-        """
-
         if isinstance(value, list):
             self._statements = value
             return
@@ -78,17 +68,17 @@ class StatementsResult(SerializableBase):
     
     @property
     def more(self):
+        """More for StatementsResult
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._more
 
     @more.setter
     def more(self, value):
-        """Setter for the _more attribute. Tries to convert to
-        string.
-
-        :param value: if statements is incomplete, a URI to get the rest
-        :type value: str | unicode | None
-        """
-
         if value is None or isinstance(value, basestring):
             self._more = value
             return

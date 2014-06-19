@@ -39,16 +39,17 @@ class Verb(SerializableBase):
 
     @property
     def id(self):
+        """Id for Verb
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._id
 
     @id.setter
     def id(self, value):
-        """Setter for the _id attribute. Tries to convert to str
-
-        :param value: The desired value for id
-        :type value: basestring
-
-        """
         if value is not None:
             if value == '':
                 raise ValueError(
@@ -58,16 +59,17 @@ class Verb(SerializableBase):
 
     @property
     def display(self):
+        """Display for Verb
+
+		:setter: Tries to convert to LanguageMap
+		:setter type: :mod:`tincan.LanguageMap`
+		:rtype: :mod:`tincan.LanguageMap`
+
+		"""
         return self._display
 
     @display.setter
     def display(self, value):
-        """Setter for the _display attribute. Tries to convert to str
-
-        :param value: The desired value for display
-        :type value: LanguageMap | dict
-
-        """
         if value is not None and not isinstance(value, LanguageMap):
             value = LanguageMap(value)
         self._display = value

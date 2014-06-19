@@ -25,25 +25,6 @@ from tincan.conversions.bytearray import make_bytearray
 
 class Result(SerializableBase):
 
-    """Stores the state of an activity.
-
-    Can be created from a dict, another Result, or from kwargs.
-
-    :param score: Contains the score and its scaling information
-    :type score: Score
-    :param success: Whether successful
-    :type success: bool
-    :param completion: Whether completed
-    :type completion: bool
-        ##TODO: add converters for ISO 8601 duration <-> timedelta
-    :param duration: How long it took
-    :type duration: basestring
-    :param response: HTTPResponse data
-    :type response: bytearray
-    :param extensions: Custom user data
-    :type extensions: Extensions
-    """
-
     _props = [
         'score',
         'success',
@@ -55,16 +36,17 @@ class Result(SerializableBase):
 
     @property
     def score(self):
+        """Score for Result
+
+		:setter: Tries to convert to Score
+		:setter type: :mod:`tincan.Score`
+		:rtype: :mod:`tincan.Score`
+
+		"""
         return self._score
 
     @score.setter
     def score(self, value):
-        """Setter for the _score attribute. Tries to convert to
-        tincan.Score object.
-
-        :param value: The Result's score data.
-        :type tincan.Score | dict | None
-        """
         try:
             self._score = value if value is None or isinstance(value, Score) else Score(value)
         except Exception as e:
@@ -86,16 +68,17 @@ class Result(SerializableBase):
 
     @property
     def success(self):
+        """Score for Result
+
+		:setter: Tries to convert to bool
+		:setter type: bool
+		:rtype: bool
+
+		"""
         return self._success
 
     @success.setter
     def success(self, value):
-        """Setter for the _success attribute. Tries to convert to bool.
-
-        :param value: whether the activity was successful
-        :type value: bool | None
-        """
-
         self._success = value if value is None else bool(value)
 
     @success.deleter
@@ -105,16 +88,17 @@ class Result(SerializableBase):
 
     @property
     def completion(self):
+        """Completion for Result
+
+		:setter: Tries to convert to bool
+		:setter type: bool
+		:rtype: bool
+
+		"""
         return self._completion
 
     @completion.setter
     def completion(self, value):
-        """Setter for the _completion attribute. Tries to convert to bool.
-
-        :param value: whether the activity was completed
-        :type value: bool | None
-        """
-
         self._completion = value if value is None else bool(value)
 
     @completion.deleter
@@ -124,19 +108,18 @@ class Result(SerializableBase):
 
     @property
     def duration(self):
+        """Duration for Result
+
+		:setter: Tries to convert to timdelta
+		:setter type: :mod:`datetime.timedelta`
+		:rtype: :mod:`datetime.timedelta`
+
+		"""
         return self._duration
 
     ##TODO: add converters for ISO 8601 duration <-> timedelta
     @duration.setter
     def duration(self, value):
-        """Setter for the _duration attribute. Currently tries to
-        convert to ISO 8601 duration string, but in future will try
-        to convert to a timedelta object.
-
-        :param value: how long the activity took
-        :type value: str | None
-        """
-
         if value is None or isinstance(value, basestring):
             self._duration = value
             return
@@ -156,17 +139,17 @@ class Result(SerializableBase):
 
     @property
     def response(self):
+        """Response for Result
+
+		:setter: Tries to convert to bytearray
+		:setter type: bytearray
+		:rtype: bytearray
+
+		"""
         return self._response
 
     @response.setter
     def response(self, value):
-        """Setter for the _response attribute. Tries to convert to
-        bytearray.
-
-        :param value: the response data
-        :type value: bytearray | str | unicode | None
-        """
-
         try:
             self._response = value if value is None else make_bytearray(value)
         except Exception as e:
@@ -186,17 +169,17 @@ class Result(SerializableBase):
 
     @property
     def extensions(self):
+        """Extensions for Result
+
+		:setter: Tries to convert to Extensions
+		:setter type: :mod:`tincan.Extensions`
+		:rtype: :mod:`tincan.Extensions`
+
+		"""
         return self._extensions
 
     @extensions.setter
     def extensions(self, value):
-        """Setter for the _extensions attribute. Tries to convert to
-        tincan.Extensions object.
-
-        :param value: custom additions to TinCan
-        :type value: tincan.Extensions | dict | None
-        """
-
         if value is None or isinstance(value, Extensions):
             self._extensions = value
             return

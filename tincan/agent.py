@@ -30,44 +30,25 @@ class Agent(SerializableBase):
 
     _props.extend(_props_req)
 
-    def __init__(self, *args, **kwargs):
-        """
-
-        :param name: The name of this agent
-        :type name: str
-        :param mbox: The mailto address for this agent
-        :type mbox: str
-        :param mbox_sha1sum: The sha1sum of the mbox of this agent
-        :type mbox_sha1sum: str
-        :param openid: The openid for this agent
-        :type openid: str
-        :param account: The alternative account for this agent (e.g. a Twitter handle)
-        :type account: :mod:`tincan.agentaccount`
-        :param object_type: The object type for this agent. Defaults to "Agent"
-        :type object_type: str
-
-        """
-
-        super(Agent, self).__init__(*args, **kwargs)
-
     @property
     def object_type(self):
+        """Object Type for Agent
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._object_type
 
     @object_type.setter
     def object_type(self, value):
-        """Setter for the _object_type attribute. Tries to convert to string.
-        
-        :param value: The agent's object_type
-        :type value: str
-        
-        """
         newtype = "Agent"
         if value is not None:
-            if not isinstance(value, basestring):
-                newtype = str(value)
-            elif value == '':
-                raise ValueError("Property object_type can not be set to an empty string")
+            if value == '':
+                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
             else: newtype = value
         self._object_type = newtype
 
@@ -77,21 +58,22 @@ class Agent(SerializableBase):
 
     @property
     def name(self):
+        """Name for Agent
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._name
 
     @name.setter
     def name(self, value):
-        """Setter for the _name attribute. Tries to convert to string.
-
-        :param value: The agent's name
-        :type value: str
-        
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property name can not be set to an empty string")
+            if value == '':
+                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._name = value
 
     @name.deleter
@@ -100,21 +82,22 @@ class Agent(SerializableBase):
 
     @property
     def mbox(self):
+        """Mbox for Agent
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._mbox
 
     @mbox.setter
     def mbox(self, value):
-        """Setter for the _mbox attribute. Tries to convert to string.
-
-        :param value: The agent's mbox
-        :type value: str
-        
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property mbox can not be set to an empty string")
+            if value == '':
+                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         if not value.startswith("mailto:"):
             value = "mailto:" + value
         self._mbox = value
@@ -125,21 +108,22 @@ class Agent(SerializableBase):
 
     @property
     def mbox_sha1sum(self):
+        """Mbox_sha1sum for Agent
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._mbox_sha1sum
 
     @mbox_sha1sum.setter
     def mbox_sha1sum(self, value):
-        """Setter for the _mbox_sha1sum attribute. Tries to convert to string.
-
-        :param value: The agent's mbox_sha1sum
-        :type value: str
-
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
+            if value == '':
                 raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._mbox_sha1sum = value
 
     @mbox_sha1sum.deleter
@@ -148,21 +132,22 @@ class Agent(SerializableBase):
 
     @property
     def openid(self):
+        """Openid for Agent
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._openid
 
     @openid.setter
     def openid(self, value):
-        """Setter for the _openid attribute. Tries to convert to string.
-
-        :param value: The agent's openid
-        :type value: str
-        
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property openid can not be set to an empty string")
+            if value == '':
+                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._openid = value
 
     @openid.deleter
@@ -171,16 +156,17 @@ class Agent(SerializableBase):
 
     @property
     def account(self):
+        """Account for Agent
+
+		:setter: Tries to convert to Account
+		:setter type: :mod:`tincan.AgentAccount`
+		:rtype: :mod:`tincan.AgentAccount`
+
+		"""
         return self._account
 
     @account.setter
     def account(self, value):
-        """Setter for the _account attribute. Tries to convert to :mod:`tincan.AgentAccount`
-
-        :param value: The agent's account
-        :type value: :mod:`tincan.AgentAccount`
-
-        """
         if value is not None:
             if not value:
                 value = None

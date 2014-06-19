@@ -30,15 +30,7 @@ class Group(SerializableBase):
     ]
 
     def __init__(self, *args, **kwargs):
-        """
-
-        :param members: The list of the members of this group
-        :type members: list
-
-        """
-
         self._members = []
-
         super(Group, self).__init__(*args, **kwargs)
 
 
@@ -60,16 +52,17 @@ class Group(SerializableBase):
 
     @property
     def members(self):
+        """Members for Group
+
+		:setter: Tries to convert each member to Agent
+		:setter type: list[:mod:`tincan.Agent`]
+		:rtype: list[:mod:`tincan.Agent`]
+
+		"""
         return self._members
 
     @members.setter
     def members(self, value):
-        """Setter for the _members attribute. Tries to convert each object to Agent
-
-        :param value: The group's members
-        :type value: list
-
-        """
         newmembers = []
         if value is not None:
             if isinstance(value, list):
@@ -89,20 +82,21 @@ class Group(SerializableBase):
 
     @property
     def object_type(self):
+        """Object type for Group
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._object_type
 
     @object_type.setter
     def object_type(self, value):
-        """Setter for the _object_type attribute. Tries to convert to str
-
-        :param value: The group's object type
-        :type value: str
-
-        """
         if value != "Group":
             raise ValueError("Object_type must be 'Group'")
-        elif not isinstance(value, basestring):
-            value = str(value)
+        elif not isinstance(value, unicode):
+            value = unicode(value)
         self._object_type = value
 
     @object_type.deleter
