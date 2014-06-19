@@ -33,9 +33,7 @@ class InteractionComponentList(list, SerializableBase):
         constructor is called.
 
         """
-        check_args = list(*args, **kwargs)
-        new_args = []
-        map(lambda(v): new_args.append(InteractionComponent(v)), check_args)
+        new_args = [InteractionComponent(v) for v in list(*args, **kwargs)]
         super(InteractionComponentList, self).__init__(new_args)
 
     def __setitem__(self, ind, value):
@@ -73,8 +71,7 @@ class InteractionComponentList(list, SerializableBase):
         :type value: :mod:`InteractionComponentList` | list of InteractionComponents
 
         """
-        new_args = []
-        map(lambda(v): new_args.append(InteractionComponent(v)), value)
+        new_args = [InteractionComponent(v) for v in value]
         super(InteractionComponentList, self).extend(new_args)
 
     def insert(self, ind, value):
@@ -91,4 +88,4 @@ class InteractionComponentList(list, SerializableBase):
         super(InteractionComponentList, self).insert(ind, value)
 
     def _as_version(self, version=Version.latest):
-        return list(self)
+        return [v.as_version(version) for v in self]

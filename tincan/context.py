@@ -1,0 +1,194 @@
+#    Copyright 2014 Rustici Software
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+import uuid
+import re
+from tincan.serializable_base import SerializableBase
+from tincan.group import Group
+from tincan.agent import Agent
+from tincan.extensions import Extensions
+from tincan.context_activities import ContextActivities
+from tincan.version import Version
+
+"""
+.. module:: context
+   :synopsis: A context object that provides contextual information
+   about a statement
+
+"""
+
+
+class Context(SerializableBase):
+
+    _UUID_REGEX = re.compile('^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$')
+    _LANG_REGEX = re.compile('^(((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+)|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$')
+
+    _props = [
+        'registration',
+        'instructor',
+        'team',
+        'context_activities',
+        'revision',
+        'platform',
+        'language',
+        'statement',
+        'extensions'
+    ]
+
+    @property
+    def registration(self):
+        return self._registration
+
+    @registration.setter
+    def registration(self, value):
+        if value is not None and not isinstance(value, uuid.UUID):
+            if isinstance(value, basestring) and not self._UUID_REGEX.match(value):
+                raise ValueError("Invalid UUID string")
+            value = uuid.UUID(value)
+        self._registration = value
+
+    @registration.deleter
+    def registration(self):
+        del self._registration
+
+    @property
+    def instructor(self):
+        return self._instructor
+
+    @instructor.setter
+    def instructor(self, value):
+        if value is not None and not isinstance(value, Group) and not isinstance(value, Agent):
+            try:
+                value = Agent(value)
+            except (TypeError, AttributeError):
+                value = Group(value)
+        self._instructor = value
+
+    @instructor.deleter
+    def instructor(self):
+        del self._instructor
+
+    @property
+    def team(self):
+        return self._team
+
+    @team.setter
+    def team(self, value):
+        if value is not None and not isinstance(value, Group):
+            value = Group(value)
+        self._team = value
+
+    @team.deleter
+    def team(self):
+        del self._team
+
+    @property
+    def context_activities(self):
+        return self._context_activities
+
+    @context_activities.setter
+    def context_activities(self, value):
+        if value is not None and not isinstance(value, ContextActivities):
+            value = ContextActivities(value)
+        self._context_activities = value
+
+    @context_activities.deleter
+    def context_activities(self, value):
+        del self._context_activities
+
+    @property
+    def revision(self):
+        return self._revision
+
+    @revision.setter
+    def revision(self, value):
+        if value is not None and not isinstance(value, basestring):
+            value = str(value)
+        self._revision = value
+
+    @revision.deleter
+    def revision(self):
+        del self._revision
+
+    @property
+    def platform(self):
+        return self._platform
+
+    @platform.setter
+    def platform(self, value):
+        if value is not None and not isinstance(value, basestring):
+            value = str(value)
+        self._platform = value
+
+    @platform.deleter
+    def platform(self):
+        del self._platform
+
+    @property
+    def language(self):
+        return self._language
+
+    @language.setter
+    def language(self, value):
+        if value is not None:
+            if not isinstance(value, basestring):
+                value = str(value)
+            if not self._LANG_REGEX.match(value):
+                raise ValueError("invalid regional identifier")
+        self._language = value
+
+    @language.deleter
+    def language(self):
+        del self._language
+
+    @property
+    def statement(self):
+        return self._statement
+
+    @statement.setter
+    def statement(self, value):
+        if value is not None and not isinstance(value, StatementRef):
+            value = StatementRef(value)
+        self._statement = value
+
+    @statement.deleter
+    def statement(self):
+        del self._statement
+
+    @property
+    def extensions(self):
+        return self._extensions
+
+    @extensions.setter
+    def extensions(self, value):
+        if value is not None and not isinstance(value, Extensions):
+            value = Extensions(value)
+        self._extensions = value
+
+    @extensions.deleter
+    def extensions(self):
+        del self._extensions
+
+    def _as_version(self, version=Version.latest):
+        result = {}
+        for k, v in vars(self).iteritems():
+            k = self._props_corrected.get(k, k)
+            if isinstance(v, uuid.UUID):
+                result[k] = str(v)
+            elif isinstance(v, SerializableBase):
+                result[k] = v.as_version(version)
+            else:
+                result[k] = v
+        result = self._filter_none(result)
+        return result

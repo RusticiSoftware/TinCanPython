@@ -23,7 +23,8 @@ class TestActivityDefinition(unittest.TestCase):
 
     def test_InitEmpty(self):
         adef = ActivityDefinition()
-        self.assertFalse(vars(adef))
+        self.assertEqual(vars(adef), {})
+        self.assertIsInstance(adef, ActivityDefinition)
 
     def test_InitAll(self):
         adef = ActivityDefinition({
