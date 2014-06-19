@@ -19,17 +19,18 @@ Functions for converting ``datetime.timedelta`` and
 
 import datetime
 import aniso8601
+from pytz import utc
 
 
 def make_timedelta(value):
-    """Tries to convert the given value to a ``datetime.timedelta``.
+    """Tries to convert the given value to a `datetime.timedelta`.
 
     Strings will be parsed as ISO 8601 durations.
 
     If a number is provided, it will be interpreted as the number of
     seconds.
 
-    If a ``dict`` is provided, does ``datetime.timedelta(**value)``.
+    If a `dict` is provided, does `datetime.timedelta(**value)`.
 
     :param value: something to convert
     :type value: str | unicode | float | int | datetime.timedelta | dict
@@ -37,9 +38,7 @@ def make_timedelta(value):
     :rtype: datetime.timedelta
     """
 
-    if isinstance(value, datetime.timedelta):
-        return value
-    elif isinstance(value, basestring):
+    if isinstance(value, basestring):
         try:
             return aniso8601.parse_duration(value)
         except Exception as e:
@@ -56,10 +55,14 @@ def make_timedelta(value):
             raise ValueError(msg)
 
     try:
-        if isinstance(value, dict):
+        if isinstance(value, datetime.timedelta):
+            return value
+        elif isinstance(value, dict):
             return datetime.timedelta(**value)
-        else:
+        elif isinstance(value, (float, int)):
             return datetime.timedelta(seconds=value)
+        else:
+            return datetime.timedelta(value)
     except Exception as e:
         msg = (
             "Could not convert the given value of type '%s' to a "
@@ -75,7 +78,7 @@ def make_timedelta(value):
 
 
 def jsonify_timedelta(value):
-    """Converts a ``datetime.timedelta`` to an ISO 8601 duration
+    """Converts a `datetime.timedelta` to an ISO 8601 duration
     string for JSON-ification.
 
     :param value: something to convert
@@ -83,6 +86,8 @@ def jsonify_timedelta(value):
     :return: the value after conversion
     :rtype unicode
     """
+
+    assert isinstance(value, datetime.timedelta)
 
     # split seconds to larger units
     seconds = value.total_seconds()
@@ -123,3 +128,69 @@ def jsonify_timedelta(value):
     time += '{}S'.format(seconds)
 
     return u'P' + date + time
+
+
+def make_datetime(value):
+    """Tries to convert the given value to a `datetime.datetime`.
+
+    Strings will be parsed as ISO 8601 timestamps.
+
+    If a number is provided, it will be interpreted as a UTC UNIX
+    timestamp. (TODO: test)
+
+    If a `dict` is provided, does `datetime.datetime(**value)`.
+    (TODO: test)
+
+    If a `tuple` or a `list` is provided, does
+    `datetime.datetime(*value)`. (TODO: test)
+
+    :param value: something to convert
+    :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
+    :return: the value after conversion
+    :rtype: :class:`datetime.datetime`
+    """
+
+    if isinstance(value, basestring):
+        try:
+            return aniso8601.parse_datetime(value)
+        except Exception as e:
+            msg = (
+                "Conversion to datetime.datetime failed. Could not "
+                "parse the given string as an ISO 8601 timestamp: "
+                "%s\n\n"
+                "%s" %
+                (
+                    repr(value),
+                    e.message,
+                )
+            )
+            raise ValueError(msg)
+
+    try:
+        if isinstance(value, datetime.datetime):
+            return value
+        elif isinstance(value, dict):
+            return datetime.datetime(**value)
+        elif isinstance(value, (tuple, list)):
+            return datetime.datetime(*value)
+        elif isinstance(value, (float, int)):
+            return datetime.datetime.utcfromtimestamp(value).replace(tzinfo=utc)
+        else:
+            return datetime.datetime(value)
+    except Exception as e:
+        msg = (
+            "Could not convert the given value of type '%s' to a "
+            "datetime.datetime: %s\n\n"
+            "%s" %
+            (
+                value.__class__.__name__,
+                repr(value),
+                e.message,
+            )
+        )
+        raise TypeError(msg) if isinstance(e, TypeError) else ValueError(msg)
+
+
+def jsonify_datetime(value):
+    assert isinstance(value, datetime.datetime)
+    return value.isoformat()

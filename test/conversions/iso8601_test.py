@@ -15,13 +15,24 @@
 #    limitations under the License.
 
 import unittest
-from tincan.conversions.iso8601 import make_timedelta, jsonify_timedelta
-from datetime import timedelta
+from tincan.conversions.iso8601 import (
+    make_timedelta, jsonify_timedelta,
+    make_datetime, jsonify_datetime,
+)
+from datetime import timedelta, datetime
+from pytz import utc, timezone
+
+
+# make sure that pytz's db is loaded so that later accesses are faster.
+# to avoid long startup times, run:
+#       pip unzip pytz
+print ("Loading timezone data (to speed this up, run `pip unzip pytz`)...")
+timezone('US/Central')
 
 
 class ISO8601Test(unittest.TestCase):
 
-    def test_encode_iso_to_timedelta(self):
+    def test_iso_to_timedelta(self):
         td = make_timedelta('PT0S')
         self.assertEqual(td.total_seconds(), 0)
         self.assertEqual(td.seconds, 0)
@@ -67,9 +78,65 @@ class ISO8601Test(unittest.TestCase):
         td = make_timedelta('P00.5D')
         self.assertEqual(td.total_seconds(), 12*3600)
 
-    def test_bad_encode_iso_to_timedelta(self):
+    def test_seconds_to_timedelta(self):
+        td = make_timedelta(0)
+        self.assertEqual(td.total_seconds(), 0)
+        self.assertEqual(td.days, 0)
+        self.assertEqual(td.seconds, 0)
+        self.assertEqual(td.microseconds, 0)
+
+        td = make_timedelta(61.5)
+        self.assertEqual(td.total_seconds(), 61.5)
+        self.assertEqual(td.days, 0)
+        self.assertEqual(td.seconds, 61)
+        self.assertEqual(td.microseconds, 500000)
+
+        td = make_timedelta(24*3600 + 61.5)
+        self.assertEqual(td.total_seconds(), 24*3600 + 61.5)
+        self.assertEqual(td.days, 1)
+        self.assertEqual(td.seconds, 61)
+        self.assertEqual(td.microseconds, 500000)
+
+    def test_dict_to_timedelta(self):
+        td = make_timedelta({})
+        self.assertEqual(td.total_seconds(), 0)
+        self.assertEqual(td.days, 0)
+        self.assertEqual(td.seconds, 0)
+        self.assertEqual(td.microseconds, 0)
+
+        td = make_timedelta({'seconds': 0})
+        self.assertEqual(td.total_seconds(), 0)
+        self.assertEqual(td.days, 0)
+        self.assertEqual(td.seconds, 0)
+        self.assertEqual(td.microseconds, 0)
+
+        td = make_timedelta({'seconds': 24*3600 + 61.5})
+        self.assertEqual(td.total_seconds(), 24*3600 + 61.5)
+        self.assertEqual(td.days, 1)
+        self.assertEqual(td.seconds, 61)
+        self.assertEqual(td.microseconds, 500000)
+
+        td = make_timedelta({'days': 1, 'seconds': 61.5})
+        self.assertEqual(td.total_seconds(), 24*3600 + 61.5)
+        self.assertEqual(td.days, 1)
+        self.assertEqual(td.seconds, 61)
+        self.assertEqual(td.microseconds, 500000)
+
+        td = make_timedelta({'days': 3, 'seconds': 61, 'microseconds': 500000})
+        self.assertEqual(td.total_seconds(), 3*24*3600 + 61.5)
+        self.assertEqual(td.days, 3)
+        self.assertEqual(td.seconds, 61)
+        self.assertEqual(td.microseconds, 500000)
+
+    def test_bad_iso_to_timedelta(self):
         with self.assertRaises(ValueError):
             make_timedelta('PT0.5M0.25S')
+
+        with self.assertRaises(ValueError):
+            make_timedelta('T0S')
+
+        with self.assertRaises(ValueError):
+            make_timedelta('PT1')
 
     def test_timedelta_to_iso(self):
         iso = jsonify_timedelta(timedelta(seconds=0))
@@ -89,6 +156,140 @@ class ISO8601Test(unittest.TestCase):
 
         iso = jsonify_timedelta(timedelta(days=2.5))
         self.assertEqual(iso, 'P2DT12H00M00S')
+
+    def test_bad_timedelta_to_iso(self):
+        with self.assertRaises(AssertionError):
+            jsonify_timedelta(0)
+
+        with self.assertRaises(AssertionError):
+            jsonify_timedelta(0.0)
+
+        with self.assertRaises(AssertionError):
+            jsonify_timedelta(1)
+
+        with self.assertRaises(AssertionError):
+            jsonify_timedelta(1.5)
+
+        with self.assertRaises(AssertionError):
+            jsonify_timedelta('PT12H')
+
+        with self.assertRaises(AssertionError):
+            jsonify_datetime('2014-06-19T17:03:17.361077-05:00')
+
+        with self.assertRaises(AssertionError):
+            jsonify_timedelta(('bad', 'stuff'))
+
+    def test_iso_to_datetime(self):
+        ## with microseconds
+        # naive
+        pair = (
+            '2014-06-19T16:40:22.293913',
+            datetime(2014, 6, 19, 16, 40, 22, 293913)
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        # timezone
+        pair = (
+            '2014-06-19T21:55:27.934309+00:00',
+            datetime(2014, 6, 19, 21, 55, 27, 934309, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        ## integer seconds
+        # naive
+        pair = (
+            '2014-06-19T16:40:22',
+            datetime(2014, 6, 19, 16, 40, 22, 0)
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        # timezone
+        pair = (
+            '2014-06-19T21:55:27+00:00',
+            datetime(2014, 6, 19, 21, 55, 27, 0, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        ## timezone other than UTC
+        central = timezone('US/Central')
+        pair = (
+            '2014-06-19T17:03:17.361077-05:00',
+            central.localize(datetime(2014, 6, 19, 17, 3, 17, 361077)),
+            # Due to pytz weirdness, the following has
+            # incorrect tz offset info:
+            # datetime(2014, 6, 19, 17, 3, 17, 361077, tzinfo=central))
+        )
+        self.assertEqual(
+            make_datetime(pair[0]).strftime('%c %z'),
+            pair[1].strftime('%c %z'),
+        )
+
+    def test_datetime_to_iso(self):
+        ## with microseconds
+        # naive
+        pair = (
+            '2014-06-19T16:40:22.293913',
+            datetime(2014, 6, 19, 16, 40, 22, 293913)
+        )
+        self.assertEqual(pair[0], jsonify_datetime(pair[1]))
+
+        # timezone
+        pair = (
+            '2014-06-19T21:55:27.934309+00:00',
+            datetime(2014, 6, 19, 21, 55, 27, 934309, tzinfo=utc),
+        )
+        self.assertEqual(pair[0], jsonify_datetime(pair[1]))
+
+        ## integer seconds
+        # naive
+        pair = (
+            '2014-06-19T16:40:22',
+            datetime(2014, 6, 19, 16, 40, 22, 0)
+        )
+        self.assertEqual(pair[0], jsonify_datetime(pair[1]))
+
+        # timezone
+        pair = (
+            '2014-06-19T21:55:27+00:00',
+            datetime(2014, 6, 19, 21, 55, 27, 0, tzinfo=utc),
+        )
+        self.assertEqual(pair[0], jsonify_datetime(pair[1]))
+
+        ## timezone other than UTC
+        central = timezone('US/Central')
+        pair = (
+            '2014-06-19T17:03:17.361077-05:00',
+            central.localize(datetime(2014, 6, 19, 17, 3, 17, 361077)),
+            # Due to pytz weirdness, the following has
+            # incorrect tz offset info:
+            # datetime(2014, 6, 19, 17, 3, 17, 361077, tzinfo=central))
+        )
+        self.assertEqual(
+            pair[0],
+            jsonify_datetime(pair[1]),
+        )
+
+    def test_bad_timedelta_to_iso(self):
+        with self.assertRaises(AssertionError):
+            jsonify_datetime('2014-06-19T17:03:17.361077-05:00')
+
+        with self.assertRaises(AssertionError):
+            jsonify_datetime(0)
+
+        with self.assertRaises(AssertionError):
+            jsonify_datetime(0.0)
+
+        with self.assertRaises(AssertionError):
+            jsonify_datetime(1)
+
+        with self.assertRaises(AssertionError):
+            jsonify_datetime(1.5)
+
+        with self.assertRaises(AssertionError):
+            jsonify_datetime('2014-06-19T17:03:17.361077-05:00')
+
+        with self.assertRaises(AssertionError):
+            jsonify_datetime('PT1H')
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ISO8601Test)

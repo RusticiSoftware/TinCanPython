@@ -46,7 +46,7 @@ Before running any of the tests, make sure that `tincan` is installed or in Pyth
 
 ##### On Windows:
 
-4. Open My Computer > Properties > Advanced [System Settings] > Environment Variables.
+4. Open My Computer > Properties > Advanced (System Settings) > Environment Variables.
 5. In both the list for your user and for the whole system, look for the `PYTHONPATH` variable:
 
     - If it's there, edit it and add ";C:\\path\to\TinCanPython" to the end. The semicolon is important, since it separates the different path directories.
