@@ -278,7 +278,7 @@ class TestAttachment(unittest.TestCase):
 
      def test_ToJSON(self):
           attachment = Attachment(**{"usage_type":"test", "content_type":"test", "length":1, "sha2":"test", "fileurl":"test", "display":{"en-US":"test"}, "description":{"en-US":"test"}})
-          self.assertEqual(attachment.to_json(), '''{"sha2": "test", "description": {"en-US": "test"}, "usage_type": "test", "length": 1, "content_type": "test", "fileurl": "test", "display": {"en-US": "test"}}''')
+          self.assertEqual(attachment.to_json(), '''{"sha2": "test", "contentType": "test", "description": {"en-US": "test"}, "usageType": "test", "length": 1, "fileUrl": "test", "display": {"en-US": "test"}}''')
 
      def test_ToJSONEmpty(self):
           attachment = Attachment()
@@ -294,7 +294,7 @@ class TestAttachment(unittest.TestCase):
           self.assertEqual(attachment.fileurl, 'test')
           self.languageMapVerificationHelper(attachment.description)
           self.languageMapVerificationHelper(attachment.display)
-          self.assertEqual(attachment.to_json(), json_str)
+          self.assertEqual(attachment.to_json(), '{"sha2": "test", "contentType": "test", "description": {"en-US": "test"}, "usageType": "test", "length": 1, "fileUrl": "test", "display": {"en-US": "test"}}')
 
      def languageMapVerificationHelper(self, value):
           self.assertIsInstance(value, LanguageMap)
