@@ -19,36 +19,41 @@ class AgentProfileDocument(Document):
     """Extends Document with an Agent field, can be created from a dict, another Document, or from kwargs.
 
     :param id: The id of this document
-    :type id: str
+    :type id: unicode
     :param content_type: The content_type of the content of this document
-    :type content_type: str
+    :type content_type: unicode
     :param content: The content of this document
     :type content: bytearray
     :param etag: The etag of this document
-    :type etag: str
+    :type etag: unicode
     :param time_stamp: The time stamp of this document
-    :type time_stamp: str
+    :type time_stamp: unicode
     :param agent: The agent object of this document
     :type agent: Agent
     """
 
-    _props = list(Document._props)
+    _props_req = list(Document._props_req)
 
-    _props.extend([
+    _props_req.extend([
         'agent',
     ])
 
+    _props = list(Document._props)
+
+    _props.extend(_props_req)
+
     @property
     def agent(self):
+        """The Document's agent object
+
+        :setter: Tries to convert to agent
+        :setter type: :class:`tincan.agent.Agent`
+        :rtype: :class:`tincan.agent.Agent`
+        """
         return self._agent
 
     @agent.setter
     def agent(self, value):
-        """Setter for the _agent attribute
-
-        :param value: Desired object for the document's agent
-        :type value: Agent
-        """
         if not isinstance(value, Agent) and value is not None:
             try:
                 value = Agent(value)
@@ -58,7 +63,3 @@ class AgentProfileDocument(Document):
                     "that can be constructed into an Agent object." % self.__class__.__name__
                 )
         self._agent = value
-
-    @agent.deleter
-    def agent(self, value):
-        del self._agent

@@ -18,18 +18,18 @@ from tincan.base import Base
 class HTTPRequest(Base):
     """Creates a new HTTPRequest object, either from a dict, another object, or from kwargs
 
-    :param endpoint: The remote lrs endpoint used the HTTP connection
-    :type endpoint: str
+    :param endpoint: The remote lrs endpoint used for the HTTP connection
+    :type endpoint: unicode
     :param method: Method for the HTTP connection ("GET", "POST", "DELETE", etc.)
-    :type method: str
+    :type method: unicode
     :param resource: Resource for the LRS HTTP connection ("about", "statements", "activities/state", etc.)
-    :type resource: str
+    :type resource: unicode
     :param headers: Headers for the HTTP connection ("If-Match", "Content-Type", etc.)
-    :type headers: dict(str:str)
+    :type headers: dict(unicode:unicode)
     :param query_params: Query parameters for the HTTP connection ("registration", "since", "statementId", etc.)
-    :type query_params: dict(str:str)
+    :type query_params: dict(unicode:unicode)
     :param content: Content body for the HTTP connection. Valid json string.
-    :type content: str
+    :type content: unicode
     :param ignore404: True if this request should consider a 404 response successful, False otherwise
     :type ignore404: bool
     """
@@ -51,17 +51,18 @@ class HTTPRequest(Base):
     
     @property
     def endpoint(self):
+        """The remote lrs endpoint used for the HTTP connection
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
         return self._endpoint
 
     @endpoint.setter
     def endpoint(self, value):
-        """Setter for the _endpoint attribute. Tries to convert to string.
-
-        :param value: The request's endpoint
-        :type value: str
-        """
-        if not isinstance(value, basestring) and value is not None:
-            str(value)
+        if not isinstance(value, unicode) and value is not None:
+            unicode(value)
         self._endpoint = value
 
     @endpoint.deleter
@@ -70,45 +71,48 @@ class HTTPRequest(Base):
 
     @property
     def method(self):
+        """Method for the HTTP connection ("GET", "POST", "DELETE", etc.)
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
         return self._method
 
     @method.setter
     def method(self, value):
-        """Setter for the _method attribute. Tries to convert to string.
-        
-        :param value: The request's method
-        :type value: str
-        """
         if not isinstance(value, basestring) and value is not None:
             str(value)
         self._method = value
 
     @property
     def resource(self):
+        """Resource for the LRS HTTP connection ("about", "statements", "activities/state", etc.)
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
         return self._resource
 
     @resource.setter
     def resource(self, value):
-        """Setter for the _resource attribute. Tries to convert to string.
-        
-        :param value: The request's resource
-        :type value: str
-        """
-        if not isinstance(value, basestring) and value is not None:
-            str(value)
+        if not isinstance(value, unicode) and value is not None:
+            unicode(value)
         self._resource = value
         
     @property
     def headers(self):
+        """Headers for the HTTP connection ("If-Match", "Content-Type", etc.)
+
+        :setter: Accepts a dict or an object
+        :setter type: dict
+        :rtype: dict
+        """
         return self._headers
 
     @headers.setter
     def headers(self, value):
-        """Setter for the _headers attribute.
-
-        :param value: The request's headers
-        :type value: dict
-        """
         val_dict = {}
         if value is not None:
             val_dict.update(value if isinstance(value, dict) else vars(value))
@@ -116,15 +120,16 @@ class HTTPRequest(Base):
 
     @property
     def query_params(self):
+        """Query parameters for the HTTP connection ("registration", "since", "statementId", etc.)
+
+        :setter: Accepts a dict or an object
+        :setter type: dict
+        :rtype: dict
+        """
         return self._query_params
 
     @query_params.setter
     def query_params(self, value):
-        """Setter for the _query_params attribute.
-
-        :param value: The request's query parameters
-        :type value: dict
-        """
         val_dict = {}
         if value is not None:
             val_dict.update(value if isinstance(value, dict) else vars(value))
@@ -132,17 +137,18 @@ class HTTPRequest(Base):
         
     @property
     def content(self):
+        """Content body for the HTTP connection. Valid json string.
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
         return self._content
 
     @content.setter
     def content(self, value):
-        """Setter for the _content attribute. Tries to convert to string.
-
-        :param value: The request's content
-        :type value: str
-        """
-        if not isinstance(value, basestring) and value is not None:
-            value = str(value)
+        if not isinstance(value, unicode) and value is not None:
+            value = unicode(value)
         self._content = value
 
     @content.deleter
@@ -151,15 +157,16 @@ class HTTPRequest(Base):
         
     @property
     def ignore404(self):
+        """True if this request should consider a 404 response successful, False otherwise
+
+        :setter: Tries to convert to boolean
+        :setter type: bool
+        :rtype: bool
+        """
         return self._ignore404
 
     @ignore404.setter
     def ignore404(self, value):
-        """Setter for the _ignore404 attribute. Tries to convert to bool.
-
-        :param value: If true, this request treats 404 statuses as successful
-        :type value: bool
-        """
         self._ignore404 = bool(value)
 
     @ignore404.deleter

@@ -21,42 +21,47 @@ class StateDocument(Document):
     """Extends Document with Agent, Activity, and Registration fields; can be created from a dict, another Document, or from kwargs.
 
     :param id: The id of this document
-    :type id: str
+    :type id: unicode
     :param content_type: The content_type of the content of this document
-    :type content_type: str
+    :type content_type: unicode
     :param content: The content of this document
     :type content: bytearray
     :param etag: The etag of this document
-    :type etag: str
+    :type etag: unicode
     :param time_stamp: The time stamp of this document
-    :type time_stamp: str
+    :type time_stamp: unicode
     :param agent: The agent object of this document
     :type agent: Agent
     :param activity: The activity object of this document
     :type activity: Activity
     :param registration: The registration id of the state for this document
-    :type registration: str
+    :type registration: unicode
     """
 
-    _props = list(Document._props)
+    _props_req = list(Document._props_req)
 
-    _props.extend([
+    _props_req.extend([
         'agent',
         'activity',
         'registration',
     ])
 
+    _props = list(Document._props)
+
+    _props.extend(_props_req)
+
     @property
     def agent(self):
+        """The Document's agent object
+
+        :setter: Tries to convert to agent
+        :setter type: :class:`tincan.agent.Agent`
+        :rtype: :class:`tincan.agent.Agent`
+        """
         return self._agent
 
     @agent.setter
     def agent(self, value):
-        """Setter for the _agent attribute. Tries to convert to Agent.
-
-        :param value: Desired object for the document's agent
-        :type value: Agent
-        """
         if not isinstance(value, Agent) and value is not None:
             try:
                 value = Agent(value)
@@ -67,21 +72,18 @@ class StateDocument(Document):
                 )
         self._agent = value
 
-    @agent.deleter
-    def agent(self, value):
-        del self._agent
-
     @property
     def activity(self):
+        """The Document's activity object
+
+        :setter: Tries to convert to activity
+        :setter type: :class:`tincan.activity.Activity`
+        :rtype: :class:`tincan.activity.Activity`
+        """
         return self._activity
 
     @activity.setter
     def activity(self, value):
-        """Setter for the _activity attribute. Tries to convert to Activity.
-
-        :param value: Desired object for the document's activity
-        :type value: Activity
-        """
         if not isinstance(value, Activity) and value is not None:
             try:
                 value = Activity(value)
@@ -92,26 +94,19 @@ class StateDocument(Document):
                 )
         self._activity = value
 
-    @activity.deleter
-    def activity(self, value):
-        del self._activity
-
     @property
     def registration(self):
+        """The Document registration id
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode | :class:`uuid.UUID`
+        :rtype: unicode
+        """
         return self._registration
 
     @registration.setter
     def registration(self, value):
-        """Setter for the _registration attribute. Tries to convert to string.
-
-        :param value: Desired value for the document's registration id
-        :type value: str | uuid.UUID
-        """
-        if not isinstance(value, basestring) and value is not None:
-            str(value)
+        if not isinstance(value, unicode) and value is not None:
+            unicode(value)
 
         self._registration = value
-
-    @registration.deleter
-    def registration(self):
-        del self._registration

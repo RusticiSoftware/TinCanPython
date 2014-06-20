@@ -20,6 +20,7 @@ setup(
         'Experience API'
     ],
     requires=[
-      'aniso8601'
+      'aniso8601',
+      'pytz',
     ]
 )
