@@ -42,9 +42,9 @@ from tincan.documents import (
 class RemoteLRS(Base):
 
     _props_req = [
-        "version",
-        "endpoint",
-        "auth",
+        'version',
+        'endpoint',
+        'auth',
     ]
 
     _props = []
