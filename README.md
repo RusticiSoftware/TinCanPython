@@ -23,6 +23,11 @@ On Windows, make sure that your Python installation allows you to run Python fro
 3. Include "Add python.exe to Path" in the install options. I.e. install everything.
 4. Click "Next," then "Finish."
 
+#### Recommended pre-test setup
+To speed up the timezone tests, run:
+
+    pip unzip pytz
+
 #### Running the tests
 It is possible to run all the tests in one go, or just run one part of the tests to verify a single part of `tincan`. The tests are located in the `test` directory of your `tincan` package installation.
 

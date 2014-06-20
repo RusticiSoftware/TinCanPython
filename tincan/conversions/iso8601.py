@@ -18,6 +18,9 @@ Functions for converting ``datetime.timedelta`` and
 """
 
 import datetime
+## struct_time does not preserve millisecond accuracy per
+## TinCan spec, so this is disabled to discourage its use.
+#from time import mktime, struct_time
 import aniso8601
 from pytz import utc
 
@@ -131,18 +134,19 @@ def jsonify_timedelta(value):
 
 
 def make_datetime(value):
-    """Tries to convert the given value to a `datetime.datetime`.
+    """Tries to convert the given value to a `datetime.datetime`. If
+    no timezone is given, assumes UTC.
 
     Strings will be parsed as ISO 8601 timestamps.
 
     If a number is provided, it will be interpreted as a UTC UNIX
-    timestamp. (TODO: test)
+    timestamp.
 
     If a `dict` is provided, does `datetime.datetime(**value)`.
-    (TODO: test)
 
     If a `tuple` or a `list` is provided, does
-    `datetime.datetime(*value)`. (TODO: test)
+    `datetime.datetime(*value)`. Uses the timezone in the tuple or
+    list if provided.
 
     :param value: something to convert
     :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
@@ -154,7 +158,7 @@ def make_datetime(value):
         try:
             return aniso8601.parse_datetime(value)
         except Exception as e:
-            msg = (
+            raise ValueError(
                 "Conversion to datetime.datetime failed. Could not "
                 "parse the given string as an ISO 8601 timestamp: "
                 "%s\n\n"
@@ -164,15 +168,23 @@ def make_datetime(value):
                     e.message,
                 )
             )
-            raise ValueError(msg)
 
     try:
         if isinstance(value, datetime.datetime):
             return value
         elif isinstance(value, dict):
-            return datetime.datetime(**value)
+            tzinfo = value.pop('tzinfo', None)
+            if tzinfo:
+                return tzinfo.localize(datetime.datetime(**value))
+            else:
+                return datetime.datetime(**value)
+        ## struct_time does not preserve millisecond accuracy per
+        ## TinCan spec, so this is disabled to discourage its use.
+        # elif isinstance(value, struct_time):
+        #     posix = mktime(value)
+        #     return datetime.datetime.utcfromtimestamp(posix).replace(tzinfo=utc)
         elif isinstance(value, (tuple, list)):
-            return datetime.datetime(*value)
+            return tuple_to_datetime(value)
         elif isinstance(value, (float, int)):
             return datetime.datetime.utcfromtimestamp(value).replace(tzinfo=utc)
         else:
@@ -194,3 +206,28 @@ def make_datetime(value):
 def jsonify_datetime(value):
     assert isinstance(value, datetime.datetime)
     return value.isoformat()
+
+
+def tuple_to_datetime(value):
+    # look at the last value and see if it might be a tzinfo
+    tzinfo = value[-1]
+    tzinfo = tzinfo if hasattr(tzinfo, 'localize') else None
+
+    if tzinfo:
+        try:
+            args = value[:-1]
+            return tzinfo.localize(datetime.datetime(*args))
+        except Exception as e:
+            raise ValueError(
+                "Failed to call tzinfo.localize(datetime) method "
+                "of tzinfo object: %s\n"
+                "tuple to convert to datetime.datetime was: %s"
+                "\n\n"
+                "%s" % (
+                    repr(tzinfo),
+                    repr(value),
+                    e.message,
+                )
+            )
+    else:
+        return datetime.datetime(*value)

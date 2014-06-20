@@ -15,18 +15,29 @@
 #    limitations under the License.
 
 import unittest
+from datetime import timedelta, datetime
+from time import struct_time
+from pytz import utc, timezone
+
+if __name__ == '__main__':
+    import sys
+    from os.path import dirname, abspath
+    sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
+    from test.main import setup_tincan_path
+    setup_tincan_path()
 from tincan.conversions.iso8601 import (
     make_timedelta, jsonify_timedelta,
     make_datetime, jsonify_datetime,
 )
-from datetime import timedelta, datetime
-from pytz import utc, timezone
 
 
 # make sure that pytz's db is loaded so that later accesses are faster.
 # to avoid long startup times, run:
 #       pip unzip pytz
-print ("Loading timezone data (to speed this up, run `pip unzip pytz`)...")
+print (
+    "Loading timezone data (if this takes a few seconds, "
+    "run `pip unzip pytz` to speed it up)..."
+)
 timezone('US/Central')
 
 
@@ -55,7 +66,6 @@ class ISO8601Test(unittest.TestCase):
 
         td = make_timedelta('PT02.5000M')
         self.assertEqual(td.total_seconds(), 150)
-
 
         td = make_timedelta('PT1H')
         self.assertEqual(td.total_seconds(), 3600)
@@ -195,7 +205,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
-        ## integer seconds
+        ## with integer seconds
         # naive
         pair = (
             '2014-06-19T16:40:22',
@@ -219,10 +229,123 @@ class ISO8601Test(unittest.TestCase):
             # incorrect tz offset info:
             # datetime(2014, 6, 19, 17, 3, 17, 361077, tzinfo=central))
         )
-        self.assertEqual(
-            make_datetime(pair[0]).strftime('%c %z'),
-            pair[1].strftime('%c %z'),
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+    def test_number_to_datetime(self):
+        pair = (
+            1403272847,
+            datetime(2014, 6, 20, 14, 0, 47, 0, tzinfo=utc),
         )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        pair = (
+            1403272847.361077,
+            datetime(2014, 6, 20, 14, 0, 47, 361077, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+    def test_dict_to_datetime(self):
+        pair = (
+            {'year': 2014, 'month': 12, 'day': 17, 'tzinfo': utc, },
+            datetime(2014, 12, 17, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        pair = (
+            {'year': 2014, 'month': 12, 'day': 17, 'tzinfo': utc,
+             'hour': 12, 'minute': 4, 'second': 3, },
+            datetime(2014, 12, 17, 12, 4, 3, 0, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        pair = (
+            {'year': 2014, 'month': 12, 'day': 17,
+             'hour': 12, 'minute': 4, 'second': 3,
+             'microsecond': 560000, 'tzinfo': utc,},
+            datetime(2014, 12, 17, 12, 4, 3, 560000, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        # Non-UTC timezone
+        central = timezone('US/Central')
+
+        pair = (
+            {'year': 2014, 'month': 12, 'day': 17, 'tzinfo': central, },
+            central.localize(datetime(2014, 12, 17)),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        pair = (
+            {'year': 2014, 'month': 12, 'day': 17, 'tzinfo': central,
+             'hour': 12, 'minute': 4, 'second': 3, },
+            central.localize(datetime(2014, 12, 17, 12, 4, 3, 0)),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+        pair = (
+            {'year': 2014, 'month': 12, 'day': 17,
+             'hour': 12, 'minute': 4, 'second': 3,
+             'microsecond': 560000, 'tzinfo': central,},
+            central.localize(datetime(2014, 12, 17, 12, 4, 3, 560000)),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+
+    def test_iterable_to_datetime(self):
+        pair = (
+            (2014, 12, 17, utc),
+            datetime(2014, 12, 17, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+
+        pair = (
+            (2014, 12, 17, ),
+            datetime(2014, 12, 17,),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+
+        pair = (
+            (2014, 12, 17, 5, 13, 23, 123456, utc),
+            datetime(2014, 12, 17, 5, 13, 23, 123456, tzinfo=utc),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+
+        pair = (
+            (2014, 12, 17, 5, 13, 23, 123456),
+            datetime(2014, 12, 17, 5, 13, 23, 123456),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+
+        # Non-UTC timezone
+        central = timezone('US/Central')
+        pair = (
+            (2014, 12, 17, central, ),
+            central.localize(datetime(2014, 12, 17)),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+
+        pair = (
+            (2014, 12, 17, 5, 13, 23, 123456, central),
+            central.localize(datetime(2014, 12, 17, 5, 13, 23, 123456)),
+        )
+        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+
+    ## struct_time does not preserve millisecond accuracy per
+    ## TinCan spec, so this is disabled to discourage its use.
+    # def test_struct_time_to_iso(self):
+    #     now = datetime.now(tz=utc)
+    #     now.second = 0              # timetuple() doesn't preserve this
+    #     struct = now.timetuple()    # make struct_time
+    #     pair = (
+    #         now.timetuple(),
+    #         now,
+    #     )
+    #     self.assertEqual(make_datetime(pair[0]), pair[1])
 
     def test_datetime_to_iso(self):
         ## with microseconds
