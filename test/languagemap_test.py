@@ -13,6 +13,10 @@
 #    limitations under the License.
 
 import unittest
+
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.language_map import LanguageMap
 
 
@@ -125,5 +129,7 @@ class TestLanguageMap(unittest.TestCase):
         self.assertEqual(lmap['fr-CA'], 'CA-test')
         self.assertEqual(lmap['fr-FR'], 'FR-test')
 
-#suite = unittest.TestLoader().loadTestsFromTestCase(TestLanguageMap)
-#unittest.TextTestRunner(verbosity=2).run(suite)
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestLanguageMap)
+    unittest.TextTestRunner(verbosity=2).run(suite)

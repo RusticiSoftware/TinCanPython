@@ -13,11 +13,15 @@
 #    limitations under the License.
 
 import unittest
+
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.verb import Verb
 from tincan.language_map import LanguageMap
 
 
-class TestVerb(unittest.TestCase):
+class VerbTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         verb = Verb()
@@ -181,3 +185,8 @@ class TestVerb(unittest.TestCase):
         self.assertEqual(len(display), 1)
         self.assertIn('en-US', display)
         self.assertEqual(display['en-US'], 'test')
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(VerbTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

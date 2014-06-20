@@ -13,13 +13,22 @@
 #    limitations under the License.
 
 import unittest
+
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.version import Version
 
 
-class TestVersion(unittest.TestCase):
+class VersionTest(unittest.TestCase):
 
     def test_Supported(self):
         self.assertEqual(Version.supported, ["1.0.1", "1.0.0"])
 
     def test_Latest(self):
         self.assertEqual(Version.latest, Version.supported[0])
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(VersionTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
