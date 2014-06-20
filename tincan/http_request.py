@@ -35,16 +35,16 @@ class HTTPRequest(Base):
     """
 
     _props_req = [
-        "method",
-        "resource",
-        "headers",
-        "query_params",
+        'method',
+        'resource',
+        'headers',
+        'query_params',
     ]
 
     _props = [
-        "endpoint",
-        "content",
-        "ignore404",
+        'endpoint',
+        'content',
+        'ignore404',
     ]
 
     _props.extend(_props_req)

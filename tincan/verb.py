@@ -29,7 +29,7 @@ class Verb(SerializableBase):
     ]
 
     _props = [
-        'display'
+        'display',
     ]
 
     _props.extend(_props_req)

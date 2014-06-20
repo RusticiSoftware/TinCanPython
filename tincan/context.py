@@ -20,6 +20,7 @@ from tincan.agent import Agent
 from tincan.extensions import Extensions
 from tincan.context_activities import ContextActivities
 from tincan.version import Version
+from tincan.statement_ref import StatementRef
 
 """
 .. module:: context
