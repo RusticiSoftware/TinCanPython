@@ -32,24 +32,14 @@ class Group(SerializableBase):
     ]
 
     def __init__(self, *args, **kwargs):
-<<<<<<< HEAD
         self._member = []
-=======
-        """
-
-        :param members: The list of the members of this group
-        :type members: list
-
-        """
-        self._members = []
->>>>>>> master
         super(Group, self).__init__(*args, **kwargs)
 
     def addmember(self, value):
         """Adds a single member to this group's list of members
 
         :param object_type: The object type for this group. Will always be "Group"
-        :type objec_type: str
+        :type object_type: str
         :param value: The member to add to this group
         :type value: :mod:`tincan.agent`
 
