@@ -16,6 +16,9 @@ import unittest
 import uuid
 from datetime import timedelta
 
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.remote_lrs import RemoteLRS
 from tincan.lrs_response import LRSResponse
 from tincan.version import Version

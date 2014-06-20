@@ -218,26 +218,3 @@ class Result(SerializableBase):
     def extensions(self):
         del self._extensions
 
-
-    def _as_version(self, version=Version.latest):
-        """
-        Creates a ``dict`` version of self ready for ``to_json()``.
-
-        :param version: A version specifier, eg. "1.0.1"
-        :type version: str
-        :return: A new ``dict`` object ready for ``to_json()`` to
-        serialize.
-        """
-        result = {k[1:] if k.startswith('_') else k: v for k, v in vars(self).iteritems()}
-
-        # Perform the out-conversion on attributes that need it
-        for attr, value in result.iteritems():
-            if value is None or attr not in self._props:
-                del result[attr]
-            elif isinstance(value, SerializableBase):
-                result[attr] = value.as_version(version)
-            elif isinstance(value, bytearray):
-                result[attr] = jsonify_bytearray(value)
-
-        return result
-

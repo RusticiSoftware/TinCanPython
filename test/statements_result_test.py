@@ -14,9 +14,13 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+import unittest
+
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.statements_result import StatementsResult
 from test_utils import TinCanBaseTestCase
-import unittest
 
 
 class StatementsResultTest(TinCanBaseTestCase):
