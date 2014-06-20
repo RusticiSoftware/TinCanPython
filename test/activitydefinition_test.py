@@ -23,7 +23,8 @@ class TestActivityDefinition(unittest.TestCase):
 
     def test_InitEmpty(self):
         adef = ActivityDefinition()
-        self.assertFalse(vars(adef))
+        self.assertEqual(vars(adef), {})
+        self.assertIsInstance(adef, ActivityDefinition)
 
     def test_InitAll(self):
         adef = ActivityDefinition({
@@ -38,7 +39,7 @@ class TestActivityDefinition(unittest.TestCase):
             'source': InteractionComponentList(),
             'target':InteractionComponentList(),
             'steps': InteractionComponentList(),
-            'extensions': 'placeholder'
+            'extensions': {'test': 'test'}
         })
         self.definitionVerificationHelper(adef)
 
@@ -111,7 +112,7 @@ class TestActivityDefinition(unittest.TestCase):
             'source': InteractionComponentList(),
             'target':InteractionComponentList(),
             'steps': InteractionComponentList(),
-            'extensions': 'placeholder'
+            'extensions': {'test': 'test'}
         }
         adef = ActivityDefinition(**obj)
         self.definitionVerificationHelper(adef)
@@ -141,7 +142,7 @@ class TestActivityDefinition(unittest.TestCase):
             "interaction_type":"choice",\
             "correct_responses_pattern": ["test"],\
             "choices": [], "scale": [], "source": [], "target": [], "steps": [],\
-            "extensions": "placeholder"}'
+            "extensions": {"test": "test"}}'
         adef = ActivityDefinition.from_json(json_str)
         self.definitionVerificationHelper(adef)
 
@@ -163,7 +164,7 @@ class TestActivityDefinition(unittest.TestCase):
             'source': InteractionComponentList(),
             'target': InteractionComponentList(),
             'steps': InteractionComponentList(),
-            'extensions': 'placeholder'
+            'extensions': {'test': 'test'}
         })
         adef2 = adef.as_version()
         self.assertEqual(adef2, {
@@ -175,7 +176,7 @@ class TestActivityDefinition(unittest.TestCase):
             "source": [],
             "steps": [],
             "moreInfo": "test",
-            "extensions": "placeholder",
+            "extensions": {"test": "test"},
             "interactionType": "choice",
             "target": [],
             "type": "test",
@@ -192,8 +193,8 @@ class TestActivityDefinition(unittest.TestCase):
         self.assertEqual(adef2, {'description': {'en-US': 'test'}})
 
     def test_ToJSONFromJSON(self):
-        json_str = '{"correct_responses_pattern": ["test"], "scale": [], "description": {"en-US": "test"}, "choices": [], "source": [], "steps": [], "more_info": "test", "target": [], "extensions": "placeholder", "interaction_type": "choice", "type": "test", "name": {"en-US": "test"}}'
-        check_str = '{"correctResponsesPattern": ["test"], "target": [], "name": {"en-US": "test"}, "interactionType": "choice", "choices": [], "source": [], "scale": [], "steps": [], "extensions": "placeholder", "moreInfo": "test", "type": "test", "description": {"en-US": "test"}}'
+        json_str = '{"correct_responses_pattern": ["test"], "scale": [], "description": {"en-US": "test"}, "choices": [], "source": [], "steps": [], "more_info": "test", "target": [], "extensions": {"test": "test"}, "interaction_type": "choice", "type": "test", "name": {"en-US": "test"}}'
+        check_str = '{"correctResponsesPattern": ["test"], "target": [], "name": {"en-US": "test"}, "interactionType": "choice", "choices": [], "source": [], "scale": [], "steps": [], "extensions": {"test": "test"}, "moreInfo": "test", "type": "test", "description": {"en-US": "test"}}'
         adef = ActivityDefinition.from_json(json_str)
         self.definitionVerificationHelper(adef)
         self.assertEqual(adef.to_json(), check_str)
@@ -231,4 +232,4 @@ class TestActivityDefinition(unittest.TestCase):
         self.assertIsInstance(definition.target, InteractionComponentList)
         self.assertEqual(definition.steps, [])
         self.assertIsInstance(definition.steps, InteractionComponentList)
-        self.assertEqual(definition.extensions, 'placeholder')
+        self.assertEqual(definition.extensions, {"test": "test"})

@@ -91,27 +91,29 @@ class SerializableBase(Base):
         :type version: str
 
         """
-
         result = {} if not isinstance(self, list) else []
-        it = dict(self) if isinstance(self, dict) else dict(vars(self)) if not isinstance(self, list) else list(self)
-        if not isinstance(self, list):
-            for k, v in it.iteritems():
-                k = self._props_corrected.get(k, k)
-                if hasattr(v, "_as_version"):
-                    result[k] = v._as_version(version)
-                elif isinstance(v, SerializableBase):
-                    result[k] = v.as_version(version)
-                else:
-                    result[k] = v
-            result = self._filter_none(result)
+        if hasattr(self, "_as_version"):
+            result = self._as_version(version)
         else:
-            for v in it:
-                if hasattr(v, "_as_version"):
-                    result.append(v._as_version(version))
-                elif isinstance(v, SerializableBase):
-                    result.append(v.as_version(version))
-                else:
-                    result.append(v)
+            it = dict(self) if isinstance(self, dict) else dict(vars(self)) if not isinstance(self, list) else list(self)
+            if not isinstance(self, list):
+                for k, v in it.iteritems():
+                    k = self._props_corrected.get(k, k)
+                    if hasattr(v, "_as_version"):
+                        result[k] = v._as_version(version)
+                    elif isinstance(v, SerializableBase):
+                        result[k] = v.as_version(version)
+                    else:
+                        result[k] = v
+                result = self._filter_none(result)
+            else:
+                for v in it:
+                    if hasattr(v, "_as_version"):
+                        result.append(v._as_version(version))
+                    elif isinstance(v, SerializableBase):
+                        result.append(v.as_version(version))
+                    else:
+                        result.append(v)
         return result
 
     def _filter_none(self, obj):

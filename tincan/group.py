@@ -14,6 +14,7 @@
 
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
+from tincan.version import Version
 
 """
 
@@ -24,15 +25,25 @@ from tincan.agent import Agent
 
 
 class Group(SerializableBase):
+
     _props = [
 	    "object_type",
         "member"
     ]
 
     def __init__(self, *args, **kwargs):
+<<<<<<< HEAD
         self._member = []
-        super(Group, self).__init__(*args, **kwargs)
+=======
+        """
 
+        :param members: The list of the members of this group
+        :type members: list
+
+        """
+        self._members = []
+>>>>>>> master
+        super(Group, self).__init__(*args, **kwargs)
 
     def addmember(self, value):
         """Adds a single member to this group's list of members
@@ -102,3 +113,6 @@ class Group(SerializableBase):
     @object_type.deleter
     def object_type(self):
         del self._object_type
+
+    def _as_version(self, version=Version.latest):
+        return {'members': [l.as_version(version) for l in self.members]}
