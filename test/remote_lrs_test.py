@@ -20,10 +20,10 @@ from tincan.context_activities import ContextActivities
 from tincan.score import Score
 from tincan.result import Result
 from tincan.substatement import SubStatement
+from tincan.statement_ref import StatementRef
 from tincan.about import About
 from tincan.statements_result import StatementsResult
 from tincan.documents import (
-    Document,
     StateDocument,
     ActivityProfileDocument,
     AgentProfileDocument,
@@ -32,70 +32,70 @@ from tincan.documents import (
 
 class RemoteLRSTest(unittest.TestCase):
 
-    def __init__(self):
-        self.endpoint = lrs_properties.endpoint
-        self.version = lrs_properties.version
-        self.username = lrs_properties.username
-        self.password = lrs_properties.password
-        self.lrs = RemoteLRS(
-            version=self.version,
-            version=self.endpoint,
-            username=self.username,
-            password=self.password
-        )
-
-        self.agent = Agent("mailto:tincanpython@tincanapi.com")
-        self.verb = Verb(
-            "http://adlnet.gov/expapi/verbs/experienced",
-            LanguageMap({"en-US": "experienced"})
-        )
-
-        self.activity = Activity(
-            "http://tincanapi.com/TinCanPython/Test/Unit/0",
-            ActivityDefinition()
-        )
-        self.activity.type = "http://id.tincanapi.com/activitytype/unit-test"
-        self.activity.definition.name(LanguageMap({"en-US": "Python Tests"}))
-        self.activity.definition.description(LanguageMap(
-            {"en-US": "Unit test in the test suite for the Python library"})
-        )
-
-        self.parent = Activity(
-            "http://tincanapi.com/TinCanPython/Test",
-            ActivityDefinition())
-        self.activity.type = "http://id.tincanapi.com/activitytype/unit-test-suite"
-        self.parent.definition.name(LanguageMap({"en-US": "Python Tests"}))
-        self.parent.definition.description(LanguageMap(
-            {"en-US": "Unit test in the test suite for the Python library"})
-        )
-
-        self.statement_ref = str(uuid.uuid4())
-
-        self.context = Context(registration=uuid.uuid4(), statement=self.statement_ref)
-        self.context.context_activities = ContextActivities(parent=[self.parent])
-
-        self.score = Score(
-            raw=97,
-            scaled=0.97,
-            max=100,
-            min=0
-        )
-
-        self.result = Result(
-            score=self.score,
-            success=True,
-            completion=True,
-            duration=timedelta(seconds=120)
-        )
-
-        self.substatement = SubStatement(
-            actor=self.agent,
-            verb=self.verb,
-            object=self.parent
-        )
-
     def setUp(self):
-        pass
+        if not hasattr(self, "set"):
+            self.endpoint = lrs_properties.endpoint
+            self.version = lrs_properties.version
+            self.username = lrs_properties.username
+            self.password = lrs_properties.password
+            self.lrs = RemoteLRS(
+                version=self.version,
+                endpoint=self.endpoint,
+                username=self.username,
+                password=self.password,
+            )
+
+            self.agent = Agent(mbox="mailto:tincanpython@tincanapi.com")
+            self.agent2 = Agent(mbox="Agent2.mailto:tincanpython@tincanapi.com")
+            self.verb = Verb(
+                id="http://adlnet.gov/expapi/verbs/experienced",
+                display=LanguageMap({"en-US": "experienced"})
+            )
+
+            self.activity = Activity(
+                id="http://tincanapi.com/TinCanPython/Test/Unit/0",
+                definition=ActivityDefinition()
+            )
+            self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test"
+            self.activity.definition.name = LanguageMap({"en-US": "Python Tests"})
+            self.activity.definition.description = LanguageMap(
+                {"en-US": "Unit test in the test suite for the Python library"}
+            )
+
+            self.parent = Activity(
+                id="http://tincanapi.com/TinCanPython/Test",
+                definition=ActivityDefinition())
+            self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test-suite"
+            self.parent.definition.name = LanguageMap({"en-US": "Python Tests"})
+            self.parent.definition.description = LanguageMap(
+                {"en-US": "Unit test in the test suite for the Python library"}
+            )
+
+            self.statement_ref = StatementRef(id=uuid.uuid4())
+
+            self.context = Context(registration=uuid.uuid4(), statement=self.statement_ref)
+            self.context.context_activities = ContextActivities(parent=[self.parent])
+
+            self.score = Score(
+                raw=97,
+                scaled=0.97,
+                max=100,
+                min=0
+            )
+
+            self.result = Result(
+                score=self.score,
+                success=True,
+                completion=True,
+                duration=timedelta(seconds=120)
+            )
+
+            self.substatement = SubStatement(
+                actor=self.agent,
+                verb=self.verb,
+                object=self.parent
+            )
+            self.set = True
 
     def tearDown(self):
         pass
@@ -146,6 +146,32 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self.assertEqual(statement, response.content)
+
+    def test_save_statement_conflict(self):
+        test_id = str(uuid.uuid4())
+
+        statement1 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.statement_ref,
+            id=test_id
+        )
+        statement2 = Statement(
+            actor=self.agent2,
+            verb=self.verb,
+            object=self.statement_ref,
+            id=test_id
+        )
+        response = self.lrs.save_statement(statement1)
+
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+
+        response = self.lrs.save_statement(statement2)
+
+        self.assertIsInstance(response, LRSResponse)
+        self.assertFalse(response.success)
+        self.assertEquals(response.response.status, 409)
 
     def test_save_statement_ref(self):
         statement = Statement(

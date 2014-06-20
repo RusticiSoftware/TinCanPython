@@ -27,7 +27,7 @@ class LRSResponse(Base):
     :param response: HTTPResponse object that was received from the LRS
     :type response: HTTPResponse
     :param data: Body of the HTTPResponse
-    :type data: str
+    :type data: unicode
     :param content: Parsed content received from the LRS
     """
 
@@ -46,28 +46,31 @@ class LRSResponse(Base):
 
     @property
     def success(self):
+        """The LRSResponse's success. True if the LRS return a
+        successful status (sometimes includes 404), False otherwise.
+
+        :setter: Tries to convert to boolean
+        :setter type: bool
+        :rtype: bool
+        """
         return self._success
 
     @success.setter
     def success(self, value):
-        """Setter for the _success attribute. Tries to convert to bool.
-
-        :param value: The LRSResponse's success
-        :type value: bool
-        """
         self._success = bool(value)
 
     @property
     def request(self):
+        """The HTTPRequest object that was sent to the LRS
+
+        :setter: Tries to convert to an HTTPRequest object
+        :setter type: :class:`tincan.http_request.HTTPRequest`
+        :rtype: :class:`tincan.http_request.HTTPRequest`
+        """
         return self._request
 
     @request.setter
     def request(self, value):
-        """Setter for the _request attribute. Tries to convert to an HTTPRequest object.
-
-        :param value: The LRSResponse's request attribute
-        :type value: HTTPRequest
-        """
         if value is not None and not isinstance(value, HTTPRequest):
             value = HTTPRequest(value)
 
@@ -75,15 +78,16 @@ class LRSResponse(Base):
 
     @property
     def response(self):
+        """The HTTPResponse object that was sent to the LRS
+
+        :setter: Must be an HTTPResponse object
+        :setter type: :class:`httplib.HTTPResponse`
+        :rtype: :class:`httplib.HTTPResponse`
+        """
         return self._response
 
     @response.setter
     def response(self, value):
-        """Setter for the _response attribute. Must be set with None or an HTTPResponse object.
-
-        :param value: The LRSResponse's response attribute
-        :type value: HTTPResponse
-        """
         if value is not None and not isinstance(value, HTTPResponse):
             raise TypeError(
                 "Property 'response' in 'tincan.%s' must be set with an HTTPResponse object" % self.__class__.__name__
@@ -99,22 +103,20 @@ class LRSResponse(Base):
         """Setter for the _data attribute. Should be set from response.read()
 
         :param value: The body of the response object for the LRSResponse
-        :type value: str
+        :type value: unicode
         """
-        if value is not None and not isinstance(value, basestring):
-            str(value)
+        if value is not None and not isinstance(value, unicode):
+            unicode(value)
         self._data = value
 
     @property
     def content(self):
+        """Parsed content received from the LRS
+        """
         return self._content
 
     @content.setter
     def content(self, value):
-        """Setter for the _content attribute
-
-        :param value: Desired content for response
-        """
         self._content = value
 
     @content.deleter

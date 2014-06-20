@@ -19,36 +19,41 @@ class ActivityProfileDocument(Document):
     """Extends Document with an Activity field, can be created from a dict, another Document, or from kwargs.
 
     :param id: The id of this document
-    :type id: str
+    :type id: unicode
     :param content_type: The content_type of the content of this document
-    :type content_type: str
+    :type content_type: unicode
     :param content: The content of this document
     :type content: bytearray
     :param etag: The etag of this document
-    :type etag: str
+    :type etag: unicode
     :param time_stamp: The time stamp of this document
-    :type time_stamp: str
+    :type time_stamp: unicode
     :param activity: The activity object of this document
     :type activity: Activity
     """
 
-    _props = list(Document._props)
+    _props_req = list(Document._props_req)
 
-    _props.extend([
+    _props_req.extend([
         'activity',
     ])
 
+    _props = list(Document._props)
+
+    _props.extend(_props_req)
+
     @property
     def activity(self):
+        """The Document's activity object
+
+        :setter: Tries to convert to activity
+        :setter type: :class:`tincan.activity.Activity`
+        :rtype: :class:`tincan.activity.Activity`
+        """
         return self._activity
 
     @activity.setter
     def activity(self, value):
-        """Setter for the _activity attribute
-
-        :param value: Desired object for the document's activity
-        :type value: Activity
-        """
         if not isinstance(value, Activity) and value is not None:
             try:
                 value = Activity(value)
@@ -58,7 +63,3 @@ class ActivityProfileDocument(Document):
                     "that can be constructed into an Activity object." % self.__class__.__name__
                 )
         self._activity = value
-
-    @activity.deleter
-    def activity(self, value):
-        del self._activity
