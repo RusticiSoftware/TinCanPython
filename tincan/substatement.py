@@ -31,8 +31,8 @@ class Substatement(SerializableBase):
         """Actor for Substatement
 
 		:setter: Tries to convert to Agent
-		:setter type: :mod:`tincan.Agent`
-		:rtype: :mod:`tincan.Agent`
+		:setter type: :mod:`tincan.agent`
+		:rtype: :mod:`tincan.agent`
 
 		"""
         return self._actor
@@ -60,8 +60,8 @@ class Substatement(SerializableBase):
         """Verb for Substatement
 
 		:setter: Tries to convert to Verb
-		:setter type: :mod:`tincan.Verb`
-		:rtype: :mod:`tincan.Verb`
+		:setter type: :mod:`tincan.verb`
+		:rtype: :mod:`tincan.verb`
 
 		"""
         return self._verb
@@ -86,8 +86,8 @@ class Substatement(SerializableBase):
         """Object for Substatement
 
 		:setter: Setter for object
-		:setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
-		:rtype: :mod:`tincan.Agent` | :mod:`tincan.Group`
+		:setter type: :mod:`tincan.agent` | :mod:`tincan.group`
+		:rtype: :mod:`tincan.agent` | :mod:`tincan.group`
 
 		"""
         return self._object

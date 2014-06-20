@@ -77,8 +77,8 @@ class Statement(SerializableBase):
         """Actor for Statement
 
 		:setter: Tries to convert to Agent or Group
-		:setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
-		:rtype: :mod:`tincan.Agent` | :mod:`tincan.Group`
+		:setter type: :mod:`tincan.agent` | :mod:`tincan.group`
+		:rtype: :mod:`tincan.agent` | :mod:`tincan.group`
 
 		"""
         return self._actor
@@ -106,8 +106,8 @@ class Statement(SerializableBase):
         """Verb for Statement
 
 		:setter: Tries to convert to Verb
-		:setter type: :mod:`tincan.Verb`
-		:rtype: :mod:`tincan.Verb`
+		:setter type: :mod:`tincan.verb`
+		:rtype: :mod:`tincan.verb`
 
 		"""
         return self._verb
@@ -132,8 +132,8 @@ class Statement(SerializableBase):
         """Object for Statement
 
 		:setter: Sets the object
-		:setter type: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
-		:rtype: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
+		:setter type: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement` | :mod:`tincan.substatement`
+		:rtype: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement` | :mod:`tincan.substatement`
 
 		"""
         return self._object
@@ -212,8 +212,8 @@ class Statement(SerializableBase):
         """Authority for Statement
 
 		:setter: Tries to convert to Agent
-		:setter type: :mod:`tincan.Agent`
-		:rtype: :mod:`tincan.Agent`
+		:setter type: :mod:`tincan.agent`
+		:rtype: :mod:`tincan.agent`
 
 		"""
         return self._authority
@@ -238,8 +238,8 @@ class Statement(SerializableBase):
         """Result for Statement
 
 		:setter: Tries to convert to Result
-		:setter type: :mod:`tincan.Result`
-		:rtype: :mod:`tincan.Result`
+		:setter type: :mod:`tincan.result`
+		:rtype: :mod:`tincan.result`
 
 		"""
         return self._result
@@ -264,8 +264,8 @@ class Statement(SerializableBase):
         """Context for Statement
 
 		:setter: Tries to convert to Context
-		:setter type: :mod:`tincan.Context`
-		:rtype: :mod:`tincan.Context`
+		:setter type: :mod:`tincan.context`
+		:rtype: :mod:`tincan.context`
 
 		"""
         return self._context
@@ -314,8 +314,8 @@ class Statement(SerializableBase):
         """Attachments for Statement
 
 		:setter: Tries to convert each element to Attachment
-		:setter type: list[:mod:`tincan.Attachment`]
-		:rtype: list[:mod:`tincan.Attachment`]
+		:setter type: list[:mod:`tincan.attachment`]
+		:rtype: list[:mod:`tincan.attachment`]
 
 		"""
         return self._attachments

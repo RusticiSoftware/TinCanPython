@@ -37,8 +37,8 @@ class StatementsResult(SerializableBase):
         """Statements for StatementsResult
 
 		:setter: Tries to convert each element to Statement
-		:setter type: list[:mod:`tincan.Statement`]
-		:rtype: list[:mod:`tincan.Statement`]
+		:setter type: list[:mod:`tincan.statement`]
+		:rtype: list[:mod:`tincan.statement`]
 
 		"""
         return self._statements

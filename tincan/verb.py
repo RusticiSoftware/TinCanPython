@@ -62,8 +62,8 @@ class Verb(SerializableBase):
         """Display for Verb
 
 		:setter: Tries to convert to LanguageMap
-		:setter type: :mod:`tincan.LanguageMap`
-		:rtype: :mod:`tincan.LanguageMap`
+		:setter type: :mod:`tincan.language_map`
+		:rtype: :mod:`tincan.language_map`
 
 		"""
         return self._display

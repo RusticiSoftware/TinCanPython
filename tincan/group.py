@@ -26,18 +26,18 @@ from tincan.agent import Agent
 class Group(SerializableBase):
     _props = [
 	    "object_type",
-        "members"
+        "member"
     ]
 
     def __init__(self, *args, **kwargs):
-        self._members = []
+        self._member = []
         super(Group, self).__init__(*args, **kwargs)
 
 
     def addmember(self, value):
         """Adds a single member to this group's list of members
 
-        :param object_type: The objet type for this group. Will always be "Group"
+        :param object_type: The object type for this group. Will always be "Group"
         :type objec_type: str
         :param value: The member to add to this group
         :type value: :mod:`tincan.agent`
@@ -48,21 +48,21 @@ class Group(SerializableBase):
             if not isinstance(value, Agent):
                 value = Agent(value)
 
-        self._members.append(value)
+        self._member.append(value)
 
     @property
-    def members(self):
+    def member(self):
         """Members for Group
 
 		:setter: Tries to convert each member to Agent
-		:setter type: list[:mod:`tincan.Agent`]
-		:rtype: list[:mod:`tincan.Agent`]
+		:setter type: list[:mod:`tincan.agent`]
+		:rtype: list[:mod:`tincan.agent`]
 
 		"""
-        return self._members
+        return self._member
 
-    @members.setter
-    def members(self, value):
+    @member.setter
+    def member(self, value):
         newmembers = []
         if value is not None:
             if isinstance(value, list):
@@ -72,13 +72,13 @@ class Group(SerializableBase):
                     else:
                         newmembers.append(k)
             else:
-                 self.members = value
+                 self._member = value
         value = newmembers
-        self._members = value
+        self._member = value
 
-    @members.deleter
-    def members(self):
-        del self._members
+    @member.deleter
+    def member(self):
+        del self._member
 
     @property
     def object_type(self):

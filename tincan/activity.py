@@ -85,8 +85,8 @@ class Activity(SerializableBase, StatementTargetable):
         """Definition for Activity
 
 		:setter: Tries to convert to ActivityDefinition
-		:setter type: :mod:`tincan.ActivityDefinition`
-		:rtype: :mod:`ActivityDefinition`
+		:setter type: :mod:`tincan.activity_definition`
+		:rtype: :mod:`tincan.activity_definition`
 
 		"""
         return self._definition

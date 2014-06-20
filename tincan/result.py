@@ -39,8 +39,8 @@ class Result(SerializableBase):
         """Score for Result
 
 		:setter: Tries to convert to Score
-		:setter type: :mod:`tincan.Score`
-		:rtype: :mod:`tincan.Score`
+		:setter type: :mod:`tincan.score`
+		:rtype: :mod:`tincan.score`
 
 		"""
         return self._score
@@ -172,8 +172,8 @@ class Result(SerializableBase):
         """Extensions for Result
 
 		:setter: Tries to convert to Extensions
-		:setter type: :mod:`tincan.Extensions`
-		:rtype: :mod:`tincan.Extensions`
+		:setter type: :mod:`tincan.extensions`
+		:rtype: :mod:`tincan.extensions`
 
 		"""
         return self._extensions

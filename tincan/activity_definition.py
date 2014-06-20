@@ -60,8 +60,8 @@ class ActivityDefinition(SerializableBase):
         """Name for Activity Definition
 
 		:setter: Tries to convert to LanguageMap
-		:setter type: :mod:`tincan.LanguageMap`
-		:rtype: :mod:`tincan.LanguageMap`
+		:setter type: :mod:`tincan.language_map`
+		:rtype: :mod:`tincan.language_map`
 
 		"""
         return self._name
@@ -81,8 +81,8 @@ class ActivityDefinition(SerializableBase):
         """Description for Activity Definition
 
 		:setter: Tries to convert to LanguageMap
-		:setter type: :mod:`tincan.LanguageMap`
-		:rtype: :mod:`tincan.LanguageMap`
+		:setter type: :mod:`tincan.language_map`
+		:rtype: :mod:`tincan.language_map`
 
 		"""
         return self._description
@@ -192,8 +192,8 @@ class ActivityDefinition(SerializableBase):
         """Choices for Activity Definition
 
 		:setter: Tries to convert to InteractionComponentList
-		:setter type: :mod:`tincan.InteractionComponentList`
-		:rtype: :mod:`tincan.InteractionComponentList`
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
 
 		"""
         return self._choices
@@ -213,8 +213,8 @@ class ActivityDefinition(SerializableBase):
         """Scale for Activity Definition
 
 		:setter: Tries to convert to InteractionComponentList
-		:setter type: :mod:`tincan.InteractionComponentList`
-		:rtype: :mod:`tincan.InteractionComponentList`
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
 
 		"""
         return self._scale
@@ -234,8 +234,8 @@ class ActivityDefinition(SerializableBase):
         """Source for Activity Definition
 
 		:setter: Tries to convert to InteractionComponentList
-		:setter type: :mod:`tincan.InteractionComponentList`
-		:rtype: :mod:`tincan.InteractionComponentList`
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
 
 		"""
         return self._source
@@ -255,8 +255,8 @@ class ActivityDefinition(SerializableBase):
         """Target for Activity Definition
 
 		:setter: Tries to convert to InteractionComponentList
-		:setter type: :mod:`tincan.InteractionComponentList`
-		:rtype: :mod:`tincan.InteractionComponentList`
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
 
 		"""
         return self._target
@@ -276,8 +276,8 @@ class ActivityDefinition(SerializableBase):
         """Steps for Activity Definition
 
 		:setter: Tries to convert to InteractionComponentList
-		:setter type: :mod:`tincan.InteractionComponentList`
-		:rtype: :mod:`tincan.InteractionComponentList`
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
 
 		"""
         return self._steps
@@ -297,8 +297,8 @@ class ActivityDefinition(SerializableBase):
         """Extensions for Activity Definition
 
 		:setter: Tries to convert to Extensions
-		:setter type: :mod:`tincan.Extensions`
-		:rtype: :mod:`tincan.Extensions`
+		:setter type: :mod:`tincan.extensions`
+		:rtype: :mod:`tincan.extensions`
 
 		"""
         return self._extensions

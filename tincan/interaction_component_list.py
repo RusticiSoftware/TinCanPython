@@ -44,7 +44,7 @@ class InteractionComponentList(list, SerializableBase):
         :param ind: the index to set
         :type ind: int
         :param value: the value to set at the index
-        :type value: :mod:`InteractionComponent`
+        :type value: :mod:`tincan.interaction_component`
 
         """
         if not isinstance(value, InteractionComponent):
@@ -55,7 +55,7 @@ class InteractionComponentList(list, SerializableBase):
         """Provides error checking when appending to the list
 
         :param value: the value to append
-        :type value: :mod:`InteractionComponent`
+        :type value: :mod:`tincan.interaction_component`
 
         """
         if not isinstance(value, InteractionComponent):
@@ -70,7 +70,7 @@ class InteractionComponentList(list, SerializableBase):
         the current list
 
         :param value: The list that self will extend
-        :type value: :mod:`InteractionComponentList` | list of InteractionComponents
+        :type value: :mod:`tincan.interaction_component_list` | list[:mod:`tincan.interaction_component`]
 
         """
         new_args = []
@@ -83,7 +83,7 @@ class InteractionComponentList(list, SerializableBase):
         :param ind: the index to set
         :type ind: int
         :param value: the value to set at the index
-        :type value: :mod:`InteractionComponent`
+        :type value: :mod:`tincan.interaction_component`
 
         """
         if not isinstance(value, InteractionComponent):

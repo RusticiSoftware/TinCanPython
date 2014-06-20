@@ -94,8 +94,8 @@ class About(SerializableBase):
         """Extensions for About
 
 		:setter: Tries to convert to Extensions
-		:setter type: :mod:`tincan.Extensions`
-		:rtype: :mod:`tincan.Extensions`
+		:setter type: :mod:`tincan.extensions`
+		:rtype: :mod:`tincan.extensions`
 
 		"""
         return self._extensions
