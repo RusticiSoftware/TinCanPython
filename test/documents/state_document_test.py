@@ -13,6 +13,8 @@
 #    limitations under the License.
 
 import unittest
+from datetime import datetime
+import pytz
 
 if __name__ == '__main__':
     import sys
@@ -102,7 +104,7 @@ class StateDocumentTest(unittest.TestCase):
             content_type="test type",
             content=bytearray("test bytearray", "utf-8"),
             etag="test etag",
-            time_stamp="test time_stamp",
+            time_stamp="2014-06-23T15:25:00-05:00",
             agent=self.agent,
             activity=self.activity,
             registration="test registration"
@@ -111,7 +113,10 @@ class StateDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.time_stamp, dt)
         self.assertEqual(doc.agent, self.agent)
         self.assertEqual(doc.activity, self.activity)
         self.assertEqual(doc.registration, "test registration")
@@ -122,7 +127,7 @@ class StateDocumentTest(unittest.TestCase):
         doc.content_type = "test type"
         doc.content = bytearray("test bytearray", "utf-8")
         doc.etag = "test etag"
-        doc.time_stamp = "test time_stamp"
+        doc.time_stamp = "2014-06-23T15:25:00-05:00"
         doc.agent = self.agent
         doc.activity = self.activity
         doc.registration = "test registration"
@@ -131,7 +136,10 @@ class StateDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.time_stamp, dt)
         self.assertEqual(doc.agent, self.agent)
         self.assertEqual(doc.activity, self.activity)
         self.assertEqual(doc.registration, "test registration")
