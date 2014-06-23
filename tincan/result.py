@@ -15,10 +15,8 @@
 from tincan.serializable_base import SerializableBase
 from tincan.score import Score
 from tincan.extensions import Extensions
-from tincan.version import Version
 from tincan.conversions.bytearray import make_bytearray
-##TODO: add converters for ISO 8601 duration <-> timedelta
-# from tincan.iso8601 import make_timedelta, make_duration
+from tincan.conversions.iso8601 import make_timedelta
 
 # from datetime import timedelta
 
@@ -126,28 +124,25 @@ class Result(SerializableBase):
     def duration(self):
         return self._duration
 
-    ##TODO: add converters for ISO 8601 duration <-> timedelta
     @duration.setter
     def duration(self, value):
-        """Setter for the _duration attribute. Currently tries to
-        convert to ISO 8601 duration string, but in future will try
-        to convert to a timedelta object.
+        """Setter for the _duration attribute. Tries to convert to a
+        :class:`datetime.timedelta` object.
 
         :param value: how long the activity took
-        :type value: str | None
+        :type value: :class:`datetime.timedelta` | unicode | str | None
         """
 
-        if value is None or isinstance(value, basestring):
-            self._duration = value
-            return
+        if value is None:
+            self._duration = None
+        elif isinstance(value, basestring):
+            self._duration = make_timedelta(value)
         elif not isinstance(value, basestring):
             raise TypeError(
                 "Property 'duration' in a 'tincan.%s' object must be set with a "
                 "str, unicode, or None." %
                 self.__class__.__name__
             )
-
-        self._duration = value if value is None else unicode(value, encoding='utf-8')
 
     @duration.deleter
     def duration(self):
@@ -217,4 +212,3 @@ class Result(SerializableBase):
     @extensions.deleter
     def extensions(self):
         del self._extensions
-
