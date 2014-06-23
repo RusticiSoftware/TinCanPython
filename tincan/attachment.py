@@ -38,20 +38,6 @@ class Attachment(SerializableBase):
 
     _props.extend(_props_req)
 
-    def _as_version(self, version):
-        """Returns a versioned form of the attachment
-
-        :param version: The version to convert the attachment to
-        :type version: str
-        :returns: The attachment formatted to agree with the given version
-
-        """
-
-        if (version == "0.90" or version == "0.95"):
-            return None
-        else:
-            return self
-
     @property
     def usage_type(self):
         """Usage type for Attachment
@@ -67,7 +53,7 @@ class Attachment(SerializableBase):
     def usage_type(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property object_type can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._usage_type = value
@@ -91,7 +77,7 @@ class Attachment(SerializableBase):
     def content_type(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property content_type can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._content_type = value
@@ -137,7 +123,7 @@ class Attachment(SerializableBase):
     def sha2(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property sha2 can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._sha2 = value
@@ -161,7 +147,7 @@ class Attachment(SerializableBase):
     def fileurl(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property fileurl can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._fileurl = value

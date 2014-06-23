@@ -24,7 +24,7 @@ from tincan.version import Version
 """
 
 
-class Group(SerializableBase):
+class Group(Agent):
 
     _props = [
 	    "object_type",
@@ -73,7 +73,7 @@ class Group(SerializableBase):
                     else:
                         newmembers.append(k)
             else:
-                 self._member = value
+                 self._member = list(value)
         value = newmembers
         self._member = value
 
@@ -83,7 +83,7 @@ class Group(SerializableBase):
 
     @property
     def object_type(self):
-        """Object type for Group
+        """Object type for Group. Will always be "Group"
 
 		:setter: Tries to convert to unicode
 		:setter type: unicode
@@ -94,15 +94,11 @@ class Group(SerializableBase):
 
     @object_type.setter
     def object_type(self, value):
-        if value != "Group":
-            raise ValueError("Object_type must be 'Group'")
-        elif not isinstance(value, unicode):
-            value = unicode(value)
-        self._object_type = value
+        self._object_type = 'Group'
 
     @object_type.deleter
     def object_type(self):
         del self._object_type
 
     def _as_version(self, version=Version.latest):
-        return {'members': [l.as_version(version) for l in self.members]}
+        return {'member': [l.as_version(version) for l in self.member]}

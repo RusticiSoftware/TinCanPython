@@ -42,7 +42,7 @@ class AgentAccount(SerializableBase):
     def name(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property name can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._name = value
@@ -66,7 +66,7 @@ class AgentAccount(SerializableBase):
     def homepage(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property homepage can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._homepage = value

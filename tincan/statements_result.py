@@ -83,7 +83,7 @@ class StatementsResult(SerializableBase):
             self._more = value
             return
         try:
-            self._more = str(value)
+            self._more = unicode(value)
         except Exception as e:
             msg = (
                 "Property 'more' in a 'tincan.%s' object must be set with a "

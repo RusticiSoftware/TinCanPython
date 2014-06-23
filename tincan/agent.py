@@ -43,14 +43,7 @@ class Agent(SerializableBase):
 
     @object_type.setter
     def object_type(self, value):
-        newtype = "Agent"
-        if value is not None:
-            if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
-            else: newtype = value
-        self._object_type = newtype
+        self._object_type = 'Agent'
 
     @object_type.deleter
     def object_type(self):
@@ -71,7 +64,7 @@ class Agent(SerializableBase):
     def name(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property name can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._name = value
@@ -95,7 +88,7 @@ class Agent(SerializableBase):
     def mbox(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property mbox can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         if not value.startswith("mailto:"):
@@ -145,7 +138,7 @@ class Agent(SerializableBase):
     def openid(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property openid can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._openid = value

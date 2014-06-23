@@ -20,6 +20,8 @@ from tincan.attachment import Attachment
 from tincan.result import Result
 from tincan.context import Context
 from tincan.substatement import Substatement
+from tincan.statement_ref import StatementRef
+from tincan.activity import Activity
 
 """
 .. module Statement
@@ -90,7 +92,7 @@ class Statement(SerializableBase):
                 value = None
             elif not isinstance(value, Agent) and not isinstance(value, Group):
                 if isinstance(value, list):
-                    value = Group(members=value)
+                    value = Group(member=value)
                 else:
                     value = Agent(value)
             elif len(vars(value)) == 0:
@@ -132,8 +134,8 @@ class Statement(SerializableBase):
         """Object for Statement
 
 		:setter: Sets the object
-		:setter type: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement` | :mod:`tincan.substatement`
-		:rtype: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement` | :mod:`tincan.substatement`
+		:setter type: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement_ref` | :mod:`tincan.substatement` | :mod:`tincan.activity`
+		:rtype: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement_ref` | :mod:`tincan.substatement` | :mod:`tincan.activity`
 
 		"""
         return self._object
@@ -143,11 +145,24 @@ class Statement(SerializableBase):
         if value is not None:
             if not value:
                 value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Statement) and not isinstance(value, Substatement):
+            elif not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Substatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
                 if isinstance(value, list):
-                    value = Group(value)
+                    value = Group(member=value)
                 else:
-                    value = Statement(value)
+                    if isinstance(value, dict):
+                        if value['object_type'] is not None:
+                            if value['object_type'] == 'Agent':
+                                value = Agent(value)
+                            elif value['object_type'] == 'Substatement':
+                                value = Substatement(value)
+                            elif value['object_type'] == 'StatementRef':
+                                value = StatementRef(value)
+                            elif value['object_type'] == 'Activity':
+                                value = Activity(value)
+                            else:
+                                raise ValueError('Object type is invalid')
+                    else:
+                        raise ValueError('Must set an object_type for the statement object')
             elif len(vars(value)) == 0:
                 value = None
         self._object = value
@@ -331,7 +346,7 @@ class Statement(SerializableBase):
                     else:
                         newmembers.append(k)
             else:
-                 self.attachments = value
+                 self._attachments = list(value)
         value = newmembers
         self._attachments = value
 

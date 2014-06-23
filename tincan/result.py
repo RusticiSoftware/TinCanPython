@@ -16,7 +16,7 @@ from tincan.serializable_base import SerializableBase
 from tincan.score import Score
 from tincan.extensions import Extensions
 from tincan.version import Version
-from tincan.conversions.bytearray import make_bytearray
+from tincan.conversions.bytearray import jsonify_bytearray
 ##TODO: add converters for ISO 8601 duration <-> timedelta
 # from tincan.iso8601 import make_timedelta, make_duration
 
@@ -141,9 +141,9 @@ class Result(SerializableBase):
     def response(self):
         """Response for Result
 
-		:setter: Tries to convert to bytearray
-		:setter type: bytearray
-		:rtype: bytearray
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
 
 		"""
         return self._response
@@ -151,7 +151,7 @@ class Result(SerializableBase):
     @response.setter
     def response(self, value):
         try:
-            self._response = value if value is None else make_bytearray(value)
+            self._response = value if value is None else unicode(value)
         except Exception as e:
             e_type = ValueError if isinstance(value, (list, tuple)) else TypeError
             msg = (

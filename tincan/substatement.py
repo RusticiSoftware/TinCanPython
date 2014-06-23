@@ -16,6 +16,8 @@ from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.group import Group
 from tincan.verb import Verb
+from tincan.statement_ref import StatementRef
+from tincan.activity import Activity
 
 class Substatement(SerializableBase):
 
@@ -86,8 +88,8 @@ class Substatement(SerializableBase):
         """Object for Substatement
 
 		:setter: Setter for object
-		:setter type: :mod:`tincan.agent` | :mod:`tincan.group`
-		:rtype: :mod:`tincan.agent` | :mod:`tincan.group`
+		:setter type: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.activity`
+		:rtype: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.activity`
 
 		"""
         return self._object
@@ -97,11 +99,24 @@ class Substatement(SerializableBase):
         if value is not None:
             if not value:
                 value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group):
+            elif not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Substatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
                 if isinstance(value, list):
-                    value = Group(value)
+                    value = Group(member=value)
                 else:
-                    value = Agent(value)
+                    if isinstance(value, dict):
+                        if value['object_type'] is not None:
+                            if value['object_type'] == 'Agent':
+                                value = Agent(value)
+                            elif value['object_type'] == 'Substatement':
+                                value = Substatement(value)
+                            elif value['object_type'] == 'StatementRef':
+                                value = StatementRef(value)
+                            elif value['object_type'] == 'Activity':
+                                value = Activity(value)
+                            else:
+                                raise ValueError('Object type is invalid')
+                    else:
+                        raise ValueError('Must set an object_type for the statement object')
             elif len(vars(value)) == 0:
                 value = None
         self._object = value
@@ -123,11 +138,7 @@ class Substatement(SerializableBase):
 
     @object_type.setter
     def object_type(self, value):
-        if value != "Substatement":
-            raise ValueError("Object_type must be 'Substatement'")
-        elif not isinstance(value, unicode):
-            value = unicode(value)
-        self._object_type = value
+        self._object_type = 'Substatement'
 
     @object_type.deleter
     def object_type(self):

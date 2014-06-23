@@ -22,10 +22,6 @@ class TestGroup(unittest.TestCase):
         group = Group()
         self.assertEquals(group.member, [])
 
-    def test_InitBadObjectType(self):
-        with self.assertRaises(ValueError):
-            group = Group(object_type='test')
-
     def test_InitObjectType(self):
         group = Group(object_type='Group')
         self.assertEqual(group.object_type, 'Group')
@@ -70,6 +66,15 @@ class TestGroup(unittest.TestCase):
         obj = {"member":[{"name":"test"}]}
         group = Group(**obj)
         self.assertIsInstance(group.member[0], Agent)
+
+    def test_ToJSONFromJSON(self):
+        group = Group.from_json('{"member":[{"name":"test"}, {"name":"test2"}]}')
+        self.assertIsInstance(group.member[0], Agent)
+        self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}]}')
+
+    def test_ToJSON(self):
+        group = Group(**{'member':[{'name':'test'}, {'name':'test2'}]})
+        self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}]}')
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestGroup)
