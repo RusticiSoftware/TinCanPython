@@ -13,6 +13,10 @@
 #    limitations under the License.
 
 import unittest
+
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.agent import Agent
 from tincan.agent_account import AgentAccount
 

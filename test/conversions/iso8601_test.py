@@ -16,7 +16,6 @@
 
 import unittest
 from datetime import timedelta, datetime
-from time import struct_time
 from pytz import utc, timezone
 
 if __name__ == '__main__':

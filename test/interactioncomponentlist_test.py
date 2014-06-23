@@ -13,6 +13,10 @@
 #    limitations under the License.
 
 import unittest
+
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.interaction_component_list import InteractionComponentList
 from tincan.interaction_component import InteractionComponent
 from tincan.language_map import LanguageMap
