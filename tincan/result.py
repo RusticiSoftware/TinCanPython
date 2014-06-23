@@ -125,10 +125,17 @@ class Result(SerializableBase):
     def duration(self):
         """Duration for Result
 
-        :setter: Tries to convert to timdelta
-        :setter type: :mod:`datetime.timedelta`
-        :rtype: :mod:`datetime.timedelta`
+        :setter: Tries to convert to :class:`datetime.timedelta`.
 
+        Strings will be parsed as ISO 8601 durations.
+
+        If a number is provided, it will be interpreted as the number of
+        seconds.
+
+        If a `dict` is provided, does `datetime.timedelta(**value)`.
+
+        :setter type: :class:`datetime.timedelta` | unicode | str | int | float | dict | None
+        :rtype: :class:`datetime.timedelta`
         """
         return self._duration
 

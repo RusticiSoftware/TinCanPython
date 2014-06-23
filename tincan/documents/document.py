@@ -27,7 +27,7 @@ class Document(Base):
     :param etag: The etag of this document
     :type etag: unicode
     :param timestamp: The time stamp of this document
-    :type timestamp: :mod:`datetime.datetime`
+    :type timestamp: :class:`datetime.datetime`
     """
     _props_req = [
         'id',
@@ -108,11 +108,24 @@ class Document(Base):
 
     @property
     def timestamp(self):
-        """The Document time stamp
+        """The Document time stamp.
 
-        :setter: Tries to convert to unicode
-        :setter type: :class:`datetime.datetime` | unicode | str | int | float | None
-        :rtype: unicode
+        :setter: Tries to convert to :class:`datetime.datetime`. If
+        no timezone is given, makes a naive `datetime.datetime`.
+
+        Strings will be parsed as ISO 8601 timestamps.
+
+        If a number is provided, it will be interpreted as a UNIX
+        timestamp, which by definition is UTC.
+
+        If a `dict` is provided, does `datetime.datetime(**value)`.
+
+        If a `tuple` or a `list` is provided, does
+        `datetime.datetime(*value)`. Uses the timezone in the tuple or
+        list if provided.
+
+        :setter type: :class:`datetime.datetime` | unicode | str | int | float | dict | tuple | None
+        :rtype: :class:`datetime.datetime`
         """
         return self._timestamp
 
