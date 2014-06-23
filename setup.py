@@ -5,19 +5,21 @@ setup(
     packages=[
         'tincan'
     ],
-    version='1.0',
+    version='0.0.1',
     description='A Python library for implementing Tin Can API.',
     author='Rustici Software',
-    author_email='mailto:info@tincanapi.com',
-    url='https://github.com/RusticiSoftware/TinCanPython',
+    author_email='mailto:support+tincanpython@tincanapi.com',
+    url='http://rusticisoftware.github.io/TinCanPython/',
     license='Apache License 2.0',
-
-    #TODO:this needs to be setup
-    download_url='https://github.com/RusticiSoftware/TinCanPython/tarball/1.0',
     keywords=[
         'Tin Can',
+        'TinCan',
         'Tin Can API',
-        'Experience API'
+        'TinCanAPI',
+        'Experience API',
+        'xAPI',
+        'SCORM',
+        'AICC',
     ],
     requires=[
       'aniso8601',
