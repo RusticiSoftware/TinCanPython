@@ -33,7 +33,7 @@ class Group(Agent):
     ]
 
     def __init__(self, *args, **kwargs):
-        self._member = []
+        self._member = AgentList()
         super(Group, self).__init__(*args, **kwargs)
 
     def addmember(self, value):
@@ -62,7 +62,7 @@ class Group(Agent):
 
     @member.setter
     def member(self, value):
-        newmembers = []
+        newmembers = AgentList()
         if value is not None:
             if isinstance(value, list):
                 for k in value:
