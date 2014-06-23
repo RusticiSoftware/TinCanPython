@@ -26,7 +26,7 @@ from tincan.context import Context
 from tincan.attachment import Attachment
 from tincan.substatement import Substatement
 
-class TestStatement(unittest.TestCase):
+class StatementTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         statement = Statement()
@@ -420,5 +420,5 @@ class TestStatement(unittest.TestCase):
         self.assertEqual(value.object_type, 'Substatement')
 
 if __name__ == '__main__':
-     suite = unittest.TestLoader().loadTestsFromTestCase(TestStatement)
+     suite = unittest.TestLoader().loadTestsFromTestCase(StatementTest)
      unittest.TextTestRunner(verbosity = 2).run(suite)
