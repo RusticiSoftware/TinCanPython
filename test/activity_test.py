@@ -60,7 +60,7 @@ class ActivityTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             activity = Activity(**obj)
 
-    def test_InitUnpakeExceptionObjectType(self):
+    def test_InitUnpackExceptionObjectType(self):
         obj = {'object_type': 'NotActivity'}
         with self.assertRaises(ValueError):
             activity = Activity(**obj)
