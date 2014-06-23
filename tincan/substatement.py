@@ -24,17 +24,17 @@ class Substatement(SerializableBase):
         "actor",
         "verb",
         "object"
-	]
+    ]
 
     @property
     def actor(self):
         """Actor for Substatement
 
-		:setter: Tries to convert to Agent
-		:setter type: :mod:`tincan.Agent`
-		:rtype: :mod:`tincan.Agent`
+        :setter: Tries to convert to Agent
+        :setter type: :mod:`tincan.Agent`
+        :rtype: :mod:`tincan.Agent`
 
-		"""
+        """
         return self._actor
 
     @actor.setter
@@ -59,11 +59,11 @@ class Substatement(SerializableBase):
     def verb(self):
         """Verb for Substatement
 
-		:setter: Tries to convert to Verb
-		:setter type: :mod:`tincan.Verb`
-		:rtype: :mod:`tincan.Verb`
+        :setter: Tries to convert to Verb
+        :setter type: :mod:`tincan.Verb`
+        :rtype: :mod:`tincan.Verb`
 
-		"""
+        """
         return self._verb
 
     @verb.setter
@@ -85,11 +85,11 @@ class Substatement(SerializableBase):
     def object(self):
         """Object for Substatement
 
-		:setter: Setter for object
-		:setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
-		:rtype: :mod:`tincan.Agent` | :mod:`tincan.Group`
+        :setter: Setter for object
+        :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
+        :rtype: :mod:`tincan.Agent` | :mod:`tincan.Group`
 
-		"""
+        """
         return self._object
 
     @object.setter
@@ -114,11 +114,11 @@ class Substatement(SerializableBase):
     def object_type(self):
         """Object Type for Substatement. Must be "Substatement"
 
-		:setter: Tries to convert to unicode
-		:setter type: unicode
-		:rtype: unicode
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
 
-		"""
+        """
         return self._object_type
 
     @object_type.setter

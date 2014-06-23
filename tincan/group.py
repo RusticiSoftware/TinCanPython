@@ -27,7 +27,7 @@ from tincan.version import Version
 class Group(SerializableBase):
 
     _props = [
-	    "object_type",
+        "object_type",
         "members"
     ]
 

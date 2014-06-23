@@ -68,7 +68,6 @@ class About(SerializableBase):
 
             raise ValueError(msg)
 
-
         if value is None:
             self._version = [Version.latest]
         elif isinstance(value, basestring):
