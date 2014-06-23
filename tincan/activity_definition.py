@@ -57,16 +57,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def name(self):
+        """Name for Activity Definition
+
+		:setter: Tries to convert to LanguageMap
+		:setter type: :mod:`tincan.language_map`
+		:rtype: :mod:`tincan.language_map`
+
+		"""
         return self._name
 
     @name.setter
     def name(self, value):
-        """Setter for the _name attribute. Tries to convert to LanguageMap
-
-        :param value: The desired value for name
-        :type value: LanguageMap | dict
-
-        """
         if value is not None and not isinstance(value, LanguageMap):
             value = LanguageMap(value)
         self._name = value
@@ -77,16 +78,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def description(self):
+        """Description for Activity Definition
+
+		:setter: Tries to convert to LanguageMap
+		:setter type: :mod:`tincan.language_map`
+		:rtype: :mod:`tincan.language_map`
+
+		"""
         return self._description
 
     @description.setter
     def description(self, value):
-        """Setter for the _description attribute. Tries to convert to LanguageMap
-
-        :param value: The desired value for description
-        :type value: LanguageMap | dict
-
-        """
         if value is not None and not isinstance(value, LanguageMap):
             value = LanguageMap(value)
         self._description = value
@@ -97,20 +99,21 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def type(self):
+        """Type for Activity Definition
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._type
 
     @type.setter
     def type(self, value):
-        """Setter for the _type attribute. Tries to convert to string
-
-        :param value: The desired value for type
-        :type value: string
-
-        """
         if value is not None:
             if value == '':
                 raise ValueError("type cannot be set to an empty string")
-            value = str(value)
+            value = unicode(value)
         self._type = value
 
     @type.deleter
@@ -119,20 +122,21 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def more_info(self):
+        """More info for Activity Definition
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._more_info
 
     @more_info.setter
     def more_info(self, value):
-        """Setter for the _more_info attribute. Tries to convert to string
-
-        :param value: The desired value for more_info
-        :type value: string
-
-        """
         if value is not None:
             if value == '':
                 raise ValueError("more_info cannot be set to an empty string")
-            value = str(value)
+            value = unicode(value)
         self._more_info = value
 
     @more_info.deleter
@@ -141,16 +145,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def interaction_type(self):
+        """Interaction type for Activity Definition. Must be a value in interaction_types
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._interaction_type
 
     @interaction_type.setter
     def interaction_type(self, value):
-        """Setter for the _interaction_type attribute. Does not attempt conversion
-
-        :param value: The desired value for interaction_type
-        :type value: string
-
-        """
         if value is not None:
             if value not in self._interaction_types:
                 raise ValueError("invalid interaction type")
@@ -162,16 +167,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def correct_responses_pattern(self):
+        """Correct responses pattern for Activity Definition
+
+		:setter: Sets the correct responses pattern
+		:setter type: list
+		:rtype: list
+
+		"""
         return self._correct_responses_pattern
 
     @correct_responses_pattern.setter
     def correct_responses_pattern(self, value):
-        """Setter for the _correct_responses_pattern attribute. Does not attempt conversion
-
-        :param value: The desired value for correct_responses_pattern
-        :type value: list
-
-        """
         if value is not None:
             if not isinstance(value, list):
                 raise TypeError("correct responses pattern must be a list")
@@ -183,16 +189,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def choices(self):
+        """Choices for Activity Definition
+
+		:setter: Tries to convert to InteractionComponentList
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
+
+		"""
         return self._choices
 
     @choices.setter
     def choices(self, value):
-        """Setter for the _choices attribute. Attemps to convert to InteractionComponentList
-
-        :param value: The desired value for choices
-        :type value: list
-
-        """
         if value is not None and not isinstance(value, InteractionComponentList):
             value = InteractionComponentList(value)
         self._choices = value
@@ -203,16 +210,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def scale(self):
+        """Scale for Activity Definition
+
+		:setter: Tries to convert to InteractionComponentList
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
+
+		"""
         return self._scale
 
     @scale.setter
     def scale(self, value):
-        """Setter for the _scale attribute. Attemps to convert to InteractionComponentList
-
-        :param value: The desired value for scale
-        :type value: list
-
-        """
         if value is not None and not isinstance(value, InteractionComponentList):
             value = InteractionComponentList(value)
         self._scale = value
@@ -223,16 +231,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def source(self):
+        """Source for Activity Definition
+
+		:setter: Tries to convert to InteractionComponentList
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
+
+		"""
         return self._source
 
     @source.setter
     def source(self, value):
-        """Setter for the _source attribute. Attempts to convert to InteractionComponentList
-
-        :param value: The desired value for source
-        :type value: list
-
-        """
         if value is not None and not isinstance(value, InteractionComponentList):
             value = InteractionComponentList(value)
         self._source = value
@@ -243,16 +252,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def target(self):
+        """Target for Activity Definition
+
+		:setter: Tries to convert to InteractionComponentList
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
+
+		"""
         return self._target
 
     @target.setter
     def target(self, value):
-        """Setter for the _target attribute. Attempts to convert to InteractionComponentList
-
-        :param value: The desired value for target
-        :type value: list
-
-        """
         if value is not None and not isinstance(value, InteractionComponentList):
             value = InteractionComponentList(value)
         self._target = value
@@ -263,16 +273,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def steps(self):
+        """Steps for Activity Definition
+
+		:setter: Tries to convert to InteractionComponentList
+		:setter type: :mod:`tincan.interaction_component_list`
+		:rtype: :mod:`tincan.interaction_component_list`
+
+		"""
         return self._steps
 
     @steps.setter
     def steps(self, value):
-        """Setter for the _steps attribute. Does not attempt conversion
-
-        :param value: The desired value for steps
-        :type value: list
-
-        """
         if value is not None and not isinstance(value, InteractionComponentList):
             value = InteractionComponentList(value)
         self._steps = value
@@ -283,16 +294,17 @@ class ActivityDefinition(SerializableBase):
 
     @property
     def extensions(self):
+        """Extensions for Activity Definition
+
+		:setter: Tries to convert to Extensions
+		:setter type: :mod:`tincan.extensions`
+		:rtype: :mod:`tincan.extensions`
+
+		"""
         return self._extensions
 
     @extensions.setter
     def extensions(self, value):
-        """Setter for the _extensions attribute. Does not attempt conversion
-
-        :param value: The desired value for extensions
-        :type value: :mod:`extensions`
-
-        """
         if value is not None and not isinstance(value, Extensions):
             value = Extensions(value)
         self._extensions = value

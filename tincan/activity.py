@@ -41,16 +41,17 @@ class Activity(SerializableBase, StatementTargetable):
 
     @property
     def id(self):
+        """Id for Activity
+
+		:setter: Sets the id
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._id
 
     @id.setter
     def id(self, value):
-        """Setter for the _id attribute. Tries to convert to str
-
-        :param value: The desired value for id
-        :type value: basestring
-
-        """
         if value is not None:
             if value == '':
                 raise ValueError(
@@ -60,21 +61,20 @@ class Activity(SerializableBase, StatementTargetable):
 
     @property
     def object_type(self):
+        """Object type for Activity. Must be "Activity"
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._object_type
 
     @object_type.setter
     def object_type(self, value):
-        """Setter for the _object_type attribute. Tries to convert to str
-
-        .. note: The object type for activity must be Activity if it is present
-
-        :param value: The value for object_type.
-        :type value: basestring
-
-        """
         if str(value) != 'Activity':
             raise ValueError("object type must be 'Activity'")
-        self._object_type = str(value)
+        self._object_type = unicode(value)
 
     @object_type.deleter
     def object_type(self):
@@ -82,16 +82,17 @@ class Activity(SerializableBase, StatementTargetable):
 
     @property
     def definition(self):
+        """Definition for Activity
+
+		:setter: Tries to convert to ActivityDefinition
+		:setter type: :mod:`tincan.activity_definition`
+		:rtype: :mod:`tincan.activity_definition`
+
+		"""
         return self._definition
 
     @definition.setter
     def definition(self, value):
-        """Setter for the _definition attribute. Tries to convert to :mod:`ActivityDefinition`
-
-        :param value: The value for the definition of the Activity.
-        :type value: ActivityDefinition
-
-        """
         if value is not None and not isinstance(value, ActivityDefinition):
             value = ActivityDefinition(value)
         self._definition = value

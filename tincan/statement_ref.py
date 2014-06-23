@@ -21,6 +21,11 @@ from tincan.serializable_base import SerializableBase
 
 class StatementRef(SerializableBase):
 
+    _props = [
+		'object_type',
+	    'id'
+	]
+
     @property
     def object_type(self):
         """Object type for Statement Ref. Must be "StatementRef"
@@ -34,11 +39,7 @@ class StatementRef(SerializableBase):
 
     @object_type.setter
     def object_type(self, value):
-        if value != "StatementRef":
-            raise ValueError("Object_type must be 'StatementRef'")
-        elif not isinstance(value, basestring):
-            value = str(value)
-        self._object_type = value
+        self._object_type = 'StatementRef'
 
     @object_type.deleter
     def object_type(self):

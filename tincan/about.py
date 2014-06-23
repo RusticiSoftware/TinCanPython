@@ -29,16 +29,17 @@ class About(SerializableBase):
 
     @property
     def version(self):
+        """Version for About
+
+		:setter: Sets the version
+		:setter type: list | tuple | str | unicode
+		:rtype: unicode | list
+
+		"""
         return self._version
 
     @version.setter
     def version(self, value):
-        """Setter for the _version attribute. Makes sure that the
-        versions given are supported before setting.
-
-        :param value: list of the versions supported
-        :type value: list | tuple | None
-        """
         def check_version(v):
             """Checks a single version string for validity. Raises
             if invalid.
@@ -90,15 +91,17 @@ class About(SerializableBase):
 
     @property
     def extensions(self):
+        """Extensions for About
+
+		:setter: Tries to convert to Extensions
+		:setter type: :mod:`tincan.extensions`
+		:rtype: :mod:`tincan.extensions`
+
+		"""
         return self._extensions
 
     @extensions.setter
     def extensions(self, value):
-        """Setter for the _extensions attribute. Tries to convert to Extensions.
-
-        :param value: the Extensions for this installation of TinCan.
-        """
-
         if isinstance(value, Extensions):
             self._extensions = value
         elif value is None:

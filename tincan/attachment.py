@@ -38,60 +38,24 @@ class Attachment(SerializableBase):
 
     _props.extend(_props_req)
 
-
-    def __init__(self, *args, **kwargs):
-        """
-
-        :param usage_type: A URI describing the purpose of the attachment
-        :type usage_type: str
-        :param display: The human readable name for the attachment
-        :type display: :mod:`tincan.languagemap`
-        :param description: A plain description of the purpose of the attachment (optional)
-        :type description: :mod:`tincan.languagemap`
-        :param content_type: The MIME type of the attachment file
-        :type content_type: str
-        :param length: The size of the attachment in octets
-        :type length: int
-        :param sha2: The sha2 hash of the contents of the attachment
-        :type sha2: str
-        :param fileurl: The URL of the file's contents themselves (optional)
-        :type fileurl: str
-
-        """
-
-        super(Attachment, self).__init__(*args, **kwargs)
-
-    def _as_version(self, version):
-        """Returns a versioned form of the attachment
-
-        :param version: The version to convert the attachment to
-        :type version: str
-        :returns: The attachment formatted to agree with the given version
-
-        """
-
-        if (version == "0.90" or version == "0.95"):
-            return None
-        else:
-            return self
-
     @property
     def usage_type(self):
+        """Usage type for Attachment
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._usage_type
 
     @usage_type.setter
     def usage_type(self, value):
-        """Setter for the _usage_type attribute. Tries to convert to string.
-
-        :param value: The attachment's usage_type
-        :type value: str
-
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property usage_type cannot be set to an empty string")
+            if value == '':
+                raise ValueError("Property object_type can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._usage_type = value
     
     @usage_type.deleter
@@ -100,21 +64,22 @@ class Attachment(SerializableBase):
 
     @property
     def content_type(self):
+        """Content type for Attachment
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._content_type
 
     @content_type.setter
     def content_type(self, value):
-        """Setter for the _content_type attribute. Tries to convert to string.
-
-        :param value: The attachment's content_type
-        :type value: str
-
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property content_type cannot be set to an empty string")
+            if value == '':
+                raise ValueError("Property content_type can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._content_type = value
 
     @content_type.deleter
@@ -123,16 +88,17 @@ class Attachment(SerializableBase):
 
     @property
     def length(self):
+        """Usage type for Attachment
+
+		:setter: Tries to convert to long
+		:setter type: int | long
+		:rtype: long
+
+		"""
         return self._length
     
     @length.setter
     def length(self, value):
-        """Setter for the _length attribute. Tries to convert to string.
-
-        :param value: The attachment's length
-        :type value: int
-
-        """
         if value is not None:
             if not isinstance(value, (int, long)):
                 value = long(value)
@@ -144,21 +110,22 @@ class Attachment(SerializableBase):
 
     @property
     def sha2(self):
+        """Sha2 for Attachment
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._sha2
     
     @sha2.setter
     def sha2(self, value):
-        """Setter for the _sha2 attribute. Tries to convert to string.
-
-        :param value: The attachment's sha2
-        :type value: str
-
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property sha2 cannot be set to an empty string")
+            if value == '':
+                raise ValueError("Property sha2 can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._sha2 = value
         
     @sha2.deleter
@@ -167,21 +134,22 @@ class Attachment(SerializableBase):
         
     @property
     def fileurl(self):
+        """File URL for Attachment
+
+		:setter: Tries to convert to unicode
+		:setter type: unicode
+		:rtype: unicode
+
+		"""
         return self._fileurl
 
     @fileurl.setter
     def fileurl(self, value):
-        """Setter for the _fileurl attribute. Tries to convert to string.
-
-        :param value: The attachment's fileurl
-        :type value: str
-
-        """
         if value is not None:
-            if not isinstance(value, basestring):
-                value = str(value)
-            elif value == '':
-                raise ValueError("Property fileurl cannot be set to an empty string")
+            if value == '':
+                raise ValueError("Property fileurl can not be set to an empty string")
+            elif not isinstance(value, unicode):
+                value = unicode(value)
         self._fileurl = value
 
     @fileurl.deleter
@@ -190,16 +158,17 @@ class Attachment(SerializableBase):
 
     @property
     def display(self):
+        """Display for Attachment
+
+		:setter: Tries to convert to LanguageMap
+		:setter type: :mod:`tincan.language_map`
+		:rtype: :mod:`tincan.language_map`
+
+		"""
         return self._display
 
     @display.setter
     def display(self, value):
-        """Setter for the _display attribute. Tries to convert to :mod:`tincan.LanguageMap`
-
-        :param value: The attachment's display
-        :type value: :mod:`tincan.LanguageMap`
-
-        """
         if value is not None:
             if not value:
                 value = None
@@ -215,16 +184,17 @@ class Attachment(SerializableBase):
 
     @property
     def description(self):
+        """Description for Attachment
+
+		:setter: Tries to convert to LanguageMap
+		:setter type: :mod:`tincan.language_map`
+		:rtype: :mod:`tincan.language_map`
+
+		"""
         return self._description
 
     @description.setter
     def description(self, value):
-        """Setter for the _description attribute. Tries to convert to :mod:`tincan.LanguageMap`
-
-        :param value: The attachment's description
-        :type value: :mod:`tincan.LanguageMap`
-
-        """
         if value is not None:
             if not value:
                 value = None
