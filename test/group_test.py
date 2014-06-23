@@ -20,7 +20,7 @@ if __name__ == '__main__':
 from tincan.group import Group
 from tincan.agent import Agent
 
-class TestGroup(unittest.TestCase):
+class GroupTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         group = Group()
@@ -81,5 +81,5 @@ class TestGroup(unittest.TestCase):
          self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestGroup)
-    unittest.TextTestRunner(verbosity = 2).run(suite)
+    suite = unittest.TestLoader().loadTestsFromTestCase(GroupTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

@@ -28,7 +28,7 @@ import uuid
 import re
 
 
-class TestContext(unittest.TestCase):
+class ContextTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         ctx = Context()
@@ -142,6 +142,7 @@ class TestContext(unittest.TestCase):
         self.assertIsInstance(ctx.extensions, Extensions)
         self.assertEqual(ctx.extensions['extensions'], 'extend!')
 
+
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestContext)
-    unittest.TextTestRunner(verbosity = 2).run(suite)
+    suite = unittest.TestLoader().loadTestsFromTestCase(ContextTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
