@@ -60,12 +60,12 @@ class ContextActivitiesTest(unittest.TestCase):
         self.assertIsInstance(ctx_act, ContextActivities)
         self.assertIsInstance(ctx_act.category, ActivityList)
         self.assertEqual(ctx_act.category[0].id, 'categoryList')
-        self.assertIsInstance(ctx_act.parent, Activity)
-        self.assertEqual(ctx_act.parent.id, 'parentActivity')
+        self.assertIsInstance(ctx_act.parent, ActivityList)
+        self.assertEqual(ctx_act.parent[0].id, 'parentActivity')
         self.assertIsInstance(ctx_act.grouping, ActivityList)
         self.assertEqual(ctx_act.grouping[0].id, 'groupingList')
-        self.assertIsInstance(ctx_act.other, Activity)
-        self.assertEqual(ctx_act.other.id, 'otherActivity')
+        self.assertIsInstance(ctx_act.other, ActivityList)
+        self.assertEqual(ctx_act.other[0].id, 'otherActivity')
 
     def test_InitAnonList(self):
         ctx_act = ContextActivities(category=[Activity(id='anonymousList')])
@@ -76,8 +76,8 @@ class ContextActivitiesTest(unittest.TestCase):
     def test_InitAnonActivity(self):
         ctx_act = ContextActivities(category={'id': 'anonymousActivity'})
         self.assertIsInstance(ctx_act, ContextActivities)
-        self.assertIsInstance(ctx_act.category, Activity)
-        self.assertEqual(ctx_act.category.id, 'anonymousActivity')
+        self.assertIsInstance(ctx_act.category, ActivityList)
+        self.assertEqual(ctx_act.category[0].id, 'anonymousActivity')
 
     def test_InitUnpack(self):
         obj = {'category': [{'id': 'categoryList'}], 'parent': [{'id': 'parentList'}], 'grouping': [{'id': 'groupingList'}], 'other': [{'id': 'otherList'}]}
@@ -127,14 +127,14 @@ class ContextActivitiesTest(unittest.TestCase):
 
     def activityVerificationHelper(self, ctx_act):
         self.assertIsInstance(ctx_act, ContextActivities)
-        self.assertIsInstance(ctx_act.category, Activity)
-        self.assertEqual(ctx_act.category.id, 'categoryActivity')
-        self.assertIsInstance(ctx_act.parent, Activity)
-        self.assertEqual(ctx_act.parent.id, 'parentActivity')
-        self.assertIsInstance(ctx_act.grouping, Activity)
-        self.assertEqual(ctx_act.grouping.id, 'groupingActivity')
-        self.assertIsInstance(ctx_act.other, Activity)
-        self.assertEqual(ctx_act.other.id, 'otherActivity')
+        self.assertIsInstance(ctx_act.category, ActivityList)
+        self.assertEqual(ctx_act.category[0].id, 'categoryActivity')
+        self.assertIsInstance(ctx_act.parent, ActivityList)
+        self.assertEqual(ctx_act.parent[0].id, 'parentActivity')
+        self.assertIsInstance(ctx_act.grouping, ActivityList)
+        self.assertEqual(ctx_act.grouping[0].id, 'groupingActivity')
+        self.assertIsInstance(ctx_act.other, ActivityList)
+        self.assertEqual(ctx_act.other[0].id, 'otherActivity')
 
     def listVerificationHelper(self, ctx_act):
         self.assertIsInstance(ctx_act, ContextActivities)

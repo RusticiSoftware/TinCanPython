@@ -196,13 +196,6 @@ class ActivityDefinitionTest(unittest.TestCase):
         adef2 = adef.as_version()
         self.assertEqual(adef2, {'description': {'en-US': 'test'}})
 
-    def test_ToJSONFromJSON(self):
-        json_str = '{"correct_responses_pattern": ["test"], "scale": [], "description": {"en-US": "test"}, "choices": [], "source": [], "steps": [], "more_info": "test", "target": [], "extensions": {"test": "test"}, "interaction_type": "choice", "type": "test", "name": {"en-US": "test"}}'
-        check_str = '{"correctResponsesPattern": ["test"], "target": [], "name": {"en-US": "test"}, "interactionType": "choice", "choices": [], "source": [], "scale": [], "steps": [], "extensions": {"test": "test"}, "moreInfo": "test", "type": "test", "description": {"en-US": "test"}}'
-        adef = ActivityDefinition.from_json(json_str)
-        self.definitionVerificationHelper(adef)
-        self.assertEqual(adef.to_json(), check_str)
-
     def test_ToJSONIgnoreNone(self):
         adef = ActivityDefinition({
             'description': {'en-US': 'test'},

@@ -35,11 +35,16 @@ class DocumentTest(unittest.TestCase):
     def test_init_empty(self):
         doc = Document()
         self.assertIsInstance(doc, Document)
-        self.assertFalse(hasattr(doc, "id"))
-        self.assertFalse(hasattr(doc, "content_type"))
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "id"))
+        self.assertIsNone(doc.id)
+        self.assertTrue(hasattr(doc, "content_type"))
+        self.assertIsNone(doc.content_type)
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertIsNone(doc.content)
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertIsNone(doc.etag)
+        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertIsNone(doc.time_stamp)
 
     def test_init_kwarg_exception(self):
         with self.assertRaises(AttributeError):
@@ -65,9 +70,9 @@ class DocumentTest(unittest.TestCase):
         doc = Document(id="test", content_type="test type")
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertTrue(hasattr(doc, "time_stamp"))
 
     def test_init_all(self):
         doc = Document(

@@ -33,10 +33,10 @@ class ActivityProfileDocumentTest(unittest.TestCase):
             id="http://tincanapi.com/TinCanPython/Test/Unit/0",
             definition=ActivityDefinition()
         )
-        self.activity.type = "http://id.tincanapi.com/activitytype/unit-test"
-        self.activity.definition.name(LanguageMap({"en-US": "Python Tests"}))
-        self.activity.definition.description(LanguageMap(
-            {"en-US": "Unit test in the test suite for the Python library"})
+        self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test"
+        self.activity.definition.name = LanguageMap({"en-US": "Python Tests"})
+        self.activity.definition.description = LanguageMap(
+            {"en-US": "Unit test in the test suite for the Python library"}
         )
 
     def tearDown(self):
@@ -45,12 +45,18 @@ class ActivityProfileDocumentTest(unittest.TestCase):
     def test_init_empty(self):
         doc = ActivityProfileDocument()
         self.assertIsInstance(doc, ActivityProfileDocument)
-        self.assertFalse(hasattr(doc, "id"))
-        self.assertFalse(hasattr(doc, "content_type"))
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
-        self.assertFalse(hasattr(doc, "activity"))
+        self.assertTrue(hasattr(doc, "id"))
+        self.assertIsNone(doc.id)
+        self.assertTrue(hasattr(doc, "content_type"))
+        self.assertIsNone(doc.content_type)
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertIsNone(doc.content)
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertIsNone(doc.etag)
+        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertIsNone(doc.time_stamp)
+        self.assertTrue(hasattr(doc, "activity"))
+        self.assertIsNone(doc.activity)
 
     def test_init_kwarg_exception(self):
         with self.assertRaises(AttributeError):
@@ -76,10 +82,10 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         doc = ActivityProfileDocument(id="test", content_type="test type")
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
-        self.assertFalse(hasattr(doc, "activity"))
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "activity"))
 
     def test_init_all(self):
         doc = ActivityProfileDocument(
@@ -133,7 +139,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         doc = ActivityProfileDocument()
         doc.activity = {"id": "http://tincanapi.com/TinCanPython/Test/Unit/0"}
 
-        self.assertEquals(doc.activity, Activity(id="http://tincanapi.com/TinCanPython/Test/Unit/0"))
+        self.assertEquals(doc.activity.id, "http://tincanapi.com/TinCanPython/Test/Unit/0")
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityProfileDocumentTest)

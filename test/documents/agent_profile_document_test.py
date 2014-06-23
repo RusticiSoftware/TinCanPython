@@ -35,12 +35,18 @@ class AgentProfileDocumentTest(unittest.TestCase):
     def test_init_empty(self):
         doc = AgentProfileDocument()
         self.assertIsInstance(doc, AgentProfileDocument)
-        self.assertFalse(hasattr(doc, "id"))
-        self.assertFalse(hasattr(doc, "content_type"))
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
-        self.assertFalse(hasattr(doc, "agent"))
+        self.assertTrue(hasattr(doc, "id"))
+        self.assertIsNone(doc.id)
+        self.assertTrue(hasattr(doc, "content_type"))
+        self.assertIsNone(doc.content_type)
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertIsNone(doc.content)
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertIsNone(doc.etag)
+        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertIsNone(doc.time_stamp)
+        self.assertTrue(hasattr(doc, "agent"))
+        self.assertIsNone(doc.agent)
 
     def test_init_kwarg_exception(self):
         with self.assertRaises(AttributeError):
@@ -66,10 +72,10 @@ class AgentProfileDocumentTest(unittest.TestCase):
         doc = AgentProfileDocument(id="test", content_type="test type")
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
-        self.assertFalse(hasattr(doc, "agent"))
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "agent"))
 
     def test_init_all(self):
         doc = AgentProfileDocument(

@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.interaction_component import InteractionComponent
+from tincan.agent import Agent
 from tincan.typed_list import TypedList
 
 """
@@ -22,6 +22,6 @@ from tincan.typed_list import TypedList
 """
 
 
-class InteractionComponentList(TypedList):
+class AgentList(TypedList):
 
-    _cls = InteractionComponent
+    _cls = Agent

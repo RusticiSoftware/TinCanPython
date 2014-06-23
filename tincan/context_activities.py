@@ -81,13 +81,10 @@ class ContextActivities(SerializableBase):
 
     def _activity_or_list(self, value):
         result = value
-        if value is not None and not isinstance(value, Activity) and not isinstance(value, ActivityList):
+        if value is not None and not isinstance(value, ActivityList):
             try:
-                result = Activity(value)
+                result = ActivityList([Activity(value)])
             except (TypeError, AttributeError):
                 result = ActivityList(value)
-
-        if isinstance(result, Activity):
-            result = ActivityList([result])
 
         return result
