@@ -22,7 +22,7 @@ from tincan.activity import Activity
 from tincan.activity_list import ActivityList
 
 
-class TestContextActivities(unittest.TestCase):
+class ContextActivitiesTest(unittest.TestCase):
 
     def test_initEmpty(self):
         ctx_act = ContextActivities()
@@ -146,3 +146,8 @@ class TestContextActivities(unittest.TestCase):
         self.assertEqual(ctx_act.grouping[0].id, 'groupingList')
         self.assertIsInstance(ctx_act.other, ActivityList)
         self.assertEqual(ctx_act.other[0].id, 'otherList')
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ContextActivitiesTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

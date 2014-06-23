@@ -23,7 +23,7 @@ from tincan.interaction_component_list import InteractionComponentList
 from tincan.language_map import LanguageMap
 
 
-class TestActivity(unittest.TestCase):
+class ActivityTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         activity = Activity()
@@ -143,3 +143,8 @@ class TestActivity(unittest.TestCase):
         self.assertEqual(activity.id, 'test')
         self.assertIsInstance(activity.definition, ActivityDefinition)
         self.assertEqual(activity.object_type, 'Activity')
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ActivityTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

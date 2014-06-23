@@ -23,7 +23,7 @@ from tincan.interaction_component_list import InteractionComponentList
 from tincan.interaction_component import InteractionComponent
 
 
-class TestActivityDefinition(unittest.TestCase):
+class ActivityDefinitionTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         adef = ActivityDefinition()
@@ -237,3 +237,8 @@ class TestActivityDefinition(unittest.TestCase):
         self.assertEqual(definition.steps, [])
         self.assertIsInstance(definition.steps, InteractionComponentList)
         self.assertEqual(definition.extensions, {"test": "test"})
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ActivityDefinitionTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
