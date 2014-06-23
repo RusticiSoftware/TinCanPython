@@ -12,9 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.serializable_base import SerializableBase
 from tincan.interaction_component import InteractionComponent
-from tincan.version import Version
+from tincan.typed_list import TypedList
 
 """
 .. module:: interactioncomponentlist
@@ -23,66 +22,6 @@ from tincan.version import Version
 """
 
 
-class InteractionComponentList(list, SerializableBase):
+class InteractionComponentList(TypedList):
 
-    def __init__(self, *args, **kwargs):
-        """Initializes an InteractionComponentList with the given arguments
-
-        The first step of constructing the list is checking that the
-        arguments are of proper type. Once that is done, the base list
-        constructor is called.
-
-        """
-        new_args = [InteractionComponent(v) for v in list(*args, **kwargs)]
-        super(InteractionComponentList, self).__init__(new_args)
-
-    def __setitem__(self, ind, value):
-        """Provides type checking for setting and item in the list
-
-        :param ind: the index to set
-        :type ind: int
-        :param value: the value to set at the index
-        :type value: :mod:`InteractionComponent`
-
-        """
-        if not isinstance(value, InteractionComponent):
-            value = InteractionComponent(value)
-        super(InteractionComponentList, self).__setitem__(ind, value)
-
-    def append(self, value):
-        """Provides error checking when appending to the list
-
-        :param value: the value to append
-        :type value: :mod:`InteractionComponent`
-
-        """
-        if not isinstance(value, InteractionComponent):
-            value = InteractionComponent(value)
-        super(InteractionComponentList, self).append(value)
-
-    def extend(self, value):
-        """Provides error checking when extending the list
-
-        This method will check every argument in the argument list
-        to ensure it is of type :mod:`InteractionComponent` before extending
-        the current list
-
-        :param value: The list that self will extend
-        :type value: :mod:`InteractionComponentList` | list of InteractionComponents
-
-        """
-        new_args = [InteractionComponent(v) for v in value]
-        super(InteractionComponentList, self).extend(new_args)
-
-    def insert(self, ind, value):
-        """Provides error checking when inserting into the list
-
-        :param ind: the index to set
-        :type ind: int
-        :param value: the value to set at the index
-        :type value: :mod:`InteractionComponent`
-
-        """
-        if not isinstance(value, InteractionComponent):
-            value = InteractionComponent(value)
-        super(InteractionComponentList, self).insert(ind, value)
+    _cls = InteractionComponent

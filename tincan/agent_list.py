@@ -12,16 +12,16 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.activity import Activity
+from tincan.agent import Agent
 from tincan.typed_list import TypedList
 
 """
-.. module:: activity_list
-   :synopsis: A wrapper for a list that is able to type check
+.. module:: interactioncomponentlist
+   :synopsis: A wrapper for list that is able to type check
 
 """
 
 
-class ActivityList(TypedList):
+class AgentList(TypedList):
 
-    _cls = Activity
+    _cls = Agent
