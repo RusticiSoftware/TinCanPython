@@ -50,16 +50,6 @@ class LanguageMap(dict, SerializableBase):
         self._check_basestring(value)
         super(LanguageMap, self).__setitem__(prop, value)
 
-    def _as_version(self, version=Version.latest):
-        """Overrides :mod:`base`.as_version. Returns a dict that represents
-        the LanugageMap
-
-        :param version: the desired target version for the LanguageMap
-        :type version: str
-
-        """
-        return dict(self)
-
     def _check_basestring(self, value):
         """Ensures that value is an instance of basestring
 

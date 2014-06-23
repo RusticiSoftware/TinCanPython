@@ -100,13 +100,10 @@ class Group(SerializableBase):
         """
         if value != "Group":
             raise ValueError("Object_type must be 'Group'")
-        elif not isinstance(value, basestring):
-            value = str(value)
+        elif not isinstance(value, unicode):
+            value = unicode(value)
         self._object_type = value
 
     @object_type.deleter
     def object_type(self):
         del self._object_type
-
-    def _as_version(self, version=Version.latest):
-        return {'members': [l.as_version(version) for l in self.members]}

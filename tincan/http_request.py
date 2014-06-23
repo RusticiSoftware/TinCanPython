@@ -81,8 +81,8 @@ class HTTPRequest(Base):
 
     @method.setter
     def method(self, value):
-        if not isinstance(value, basestring) and value is not None:
-            str(value)
+        if not isinstance(value, unicode) and value is not None:
+            unicode(value)
         self._method = value
 
     @property
