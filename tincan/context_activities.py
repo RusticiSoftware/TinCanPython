@@ -83,8 +83,7 @@ class ContextActivities(SerializableBase):
         result = value
         if value is not None and not isinstance(value, ActivityList):
             try:
-                list_arg = Activity(value)
-                result = ActivityList([list_arg])
+                result = ActivityList([Activity(value)])
             except (TypeError, AttributeError):
                 result = ActivityList(value)
 

@@ -139,7 +139,5 @@ class TestContext(unittest.TestCase):
         self.assertEqual(ctx.revision, 'revision')
         self.assertEqual(ctx.platform, 'platform')
         self.assertEqual(ctx.language, 'en-US')
-        #self.assertIsInstance(ctx.statement, StatementRef)
-        #self.assertEqual(ctx.statement.id, 'statementRef')
         self.assertIsInstance(ctx.extensions, Extensions)
         self.assertEqual(ctx.extensions['extensions'], 'extend!')
