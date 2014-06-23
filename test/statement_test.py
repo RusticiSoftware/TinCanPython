@@ -205,6 +205,16 @@ class TestStatement(unittest.TestCase):
         self.assertIsNone(statement.authority)
         self.agentVerificationHelper(statement.object)
 
+    def test_InitDifferentNamingObject(self):
+        statement = Statement(object={'objectType':'Agent', 'name':'test'})
+        self.assertIsNone(statement.id)
+        self.assertIsNone(statement.actor)
+        self.assertIsNone(statement.verb)
+        self.assertIsNone(statement.timestamp)
+        self.assertIsNone(statement.stored)
+        self.assertIsNone(statement.authority)
+        self.agentVerificationHelper(statement.object)
+
     def test_InitAnonAuthority(self):
         statement = Statement(authority={'name':'test'})
         self.assertIsNone(statement.id)

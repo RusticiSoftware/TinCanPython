@@ -161,6 +161,9 @@ class Statement(SerializableBase):
                                 k = 'object_type'
                             else:
                                 k = 'objectType'
+                                value['object_type'] = value[k]
+                                del(value[k])
+                                k = 'object_type'
                             if value[k] == 'Agent':
                                 value = Agent(value)
                             elif value[k] == 'Substatement':
