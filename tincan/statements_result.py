@@ -25,11 +25,10 @@ class StatementsResult(SerializableBase):
 
     _props_req = [
         'statements',
-    ]
-
-    _props = [
         'more',
     ]
+
+    _props = []
     _props.extend(_props_req)
 
     @property
@@ -92,7 +91,3 @@ class StatementsResult(SerializableBase):
             )
             msg += e.message
             raise TypeError(msg)
-
-    @more.deleter
-    def more(self):
-        del self._more
