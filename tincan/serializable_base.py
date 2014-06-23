@@ -14,9 +14,10 @@
 
 import json
 import uuid
+import datetime
 from tincan.base import Base
 from tincan.version import Version
-from tincan.conversions.bytearray import jsonify_bytearray
+from tincan.conversions.iso8601 import jsonify_datetime, jsonify_timedelta
 
 """
 .. module:: serializable_base
@@ -107,6 +108,10 @@ class SerializableBase(Base):
                             result[k].append(val)
                 elif isinstance(v, uuid.UUID):
                     result[k] = str(v)
+                elif isinstance(v, datetime.timedelta):
+                    result[k] = jsonify_timedelta(v)
+                elif isinstance(v, datetime.datetime):
+                    result[k] = jsonify_datetime(v)
                 else:
                     result[k] = v
             result = self._filter_none(result)

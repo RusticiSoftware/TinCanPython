@@ -48,4 +48,3 @@ class ScoreTest(TinCanBaseTestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ScoreTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
-

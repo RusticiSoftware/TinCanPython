@@ -48,4 +48,3 @@ class TinCanBaseTestCase(unittest.TestCase):
                 clone_dict = clone.__dict__
 
             self.assertEqual(orig_dict, clone_dict)
-

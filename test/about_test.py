@@ -87,4 +87,3 @@ class AboutTest(TinCanBaseTestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(AboutTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
-

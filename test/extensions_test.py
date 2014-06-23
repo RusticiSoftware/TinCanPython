@@ -65,4 +65,3 @@ class ExtensionsTest(TinCanBaseTestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ExtensionsTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
-

@@ -75,4 +75,3 @@ if __name__ == '__main__':
     test_dir = os.path.join(test_pardir, 'test')
     suite = loader.discover(test_dir, pattern='*_test.py')
     unittest.TextTestRunner(verbosity=2).run(suite)
-
