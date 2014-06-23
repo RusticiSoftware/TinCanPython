@@ -125,8 +125,6 @@ class ContextTest(unittest.TestCase):
         }
         ctx = Context(**obj)
         ctx2 = ctx.as_version()
-        print ctx2
-        print check_obj
         self.assertEqual(ctx2, check_obj)
 
     def ctxVerificationHelper(self, ctx):
