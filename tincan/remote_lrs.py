@@ -440,7 +440,7 @@ class RemoteLRS(Base):
 
             headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
-                doc.time_stamp = headers["lastModified"]
+                doc.timestamp = headers["lastModified"]
             if "contentType" in headers and headers["contentType"] is not None:
                 doc.content_type = headers["contentType"]
             if "etag" in headers and headers["etag"] is not None:
@@ -623,7 +623,7 @@ class RemoteLRS(Base):
             )
             headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
-                doc.time_stamp = headers["lastModified"]
+                doc.timestamp = headers["lastModified"]
             if "contentType" in headers and headers["contentType"] is not None:
                 doc.content_type = headers["contentType"]
             if "etag" in headers and headers["etag"] is not None:
@@ -751,7 +751,7 @@ class RemoteLRS(Base):
             )
             headers = lrs_response.response.getheaders()
             if "lastModified" in headers and headers["lastModified"] is not None:
-                doc.time_stamp = headers["lastModified"]
+                doc.timestamp = headers["lastModified"]
             if "contentType" in headers and headers["contentType"] is not None:
                 doc.content_type = headers["contentType"]
             if "etag" in headers and headers["etag"] is not None:
