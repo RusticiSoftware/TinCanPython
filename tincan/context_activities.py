@@ -86,13 +86,8 @@ class ContextActivities(SerializableBase):
                 result = Activity(value)
             except (TypeError, AttributeError):
                 result = ActivityList(value)
-        return result
 
-    def _as_version(self, version=Version.latest):
-        result = {}
-        for k, v in vars(self).iteritems():
-            k = self._props_corrected.get(k, k)
-            listified_activity = ActivityList([v]) if isinstance(v, Activity) else v
-            result[k] = [l.as_version(version) for l in listified_activity]
-        result = self._filter_none(result)
+        if isinstance(result, Activity):
+            result = ActivityList([result])
+
         return result

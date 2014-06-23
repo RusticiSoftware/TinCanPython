@@ -19,6 +19,7 @@ from tincan.serializable_base import SerializableBase
    :synopsis: A StatementRef object that is a reference to another pre-existing statement.
 """
 
+
 class StatementRef(SerializableBase):
 
     @property

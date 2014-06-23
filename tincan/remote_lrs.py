@@ -73,7 +73,7 @@ class RemoteLRS(Base):
             and not "auth" in kwargs
         ):
             #The base64 encode tacks on a \n character to the string which needs to be removed.
-            auth = "Basic " + base64.encodestring(str(kwargs["username"]) + ":" + str(kwargs["password"]))[:-1]
+            auth = "Basic " + base64.encodestring(unicode(kwargs["username"]) + ":" + unicode(kwargs["password"]))[:-1]
 
             kwargs.pop("username")
             kwargs.pop("password")
@@ -886,6 +886,6 @@ class RemoteLRS(Base):
         root = parsed.scheme + "://" + parsed.hostname
 
         if parsed.port is not None:
-            root += ":" + str(parsed.port)
+            root += ":" + unicode(parsed.port)
 
         return root
