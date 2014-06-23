@@ -178,7 +178,6 @@ class ActivityListTest(unittest.TestCase):
         self.assertEqual(alist[0].id, 'test1')
         self.assertEqual(alist[1].id, 'test2')
 
-
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityListTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

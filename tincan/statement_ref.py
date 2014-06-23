@@ -42,10 +42,6 @@ class StatementRef(SerializableBase):
     def object_type(self, value):
         self._object_type = 'StatementRef'
 
-    @object_type.deleter
-    def object_type(self):
-        del self._object_type
-
     @property
     def id(self):
         """Id for Statement Ref
