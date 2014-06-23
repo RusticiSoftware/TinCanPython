@@ -20,7 +20,7 @@ if __name__ == '__main__':
 from tincan.attachment import Attachment
 from tincan.language_map import LanguageMap
 
-class TestAttachment(unittest.TestCase):
+class AttachmentTest(unittest.TestCase):
 
      def test_AttachmentInitEmpty(self):
           attachment = Attachment()
@@ -307,5 +307,5 @@ class TestAttachment(unittest.TestCase):
           self.assertEqual(value['en-US'], 'test')
 
 if __name__ == '__main__':
-     suite = unittest.TestLoader().loadTestsFromTestCase(TestAttachment)
-     unittest.TextTestRunner(verbosity = 2).run(suite)
+     suite = unittest.TestLoader().loadTestsFromTestCase(AttachmentTest)
+     unittest.TextTestRunner(verbosity=2).run(suite)

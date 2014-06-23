@@ -21,7 +21,7 @@ from tincan.interaction_component import InteractionComponent
 from tincan.language_map import LanguageMap
 
 
-class TestInteractionComponent(unittest.TestCase):
+class InteractionComponentTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         icomp = InteractionComponent()
@@ -162,3 +162,8 @@ class TestInteractionComponent(unittest.TestCase):
         self.assertEqual(len(description), 1)
         self.assertIn('en-US', description)
         self.assertEqual(description['en-US'], 'test')
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(InteractionComponentTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

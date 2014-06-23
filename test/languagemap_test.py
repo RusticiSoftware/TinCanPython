@@ -20,7 +20,7 @@ if __name__ == '__main__':
 from tincan.language_map import LanguageMap
 
 
-class TestLanguageMap(unittest.TestCase):
+class LanguageMapTest(unittest.TestCase):
 
     def test_InitNoArgs(self):
         lmap = LanguageMap()
@@ -131,5 +131,5 @@ class TestLanguageMap(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestLanguageMap)
+    suite = unittest.TestLoader().loadTestsFromTestCase(LanguageMapTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

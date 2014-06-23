@@ -15,6 +15,7 @@
 #    limitations under the License.
 
 import unittest
+from datetime import timedelta
 
 if __name__ == '__main__':
     from main import setup_tincan_path
@@ -33,9 +34,8 @@ class ResultTest(TinCanBaseTestCase):
     def test_serialize_deserialize(self):
         res = Result()
         res.completion = True
-        ##TODO: add converters for ISO 8601 duration <-> timedelta
-        # res.duration = timedelta(seconds=1.75)
-        res.duration = 'P1.75S'     # ISO 8601
+        res.duration = timedelta(seconds=1.75)
+        # res.duration = 'PT1.75S'     # ISO 8601
         res.extensions = self.extensions
         res.response = "Here's a response"
         res.score = self.score
@@ -46,9 +46,8 @@ class ResultTest(TinCanBaseTestCase):
     def test_serialize_deserialize_init(self):
         data = {
             'completion': True,
-            ##TODO: add converters for ISO 8601 duration <-> timedelta
-            # 'duration': timedelta(seconds=1.75),
-            'duration': 'P1.75S',   # ISO 8601
+            'duration': timedelta(seconds=1.75),
+            # 'duration': 'PT1.75S',   # ISO 8601
             'extensions': self.extensions,
             'response': "Here's a response",
             'score': self.score,
@@ -68,4 +67,3 @@ class ResultTest(TinCanBaseTestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ResultTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
-
