@@ -32,6 +32,8 @@ class Group(Agent):
         "member"
     ]
 
+
+
     def __init__(self, *args, **kwargs):
         self._member = AgentList()
         super(Group, self).__init__(*args, **kwargs)
@@ -70,10 +72,9 @@ class Group(Agent):
                         newmembers.append(Agent(k))
                     else:
                         newmembers.append(k)
-                value = AgentList(newmembers)
             else:
-                value = AgentList(value)
-        self._member = value
+                newmembers = AgentList(value)
+        self._member = newmembers
 
     @member.deleter
     def member(self):

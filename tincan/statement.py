@@ -96,9 +96,9 @@ class Statement(SerializableBase):
         if value is not None:
             if not value:
                 value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group):
-                if isinstance(value, list):
-                    value = Group(member=value)
+            elif not isinstance(value, Agent):
+                if value.get('object_type') == 'Group' or value.get('objectType') == 'Group':
+                    value = Group(member=value.get('member'))
                 else:
                     value = Agent(value)
             elif len(vars(value)) == 0:

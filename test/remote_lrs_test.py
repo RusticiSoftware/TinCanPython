@@ -119,8 +119,7 @@ class RemoteLRSTest(unittest.TestCase):
         response = lrs.about()
 
         self.assertFalse(response.success)
-        print "test_about_failure - errMsg: " + response.response.reason
-
+        
     def test_save_statement(self):
         statement = Statement(
             actor=self.agent,

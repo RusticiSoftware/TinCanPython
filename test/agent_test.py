@@ -69,7 +69,7 @@ class AgentTest(unittest.TestCase):
         self.assertIsNone(agent.account)
 
     def test_InitAnonAccount(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account={"name": "test", "homepage": "test.com"})
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account={"name": "test", "home_page": "test.com"})
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
@@ -78,7 +78,7 @@ class AgentTest(unittest.TestCase):
         self.accountVerificationHelper(agent.account)
 
     def test_InitAccount(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account=AgentAccount(name="test", homepage="test.com"))
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account=AgentAccount(name="test", home_page="test.com"))
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
@@ -87,7 +87,7 @@ class AgentTest(unittest.TestCase):
         self.accountVerificationHelper(agent.account)
 
     def test_Initobject_type(self):
-        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account=AgentAccount(name="test", homepage="test.com"), object_type='Agent')
+        agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account=AgentAccount(name="test", home_page="test.com"), object_type='Agent')
         self.assertEqual(agent.object_type, 'Agent')
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
@@ -149,7 +149,7 @@ class AgentTest(unittest.TestCase):
         self.assertEqual(agent.openid, 'test')
 
     def test_FromJSONAccount(self):
-        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}}''')
+        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{"name":"test", "home_page":"test.com"}}''')
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
@@ -158,7 +158,7 @@ class AgentTest(unittest.TestCase):
         self.accountVerificationHelper(agent.account)
 
     def test_FromJSONobject_type(self):
-        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}, "object_type":"Test"}''')
+        agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{"name":"test", "home_page":"test.com"}, "object_type":"Test"}''')
         self.assertEqual(agent.object_type, 'Agent')
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
@@ -167,7 +167,7 @@ class AgentTest(unittest.TestCase):
         self.accountVerificationHelper(agent.account)
 
     def test_InitUnpack(self):
-        obj = {"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{'name':'test', 'homepage':'test.com'}}
+        obj = {"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{'name':'test', 'home_page':'test.com'}}
         agent = Agent(**obj)
         self.assertEqual(agent.object_type, "Agent")
         self.assertEqual(agent.name, 'test')
@@ -200,7 +200,7 @@ class AgentTest(unittest.TestCase):
         self.assertIsInstance(account, AgentAccount)
         self.assertEqual(len(vars(account)), 2)
         self.assertIn('_name', account.__dict__)
-        self.assertIn('_homepage', account.__dict__)
+        self.assertIn('_home_page', account.__dict__)
 
 
 if __name__ == '__main__':
