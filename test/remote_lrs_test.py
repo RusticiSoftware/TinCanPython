@@ -107,8 +107,7 @@ class RemoteLRSTest(unittest.TestCase):
             self.substatement = Substatement(
                 actor=self.agent,
                 verb=self.verb,
-                #TODO: try with activity
-                object=self.agent2,
+                object=self.activity,
             )
             self.set = True
 
@@ -140,8 +139,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2
+            object=self.activity
         )
         response = self.lrs.save_statement(statement)
 
@@ -154,8 +152,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2,
+            object=self.activity,
             id=str(uuid.uuid4())
         )
         response = self.lrs.save_statement(statement)
@@ -220,14 +217,12 @@ class RemoteLRSTest(unittest.TestCase):
         statement1 = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2
+            object=self.activity
         )
         statement2 = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2,
+            object=self.activity,
             context=self.context
         )
         response = self.lrs.save_statements([statement1, statement2])
@@ -243,8 +238,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to activity
-            object=self.agent2,
+            object=self.activity,
             context=self.context,
             result=self.result,
             id=str(uuid.uuid4())
