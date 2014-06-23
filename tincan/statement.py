@@ -14,6 +14,9 @@
 
 import uuid
 import re
+from datetime import datetime
+import pytz
+
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.group import Group
@@ -183,20 +186,23 @@ class Statement(SerializableBase):
     def object(self):
         del(self._object)
 
-    #TODO: make timestamp and stored compatible with datetime and timedelta objects
     @property
     def timestamp(self):
         """Timestamp for Statement
 
         :setter: Tries to convert to unicode
-        :setter type: unicode | :class:`datetime.datetime`
-        :rtype: unicode
+        :setter type: :class:`datetime.datetime` | unicode | str | int | float | None
+        :rtype: :class:`datetime.datetime`
 
         """
         return self._timestamp
 
     @timestamp.setter
     def timestamp(self, value):
+        if value is None or isinstance(value, datetime):
+            self._timestamp
+            return
+
         if value is not None:
             if value == '':
                 raise ValueError("Property timestamp can not be set to an empty string")

@@ -111,7 +111,7 @@ class Document(Base):
         """The Document time stamp
 
         :setter: Tries to convert to unicode
-        :setter type: str | unicode | :class:`datetime.datetime`
+        :setter type: :class:`datetime.datetime` | unicode | str | int | float | None
         :rtype: unicode
         """
         return self._timestamp
