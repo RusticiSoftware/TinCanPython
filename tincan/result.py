@@ -134,18 +134,22 @@ class Result(SerializableBase):
 
     @duration.setter
     def duration(self, value):
-        if value is None:
-            self._duration = None
-        elif isinstance(value, timedelta):
+        if value is None or isinstance(value, timedelta):
             self._duration = value
-        elif isinstance(value, (str, unicode)):
+            return
+
+        try:
             self._duration = make_timedelta(value)
-        elif not isinstance(value, basestring):
-            raise TypeError(
+        except Exception as e:
+            e.message = (
                 "Property 'duration' in a 'tincan.%s' object must be set with a "
-                "str, unicode, or None." %
-                self.__class__.__name__
+                "datetime.timedelta, str, unicode, int, float or None.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
             )
+            raise e
 
     @duration.deleter
     def duration(self):
