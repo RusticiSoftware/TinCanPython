@@ -115,8 +115,8 @@ class ContextTest(unittest.TestCase):
         """ Keys are corrected, and ContextActivities is properly listified """
         check_obj = {
             "registration": "016699c6-d600-48a7-96ab-86187498f16f",
-            "instructor": {"member": [{"name": "instructorGroupMember", "objectType": "Agent"}]},
-            "team": {"member": [{"name": "teamGroupMember", "objectType": "Agent"}]},
+            "instructor": {"member": [{"name": "instructorGroupMember", "objectType": "Agent"}], "objectType": "Group"},
+            "team": {"member": [{"name": "teamGroupMember", "objectType": "Agent"}], "objectType": "Group"},
             "contextActivities": {"category": [{"id": "contextActivityCategory"}]},
             "revision": "revision",
             "platform": "platform",
@@ -125,6 +125,8 @@ class ContextTest(unittest.TestCase):
         }
         ctx = Context(**obj)
         ctx2 = ctx.as_version()
+        print ctx2
+        print check_obj
         self.assertEqual(ctx2, check_obj)
 
     def ctxVerificationHelper(self, ctx):

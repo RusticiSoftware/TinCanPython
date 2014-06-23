@@ -37,10 +37,6 @@ class ActivityTest(unittest.TestCase):
         activity = Activity(id='test', definition=ActivityDefinition(), object_type='Activity')
         self.activityVerificationHelper(activity)
 
-    def test_InitExceptionObjectType(self):
-        with self.assertRaises(ValueError):
-            activity = Activity(object_type='NotActivity')
-
     def test_InitAnonDefinition(self):
         # these are arbitrary parameters - the ActivityDefinition is tested in ActivityDefinition_test
         activity = Activity(definition={'name': {'en-US': 'test'}, 'scale': []})
@@ -60,18 +56,9 @@ class ActivityTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             activity = Activity(**obj)
 
-    def test_InitUnpackExceptionObjectType(self):
-        obj = {'object_type': 'NotActivity'}
-        with self.assertRaises(ValueError):
-            activity = Activity(**obj)
-
     def test_FromJSON(self):
         activity = Activity.from_json('{"id": "test", "definition": {}, "object_type": "Activity"}')
         self.activityVerificationHelper(activity)
-
-    def test_FromJSONExceptionObjectType(self):
-        with self.assertRaises(ValueError):
-            activity = Activity.from_json('{"object_type": "NotActivity"}')
 
     def test_FromJSONExcpetionEmptyId(self):
         with self.assertRaises(ValueError):
@@ -119,11 +106,6 @@ class ActivityTest(unittest.TestCase):
         activity.definition = ActivityDefinition()
         self.assertIsInstance(activity.definition, ActivityDefinition)
 
-    def test_setObjectTypeException(self):
-        activity = Activity()
-        with self.assertRaises(ValueError):
-            activity.object_type = 'NotActivity'
-
     def test_setObjectType(self):
         activity = Activity()
         activity.object_type = 'Activity'
@@ -143,7 +125,6 @@ class ActivityTest(unittest.TestCase):
         self.assertEqual(activity.id, 'test')
         self.assertIsInstance(activity.definition, ActivityDefinition)
         self.assertEqual(activity.object_type, 'Activity')
-
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityTest)
