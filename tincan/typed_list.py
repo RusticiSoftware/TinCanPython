@@ -23,25 +23,36 @@ from tincan.serializable_base import SerializableBase
 
 class TypedList(list, SerializableBase):
 
+    _cls = None
+
     def __init__(self, *args, **kwargs):
+        if self._cls is None:
+            raise ValueError("_cls has not be set")
         new_args = [self._cls(v) for v in list(*args, **kwargs)]
-        super(TypedList, self).__init__(new_args)
 
     def __setitem__(self, ind, value):
+        if self._cls is None:
+            raise ValueError("_cls has not be set")
         if not isinstance(value, self._cls):
             value = self._cls(value)
         super(TypedList, self).__setitem__(ind, value)
 
     def append(self, value):
+        if self._cls is None:
+            raise ValueError("_cls has not be set")
         if not isinstance(value, self._cls):
             value = self._cls(value)
         super(TypedList, self).append(value)
 
     def extend(self, value):
+        if self._cls is None:
+            raise ValueError("_cls has not be set")
         new_args = [self._cls(v) for v in value]
         super(TypedList, self).extend(new_args)
 
     def insert(self, ind, value):
+        if self._cls is None:
+            raise ValueError("_cls has not be set")
         if not isinstance(value, self._cls):
             value = self._cls(value)
         super(TypedList, self).insert(ind, value)

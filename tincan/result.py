@@ -17,7 +17,6 @@ from datetime import timedelta
 from tincan.serializable_base import SerializableBase
 from tincan.score import Score
 from tincan.extensions import Extensions
-from tincan.conversions.bytearray import make_bytearray
 from tincan.conversions.iso8601 import make_timedelta
 
 
@@ -36,7 +35,7 @@ class Result(SerializableBase):
     :param duration: How long it took
     :type duration: timedelta
     :param response: HTTPResponse data
-    :type response: bytearray
+    :type response: unicode
     :param extensions: Custom user data
     :type extensions: Extensions
     """
@@ -52,16 +51,17 @@ class Result(SerializableBase):
 
     @property
     def score(self):
+        """Score for Result
+
+        :setter: Tries to convert to Score
+        :setter type: :mod:`tincan.score`
+        :rtype: :mod:`tincan.score`
+
+        """
         return self._score
 
     @score.setter
     def score(self, value):
-        """Setter for the _score attribute. Tries to convert to
-        tincan.Score object.
-
-        :param value: The Result's score data.
-        :type tincan.Score | dict | None
-        """
         try:
             self._score = value if value is None or isinstance(value, Score) else Score(value)
         except Exception as e:
@@ -83,16 +83,17 @@ class Result(SerializableBase):
 
     @property
     def success(self):
+        """Success for Result
+
+        :setter: Tries to convert to bool
+        :setter type: bool
+        :rtype: bool
+
+        """
         return self._success
 
     @success.setter
     def success(self, value):
-        """Setter for the _success attribute. Tries to convert to bool.
-
-        :param value: whether the activity was successful
-        :type value: bool | None
-        """
-
         self._success = value if value is None else bool(value)
 
     @success.deleter
@@ -102,16 +103,17 @@ class Result(SerializableBase):
 
     @property
     def completion(self):
+        """Completion for Result
+
+        :setter: Tries to convert to bool
+        :setter type: bool
+		:rtype: bool
+
+        """
         return self._completion
 
     @completion.setter
     def completion(self, value):
-        """Setter for the _completion attribute. Tries to convert to bool.
-
-        :param value: whether the activity was completed
-        :type value: bool | None
-        """
-
         self._completion = value if value is None else bool(value)
 
     @completion.deleter
@@ -121,17 +123,17 @@ class Result(SerializableBase):
 
     @property
     def duration(self):
+        """Duration for Result
+
+        :setter: Tries to convert to timdelta
+        :setter type: :mod:`datetime.timedelta`
+        :rtype: :mod:`datetime.timedelta`
+
+        """
         return self._duration
 
     @duration.setter
     def duration(self, value):
-        """Setter for the _duration attribute. Tries to convert to a
-        :class:`datetime.timedelta` object.
-
-        :param value: how long the activity took
-        :type value: :class:`datetime.timedelta` | unicode | str | None
-        """
-
         if value is None:
             self._duration = None
         elif isinstance(value, timedelta):
@@ -152,19 +154,19 @@ class Result(SerializableBase):
 
     @property
     def response(self):
+        """Response for Result
+
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
+
+        """
         return self._response
 
     @response.setter
     def response(self, value):
-        """Setter for the _response attribute. Tries to convert to
-        bytearray.
-
-        :param value: the response data
-        :type value: bytearray | str | unicode | None
-        """
-
         try:
-            self._response = value if value is None else make_bytearray(value)
+            self._response = value if value is None else unicode(value)
         except Exception as e:
             e_type = ValueError if isinstance(value, (list, tuple)) else TypeError
             msg = (
@@ -182,17 +184,17 @@ class Result(SerializableBase):
 
     @property
     def extensions(self):
+        """Extensions for Result
+ 
+        :setter: Tries to convert to Extensions
+        :setter type: :mod:`tincan.extensions`
+        :rtype: :mod:`tincan.extensions`
+ 
+        """
         return self._extensions
 
     @extensions.setter
     def extensions(self, value):
-        """Setter for the _extensions attribute. Tries to convert to
-        tincan.Extensions object.
-
-        :param value: custom additions to TinCan
-        :type value: tincan.Extensions | dict | None
-        """
-
         if value is None or isinstance(value, Extensions):
             self._extensions = value
             return

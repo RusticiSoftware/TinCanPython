@@ -15,6 +15,7 @@
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.version import Version
+from tincan.agent_list import AgentList
 
 """
 
@@ -24,28 +25,20 @@ from tincan.version import Version
 """
 
 
-class Group(SerializableBase):
+class Group(Agent):
 
     _props = [
         "object_type",
-        "members"
+        "member"
     ]
 
     def __init__(self, *args, **kwargs):
-        """
-
-        :param members: The list of the members of this group
-        :type members: list
-
-        """
-        self._members = []
+        self._member = AgentList()
         super(Group, self).__init__(*args, **kwargs)
 
     def addmember(self, value):
         """Adds a single member to this group's list of members
 
-        :param object_type: The objet type for this group. Will always be "Group"
-        :type objec_type: str
         :param value: The member to add to this group
         :type value: :mod:`tincan.agent`
 
@@ -55,21 +48,21 @@ class Group(SerializableBase):
             if not isinstance(value, Agent):
                 value = Agent(value)
 
-        self._members.append(value)
+        self._member.append(value)
 
     @property
-    def members(self):
-        return self._members
+    def member(self):
+        """Members for Group
 
-    @members.setter
-    def members(self, value):
-        """Setter for the _members attribute. Tries to convert each object to Agent
-
-        :param value: The group's members
-        :type value: list
-
+        :setter: Tries to convert to AgentList
+        :setter type: :mod:`tincan.agent_list`
+        :rtype: :mod:`tincan.agent_list`
         """
-        newmembers = []
+        return self._member
+
+    @member.setter
+    def member(self, value):
+        newmembers = AgentList()
         if value is not None:
             if isinstance(value, list):
                 for k in value:
@@ -77,32 +70,30 @@ class Group(SerializableBase):
                         newmembers.append(Agent(k))
                     else:
                         newmembers.append(k)
+                value = AgentList(newmembers)
             else:
-                 self.members = value
-        value = newmembers
-        self._members = value
+                value = AgentList(value)
+        self._member = value
 
-    @members.deleter
-    def members(self):
-        del self._members
+    @member.deleter
+    def member(self):
+        del self._member
 
     @property
     def object_type(self):
+
+        """Object type for Group. Will always be "Group"
+
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
+
+        """
         return self._object_type
 
     @object_type.setter
     def object_type(self, value):
-        """Setter for the _object_type attribute. Tries to convert to str
-
-        :param value: The group's object type
-        :type value: str
-
-        """
-        if value != "Group":
-            raise ValueError("Object_type must be 'Group'")
-        elif not isinstance(value, unicode):
-            value = unicode(value)
-        self._object_type = value
+        self._object_type = 'Group'
 
     @object_type.deleter
     def object_type(self):

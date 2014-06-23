@@ -159,7 +159,7 @@ class AgentTest(unittest.TestCase):
 
     def test_FromJSONobject_type(self):
         agent = Agent.from_json('''{"name":"test", "mbox":"mailto:test@test.com", "mbox_sha1sum":"test", "openid":"test", "account":{"name":"test", "homepage":"test.com"}, "object_type":"Test"}''')
-        self.assertEqual(agent.object_type, 'Test')
+        self.assertEqual(agent.object_type, 'Agent')
         self.assertEqual(agent.name, 'test')
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
         self.assertEqual(agent.mbox_sha1sum, 'test')

@@ -12,6 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+import uuid
+import re
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.group import Group
@@ -20,6 +22,8 @@ from tincan.attachment import Attachment
 from tincan.result import Result
 from tincan.context import Context
 from tincan.substatement import Substatement
+from tincan.statement_ref import StatementRef
+from tincan.activity import Activity
 
 """
 .. module Statement
@@ -27,6 +31,9 @@ from tincan.substatement import Substatement
 """
 
 class Statement(SerializableBase):
+
+    _UUID_REGEX = re.compile('^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$')
+
     _props_req = [
         "id",
         "actor",
@@ -63,9 +70,10 @@ class Statement(SerializableBase):
 
     @id.setter
     def id(self, value):
-        if value is not None:
-            if not isinstance(value, unicode):
-                value = unicode(value)
+        if value is not None and not isinstance(value, uuid.UUID):
+            if isinstance(value, basestring) and not self._UUID_REGEX.match(value):
+                raise ValueError("Invalid UUID string")
+            value = uuid.UUID(value)
         self._id = value
 
     @id.deleter
@@ -77,8 +85,8 @@ class Statement(SerializableBase):
         """Actor for Statement
 
         :setter: Tries to convert to Agent or Group
-        :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
-        :rtype: :mod:`tincan.Agent` | :mod:`tincan.Group`
+        :setter type: :mod:`tincan.agent` | :mod:`tincan.group`
+        :rtype: :mod:`tincan.agent` | :mod:`tincan.group`
 
         """
         return self._actor
@@ -90,7 +98,7 @@ class Statement(SerializableBase):
                 value = None
             elif not isinstance(value, Agent) and not isinstance(value, Group):
                 if isinstance(value, list):
-                    value = Group(members=value)
+                    value = Group(member=value)
                 else:
                     value = Agent(value)
             elif len(vars(value)) == 0:
@@ -106,8 +114,8 @@ class Statement(SerializableBase):
         """Verb for Statement
 
         :setter: Tries to convert to Verb
-        :setter type: :mod:`tincan.Verb`
-        :rtype: :mod:`tincan.Verb`
+        :setter type: :mod:`tincan.verb`
+        :rtype: :mod:`tincan.verb`
 
         """
         return self._verb
@@ -132,8 +140,8 @@ class Statement(SerializableBase):
         """Object for Statement
 
         :setter: Sets the object
-        :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
-        :rtype: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
+        :setter type: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement_ref` | :mod:`tincan.substatement` | :mod:`tincan.activity`
+        :rtype: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.statement_ref` | :mod:`tincan.substatement` | :mod:`tincan.activity`
 
         """
         return self._object
@@ -143,11 +151,26 @@ class Statement(SerializableBase):
         if value is not None:
             if not value:
                 value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Statement) and not isinstance(value, Substatement):
+            elif not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Substatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
                 if isinstance(value, list):
                     value = Group(value)
                 else:
-                    value = Statement(value)
+                    if isinstance(value, dict):
+                        if 'object_type' in value:
+                            if value['object_type'] == 'Agent':
+                                value = Agent(value)
+                            elif value['object_type'] == 'Substatement':
+                                value = Substatement(value)
+                            elif value['object_type'] == 'StatementRef':
+                                value = StatementRef(value)
+                            elif value['object_type'] == 'Activity':
+                                value = Activity(value)
+                            elif value['object_type'] == 'Group':
+                                value = Group(value)
+                            else:
+                                value = Activity(value)
+                        else:
+                            value = Activity(value)
             elif len(vars(value)) == 0:
                 value = None
         self._object = value
@@ -172,7 +195,7 @@ class Statement(SerializableBase):
     def timestamp(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property timestamp can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._timestamp = value
@@ -198,7 +221,7 @@ class Statement(SerializableBase):
 
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property stored can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._stored = value
@@ -212,8 +235,8 @@ class Statement(SerializableBase):
         """Authority for Statement
 
         :setter: Tries to convert to Agent
-        :setter type: :mod:`tincan.Agent`
-        :rtype: :mod:`tincan.Agent`
+        :setter type: :mod:`tincan.agent`
+        :rtype: :mod:`tincan.agent`
 
         """
         return self._authority
@@ -238,8 +261,8 @@ class Statement(SerializableBase):
         """Result for Statement
 
         :setter: Tries to convert to Result
-        :setter type: :mod:`tincan.Result`
-        :rtype: :mod:`tincan.Result`
+        :setter type: :mod:`tincan.result`
+        :rtype: :mod:`tincan.result`
 
         """
         return self._result
@@ -264,8 +287,8 @@ class Statement(SerializableBase):
         """Context for Statement
 
         :setter: Tries to convert to Context
-        :setter type: :mod:`tincan.Context`
-        :rtype: :mod:`tincan.Context`
+        :setter type: :mod:`tincan.context`
+        :rtype: :mod:`tincan.context`
 
         """
         return self._context
@@ -300,7 +323,7 @@ class Statement(SerializableBase):
     def version(self, value):
         if value is not None:
             if value == '':
-                raise ValueError("Property mbox_sha1sum can not be set to an empty string")
+                raise ValueError("Property version can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._version = value
@@ -314,25 +337,25 @@ class Statement(SerializableBase):
         """Attachments for Statement
 
         :setter: Tries to convert each element to Attachment
-        :setter type: list[:mod:`tincan.Attachment`]
-        :rtype: list[:mod:`tincan.Attachment`]
+        :setter type: list[:mod:`tincan.attachment`]
+        :rtype: list[:mod:`tincan.attachment`]
 
         """
         return self._attachments
 
     @attachments.setter
     def attachments(self, value):
-        newmembers = []
+        newmember = []
         if value is not None:
             if isinstance(value, list):
                 for k in value:
                     if not isinstance(k, Attachment):
-                        newmembers.append(Attachment(k))
+                        newmember.append(Attachment(k))
                     else:
-                        newmembers.append(k)
+                        newmember.append(k)
             else:
-                 self.attachments = value
-        value = newmembers
+                 self.attachments = list(value)
+        value = newmember
         self._attachments = value
 
     @attachments.deleter
