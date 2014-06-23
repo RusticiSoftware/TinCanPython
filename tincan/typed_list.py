@@ -29,6 +29,7 @@ class TypedList(list, SerializableBase):
         if self._cls is None:
             raise ValueError("_cls has not be set")
         new_args = [self._cls(v) for v in list(*args, **kwargs)]
+        super(TypedList, self).__init__(new_args)
 
     def __setitem__(self, ind, value):
         if self._cls is None:

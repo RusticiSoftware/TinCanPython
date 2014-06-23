@@ -74,10 +74,6 @@ class Activity(SerializableBase, StatementTargetable):
     def object_type(self, value):
         self._object_type = 'Activity'
 
-    @object_type.deleter
-    def object_type(self):
-        del self._object_type
-
     @property
     def definition(self):
         """Definition for Activity
