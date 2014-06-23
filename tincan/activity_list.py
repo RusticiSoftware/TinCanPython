@@ -12,16 +12,16 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.interaction_component import InteractionComponent
+from tincan.activity import Activity
 from tincan.typed_list import TypedList
 
 """
-.. module:: interactioncomponentlist
-   :synopsis: A wrapper for list that is able to type check
+.. module:: activity_list
+   :synopsis: A wrapper for a list that is able to type check
 
 """
 
 
-class InteractionComponentList(TypedList):
+class ActivityList(TypedList):
 
-    _cls = InteractionComponent
+    _cls = Activity
