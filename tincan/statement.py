@@ -88,7 +88,7 @@ class Statement(SerializableBase):
 
     @id.deleter
     def id(self):
-        del(self._id)
+        del self._id
 
     @property
     def actor(self):
@@ -117,7 +117,7 @@ class Statement(SerializableBase):
 
     @actor.deleter
     def actor(self):
-        del(self._actor)
+        del self._actor
 
     @property
     def verb(self):
@@ -143,7 +143,7 @@ class Statement(SerializableBase):
 
     @verb.deleter
     def verb(self):
-        del(self._verb)
+        del self._verb
 
     @property
     def object(self):
@@ -190,7 +190,7 @@ class Statement(SerializableBase):
 
     @object.deleter
     def object(self):
-        del(self._object)
+        del self._object
 
     @property
     def timestamp(self):
@@ -238,7 +238,7 @@ class Statement(SerializableBase):
 
     @timestamp.deleter
     def timestamp(self):
-        del(self._timestamp)
+        del self._timestamp
 
     #TODO: make timestamp and stored compatible with datetime and timedelta objects
     @property
@@ -285,7 +285,7 @@ class Statement(SerializableBase):
 
     @stored.deleter
     def stored(self):
-        del(self._stored)
+        del self._stored
 
     @property
     def authority(self):
@@ -311,7 +311,7 @@ class Statement(SerializableBase):
 
     @authority.deleter
     def authority(self):
-        del(self._authority)
+        del self._authority
 
     @property
     def result(self):
@@ -337,7 +337,7 @@ class Statement(SerializableBase):
 
     @result.deleter
     def result(self):
-        del(self._result)
+        del self._result
 
     @property
     def context(self):
@@ -363,7 +363,7 @@ class Statement(SerializableBase):
 
     @context.deleter
     def context(self):
-        del(self._context)
+        del self._context
 
     @property
     def version(self):
@@ -387,7 +387,7 @@ class Statement(SerializableBase):
 
     @version.deleter
     def version(self):
-        del(self._version)
+        del self._version
 
     @property
     def attachments(self):
@@ -411,4 +411,4 @@ class Statement(SerializableBase):
 
     @attachments.deleter
     def attachments(self):
-        del(self._attachments)
+        del self._attachments
