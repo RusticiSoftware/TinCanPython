@@ -13,7 +13,7 @@
 #    limitations under the License.
 import datetime
 from tincan.base import Base
-
+from tincan.conversions.iso8601 import make_datetime
 
 class Document(Base):
     """Document class can be instantiated from a dict, another Document, or from kwargs
@@ -118,10 +118,20 @@ class Document(Base):
 
     @time_stamp.setter
     def time_stamp(self, value):
-        if isinstance(value, datetime.datetime):
-            value = value.isoformat()
+        if value is None or isinstance(value, datetime.datetime):
+            self._time_stamp = value
+            return
 
-        if not isinstance(value, unicode) and value is not None:
-            unicode(value)
-
-        self._time_stamp = value
+        try:
+            self._time_stamp = make_datetime(value)
+        except Exception as e:
+            e.message = (
+                "Property 'time_stamp' in a 'tincan.documents.%s' "
+                "object must be set with a "
+                "datetime.datetime, str, unicode, int or float.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
+            )
+            raise e

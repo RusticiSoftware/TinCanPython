@@ -14,6 +14,7 @@
 
 import unittest
 import datetime
+import pytz
 
 if __name__ == '__main__':
     import sys
@@ -80,13 +81,17 @@ class DocumentTest(unittest.TestCase):
             content_type="test type",
             content=bytearray("test bytearray", "utf-8"),
             etag="test etag",
-            time_stamp="test time_stamp"
+            time_stamp="2014-06-23T15:25:00-05:00"
         )
+
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime.datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.time_stamp, dt)
 
     def test_setters(self):
         doc = Document()
@@ -94,13 +99,16 @@ class DocumentTest(unittest.TestCase):
         doc.content_type = "test type"
         doc.content = bytearray("test bytearray", "utf-8")
         doc.etag = "test etag"
-        doc.time_stamp = "test time_stamp"
+        doc.time_stamp = "2014-06-23T15:25:00-05:00"
 
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime.datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.time_stamp, dt)
 
     def test_setters_none(self):
         doc = Document()
@@ -125,7 +133,7 @@ class DocumentTest(unittest.TestCase):
         doc = Document()
         dt = datetime.datetime.now()
         doc.time_stamp = dt
-        self.assertEqual(doc.time_stamp, dt.isoformat())
+        self.assertEqual(doc.time_stamp, dt)
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(DocumentTest)
