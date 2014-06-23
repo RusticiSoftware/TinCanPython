@@ -26,15 +26,15 @@ class Document(Base):
     :type content: bytearray
     :param etag: The etag of this document
     :type etag: unicode
-    :param time_stamp: The time stamp of this document
-    :type time_stamp: :mod:`datetime.datetime`
+    :param timestamp: The time stamp of this document
+    :type timestamp: :mod:`datetime.datetime`
     """
     _props_req = [
         'id',
         'content',
         'content_type',
         'etag',
-        'time_stamp',
+        'timestamp',
     ]
 
     _props = []
@@ -107,26 +107,26 @@ class Document(Base):
         self._etag = value
 
     @property
-    def time_stamp(self):
+    def timestamp(self):
         """The Document time stamp
 
         :setter: Tries to convert to unicode
         :setter type: str | unicode | :class:`datetime.datetime`
         :rtype: unicode
         """
-        return self._time_stamp
+        return self._timestamp
 
-    @time_stamp.setter
-    def time_stamp(self, value):
+    @timestamp.setter
+    def timestamp(self, value):
         if value is None or isinstance(value, datetime.datetime):
-            self._time_stamp = value
+            self._timestamp = value
             return
 
         try:
-            self._time_stamp = make_datetime(value)
+            self._timestamp = make_datetime(value)
         except Exception as e:
             e.message = (
-                "Property 'time_stamp' in a 'tincan.documents.%s' "
+                "Property 'timestamp' in a 'tincan.documents.%s' "
                 "object must be set with a "
                 "datetime.datetime, str, unicode, int or float.\n\n%s" %
                 (

@@ -28,8 +28,8 @@ class StateDocument(Document):
     :type content: bytearray
     :param etag: The etag of this document
     :type etag: unicode
-    :param time_stamp: The time stamp of this document
-    :type time_stamp: :mod:`datetime.datetime`
+    :param timestamp: The time stamp of this document
+    :type timestamp: :mod:`datetime.datetime`
     :param agent: The agent object of this document
     :type agent: Agent
     :param activity: The activity object of this document

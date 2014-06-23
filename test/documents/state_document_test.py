@@ -58,8 +58,8 @@ class StateDocumentTest(unittest.TestCase):
         self.assertIsNone(doc.content)
         self.assertTrue(hasattr(doc, "etag"))
         self.assertIsNone(doc.etag)
-        self.assertTrue(hasattr(doc, "time_stamp"))
-        self.assertIsNone(doc.time_stamp)
+        self.assertTrue(hasattr(doc, "timestamp"))
+        self.assertIsNone(doc.timestamp)
         self.assertTrue(hasattr(doc, "activity"))
         self.assertIsNone(doc.activity)
         self.assertTrue(hasattr(doc, "agent"))
@@ -93,7 +93,7 @@ class StateDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content_type, "test type")
         self.assertTrue(hasattr(doc, "content"))
         self.assertTrue(hasattr(doc, "etag"))
-        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "timestamp"))
         self.assertTrue(hasattr(doc, "agent"))
         self.assertTrue(hasattr(doc, "activity"))
         self.assertTrue(hasattr(doc, "registration"))
@@ -104,7 +104,7 @@ class StateDocumentTest(unittest.TestCase):
             content_type="test type",
             content=bytearray("test bytearray", "utf-8"),
             etag="test etag",
-            time_stamp="2014-06-23T15:25:00-05:00",
+            timestamp="2014-06-23T15:25:00-05:00",
             agent=self.agent,
             activity=self.activity,
             registration="test registration"
@@ -116,7 +116,7 @@ class StateDocumentTest(unittest.TestCase):
 
         central = pytz.timezone("US/Central")   # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
-        self.assertEqual(doc.time_stamp, dt)
+        self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.agent, self.agent)
         self.assertEqual(doc.activity, self.activity)
         self.assertEqual(doc.registration, "test registration")
@@ -127,7 +127,7 @@ class StateDocumentTest(unittest.TestCase):
         doc.content_type = "test type"
         doc.content = bytearray("test bytearray", "utf-8")
         doc.etag = "test etag"
-        doc.time_stamp = "2014-06-23T15:25:00-05:00"
+        doc.timestamp = "2014-06-23T15:25:00-05:00"
         doc.agent = self.agent
         doc.activity = self.activity
         doc.registration = "test registration"
@@ -139,7 +139,7 @@ class StateDocumentTest(unittest.TestCase):
 
         central = pytz.timezone("US/Central")   # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
-        self.assertEqual(doc.time_stamp, dt)
+        self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.agent, self.agent)
         self.assertEqual(doc.activity, self.activity)
         self.assertEqual(doc.registration, "test registration")
@@ -150,7 +150,7 @@ class StateDocumentTest(unittest.TestCase):
         doc.content_type = None
         doc.content = None
         doc.etag = None
-        doc.time_stamp = None
+        doc.timestamp = None
         doc.agent = None
         doc.activity = None
         doc.registration = None
@@ -159,7 +159,7 @@ class StateDocumentTest(unittest.TestCase):
         self.assertIsNone(doc.content_type)
         self.assertIsNone(doc.content)
         self.assertIsNone(doc.etag)
-        self.assertIsNone(doc.time_stamp)
+        self.assertIsNone(doc.timestamp)
         self.assertIsNone(doc.agent)
         self.assertIsNone(doc.activity)
         self.assertIsNone(doc.registration)

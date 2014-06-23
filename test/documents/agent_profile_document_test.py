@@ -45,8 +45,8 @@ class AgentProfileDocumentTest(unittest.TestCase):
         self.assertIsNone(doc.content)
         self.assertTrue(hasattr(doc, "etag"))
         self.assertIsNone(doc.etag)
-        self.assertTrue(hasattr(doc, "time_stamp"))
-        self.assertIsNone(doc.time_stamp)
+        self.assertTrue(hasattr(doc, "timestamp"))
+        self.assertIsNone(doc.timestamp)
         self.assertTrue(hasattr(doc, "agent"))
         self.assertIsNone(doc.agent)
 
@@ -76,7 +76,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content_type, "test type")
         self.assertTrue(hasattr(doc, "content"))
         self.assertTrue(hasattr(doc, "etag"))
-        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "timestamp"))
         self.assertTrue(hasattr(doc, "agent"))
 
     def test_init_all(self):
@@ -85,7 +85,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
             content_type="test type",
             content=bytearray("test bytearray", "utf-8"),
             etag="test etag",
-            time_stamp="2014-06-23T15:25:00-05:00",
+            timestamp="2014-06-23T15:25:00-05:00",
             agent=self.agent,
         )
         self.assertEqual(doc.id, "test")
@@ -95,7 +95,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
 
         central = pytz.timezone("US/Central")   # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
-        self.assertEqual(doc.time_stamp, dt)
+        self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.agent, self.agent)
 
     def test_setters(self):
@@ -104,7 +104,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
         doc.content_type = "test type"
         doc.content = bytearray("test bytearray", "utf-8")
         doc.etag = "test etag"
-        doc.time_stamp = "2014-06-23T15:25:00-05:00"
+        doc.timestamp = "2014-06-23T15:25:00-05:00"
         doc.agent = self.agent
 
         self.assertEqual(doc.id, "test")
@@ -114,7 +114,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
 
         central = pytz.timezone("US/Central")   # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
-        self.assertEqual(doc.time_stamp, dt)
+        self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.agent, self.agent)
 
     def test_setters_none(self):
@@ -123,14 +123,14 @@ class AgentProfileDocumentTest(unittest.TestCase):
         doc.content_type = None
         doc.content = None
         doc.etag = None
-        doc.time_stamp = None
+        doc.timestamp = None
         doc.agent = None
 
         self.assertIsNone(doc.id)
         self.assertIsNone(doc.content_type)
         self.assertIsNone(doc.content)
         self.assertIsNone(doc.etag)
-        self.assertIsNone(doc.time_stamp)
+        self.assertIsNone(doc.timestamp)
         self.assertIsNone(doc.agent)
 
     def test_agent_setter(self):
