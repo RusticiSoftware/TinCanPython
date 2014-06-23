@@ -134,13 +134,13 @@ def jsonify_timedelta(value):
 
 
 def make_datetime(value):
-    """Tries to convert the given value to a `datetime.datetime`. If
-    no timezone is given, assumes UTC.
+    """Tries to convert the given value to a :class:`datetime.datetime`. If
+    no timezone is given, makes a naive `datetime.datetime`.
 
     Strings will be parsed as ISO 8601 timestamps.
 
-    If a number is provided, it will be interpreted as a UTC UNIX
-    timestamp.
+    If a number is provided, it will be interpreted as a UNIX
+    timestamp, which by definition is UTC.
 
     If a `dict` is provided, does `datetime.datetime(**value)`.
 
