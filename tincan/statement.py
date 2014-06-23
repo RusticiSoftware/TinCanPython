@@ -54,11 +54,11 @@ class Statement(SerializableBase):
     def id(self):
         """Id for Statement
 
-		:setter: Tries to unicode
-		:setter type: unicode
-		:rtype: unicode
+        :setter: Tries to unicode
+        :setter type: unicode
+        :rtype: unicode
 
-		"""
+        """
         return self._id
 
     @id.setter
@@ -76,11 +76,11 @@ class Statement(SerializableBase):
     def actor(self):
         """Actor for Statement
 
-		:setter: Tries to convert to Agent or Group
-		:setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
-		:rtype: :mod:`tincan.Agent` | :mod:`tincan.Group`
+        :setter: Tries to convert to Agent or Group
+        :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
+        :rtype: :mod:`tincan.Agent` | :mod:`tincan.Group`
 
-		"""
+        """
         return self._actor
 
     @actor.setter
@@ -105,11 +105,11 @@ class Statement(SerializableBase):
     def verb(self):
         """Verb for Statement
 
-		:setter: Tries to convert to Verb
-		:setter type: :mod:`tincan.Verb`
-		:rtype: :mod:`tincan.Verb`
+        :setter: Tries to convert to Verb
+        :setter type: :mod:`tincan.Verb`
+        :rtype: :mod:`tincan.Verb`
 
-		"""
+        """
         return self._verb
 
     @verb.setter
@@ -131,11 +131,11 @@ class Statement(SerializableBase):
     def object(self):
         """Object for Statement
 
-		:setter: Sets the object
-		:setter type: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
-		:rtype: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
+        :setter: Sets the object
+        :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
+        :rtype: :mod:`tincan.Agent` | :mod:`tincan.Group` | :mod:`tincan.Statement` | :mod:`tincan.Substatement`
 
-		"""
+        """
         return self._object
 
     @object.setter
@@ -161,11 +161,11 @@ class Statement(SerializableBase):
     def timestamp(self):
         """Timestamp for Statement
 
-		:setter: Tries to convert to unicode
-		:setter type: unicode | :class:`datetime.datetime`
-		:rtype: unicode
+        :setter: Tries to convert to unicode
+        :setter type: unicode | :class:`datetime.datetime`
+        :rtype: unicode
 
-		"""
+        """
         return self._timestamp
 
     @timestamp.setter
@@ -186,11 +186,11 @@ class Statement(SerializableBase):
     def stored(self):
         """Stored for Statement
 
-		:setter: Tries to convert to unicode
-		:setter type: unicode | :class:`datetime.datetime`
-		:rtype: unicode
+        :setter: Tries to convert to unicode
+        :setter type: unicode | :class:`datetime.datetime`
+        :rtype: unicode
 
-		"""
+        """
         return self._stored
 
     @stored.setter
@@ -211,11 +211,11 @@ class Statement(SerializableBase):
     def authority(self):
         """Authority for Statement
 
-		:setter: Tries to convert to Agent
-		:setter type: :mod:`tincan.Agent`
-		:rtype: :mod:`tincan.Agent`
+        :setter: Tries to convert to Agent
+        :setter type: :mod:`tincan.Agent`
+        :rtype: :mod:`tincan.Agent`
 
-		"""
+        """
         return self._authority
 
     @authority.setter
@@ -237,11 +237,11 @@ class Statement(SerializableBase):
     def result(self):
         """Result for Statement
 
-		:setter: Tries to convert to Result
-		:setter type: :mod:`tincan.Result`
-		:rtype: :mod:`tincan.Result`
+        :setter: Tries to convert to Result
+        :setter type: :mod:`tincan.Result`
+        :rtype: :mod:`tincan.Result`
 
-		"""
+        """
         return self._result
 
     @result.setter
@@ -263,11 +263,11 @@ class Statement(SerializableBase):
     def context(self):
         """Context for Statement
 
-		:setter: Tries to convert to Context
-		:setter type: :mod:`tincan.Context`
-		:rtype: :mod:`tincan.Context`
+        :setter: Tries to convert to Context
+        :setter type: :mod:`tincan.Context`
+        :rtype: :mod:`tincan.Context`
 
-		"""
+        """
         return self._context
 
     @context.setter
@@ -289,11 +289,11 @@ class Statement(SerializableBase):
     def version(self):
         """Version for Statement
 
-		:setter: Tries to convert to unicode
-		:setter type: unicode
-		:rtype: unicode
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
 
-		"""
+        """
         return self._version
 
     @version.setter
@@ -313,11 +313,11 @@ class Statement(SerializableBase):
     def attachments(self):
         """Attachments for Statement
 
-		:setter: Tries to convert each element to Attachment
-		:setter type: list[:mod:`tincan.Attachment`]
-		:rtype: list[:mod:`tincan.Attachment`]
+        :setter: Tries to convert each element to Attachment
+        :setter type: list[:mod:`tincan.Attachment`]
+        :rtype: list[:mod:`tincan.Attachment`]
 
-		"""
+        """
         return self._attachments
 
     @attachments.setter

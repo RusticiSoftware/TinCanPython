@@ -26,11 +26,11 @@ class StatementRef(SerializableBase):
     def object_type(self):
         """Object type for Statement Ref. Must be "StatementRef"
 
-		:setter: Tries to convert to unicode
-		:setter type: unicode
-		:rtype: unicode
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
 
-		"""
+        """
         return self._object_type
 
     @object_type.setter
@@ -49,11 +49,11 @@ class StatementRef(SerializableBase):
     def id(self):
         """Id for Statement Ref
 
-		:setter: Tries to convert to unicode
-		:setter type: unicode
-		:rtype: unicode
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
 
-		"""
+        """
         return self._id
 
     @id.setter
