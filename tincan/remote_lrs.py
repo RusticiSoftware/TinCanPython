@@ -344,7 +344,7 @@ class RemoteLRS(Base):
         lrs_response = self._send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = StatementsResult(lrs_response.data)
+            lrs_response.content = StatementsResult(json.loads(lrs_response.data))
 
         return lrs_response
 

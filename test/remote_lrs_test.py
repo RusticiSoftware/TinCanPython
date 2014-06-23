@@ -146,7 +146,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self.assertEqual(statement, response.content)
-        self.assertIsnotNone(response.content.id)
+        self.assertIsNotNone(response.content.id)
 
     def test_save_statement_with_id(self):
         statement = Statement(
