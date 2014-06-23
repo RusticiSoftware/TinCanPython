@@ -50,8 +50,8 @@ class TestStatement(unittest.TestCase):
         self.assertEquals(statement.version, 'test')
 
     def test_InitId(self):
-        statement = Statement(id='test')
-        self.assertEquals(statement.id, 'test')
+        statement = Statement(id='016699c6-d600-48a7-96ab-86187498f16f')
+        self.assertEquals(statement.id, '016699c6-d600-48a7-96ab-86187498f16f')
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
@@ -341,9 +341,9 @@ class TestStatement(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_InitUnpack(self):
-        obj = {'id':'test', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'test'}, 'attachments':[{'usage_type':'test'}]}
+        obj = {'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'test'}, 'attachments':[{'usage_type':'test'}]}
         statement = Statement(**obj)
-        self.assertEqual(id, 'test')
+        self.assertEqual(statement.id, 'test')
         self.agentVerificationHelper(statement.actor)
         self.verbVerificationHelper(statement.verb)
         self.agentVerificationHelper(statement.object)
@@ -353,9 +353,9 @@ class TestStatement(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_FromJSON(self):
-        json_str = '{"id":"test", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}'
+        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}'
         statement = Statement.from_json(json_str)
-        self.assertEqual(id, 'test')
+        self.assertEqual(statement.id, '016699c6-d600-48a7-96ab-86187498f16f')
         self.agentVerificationHelper(statement.actor)
         self.verbVerificationHelper(statement.verb)
         self.agentVerificationHelper(statement.object)
@@ -365,17 +365,17 @@ class TestStatement(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_ToJSON(self):
-        statement = Statement(**{'id':'test', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'test'}, 'attachments':[{'usage_type':'test'}]})
-        self.assertEqual(statement.to_json(), '{"id":"test", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}')
+        statement = Statement(**{'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'test'}, 'attachments':[{'usage_type':'test'}]})
+        self.assertEqual(statement.to_json(), '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}')
 
     def test_ToJSONEmpty(self):
         statement = Statement()
         self.assertEqual(statement.to_json(), '{"attachments": []}')
 
     def test_FromJSONToJSON(self):
-        json_str = '{"id":"test", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}'
+        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}'
         statement = Statement.from_json(json_str)
-        self.assertEqual(id, 'test')
+        self.assertEqual(statement.id, '016699c6-d600-48a7-96ab-86187498f16f')
         self.agentVerificationHelper(statement.actor)
         self.verbVerificationHelper(statement.verb)
         self.agentVerificationHelper(statement.object)
@@ -383,7 +383,7 @@ class TestStatement(unittest.TestCase):
         self.contextVerificationHelper(statement.context)
         for k in statement.attachments:
             self.attachmentVerificationHelper(k)
-        self.assertEqual(statement.to_json(), '{"id":"test", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}')
+        self.assertEqual(statement.to_json(), '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"name":"test"}, "authority":{"name":"test"}, "context":{"registration":"test"}, "attachments":[{"usage_type":"test"}]}')
 
     def agentVerificationHelper(self, value):
         self.assertIsInstance(value, Agent)
@@ -391,7 +391,7 @@ class TestStatement(unittest.TestCase):
 
     def groupVerificationHelper(self, value):
         self.assertIsInstance(value, Group)
-        for k in value.members:
+        for k in value.member:
             self.assertIsInstance(k, Agent)
             self.assertEqual(k.name, 'test')
 
