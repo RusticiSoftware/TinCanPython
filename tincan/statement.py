@@ -156,7 +156,7 @@ class Statement(SerializableBase):
                     value = Group(value)
                 else:
                     if isinstance(value, dict):
-                        if value['object_type'] is not None:
+                        if 'object_type' in value:
                             if value['object_type'] == 'Agent':
                                 value = Agent(value)
                             elif value['object_type'] == 'Substatement':
@@ -165,10 +165,12 @@ class Statement(SerializableBase):
                                 value = StatementRef(value)
                             elif value['object_type'] == 'Activity':
                                 value = Activity(value)
+                            elif value['object_type'] == 'Group':
+                                value = Group(value)
                             else:
-                                raise ValueError('Object type is invalid')
+                                value = Activity(value)
                         else:
-                            raise ValueError('Must set an object_type for the statement object')
+                            value = Activity(value)
             elif len(vars(value)) == 0:
                 value = None
         self._object = value
