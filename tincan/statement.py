@@ -12,6 +12,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+import uuid
+import re
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.group import Group
@@ -29,6 +31,9 @@ from tincan.activity import Activity
 """
 
 class Statement(SerializableBase):
+
+    _UUID_REGEX = re.compile('^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$')
+
     _props_req = [
         "id",
         "actor",
@@ -65,9 +70,10 @@ class Statement(SerializableBase):
 
     @id.setter
     def id(self, value):
-        if value is not None:
-            if not isinstance(value, unicode):
-                value = unicode(value)
+        if value is not None and not isinstance(value, uuid.UUID):
+            if isinstance(value, basestring) and not self._UUID_REGEX.match(value):
+                raise ValueError("Invalid UUID string")
+            value = uuid.UUID(value)
         self._id = value
 
     @id.deleter
