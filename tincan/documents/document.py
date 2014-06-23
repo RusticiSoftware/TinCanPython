@@ -137,11 +137,12 @@ class Document(Base):
 
         try:
             self._timestamp = make_datetime(value)
-        except Exception as e:
+        except TypeError as e:
             e.message = (
                 "Property 'timestamp' in a 'tincan.documents.%s' "
                 "object must be set with a "
-                "datetime.datetime, str, unicode, int or float.\n\n%s" %
+                "datetime.datetime, str, unicode, int, float, dict "
+                "or None.\n\n%s" %
                 (
                     self.__class__.__name__,
                     e.message,
