@@ -17,20 +17,6 @@ from tincan.serializable_base import SerializableBase
 
 class Score(SerializableBase):
 
-    """Contains the scaled, raw, min and max scores.
-
-    Can be created from either a dict, another Score, or from kwargs.
-
-    :param scaled: scaled score, 0.0-1.0
-    :type scaled: float
-    :param raw: raw score
-    :type raw: float
-    :param min: minimum score possible
-    :type min: float
-    :param max: maximum score possible
-    :type max: float
-    """
-
     _props = [
         'scaled',
         'raw',
@@ -40,16 +26,17 @@ class Score(SerializableBase):
 
     @property
     def scaled(self):
+        """Scaled for Score
+
+        :setter: Tries to convert to float
+        :setter type: float
+        :rtype: float
+
+        """
         return self._scaled
 
     @scaled.setter
     def scaled(self, value):
-        """Setter for the _scaled attribute. Tries to convert to float.
-
-        :param value: the scaled score, 0.0-1.0
-        :type value: float | None
-        """
-
         if value is None or isinstance(value, float):
             self._scaled = value
             return
@@ -71,15 +58,17 @@ class Score(SerializableBase):
 
     @property
     def raw(self):
+        """Raw for Score
+
+        :setter: Tries to convert to float
+        :setter type: float
+        :rtype: float
+
+        """
         return self._raw
 
     @raw.setter
     def raw(self, value):
-        """Setter for the _raw attribute. Tries to convert to float.
-
-        :param value: the raw score
-        :type value: float | None
-        """
         if value is None or isinstance(value, float):
             self._raw = value
             return
@@ -101,16 +90,17 @@ class Score(SerializableBase):
 
     @property
     def min(self):
+        """Min for Score
+
+        :setter: Tries to convert to float
+        :setter type: float
+        :rtype: float
+
+        """
         return self._min
 
     @min.setter
     def min(self, value):
-        """Setter for the _min attribute. Tries to convert to float.
-
-        :param value: the minimum possible score
-        :type value: float | None
-        """
-
         if value is None or isinstance(value, float):
             self._min = value
             return
@@ -132,16 +122,17 @@ class Score(SerializableBase):
     
     @property
     def max(self):
+        """Max for Score
+ 
+        :setter: Tries to convert to float
+        :setter type: float
+        :rtype: float
+ 
+        """
         return self._max
 
     @max.setter
     def max(self, value):
-        """Setter for the _max attribute. Tries to convert to float.
-
-        :param value: the maximum possible score
-        :type value: float | None
-        """
-
         if value is None or isinstance(value, float):
             self._max = value
             return
@@ -159,4 +150,3 @@ class Score(SerializableBase):
     @max.deleter
     def max(self):
         del self._max
-

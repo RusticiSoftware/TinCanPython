@@ -24,24 +24,20 @@ class TestGroup(unittest.TestCase):
 
     def test_InitEmpty(self):
         group = Group()
-        self.assertEquals(group.members, [])
-
-    def test_InitBadObjectType(self):
-        with self.assertRaises(ValueError):
-            group = Group(object_type='test')
+        self.assertEquals(group.member, [])
 
     def test_InitObjectType(self):
         group = Group(object_type='Group')
         self.assertEqual(group.object_type, 'Group')
-        self.assertEqual(group.members, [])
+        self.assertEqual(group.member, [])
 
     def test_InitMember(self):
-        group = Group(members=[Agent(name='test')])
-        self.assertIsInstance(group.members[0], Agent)
+        group = Group(member=[Agent(name='test')])
+        self.assertIsInstance(group.member[0], Agent)
 
     def test_InitMemberAnon(self):
-        group = Group(members=[{"name":"test"}])
-        self.assertIsInstance(group.members[0], Agent)
+        group = Group(member=[{"name":"test"}])
+        self.assertIsInstance(group.member[0], Agent)
 
     def test_FromJSONExceptionEmpty(self):
         with self.assertRaises(ValueError):
@@ -49,11 +45,11 @@ class TestGroup(unittest.TestCase):
 
     def test_FromJSONEmptyObject(self):
         group = Group.from_json('{}')
-        self.assertEquals(group.members, [])
+        self.assertEquals(group.member, [])
 
-    def test_FromJSONMembers(self):
-        group = Group.from_json('''{"members":[{"name":"test"}]}''')
-        for k in group.members:
+    def test_FromJSONmember(self):
+        group = Group.from_json('''{"member":[{"name":"test"}]}''')
+        for k in group.member:
             self.assertIsInstance(k, Agent)
 
     def test_FromJSONExceptionBadJSON(self):
@@ -63,17 +59,26 @@ class TestGroup(unittest.TestCase):
     def test_AddMemberAnon(self):
         group = Group()
         group.addmember({"name":"test"})
-        self.assertIsInstance(group.members[0], Agent)
+        self.assertIsInstance(group.member[0], Agent)
 
     def test_AddMember(self):
         group = Group()
         group.addmember(Agent(name='test'))
-        self.assertIsInstance(group.members[0], Agent)
+        self.assertIsInstance(group.member[0], Agent)
 
     def test_InitUnpack(self):
-        obj = {"members":[{"name":"test"}]}
+        obj = {"member":[{"name":"test"}]}
         group = Group(**obj)
-        self.assertIsInstance(group.members[0], Agent)
+        self.assertIsInstance(group.member[0], Agent)
+
+    def test_ToJSONFromJSON(self):
+         group = Group.from_json('{"member":[{"name":"test"}, {"name":"test2"}]}')
+         self.assertIsInstance(group.member[0], Agent)
+         self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
+
+    def test_ToJSON(self):
+         group = Group(**{'member':[{'name':'test'}, {'name':'test2'}]})
+         self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestGroup)
