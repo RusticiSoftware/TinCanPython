@@ -240,7 +240,6 @@ class Statement(SerializableBase):
     def timestamp(self):
         del self._timestamp
 
-    #TODO: make timestamp and stored compatible with datetime and timedelta objects
     @property
     def stored(self):
         """Storage time. Tries to convert to :class:`datetime.datetime`.
