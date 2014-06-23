@@ -156,7 +156,10 @@ class Statement(SerializableBase):
                     value = Group(value)
                 else:
                     if isinstance(value, dict):
-                        if 'object_type' in value:
+                        if 'object_type' in value or 'objectType' in value:
+                            if 'objectType' in value:
+                                value['object_type'] = value['objectType']
+                                value.pop('objectType')
                             if value['object_type'] == 'Agent':
                                 value = Agent(value)
                             elif value['object_type'] == 'Substatement':
