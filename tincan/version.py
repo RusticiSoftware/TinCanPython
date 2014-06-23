@@ -21,5 +21,8 @@
 
 class Version(object):
 
-    supported = ["1.0.1", "1.0.0"]
+    supported = [
+        '1.0.1',
+        '1.0.0',
+    ]
     latest = supported[0]

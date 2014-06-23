@@ -61,20 +61,6 @@ class Attachment(SerializableBase):
 
         super(Attachment, self).__init__(*args, **kwargs)
 
-    def _as_version(self, version):
-        """Returns a versioned form of the attachment
-
-        :param version: The version to convert the attachment to
-        :type version: str
-        :returns: The attachment formatted to agree with the given version
-
-        """
-
-        if (version == "0.90" or version == "0.95"):
-            return None
-        else:
-            return self
-
     @property
     def usage_type(self):
         return self._usage_type

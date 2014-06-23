@@ -86,6 +86,3 @@ class InteractionComponentList(list, SerializableBase):
         if not isinstance(value, InteractionComponent):
             value = InteractionComponent(value)
         super(InteractionComponentList, self).insert(ind, value)
-
-    def _as_version(self, version=Version.latest):
-        return [v.as_version(version) for v in self]

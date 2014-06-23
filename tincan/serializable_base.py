@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 import json
+import uuid
 from tincan.base import Base
 from tincan.version import Version
 from tincan.conversions.bytearray import jsonify_bytearray
@@ -65,7 +66,7 @@ class SerializableBase(Base):
         """Tries to convert an object into a JSON representation and return
         the resulting string
 
-        An Object can define how it is serialized by providing an _as_version()
+        An Object can define how it is serialized by overriding the as_version()
         implementation. A caller may further define how the object is serialized
         by passing in a custom encoder. The default encoder will ignore
         properties of an object that are None at the time of serialization.
@@ -83,7 +84,7 @@ class SerializableBase(Base):
         """Returns a dict that has been modified based on versioning
         in order to be represented in JSON properly
 
-        A class can provide an _as_version(self, version)
+        A class should overload as_version(self, version)
         implementation in order to tailor a more specific representation
 
         :param version: the relevant version. This allows for variance
@@ -91,29 +92,31 @@ class SerializableBase(Base):
         :type version: str
 
         """
-        result = {} if not isinstance(self, list) else []
-        if hasattr(self, "_as_version"):
-            result = self._as_version(version)
+        if not isinstance(self, list):
+            result = {}
+            for k, v in self.iteritems() if isinstance(self, dict) else vars(self).iteritems():
+                k = self._props_corrected.get(k, k)
+                if isinstance(v, SerializableBase):
+                    result[k] = v.as_version(version)
+                elif isinstance(v, list):
+                    result[k] = []
+                    for val in v:
+                        if isinstance(val, SerializableBase):
+                            result[k].append(val.as_version(version))
+                        else:
+                            result[k].append(val)
+                elif isinstance(v, uuid.UUID):
+                    result[k] = str(v)
+                else:
+                    result[k] = v
+            result = self._filter_none(result)
         else:
-            it = dict(self) if isinstance(self, dict) else dict(vars(self)) if not isinstance(self, list) else list(self)
-            if not isinstance(self, list):
-                for k, v in it.iteritems():
-                    k = self._props_corrected.get(k, k)
-                    if hasattr(v, "_as_version"):
-                        result[k] = v._as_version(version)
-                    elif isinstance(v, SerializableBase):
-                        result[k] = v.as_version(version)
-                    else:
-                        result[k] = v
-                result = self._filter_none(result)
-            else:
-                for v in it:
-                    if hasattr(v, "_as_version"):
-                        result.append(v._as_version(version))
-                    elif isinstance(v, SerializableBase):
-                        result.append(v.as_version(version))
-                    else:
-                        result.append(v)
+            result = []
+            for v in self:
+                if isinstance(v, SerializableBase):
+                    result.append(v.as_version(version))
+                else:
+                    result.append(v)
         return result
 
     def _filter_none(self, obj):

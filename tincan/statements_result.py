@@ -88,7 +88,6 @@ class StatementsResult(SerializableBase):
         :param value: if statements is incomplete, a URI to get the rest
         :type value: str | unicode | None
         """
-
         if value is None or isinstance(value, basestring):
             self._more = value
             return

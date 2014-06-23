@@ -12,21 +12,163 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-class HTTPRequest(object):
-    def __init__(self, endpoint=None, method=None, resource=None, headers=None,
-                 query_params=None, content=None, ignore404=False):
-        self.endpoint = endpoint
-        self.method = method
-        self.resource = resource
-        self.content = content
-        self.ignore404 = ignore404
+from tincan.base import Base
 
-        if headers is None:
-            self.headers = {}
-        else:
-            self.headers = headers
 
-        if query_params is None:
-            self.query_params = {}
-        else:
-            self.query_params = query_params
+class HTTPRequest(Base):
+    """Creates a new HTTPRequest object, either from a dict, another object, or from kwargs
+
+    :param endpoint: The remote lrs endpoint used for the HTTP connection
+    :type endpoint: unicode
+    :param method: Method for the HTTP connection ("GET", "POST", "DELETE", etc.)
+    :type method: unicode
+    :param resource: Resource for the LRS HTTP connection ("about", "statements", "activities/state", etc.)
+    :type resource: unicode
+    :param headers: Headers for the HTTP connection ("If-Match", "Content-Type", etc.)
+    :type headers: dict(unicode:unicode)
+    :param query_params: Query parameters for the HTTP connection ("registration", "since", "statementId", etc.)
+    :type query_params: dict(unicode:unicode)
+    :param content: Content body for the HTTP connection. Valid json string.
+    :type content: unicode
+    :param ignore404: True if this request should consider a 404 response successful, False otherwise
+    :type ignore404: bool
+    """
+
+    _props_req = [
+        'method',
+        'resource',
+        'headers',
+        'query_params',
+    ]
+
+    _props = [
+        'endpoint',
+        'content',
+        'ignore404',
+    ]
+
+    _props.extend(_props_req)
+    
+    @property
+    def endpoint(self):
+        """The remote lrs endpoint used for the HTTP connection
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
+        return self._endpoint
+
+    @endpoint.setter
+    def endpoint(self, value):
+        if not isinstance(value, unicode) and value is not None:
+            unicode(value)
+        self._endpoint = value
+
+    @endpoint.deleter
+    def endpoint(self):
+        del self._endpoint
+
+    @property
+    def method(self):
+        """Method for the HTTP connection ("GET", "POST", "DELETE", etc.)
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
+        return self._method
+
+    @method.setter
+    def method(self, value):
+        if not isinstance(value, unicode) and value is not None:
+            unicode(value)
+        self._method = value
+
+    @property
+    def resource(self):
+        """Resource for the LRS HTTP connection ("about", "statements", "activities/state", etc.)
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
+        return self._resource
+
+    @resource.setter
+    def resource(self, value):
+        if not isinstance(value, unicode) and value is not None:
+            unicode(value)
+        self._resource = value
+        
+    @property
+    def headers(self):
+        """Headers for the HTTP connection ("If-Match", "Content-Type", etc.)
+
+        :setter: Accepts a dict or an object
+        :setter type: dict
+        :rtype: dict
+        """
+        return self._headers
+
+    @headers.setter
+    def headers(self, value):
+        val_dict = {}
+        if value is not None:
+            val_dict.update(value if isinstance(value, dict) else vars(value))
+        self._headers = val_dict
+
+    @property
+    def query_params(self):
+        """Query parameters for the HTTP connection ("registration", "since", "statementId", etc.)
+
+        :setter: Accepts a dict or an object
+        :setter type: dict
+        :rtype: dict
+        """
+        return self._query_params
+
+    @query_params.setter
+    def query_params(self, value):
+        val_dict = {}
+        if value is not None:
+            val_dict.update(value if isinstance(value, dict) else vars(value))
+        self._query_params = val_dict
+        
+    @property
+    def content(self):
+        """Content body for the HTTP connection. Valid json string.
+
+        :setter: Tries to convert to unicode
+        :setter type: str | unicode
+        :rtype: unicode
+        """
+        return self._content
+
+    @content.setter
+    def content(self, value):
+        if not isinstance(value, unicode) and value is not None:
+            value = unicode(value)
+        self._content = value
+
+    @content.deleter
+    def content(self):
+        del self._content
+        
+    @property
+    def ignore404(self):
+        """True if this request should consider a 404 response successful, False otherwise
+
+        :setter: Tries to convert to boolean
+        :setter type: bool
+        :rtype: bool
+        """
+        return self._ignore404
+
+    @ignore404.setter
+    def ignore404(self, value):
+        self._ignore404 = bool(value)
+
+    @ignore404.deleter
+    def ignore404(self):
+        del self._ignore404

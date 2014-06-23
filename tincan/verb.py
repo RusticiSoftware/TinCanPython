@@ -29,7 +29,7 @@ class Verb(SerializableBase):
     ]
 
     _props = [
-        'display'
+        'display',
     ]
 
     _props.extend(_props_req)
@@ -54,7 +54,7 @@ class Verb(SerializableBase):
                 raise ValueError(
                     "Property 'id' in 'tincan.%s' object must be not empty." \
                     % self.__class__.__name__)
-        self._id = None if value is None else str(value)
+        self._id = None if value is None else unicode(value)
 
     @property
     def display(self):

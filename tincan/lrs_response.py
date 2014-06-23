@@ -11,19 +11,114 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+from httplib import HTTPResponse
 
-class LRSResponse(object):
-    """
-    Defines the LRSResponse class which is received from LRS communication.
-    """
-    def __init__(self, success, request, response, data=None):
-        self.success = success
-        self.request = request
-        self.response = response
-        if data is not None:
-            for k, v in data:
-                setattr(self, k, v)
+from tincan.http_request import HTTPRequest
+from tincan.base import Base
 
-    def load(self, data):
-        for k, v in data:
-            setattr(self, k, v)
+
+class LRSResponse(Base):
+    """Creates a new LRSResponse object, either from a dict, another object, or from kwargs
+
+    :param success: True if the LRS return a successful status (sometimes includes 404), False otherwise
+    :type success: bool
+    :param request: HTTPRequest object that was sent to the LRS
+    :type request: HTTPRequest
+    :param response: HTTPResponse object that was received from the LRS
+    :type response: HTTPResponse
+    :param data: Body of the HTTPResponse
+    :type data: unicode
+    :param content: Parsed content received from the LRS
+    """
+
+    _props_req = [
+        'success',
+        'request',
+        'response',
+        'data',
+    ]
+
+    _props = [
+        'content',
+    ]
+
+    _props.extend(_props_req)
+
+    @property
+    def success(self):
+        """The LRSResponse's success. True if the LRS return a
+        successful status (sometimes includes 404), False otherwise.
+
+        :setter: Tries to convert to boolean
+        :setter type: bool
+        :rtype: bool
+        """
+        return self._success
+
+    @success.setter
+    def success(self, value):
+        self._success = bool(value)
+
+    @property
+    def request(self):
+        """The HTTPRequest object that was sent to the LRS
+
+        :setter: Tries to convert to an HTTPRequest object
+        :setter type: :class:`tincan.http_request.HTTPRequest`
+        :rtype: :class:`tincan.http_request.HTTPRequest`
+        """
+        return self._request
+
+    @request.setter
+    def request(self, value):
+        if value is not None and not isinstance(value, HTTPRequest):
+            value = HTTPRequest(value)
+
+        self._request = value
+
+    @property
+    def response(self):
+        """The HTTPResponse object that was sent to the LRS
+
+        :setter: Must be an HTTPResponse object
+        :setter type: :class:`httplib.HTTPResponse`
+        :rtype: :class:`httplib.HTTPResponse`
+        """
+        return self._response
+
+    @response.setter
+    def response(self, value):
+        if value is not None and not isinstance(value, HTTPResponse):
+            raise TypeError(
+                "Property 'response' in 'tincan.%s' must be set with an HTTPResponse object" % self.__class__.__name__
+            )
+        self._response = value
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, value):
+        """Setter for the _data attribute. Should be set from response.read()
+
+        :param value: The body of the response object for the LRSResponse
+        :type value: unicode
+        """
+        if value is not None and not isinstance(value, unicode):
+            unicode(value)
+        self._data = value
+
+    @property
+    def content(self):
+        """Parsed content received from the LRS
+        """
+        return self._content
+
+    @content.setter
+    def content(self, value):
+        self._content = value
+
+    @content.deleter
+    def content(self):
+        del self._content

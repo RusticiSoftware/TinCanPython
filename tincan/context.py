@@ -20,6 +20,7 @@ from tincan.agent import Agent
 from tincan.extensions import Extensions
 from tincan.context_activities import ContextActivities
 from tincan.version import Version
+from tincan.statement_ref import StatementRef
 
 """
 .. module:: context
@@ -179,16 +180,3 @@ class Context(SerializableBase):
     @extensions.deleter
     def extensions(self):
         del self._extensions
-
-    def _as_version(self, version=Version.latest):
-        result = {}
-        for k, v in vars(self).iteritems():
-            k = self._props_corrected.get(k, k)
-            if isinstance(v, uuid.UUID):
-                result[k] = str(v)
-            elif isinstance(v, SerializableBase):
-                result[k] = v.as_version(version)
-            else:
-                result[k] = v
-        result = self._filter_none(result)
-        return result
