@@ -432,10 +432,6 @@ class TestStatement(unittest.TestCase):
         self.assertIsInstance(value, Verb)
         self.assertEqual(value.id, 'test')
 
-    def statementVerificationHelper(self, value):
-        self.assertIsInstance(value, Statement)
-        self.assertEqual(value.id, 'test')
-
     def resultVerificationHelper(self, value):
         self.assertIsInstance(value, Result)
         self.assertEqual(value.duration, 'test')
