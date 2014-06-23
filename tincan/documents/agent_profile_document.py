@@ -26,7 +26,7 @@ class AgentProfileDocument(Document):
     :type content: bytearray
     :param etag: The etag of this document
     :type etag: unicode
-    :param timestamp: The time stamp of this document
+    :param timestamp: The timestamp of this document
     :type timestamp: :mod:`datetime.datetime`
     :param agent: The agent object of this document
     :type agent: Agent

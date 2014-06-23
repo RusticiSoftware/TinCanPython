@@ -26,7 +26,7 @@ class Document(Base):
     :type content: bytearray
     :param etag: The etag of this document
     :type etag: unicode
-    :param timestamp: The time stamp of this document
+    :param timestamp: The timestamp of this document
     :type timestamp: :class:`datetime.datetime`
     """
     _props_req = [
@@ -108,7 +108,7 @@ class Document(Base):
 
     @property
     def timestamp(self):
-        """The Document time stamp.
+        """The Document timestamp.
 
         :setter: Tries to convert to :class:`datetime.datetime`. If
         no timezone is given, makes a naive `datetime.datetime`.
