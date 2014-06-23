@@ -26,8 +26,8 @@ from tincan.activity import Activity
 from tincan.statements_result import StatementsResult
 from tincan.about import About
 from tincan.version import Version
+from tincan.base import Base
 from tincan.documents import (
-    Document,
     StateDocument,
     ActivityProfileDocument,
     AgentProfileDocument
@@ -55,15 +55,15 @@ class RemoteLRS(Base):
         """RemoteLRS Constructor
 
         :param endpoint: lrs endpoint
-        :type endpoint: str
+        :type endpoint: str | unicode
         :param version: Version used for lrs communication
-        :type version: str
+        :type version: str | unicode
         :param username: Username for lrs. Used to build the authentication string.
-        :type username: str
+        :type username: str | unicode
         :param password: Password for lrs. Used to build the authentication string.
-        :type password: str
+        :type password: str | unicode
         :param auth: Authentication string
-        :type auth: str
+        :type auth: str | unicode
         """
         if (
             "username" in kwargs
@@ -220,7 +220,7 @@ class RemoteLRS(Base):
         )
         request.headers["Content-Type"] = "application/json"
 
-        request.content = json.dump([s.to_json(self.version) for s in statements])
+        request.content = json.dumps([s.to_json(self.version) for s in statements])
 
         lrs_response = self._send_request(request)
 
@@ -237,7 +237,7 @@ class RemoteLRS(Base):
         """Retrieve a statement from the server from its id
 
         :param statement_id: The UUID of the desired statement
-        :type statement_id: str
+        :type statement_id: str | unicode
         :return: LRS Response object with the retrieved statement as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -259,7 +259,7 @@ class RemoteLRS(Base):
         """Retrieve a voided statement from the server from its id
 
         :param statement_id: The UUID of the desired voided statement
-        :type statement_id: str
+        :type statement_id: str | unicode
         :return: LRS Response object with the retrieved voided statement as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -326,7 +326,7 @@ class RemoteLRS(Base):
         """Query the LRS for more statements
 
         :param more_url: URL from a StatementsResult object used to retrieve more statements
-        :type more_url: str
+        :type more_url: str | unicode
         :return: LRS Response object with the returned StatementsResult object as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -344,7 +344,7 @@ class RemoteLRS(Base):
         lrs_response = self._send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = StatementsResult(lrs_response.data)
+            lrs_response.content = StatementsResult(json.loads(lrs_response.data))
 
         return lrs_response
 
@@ -356,9 +356,9 @@ class RemoteLRS(Base):
         :param agent: Agent object of desired states
         :type agent: :class:`tincan.agent.Agent`
         :param registration: Registration UUID of desired states
-        :type registration: str
+        :type registration: str | unicode
         :param since: Retrieve state id's since this time
-        :type since: str
+        :type since: str | unicode
         :return: LRS Response object with the retrieved state id's as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -398,9 +398,9 @@ class RemoteLRS(Base):
         :param agent: Agent object of desired state
         :type agent: :class:`tincan.agent.Agent`
         :param state_id: UUID of desired state
-        :type state_id: str
+        :type state_id: str | unicode
         :param registration: registration UUID of desired state
-        :type registration: str
+        :type registration: str | unicode
         :return: LRS Response object with retrieved state document as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -490,11 +490,11 @@ class RemoteLRS(Base):
         :param agent: Agent object of state to be deleted
         :type agent: :class:`tincan.agent.Agent`
         :param state_id: UUID of state to be deleted
-        :type state_id: str
+        :type state_id: str | unicode
         :param registration: registration UUID of state to be deleted
-        :type registration: str
+        :type registration: str | unicode
         :param etag: etag of state to be deleted
-        :type etag: str
+        :type etag: str | unicode
         :return: LRS Response object with deleted state as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -550,7 +550,7 @@ class RemoteLRS(Base):
         :param agent: Agent object of state(s) to be deleted
         :type agent: :class:`tincan.agent.Agent`
         :param registration: registration UUID of state(s) to be deleted
-        :type registration: str
+        :type registration: str | unicode
         :return: LRS Response object
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -566,7 +566,7 @@ class RemoteLRS(Base):
         :param activity: Activity object of desired activity profiles
         :type activity: :class:`tincan.activity.Activity`
         :param since: Retrieve activity profile id's since this time
-        :type since: str
+        :type since: str | unicode
         :return: LRS Response object with list of retrieved activity profile id's as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -596,7 +596,7 @@ class RemoteLRS(Base):
         :param activity: Activity object of the desired activity profile
         :type activity: :class:`tincan.activity.Activity`
         :param profile_id: UUID of the desired profile
-        :type profile_id: str
+        :type profile_id: str | unicode
         :return: LRS Response object with an activity profile doc as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -693,7 +693,7 @@ class RemoteLRS(Base):
         :param agent: Agent object of desired agent profiles
         :type agent: :class:`tincan.agent.Agent`
         :param since: Retrieve agent profile id's since this time
-        :type since: str
+        :type since: str | unicode
         :return: LRS Response object with list of retrieved agent profile id's as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
@@ -723,7 +723,7 @@ class RemoteLRS(Base):
         :param agent: Agent object of the desired agent profile
         :type agent: :class:`tincan.agent.Agent`
         :param profile_id: UUID of the desired agent profile
-        :type profile_id: str
+        :type profile_id: str | unicode
         :return: LRS Response object with an agent profile doc as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
