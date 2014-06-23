@@ -13,10 +13,17 @@
 #    limitations under the License.
 
 import unittest
+
+if __name__ == '__main__':
+    import sys
+    from os.path import dirname, abspath
+    sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
+    from test.main import setup_tincan_path
+    setup_tincan_path()
 from tincan.documents import ActivityProfileDocument
 from tincan.activity import Activity
 from tincan.activity_definition import ActivityDefinition
-from tincan.languagemap import LanguageMap
+from tincan.language_map import LanguageMap
 
 
 class ActivityProfileDocumentTest(unittest.TestCase):

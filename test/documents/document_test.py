@@ -14,6 +14,13 @@
 
 import unittest
 import datetime
+
+if __name__ == '__main__':
+    import sys
+    from os.path import dirname, abspath
+    sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
+    from test.main import setup_tincan_path
+    setup_tincan_path()
 from tincan.documents import Document
 
 
