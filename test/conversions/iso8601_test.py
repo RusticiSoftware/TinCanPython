@@ -201,7 +201,7 @@ class ISO8601Test(unittest.TestCase):
         # timezone
         pair = (
             '2014-06-19T21:55:27.934309+00:00',
-            datetime(2014, 6, 19, 21, 55, 27, 934309, tzinfo=utc),
+            utc.localize(datetime(2014, 6, 19, 21, 55, 27, 934309)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
@@ -216,7 +216,7 @@ class ISO8601Test(unittest.TestCase):
         # timezone
         pair = (
             '2014-06-19T21:55:27+00:00',
-            datetime(2014, 6, 19, 21, 55, 27, 0, tzinfo=utc),
+            utc.localize(datetime(2014, 6, 19, 21, 55, 27, 0)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
@@ -234,27 +234,27 @@ class ISO8601Test(unittest.TestCase):
     def test_number_to_datetime(self):
         pair = (
             1403272847,
-            datetime(2014, 6, 20, 14, 0, 47, 0, tzinfo=utc),
+            utc.localize(datetime(2014, 6, 20, 14, 0, 47, 0)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
         pair = (
             1403272847.361077,
-            datetime(2014, 6, 20, 14, 0, 47, 361077, tzinfo=utc),
+            utc.localize(datetime(2014, 6, 20, 14, 0, 47, 361077)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
     def test_dict_to_datetime(self):
         pair = (
             {'year': 2014, 'month': 12, 'day': 17, 'tzinfo': utc, },
-            datetime(2014, 12, 17, tzinfo=utc),
+            utc.localize(datetime(2014, 12, 17)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
         pair = (
             {'year': 2014, 'month': 12, 'day': 17, 'tzinfo': utc,
              'hour': 12, 'minute': 4, 'second': 3, },
-            datetime(2014, 12, 17, 12, 4, 3, 0, tzinfo=utc),
+            utc.localize(datetime(2014, 12, 17, 12, 4, 3, 0)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
@@ -262,7 +262,7 @@ class ISO8601Test(unittest.TestCase):
             {'year': 2014, 'month': 12, 'day': 17,
              'hour': 12, 'minute': 4, 'second': 3,
              'microsecond': 560000, 'tzinfo': utc,},
-            datetime(2014, 12, 17, 12, 4, 3, 560000, tzinfo=utc),
+            utc.localize(datetime(2014, 12, 17, 12, 4, 3, 560000)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
@@ -293,7 +293,7 @@ class ISO8601Test(unittest.TestCase):
     def test_iterable_to_datetime(self):
         pair = (
             (2014, 12, 17, utc),
-            datetime(2014, 12, 17, tzinfo=utc),
+            utc.localize(datetime(2014, 12, 17)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
         self.assertEqual(make_datetime(list(pair[0])), pair[1])
@@ -307,7 +307,7 @@ class ISO8601Test(unittest.TestCase):
 
         pair = (
             (2014, 12, 17, 5, 13, 23, 123456, utc),
-            datetime(2014, 12, 17, 5, 13, 23, 123456, tzinfo=utc),
+            utc.localize(datetime(2014, 12, 17, 5, 13, 23, 123456)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
         self.assertEqual(make_datetime(list(pair[0])), pair[1])
@@ -359,7 +359,7 @@ class ISO8601Test(unittest.TestCase):
         # timezone
         pair = (
             '2014-06-19T21:55:27.934309+00:00',
-            datetime(2014, 6, 19, 21, 55, 27, 934309, tzinfo=utc),
+            utc.localize(datetime(2014, 6, 19, 21, 55, 27, 934309)),
         )
         self.assertEqual(pair[0], jsonify_datetime(pair[1]))
 
@@ -374,7 +374,7 @@ class ISO8601Test(unittest.TestCase):
         # timezone
         pair = (
             '2014-06-19T21:55:27+00:00',
-            datetime(2014, 6, 19, 21, 55, 27, 0, tzinfo=utc),
+            utc.localize(datetime(2014, 6, 19, 21, 55, 27, 0)),
         )
         self.assertEqual(pair[0], jsonify_datetime(pair[1]))
 
