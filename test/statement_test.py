@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 import unittest
+from datetime import timedelta
 
 if __name__ == '__main__':
     from main import setup_tincan_path
@@ -203,7 +204,7 @@ class StatementTest(unittest.TestCase):
         self.agentVerificationHelper(statement.authority)
 
     def test_InitAnonResult(self):
-        statement = Statement(result={'duration':'test'})
+        statement = Statement(result={'duration': timedelta(days=7)})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -307,7 +308,7 @@ class StatementTest(unittest.TestCase):
         self.agentVerificationHelper(statement.authority)
 
     def test_InitResult(self):
-        statement = Statement(result=Result(duration='test'))
+        statement = Statement(result=Result(duration=timedelta(days=7)))
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -405,7 +406,7 @@ class StatementTest(unittest.TestCase):
 
     def resultVerificationHelper(self, value):
         self.assertIsInstance(value, Result)
-        self.assertEqual(value.duration, 'test')
+        self.assertEqual(value.duration, timedelta(days=7))
 
     def contextVerificationHelper(self, value):
         self.assertIsInstance(value, Context)

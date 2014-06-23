@@ -12,13 +12,13 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+from datetime import timedelta
+
 from tincan.serializable_base import SerializableBase
 from tincan.score import Score
 from tincan.extensions import Extensions
 from tincan.conversions.bytearray import make_bytearray
 from tincan.conversions.iso8601 import make_timedelta
-
-# from datetime import timedelta
 
 
 class Result(SerializableBase):
@@ -33,9 +33,8 @@ class Result(SerializableBase):
     :type success: bool
     :param completion: Whether completed
     :type completion: bool
-        ##TODO: add converters for ISO 8601 duration <-> timedelta
     :param duration: How long it took
-    :type duration: basestring
+    :type duration: timedelta
     :param response: HTTPResponse data
     :type response: bytearray
     :param extensions: Custom user data
@@ -135,7 +134,9 @@ class Result(SerializableBase):
 
         if value is None:
             self._duration = None
-        elif isinstance(value, basestring):
+        elif isinstance(value, timedelta):
+            self._duration = value
+        elif isinstance(value, (str, unicode)):
             self._duration = make_timedelta(value)
         elif not isinstance(value, basestring):
             raise TypeError(
