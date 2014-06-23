@@ -26,6 +26,8 @@ from tincan.result import Result
 from tincan.context import Context
 from tincan.attachment import Attachment
 from tincan.substatement import Substatement
+from tincan.activity import Activity
+from tincan.statement_ref import StatementRef
 
 class TestStatement(unittest.TestCase):
 
@@ -184,6 +186,16 @@ class TestStatement(unittest.TestCase):
         self.verbVerificationHelper(statement.verb)
 
     def test_InitAnonObject(self):
+        statement = Statement(object={'id':'test'})
+        self.assertIsNone(statement.id)
+        self.assertIsNone(statement.actor)
+        self.assertIsNone(statement.verb)
+        self.assertIsNone(statement.timestamp)
+        self.assertIsNone(statement.stored)
+        self.assertIsNone(statement.authority)
+        self.activityVerificationHelper(statement.object)
+
+    def test_InitAnonAgentObject(self):
         statement = Statement(object={'object_type':'Agent', 'name':'test'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
@@ -286,6 +298,26 @@ class TestStatement(unittest.TestCase):
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
         self.substatementVerificationHelper(statement.object)
+
+    def test_InitStatementRefObject(self):
+        statement = Statement(object=StatementRef(object_type='StatementRef'))
+        self.assertIsNone(statement.id)
+        self.assertIsNone(statement.verb)
+        self.assertIsNone(statement.actor)
+        self.assertIsNone(statement.timestamp)
+        self.assertIsNone(statement.stored)
+        self.assertIsNone(statement.authority)
+        self.statementrefVerificationHelper(statement.object)
+
+    def test_InitActivityObject(self):
+        statement = Statement(object=Activity(id='test'))
+        self.assertIsNone(statement.id)
+        self.assertIsNone(statement.verb)
+        self.assertIsNone(statement.actor)
+        self.assertIsNone(statement.timestamp)
+        self.assertIsNone(statement.stored)
+        self.assertIsNone(statement.authority)
+        self.activityVerificationHelper(statement.object)
 
     def test_InitAuthority(self):
         statement = Statement(authority=Agent(name='test'))
@@ -409,6 +441,14 @@ class TestStatement(unittest.TestCase):
     def substatementVerificationHelper(self, value):
         self.assertIsInstance(value, Substatement)
         self.assertEqual(value.object_type, 'Substatement')
+
+    def statementrefVerificationHelper(self, value):
+        self.assertIsInstance(value, StatementRef)
+        self.assertEqual(value.object_type, 'StatementRef')
+
+    def activityVerificationHelper(self, value):
+        self.assertIsInstance(value, Activity)
+        self.assertEqual(value.id, 'test')
 
 if __name__ == '__main__':
      suite = unittest.TestLoader().loadTestsFromTestCase(TestStatement)
