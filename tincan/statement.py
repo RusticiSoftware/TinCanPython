@@ -15,7 +15,6 @@
 import uuid
 import re
 from datetime import datetime
-import pytz
 
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
@@ -28,6 +27,7 @@ from tincan.context import Context
 from tincan.substatement import Substatement
 from tincan.statement_ref import StatementRef
 from tincan.activity import Activity
+from tincan.conversions.iso8601 import make_datetime
 
 """
 .. module Statement
@@ -36,7 +36,13 @@ from tincan.activity import Activity
 
 class Statement(SerializableBase):
 
-    _UUID_REGEX = re.compile('^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$')
+    _UUID_REGEX = re.compile(
+        r'^[a-f0-9]{8}-'
+        r'[a-f0-9]{4}-'
+        r'[1-5][a-f0-9]{3}-'
+        r'[89ab][a-f0-9]{3}-'
+        r'[a-f0-9]{12}$'
+    )
 
     _props_req = [
         "id",
@@ -215,12 +221,20 @@ class Statement(SerializableBase):
             self._timestamp = value
             return
 
-        if value is not None:
-            if value == '':
-                raise ValueError("Property timestamp can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
-        self._timestamp = value
+        try:
+            self._timestamp = make_datetime(value)
+        except TypeError as e:
+            e.message = (
+                "Property 'timestamp' in a 'tincan.%s' "
+                "object must be set with a "
+                "datetime.datetime, str, unicode, int, float, dict "
+                "or None.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
+            )
+            raise e
 
     @timestamp.deleter
     def timestamp(self):
@@ -229,24 +243,45 @@ class Statement(SerializableBase):
     #TODO: make timestamp and stored compatible with datetime and timedelta objects
     @property
     def stored(self):
-        """Stored for Statement
+        """Storage time. Tries to convert to :class:`datetime.datetime`.
+        If no timezone is given, makes a naive `datetime.datetime`.
 
-        :setter: Tries to convert to unicode
-        :setter type: unicode | :class:`datetime.datetime`
-        :rtype: unicode
+        Strings will be parsed as ISO 8601 timestamps.
 
+        If a number is provided, it will be interpreted as a UNIX
+        timestamp, which by definition is UTC.
+
+        If a `dict` is provided, does `datetime.datetime(**value)`.
+
+        If a `tuple` or a `list` is provided, does
+        `datetime.datetime(*value)`. Uses the timezone in the tuple or
+        list if provided.
+
+        :setter type: :class:`datetime.datetime` | unicode | str | int | float | dict | tuple | list | None
+        :rtype: :class:`datetime.datetime`
         """
         return self._stored
 
     @stored.setter
     def stored(self, value):
+        if value is None or isinstance(value, datetime):
+            self._stored = value
+            return
 
-        if value is not None:
-            if value == '':
-                raise ValueError("Property stored can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
-        self._stored = value
+        try:
+            self._stored = make_datetime(value)
+        except TypeError as e:
+            e.message = (
+                "Property 'stored' in a 'tincan.%s' "
+                "object must be set with a "
+                "datetime.datetime, str, unicode, int, float, dict "
+                "or None.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
+            )
+            raise e
 
     @stored.deleter
     def stored(self):

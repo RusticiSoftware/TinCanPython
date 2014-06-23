@@ -13,7 +13,8 @@
 #    limitations under the License.
 
 import unittest
-from datetime import timedelta
+from datetime import timedelta, datetime
+import pytz
 import uuid
 
 if __name__ == '__main__':
@@ -64,22 +65,28 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.authority)
 
     def test_InitTimestamp(self):
-        statement = Statement(timestamp='test o clock')
+        statement = Statement(timestamp="2014-06-23T15:25:00-05:00")
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
-        self.assertEqual(statement.timestamp, 'test o clock')
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(statement.timestamp, dt)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
 
     def test_InitStored(self):
-        statement = Statement(stored='test o clock')
+        statement = Statement(stored="2014-06-23T15:25:00-05:00")
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
-        self.assertEqual(statement.stored, 'test o clock')
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(statement.stored, dt)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.authority)
 
