@@ -21,7 +21,7 @@ from tincan.context import Context
 from tincan.context_activities import ContextActivities
 from tincan.activity import Activity
 from tincan.agent import Agent
-#from tincan.statement_ref import StatementRef
+from tincan.statement_ref import StatementRef
 from tincan.extensions import Extensions
 from tincan.group import Group
 import uuid
@@ -44,7 +44,7 @@ class TestContext(unittest.TestCase):
             revision='revision',
             platform='platform',
             language='en-US',
-            #statement=StatementRef(id='statementRef'),
+            statement=StatementRef(id='statementRef'),
             extensions=Extensions({'extensions': 'extend!'})
         )
         self.ctxVerificationHelper(ctx)
@@ -135,7 +135,7 @@ class TestContext(unittest.TestCase):
         self.assertIsInstance(ctx.team, Group)
         self.assertEqual(ctx.team.members[0].name, 'teamGroupMember')
         self.assertIsInstance(ctx.context_activities, ContextActivities)
-        self.assertEqual(ctx.context_activities.category.id, 'contextActivityCategory')
+        self.assertEqual(ctx.context_activities.category[0].id, 'contextActivityCategory')
         self.assertEqual(ctx.revision, 'revision')
         self.assertEqual(ctx.platform, 'platform')
         self.assertEqual(ctx.language, 'en-US')

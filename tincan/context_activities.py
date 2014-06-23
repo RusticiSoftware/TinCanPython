@@ -13,7 +13,7 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
-#from tincan.activity_list import ActivityList
+from tincan.activity_list import ActivityList
 from tincan.activity import Activity
 from tincan.version import Version
 
@@ -81,13 +81,11 @@ class ContextActivities(SerializableBase):
 
     def _activity_or_list(self, value):
         result = value
-        if value is not None and not isinstance(value, Activity) and not isinstance(value, ActivityList):
+        if value is not None and not isinstance(value, ActivityList):
             try:
-                result = Activity(value)
+                list_arg = Activity(value)
+                result = ActivityList([list_arg])
             except (TypeError, AttributeError):
                 result = ActivityList(value)
-
-        if isinstance(result, Activity):
-            result = ActivityList([result])
 
         return result
