@@ -156,16 +156,20 @@ class Statement(SerializableBase):
                     value = Group(value)
                 else:
                     if isinstance(value, dict):
-                        if 'object_type' in value:
-                            if value['object_type'] == 'Agent':
+                        if 'object_type' in value or 'objectType' in value:
+                            if 'object_type' in value:
+                                k = 'object_type'
+                            else:
+                                k = 'objectType'
+                            if value[k] == 'Agent':
                                 value = Agent(value)
-                            elif value['object_type'] == 'Substatement':
+                            elif value[k] == 'Substatement':
                                 value = Substatement(value)
-                            elif value['object_type'] == 'StatementRef':
+                            elif value[k] == 'StatementRef':
                                 value = StatementRef(value)
-                            elif value['object_type'] == 'Activity':
+                            elif value[k] == 'Activity':
                                 value = Activity(value)
-                            elif value['object_type'] == 'Group':
+                            elif value[k] == 'Group':
                                 value = Group(value)
                             else:
                                 value = Activity(value)
