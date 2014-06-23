@@ -17,7 +17,7 @@ from tincan.documents import StateDocument
 from tincan.agent import Agent
 from tincan.activity import Activity
 from tincan.activity_definition import ActivityDefinition
-from tincan.languagemap import LanguageMap
+from tincan.language_map import LanguageMap
 
 
 class StateDocumentTest(unittest.TestCase):
@@ -29,10 +29,10 @@ class StateDocumentTest(unittest.TestCase):
             id="http://tincanapi.com/TinCanPython/Test/Unit/0",
             definition=ActivityDefinition()
         )
-        self.activity.type = "http://id.tincanapi.com/activitytype/unit-test"
-        self.activity.definition.name(LanguageMap({"en-US": "Python Tests"}))
-        self.activity.definition.description(LanguageMap(
-            {"en-US": "Unit test in the test suite for the Python library"})
+        self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test"
+        self.activity.definition.name = LanguageMap({"en-US": "Python Tests"})
+        self.activity.definition.description = LanguageMap(
+            {"en-US": "Unit test in the test suite for the Python library"}
         )
 
     def tearDown(self):
@@ -41,14 +41,22 @@ class StateDocumentTest(unittest.TestCase):
     def test_init_empty(self):
         doc = StateDocument()
         self.assertIsInstance(doc, StateDocument)
-        self.assertFalse(hasattr(doc, "id"))
-        self.assertFalse(hasattr(doc, "content_type"))
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
-        self.assertFalse(hasattr(doc, "agent"))
-        self.assertFalse(hasattr(doc, "activity"))
-        self.assertFalse(hasattr(doc, "registration"))
+        self.assertTrue(hasattr(doc, "id"))
+        self.assertIsNone(doc.id)
+        self.assertTrue(hasattr(doc, "content_type"))
+        self.assertIsNone(doc.content_type)
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertIsNone(doc.content)
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertIsNone(doc.etag)
+        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertIsNone(doc.time_stamp)
+        self.assertTrue(hasattr(doc, "activity"))
+        self.assertIsNone(doc.activity)
+        self.assertTrue(hasattr(doc, "agent"))
+        self.assertIsNone(doc.agent)
+        self.assertTrue(hasattr(doc, "registration"))
+        self.assertIsNone(doc.registration)
 
     def test_init_kwarg_exception(self):
         with self.assertRaises(AttributeError):
@@ -74,12 +82,12 @@ class StateDocumentTest(unittest.TestCase):
         doc = StateDocument(id="test", content_type="test type")
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
-        self.assertFalse(hasattr(doc, "content"))
-        self.assertFalse(hasattr(doc, "etag"))
-        self.assertFalse(hasattr(doc, "time_stamp"))
-        self.assertFalse(hasattr(doc, "agent"))
-        self.assertFalse(hasattr(doc, "activity"))
-        self.assertFalse(hasattr(doc, "registration"))
+        self.assertTrue(hasattr(doc, "content"))
+        self.assertTrue(hasattr(doc, "etag"))
+        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "agent"))
+        self.assertTrue(hasattr(doc, "activity"))
+        self.assertTrue(hasattr(doc, "registration"))
 
     def test_init_all(self):
         doc = StateDocument(
@@ -143,14 +151,15 @@ class StateDocumentTest(unittest.TestCase):
 
     def test_agent_setter(self):
         doc = StateDocument()
-        doc.agent = {"openid": "mailto:tincanpython@tincanapi.com"}
-        self.assertEqual(doc.agent, self.agent)
+        doc.agent = {"mbox": "mailto:tincanpython@tincanapi.com"}
+        self.assertIsInstance(doc.agent, Agent)
+        self.assertEqual(doc.agent.mbox, self.agent.mbox)
 
     def test_activity_setter(self):
         doc = StateDocument()
         doc.activity = {"id": "http://tincanapi.com/TinCanPython/Test/Unit/0"}
 
-        self.assertEquals(doc.activity, Activity(id="http://tincanapi.com/TinCanPython/Test/Unit/0"))
+        self.assertEquals(doc.activity.id, "http://tincanapi.com/TinCanPython/Test/Unit/0")
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(StateDocumentTest)
