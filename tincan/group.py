@@ -94,7 +94,3 @@ class Group(Agent):
     @object_type.setter
     def object_type(self, value):
         self._object_type = 'Group'
-
-    @object_type.deleter
-    def object_type(self):
-        del self._object_type

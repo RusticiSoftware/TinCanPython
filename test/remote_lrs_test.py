@@ -1,17 +1,3 @@
-#    Copyright 2014 Rustici Software
-#
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS,
-#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
-
 import unittest
 import uuid
 from datetime import timedelta
@@ -107,8 +93,7 @@ class RemoteLRSTest(unittest.TestCase):
             self.substatement = Substatement(
                 actor=self.agent,
                 verb=self.verb,
-                #TODO: try with activity
-                object=self.agent2,
+                object=self.activity,
             )
             self.set = True
 
@@ -140,22 +125,20 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2
+            object=self.activity
         )
         response = self.lrs.save_statement(statement)
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self.assertEqual(statement, response.content)
-        self.assertIsnotNone(response.content.id)
+        self.assertIsNotNone(response.content.id)
 
     def test_save_statement_with_id(self):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2,
+            object=self.activity,
             id=str(uuid.uuid4())
         )
         response = self.lrs.save_statement(statement)
@@ -220,14 +203,12 @@ class RemoteLRSTest(unittest.TestCase):
         statement1 = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2
+            object=self.activity
         )
         statement2 = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to acivity
-            object=self.agent2,
+            object=self.activity,
             context=self.context
         )
         response = self.lrs.save_statements([statement1, statement2])
@@ -243,8 +224,7 @@ class RemoteLRSTest(unittest.TestCase):
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
-            #TODO: switch object back to activity
-            object=self.agent2,
+            object=self.activity,
             context=self.context,
             result=self.result,
             id=str(uuid.uuid4())

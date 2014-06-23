@@ -14,9 +14,10 @@
 
 import json
 import uuid
+import datetime
 from tincan.base import Base
 from tincan.version import Version
-from tincan.conversions.bytearray import jsonify_bytearray
+from tincan.conversions.iso8601 import jsonify_datetime, jsonify_timedelta
 
 """
 .. module:: serializable_base
@@ -52,7 +53,7 @@ class SerializableBase(Base):
         that can be be propagated from class constructors.
 
         :param json_data: The JSON string to convert
-        :type json_data: str
+        :type json_data: str | unicode
 
         :raises: TypeError, ValueError, LanguageMapInitError
         """
@@ -73,7 +74,7 @@ class SerializableBase(Base):
 
         :param version: The version to which the object must be serialized to.
         This will default to the latest version supported by the library.
-        :type version: str
+        :type version: str | unicode
         :param encoder: The custom encoder. The default is described above.
         :type encoder: json.JSONEncoder
 
@@ -89,7 +90,7 @@ class SerializableBase(Base):
 
         :param version: the relevant version. This allows for variance
          between versions
-        :type version: str
+        :type version: str | unicode
 
         """
         if not isinstance(self, list):
@@ -106,7 +107,11 @@ class SerializableBase(Base):
                         else:
                             result[k].append(val)
                 elif isinstance(v, uuid.UUID):
-                    result[k] = str(v)
+                    result[k] = unicode(v)
+                elif isinstance(v, datetime.timedelta):
+                    result[k] = jsonify_timedelta(v)
+                elif isinstance(v, datetime.datetime):
+                    result[k] = jsonify_datetime(v)
                 else:
                     result[k] = v
             result = self._filter_none(result)

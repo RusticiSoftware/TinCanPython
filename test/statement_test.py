@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 import unittest
+from datetime import timedelta
 import uuid
 
 if __name__ == '__main__':
@@ -29,7 +30,7 @@ from tincan.substatement import Substatement
 from tincan.activity import Activity
 from tincan.statement_ref import StatementRef
 
-class TestStatement(unittest.TestCase):
+class StatementTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         statement = Statement()
@@ -226,7 +227,7 @@ class TestStatement(unittest.TestCase):
         self.agentVerificationHelper(statement.authority)
 
     def test_InitAnonResult(self):
-        statement = Statement(result={'duration':'test'})
+        statement = Statement(result={'duration': timedelta(days=7)})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -340,7 +341,7 @@ class TestStatement(unittest.TestCase):
         self.agentVerificationHelper(statement.authority)
 
     def test_InitResult(self):
-        statement = Statement(result=Result(duration='test'))
+        statement = Statement(result=Result(duration=timedelta(days=7)))
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -434,7 +435,7 @@ class TestStatement(unittest.TestCase):
 
     def resultVerificationHelper(self, value):
         self.assertIsInstance(value, Result)
-        self.assertEqual(value.duration, 'test')
+        self.assertEqual(value.duration, timedelta(days=7))
 
     def contextVerificationHelper(self, value):
         self.assertIsInstance(value, Context)
@@ -457,5 +458,5 @@ class TestStatement(unittest.TestCase):
         self.assertEqual(value.id, 'test')
 
 if __name__ == '__main__':
-     suite = unittest.TestLoader().loadTestsFromTestCase(TestStatement)
+     suite = unittest.TestLoader().loadTestsFromTestCase(StatementTest)
      unittest.TextTestRunner(verbosity = 2).run(suite)

@@ -20,7 +20,8 @@ if __name__ == '__main__':
 from tincan.agent import Agent
 from tincan.agent_account import AgentAccount
 
-class TestAgent(unittest.TestCase):
+
+class AgentTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         agent = Agent()
@@ -201,6 +202,7 @@ class TestAgent(unittest.TestCase):
         self.assertIn('_name', account.__dict__)
         self.assertIn('_homepage', account.__dict__)
 
+
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestAgent)
-    unittest.TextTestRunner(verbosity = 2).run(suite)
+    suite = unittest.TestLoader().loadTestsFromTestCase(AgentTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

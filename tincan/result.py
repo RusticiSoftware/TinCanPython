@@ -12,18 +12,33 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+from datetime import timedelta
+
 from tincan.serializable_base import SerializableBase
 from tincan.score import Score
 from tincan.extensions import Extensions
-from tincan.version import Version
-from tincan.conversions.bytearray import jsonify_bytearray
-##TODO: add converters for ISO 8601 duration <-> timedelta
-# from tincan.iso8601 import make_timedelta, make_duration
-
-# from datetime import timedelta
+from tincan.conversions.iso8601 import make_timedelta
 
 
 class Result(SerializableBase):
+
+    """Stores the state of an activity.
+
+    Can be created from a dict, another Result, or from kwargs.
+
+    :param score: Contains the score and its scaling information
+    :type score: Score
+    :param success: Whether successful
+    :type success: bool
+    :param completion: Whether completed
+    :type completion: bool
+    :param duration: How long it took
+    :type duration: timedelta
+    :param response: HTTPResponse data
+    :type response: unicode
+    :param extensions: Custom user data
+    :type extensions: Extensions
+    """
 
     _props = [
         'score',
@@ -117,20 +132,20 @@ class Result(SerializableBase):
         """
         return self._duration
 
-    ##TODO: add converters for ISO 8601 duration <-> timedelta
     @duration.setter
     def duration(self, value):
-        if value is None or isinstance(value, basestring):
+        if value is None:
+            self._duration = None
+        elif isinstance(value, timedelta):
             self._duration = value
-            return
+        elif isinstance(value, (str, unicode)):
+            self._duration = make_timedelta(value)
         elif not isinstance(value, basestring):
             raise TypeError(
                 "Property 'duration' in a 'tincan.%s' object must be set with a "
                 "str, unicode, or None." %
                 self.__class__.__name__
             )
-
-        self._duration = value if value is None else unicode(value, encoding='utf-8')
 
     @duration.deleter
     def duration(self):
@@ -200,4 +215,3 @@ class Result(SerializableBase):
     @extensions.deleter
     def extensions(self):
         del self._extensions
-

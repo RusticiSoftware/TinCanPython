@@ -28,7 +28,7 @@ import uuid
 import re
 
 
-class TestContext(unittest.TestCase):
+class ContextTest(unittest.TestCase):
 
     def test_InitEmpty(self):
         ctx = Context()
@@ -38,8 +38,8 @@ class TestContext(unittest.TestCase):
     def test_InitAll(self):
         ctx = Context(
             registration=uuid.uuid4(),
-            instructor=Group(members=[Agent(name='instructorGroupMember')]),
-            team=Group(members=[Agent(name='teamGroupMember')]),
+            instructor=Group(member=[Agent(name='instructorGroupMember')]),
+            team=Group(member=[Agent(name='teamGroupMember')]),
             context_activities=ContextActivities(category=Activity(id='contextActivityCategory')),
             revision='revision',
             platform='platform',
@@ -91,8 +91,8 @@ class TestContext(unittest.TestCase):
     def test_FromJSON(self):
         json_str = '{\
             "registration": "016699c6-d600-48a7-96ab-86187498f16f",\
-            "instructor": {"members": [{"name": "instructorGroupMember"}]},\
-            "team": {"members": [{"name": "teamGroupMember"}]},\
+            "instructor": {"member": [{"name": "instructorGroupMember"}]},\
+            "team": {"member": [{"name": "teamGroupMember"}]},\
             "context_activities": {"category": {"id": "contextActivityCategory"}},\
             "revision": "revision",\
             "platform": "platform",\
@@ -104,8 +104,8 @@ class TestContext(unittest.TestCase):
     def test_AsVersion(self):
         obj = {
             "registration": "016699c6-d600-48a7-96ab-86187498f16f",
-            "instructor": {"members": [{"name": "instructorGroupMember"}]},
-            "team": {"members": [{"name": "teamGroupMember"}]},
+            "instructor": {"member": [{"name": "instructorGroupMember"}]},
+            "team": {"member": [{"name": "teamGroupMember"}]},
             "context_activities": {"category": {"id": "contextActivityCategory"}},
             "revision": "revision",
             "platform": "platform",
@@ -115,8 +115,8 @@ class TestContext(unittest.TestCase):
         """ Keys are corrected, and ContextActivities is properly listified """
         check_obj = {
             "registration": "016699c6-d600-48a7-96ab-86187498f16f",
-            "instructor": {"members": [{"name": "instructorGroupMember", "objectType": "Agent"}]},
-            "team": {"members": [{"name": "teamGroupMember", "objectType": "Agent"}]},
+            "instructor": {"member": [{"name": "instructorGroupMember", "objectType": "Agent"}], "objectType": "Group"},
+            "team": {"member": [{"name": "teamGroupMember", "objectType": "Agent"}], "objectType": "Group"},
             "contextActivities": {"category": [{"id": "contextActivityCategory"}]},
             "revision": "revision",
             "platform": "platform",
@@ -131,9 +131,9 @@ class TestContext(unittest.TestCase):
         self.assertIsInstance(ctx, Context)
         self.assertIsInstance(ctx.registration, uuid.UUID)
         self.assertIsInstance(ctx.instructor, Group)
-        self.assertEqual(ctx.instructor.members[0].name, 'instructorGroupMember')
+        self.assertEqual(ctx.instructor.member[0].name, 'instructorGroupMember')
         self.assertIsInstance(ctx.team, Group)
-        self.assertEqual(ctx.team.members[0].name, 'teamGroupMember')
+        self.assertEqual(ctx.team.member[0].name, 'teamGroupMember')
         self.assertIsInstance(ctx.context_activities, ContextActivities)
         self.assertEqual(ctx.context_activities.category[0].id, 'contextActivityCategory')
         self.assertEqual(ctx.revision, 'revision')
@@ -141,3 +141,8 @@ class TestContext(unittest.TestCase):
         self.assertEqual(ctx.language, 'en-US')
         self.assertIsInstance(ctx.extensions, Extensions)
         self.assertEqual(ctx.extensions['extensions'], 'extend!')
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ContextTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

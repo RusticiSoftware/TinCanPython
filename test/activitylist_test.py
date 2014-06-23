@@ -21,7 +21,7 @@ from tincan.activity_list import ActivityList
 from tincan.activity import Activity
 
 
-class TestActivityList(unittest.TestCase):
+class ActivityListTest(unittest.TestCase):
 
     def test_InitNoArgs(self):
         alist = ActivityList()
@@ -177,3 +177,7 @@ class TestActivityList(unittest.TestCase):
         self.assertIsInstance(alist[1], Activity)
         self.assertEqual(alist[0].id, 'test1')
         self.assertEqual(alist[1].id, 'test2')
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ActivityListTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

@@ -22,7 +22,7 @@ from tincan.interaction_component import InteractionComponent
 from tincan.language_map import LanguageMap
 
 
-class TestInteractionComponentList(unittest.TestCase):
+class InteractionComponentListTest(unittest.TestCase):
 
     def test_InitNoArgs(self):
         iclist = InteractionComponentList()
@@ -181,3 +181,7 @@ class TestInteractionComponentList(unittest.TestCase):
         self.assertEqual(iclist[1].id, 'test2')
         self.assertEqual(iclist[0].description, LanguageMap({"en-US": "test1"}))
         self.assertEqual(iclist[1].description, LanguageMap({"en-US": "test2"}))
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(InteractionComponentListTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
