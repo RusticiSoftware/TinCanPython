@@ -15,6 +15,7 @@ import datetime
 from tincan.base import Base
 from tincan.conversions.iso8601 import make_datetime
 
+
 class Document(Base):
     """Document class can be instantiated from a dict, another Document, or from kwargs
 
