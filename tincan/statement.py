@@ -99,10 +99,18 @@ class Statement(SerializableBase):
 
     @actor.setter
     def actor(self, value):
-        if value is not None:
-            if not isinstance(value, Agent):
-                if value.get('object_type') == 'Group' or value.get('objectType') == 'Group':
-                    value = Group(member=value.get('member'))
+        if value is not None and not isinstance(value, Agent) and not isinstance(value, Group):
+            if isinstance(value, dict):
+                if 'object_type' in value or 'objectType' in value:
+                    if 'objectType' in value:
+                        value['object_type'] = value['objectType']
+                        value.pop('objectType')
+                    if value['object_type'] == 'Agent':
+                        value = Agent(value)
+                    elif value['object_type'] == 'Group':
+                        value = Group(value)
+                    else:
+                        value = Agent(value)
                 else:
                     value = Agent(value)
         self._actor = value
@@ -147,28 +155,25 @@ class Statement(SerializableBase):
     def object(self, value):
         if value is not None:
             if not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Substatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
-                if isinstance(value, list):
-                    value = Group(value)
-                else:
-                    if isinstance(value, dict):
-                        if 'object_type' in value or 'objectType' in value:
-                            if 'objectType' in value:
-                                value['object_type'] = value['objectType']
-                                value.pop('objectType')
-                            if value['object_type'] == 'Agent':
-                                value = Agent(value)
-                            elif value['object_type'] == 'Substatement':
-                                value = Substatement(value)
-                            elif value['object_type'] == 'StatementRef':
-                                value = StatementRef(value)
-                            elif value['object_type'] == 'Activity':
-                                value = Activity(value)
-                            elif value['object_type'] == 'Group':
-                                value = Group(value)
-                            else:
-                                value = Activity(value)
+                if isinstance(value, dict):
+                    if 'object_type' in value or 'objectType' in value:
+                        if 'objectType' in value:
+                            value['object_type'] = value['objectType']
+                            value.pop('objectType')
+                        if value['object_type'] == 'Agent':
+                            value = Agent(value)
+                        elif value['object_type'] == 'Substatement':
+                            value = Substatement(value)
+                        elif value['object_type'] == 'StatementRef':
+                            value = StatementRef(value)
+                        elif value['object_type'] == 'Activity':
+                            value = Activity(value)
+                        elif value['object_type'] == 'Group':
+                            value = Group(value)
                         else:
                             value = Activity(value)
+                    else:
+                        value = Activity(value)
         self._object = value
 
     @object.deleter

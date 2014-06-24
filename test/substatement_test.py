@@ -26,11 +26,11 @@ from tincan.substatement import Substatement
 class SubstatementTest(unittest.TestCase):
 
     def test_InitAnonAgentActor(self):
-        substatement = Substatement(actor={'name':'test'})
+        substatement = Substatement(actor={'object_type':'Agent', 'name':'test'})
         self.agentVerificationHelper(substatement.actor)
 
     def test_InitAnonGroupActor(self):
-        substatement = Substatement(actor=[Agent(name='test')])
+        substatement = Substatement(actor={'object_type':'Group', 'member':[{"name":"test"}]})
         self.groupVerificationHelper(substatement.actor)
 
     def test_InitAnonVerb(self):
