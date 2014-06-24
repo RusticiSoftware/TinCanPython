@@ -18,6 +18,8 @@ from tincan.statement import Statement
 from tincan.context import Context
 from tincan.context_activities import ContextActivities
 from tincan.score import Score
+from tincan.group import Group
+from tincan.base import Base
 from tincan.result import Result
 from tincan.substatement import SubStatement
 from tincan.statement_ref import StatementRef
@@ -33,69 +35,69 @@ from tincan.documents import (
 class RemoteLRSTest(unittest.TestCase):
 
     def setUp(self):
-        if not hasattr(self, "set"):
-            self.endpoint = lrs_properties.endpoint
-            self.version = lrs_properties.version
-            self.username = lrs_properties.username
-            self.password = lrs_properties.password
-            self.lrs = RemoteLRS(
-                version=self.version,
-                endpoint=self.endpoint,
-                username=self.username,
-                password=self.password,
-            )
+        self.endpoint = lrs_properties.endpoint
+        self.version = lrs_properties.version
+        self.username = lrs_properties.username
+        self.password = lrs_properties.password
+        self.lrs = RemoteLRS(
+            version=self.version,
+            endpoint=self.endpoint,
+            username=self.username,
+            password=self.password,
+        )
 
-            self.agent = Agent(mbox="mailto:tincanpython@tincanapi.com")
-            self.agent2 = Agent(mbox="Agent2.mailto:tincanpython@tincanapi.com")
-            self.verb = Verb(
-                id="http://adlnet.gov/expapi/verbs/experienced",
-                display=LanguageMap({"en-US": "experienced"})
-            )
+        self.agent = Agent(mbox="mailto:tincanpython@tincanapi.com")
+        self.agent2 = Agent(mbox="Agent2.mailto:tincanpython@tincanapi.com")
+        self.verb = Verb(
+            id="http://adlnet.gov/expapi/verbs/experienced",
+            display=LanguageMap({"en-US": "experienced"})
+        )
 
-            self.activity = Activity(
-                id="http://tincanapi.com/TinCanPython/Test/Unit/0",
-                definition=ActivityDefinition()
-            )
-            self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test"
-            self.activity.definition.name = LanguageMap({"en-US": "Python Tests"})
-            self.activity.definition.description = LanguageMap(
-                {"en-US": "Unit test in the test suite for the Python library"}
-            )
+        self.group = Group(member=[self.agent, self.agent2])
 
-            self.parent = Activity(
-                id="http://tincanapi.com/TinCanPython/Test",
-                definition=ActivityDefinition())
-            self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test-suite"
-            self.parent.definition.name = LanguageMap({"en-US": "Python Tests"})
-            self.parent.definition.description = LanguageMap(
-                {"en-US": "Unit test in the test suite for the Python library"}
-            )
+        self.activity = Activity(
+            id="http://tincanapi.com/TinCanPython/Test/Unit/0",
+            definition=ActivityDefinition()
+        )
+        self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test"
+        self.activity.definition.name = LanguageMap({"en-US": "Python Tests"})
+        self.activity.definition.description = LanguageMap(
+            {"en-US": "Unit test in the test suite for the Python library"}
+        )
 
-            self.statement_ref = StatementRef(id=uuid.uuid4())
+        self.parent = Activity(
+            id="http://tincanapi.com/TinCanPython/Test",
+            definition=ActivityDefinition())
+        self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test-suite"
+        self.parent.definition.name = LanguageMap({"en-US": "Python Tests"})
+        self.parent.definition.description = LanguageMap(
+            {"en-US": "Unit test in the test suite for the Python library"}
+        )
 
-            self.context = Context(registration=uuid.uuid4(), statement=self.statement_ref)
-            #self.context.context_activities = ContextActivities(parent=[self.parent])
+        self.statement_ref = StatementRef(id=uuid.uuid4())
 
-            self.score = Score(
-                raw=97,
-                scaled=0.97,
-                max=100,
-                min=0
-            )
+        self.context = Context(registration=uuid.uuid4(), statement=self.statement_ref)
+        #self.context.context_activities = ContextActivities(parent=[self.parent])
 
-            self.result = Result(
-                score=self.score,
-                success=True,
-                completion=True,
-                duration="PT120S"
-            )
+        self.score = Score(
+            raw=97,
+            scaled=0.97,
+            max=100,
+            min=0
+        )
 
-            self.substatement = SubStatement(
-                actor=self.agent,
-                verb=self.verb,
-                object=self.activity,
-            )
-            self.set = True
+        self.result = Result(
+            score=self.score,
+            success=True,
+            completion=True,
+            duration="PT120S"
+        )
+
+        self.substatement = SubStatement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.activity,
+        )
 
     def tearDown(self):
         pass
@@ -130,8 +132,8 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
         self.assertIsNotNone(response.content.id)
+        self.shallow_compare(statement, response.content)
 
     def test_save_statement_with_id(self):
         statement = Statement(
@@ -144,21 +146,21 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
+        self.shallow_compare(statement, response.content, True)
 
     def test_save_statement_conflict(self):
-        test_id = str(uuid.uuid4())
+        test_id = unicode(uuid.uuid4())
 
         statement1 = Statement(
             actor=self.agent,
             verb=self.verb,
-            object=self.statement_ref,
+            object=self.substatement,
             id=test_id
         )
         statement2 = Statement(
             actor=self.agent2,
             verb=self.verb,
-            object=self.statement_ref,
+            object=self.substatement,
             id=test_id
         )
         response = self.lrs.save_statement(statement1)
@@ -183,7 +185,20 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
+        self.shallow_compare(statement, response.content, True)
+
+    def test_save_statement_group(self):
+        statement = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.group,
+            id=str(uuid.uuid4())
+        )
+        response = self.lrs.save_statement(statement)
+
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self.shallow_compare(statement, response.content, True)
 
     def test_save_statement_substatement(self):
         statement = Statement(
@@ -196,7 +211,7 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
+        self.shallow_compare(statement, response.content, True)
 
     def test_save_statements(self):
         statement1 = Statement(
@@ -216,8 +231,8 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertTrue(response.success)
         self.assertIsNotNone(response.content[0].id)
         self.assertIsNotNone(response.content[1].id)
-        self.assertEquals(statement1, response.content[0])
-        self.assertEquals(statement2, response.content[1])
+        self.shallow_compare(statement1, response.content[0])
+        self.shallow_compare(statement2, response.content[1])
 
     def test_retrieve_statement(self):
         statement = Statement(
@@ -230,15 +245,41 @@ class RemoteLRSTest(unittest.TestCase):
         )
         save_resp = self.lrs.save_statement(statement)
 
-        if(save_resp.success):
-            response = self.lrs.retrieve_statement(save_resp.content.id)
-            self.assertIsInstance(response, LRSResponse)
-            self.assertTrue(response.success)
-            self.assertEquals(statement, response.content)
-        else:
-            print "test_retrieve_statement: save_statement failed"
+        self.assertTrue(save_resp.success)
+
+        response = self.lrs.retrieve_statement(save_resp.content.id)
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self.shallow_compare(statement, response.content)
 
     def test_query_statements(self):
+        s1 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s1)
+
+        s2 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s2)
+
+        s3 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s3)
+
         query = {
             "agent": self.agent,
             "verb": self.verb,
@@ -246,28 +287,84 @@ class RemoteLRSTest(unittest.TestCase):
             "related_activities": True,
             "related_agents": True,
             "format": "ids",
-            "limit": 10
+            "limit": 2
         }
         response = self.lrs.query_statements(query)
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self.assertIsInstance(response.content, StatementsResult)
+        self.assertTrue(hasattr(response.content, 'more'))
+        self.assertIsNotNone(response.content.more)
+        self.shallow_compare(s1, response.content.statements[0])
+        self.shallow_compare(s2, response.content.statements[1])
+
+    def test_query_none(self):
+        query = {
+            "agent": Agent(mbox="unique@tincanapi.com"),
+            "verb": self.verb,
+            "activity": self.parent,
+            "related_activities": True,
+            "related_agents": True,
+            "format": "ids",
+            "limit": 2
+        }
+        response = self.lrs.query_statements(query)
+
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self.assertIsInstance(response.content, StatementsResult)
+        self.assertTrue(hasattr(response.content, 'more'))
+        self.assertTrue(hasattr(response.content, 'statements'))
+        self.assertEquals(response.content.statements, [])
 
     def test_more_statements(self):
+        s1 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s1)
+
+        s2 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s2)
+
+        s3 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s3)
+
         query = {
+            "agent": self.agent,
+            "verb": self.verb,
+            "activity": self.parent,
+            "related_activities": True,
+            "related_agents": True,
             "format": "ids",
             "limit": 2
         }
         query_resp = self.lrs.query_statements(query)
 
-        if query_resp.success and query_resp.content.more is not None:
-            response = self.lrs.more_statements(query_resp.content)
-            self.assertIsInstance(response, LRSResponse)
-            self.assertTrue(response.success)
-            self.assertIsInstance(response.content, StatementsResult)
-        else:
-            print "test_more_statements: query_statements failed or did not return a more url"
+        self.assertIsInstance(query_resp, LRSResponse)
+        self.assertTrue(query_resp.success)
+        self.assertIsNotNone(query_resp.content.more)
+
+        response = self.lrs.more_statements(query_resp.content)
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self.assertIsInstance(response.content, StatementsResult)
 
     def test_retrieve_state_ids(self):
         response = self.lrs.retrieve_state_ids(activity=self.activity, agent=self.agent)
@@ -368,6 +465,15 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
+
+    def shallow_compare(self, s1, s2, compare_ids=False):
+        for k, v in vars(s1).iteritems():
+            if not k == '_id' or compare_ids:
+                self.assertTrue(hasattr(s2, k))
+                if isinstance(v, Base):
+                    self.shallow_compare(v, getattr(s2, k), True)
+                else:
+                    self.assertEqual(v, getattr(s2, k))
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(RemoteLRSTest)

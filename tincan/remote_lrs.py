@@ -16,10 +16,11 @@ import httplib
 import urllib
 import json
 import base64
-
 from urlparse import urlparse
+
 from tincan.lrs_response import LRSResponse
 from tincan.http_request import HTTPRequest
+from tincan.statement_list import StatementList
 from tincan.agent import Agent
 from tincan.statement import Statement
 from tincan.activity import Activity
@@ -114,8 +115,12 @@ class RemoteLRS(Base):
             web_req = httplib.HTTPConnection(parsed.hostname, parsed.port)
 
         path = parsed.path
-        if params:
-            path += "?" + params
+        if parsed.query or parsed.path:
+            path += "?"
+            if parsed.query:
+                path += parsed.query
+            if params:
+                path += params
 
         if hasattr(request, "content") and request.content is not None:
             web_req.request(
@@ -204,14 +209,12 @@ class RemoteLRS(Base):
         """Save statements to LRS and update their statement id's
 
         :param statements: A list of statement objects to be saved
-        :type statements: list
+        :type statements: :class:`StatementList`
         :return: LRS Response object with the saved list of statements as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
-        def make_statement(st):
-            return st if isinstance(st, Statement) else Statement(st)
-
-        statements = [make_statement(s) for s in statements]
+        if not isinstance(statements, StatementList):
+            statements = StatementList(statements)
 
         request = HTTPRequest(
             endpoint=self.endpoint,
@@ -220,7 +223,7 @@ class RemoteLRS(Base):
         )
         request.headers["Content-Type"] = "application/json"
 
-        request.content = json.dumps([s.to_json(self.version) for s in statements])
+        request.content = statements.to_json()
 
         lrs_response = self._send_request(request)
 
@@ -344,7 +347,7 @@ class RemoteLRS(Base):
         lrs_response = self._send_request(request)
 
         if lrs_response.success:
-            lrs_response.content = StatementsResult(json.loads(lrs_response.data))
+            lrs_response.content = StatementsResult.from_json(lrs_response.data)
 
         return lrs_response
 
