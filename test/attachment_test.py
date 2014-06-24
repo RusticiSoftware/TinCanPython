@@ -74,7 +74,7 @@ class AttachmentTest(unittest.TestCase):
      def test_AttachmentInitEmptyDisplay(self):
           attachment = Attachment(usage_type='test', display={}, description=None, content_type='test', length=1, sha2='test', fileurl='test.com/test.pdf')
           self.assertEqual(attachment.usage_type, 'test')
-          self.assertEqual(attachment.display, {})
+          self.assertIsInstance(attachment.display, LanguageMap)
           self.assertEqual(attachment.content_type, 'test')
           self.assertEqual(attachment.length, 1)
           self.assertEqual(attachment.sha2, 'test')
@@ -83,7 +83,7 @@ class AttachmentTest(unittest.TestCase):
      def test_AttachmentInitEmptyDescription(self):
           attachment = Attachment(usage_type='test', display=None, description={}, content_type='test', length=1, sha2='test', fileurl='test.com/test.pdf')
           self.assertEqual(attachment.usage_type, 'test')
-          self.assertEqual(attachment.description, {})
+          self.assertIsInstance(attachment.description, LanguageMap)
           self.assertEqual(attachment.content_type, 'test')
           self.assertEqual(attachment.length, 1)
           self.assertEqual(attachment.sha2, 'test')
