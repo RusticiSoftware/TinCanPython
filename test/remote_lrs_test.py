@@ -1,5 +1,6 @@
 import unittest
 import uuid
+from datetime import datetime
 from datetime import timedelta
 
 if __name__ == '__main__':
@@ -246,7 +247,8 @@ class RemoteLRSTest(unittest.TestCase):
             context=self.context,
             result=self.result,
             id=id_str,
-            version=Version.latest
+            version=Version.latest,
+            timestamp=datetime.utcnow()
         )
         save_resp = self.lrs.save_statement(statement)
 
@@ -271,7 +273,8 @@ class RemoteLRSTest(unittest.TestCase):
             verb=self.verb,
             object=self.parent,
             result=self.result,
-            id=str(uuid.uuid4())
+            id=str(uuid.uuid4()),
+            timestamp=datetime.utcnow()
         )
         self.lrs.save_statement(s1)
 
@@ -280,7 +283,8 @@ class RemoteLRSTest(unittest.TestCase):
             verb=self.verb,
             object=self.parent,
             result=self.result,
-            id=str(uuid.uuid4())
+            id=str(uuid.uuid4()),
+            timestamp=datetime.utcnow()
         )
         self.lrs.save_statement(s2)
 
@@ -289,7 +293,8 @@ class RemoteLRSTest(unittest.TestCase):
             verb=self.verb,
             object=self.parent,
             result=self.result,
-            id=str(uuid.uuid4())
+            id=str(uuid.uuid4()),
+            timestamp=datetime.utcnow()
         )
         self.lrs.save_statement(s3)
 
@@ -480,7 +485,7 @@ class RemoteLRSTest(unittest.TestCase):
 
     def shallow_compare(self, s1, s2, compare_ids=False):
         for k, v in vars(s1).iteritems():
-            if not k == '_id' or compare_ids:
+            if (not k == '_stored' and not k == '_authority') or compare_ids:
                 self.assertTrue(hasattr(s2, k))
                 if isinstance(v, Base):
                     self.shallow_compare(v, getattr(s2, k), True)
