@@ -69,7 +69,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.parent = Activity(
             id="http://tincanapi.com/TinCanPython/Test",
             definition=ActivityDefinition())
-        self.activity.definition.type = "http://id.tincanapi.com/activitytype/unit-test-suite"
+        self.parent.definition.type = "http://id.tincanapi.com/activitytype/unit-test-suite"
         self.parent.definition.name = LanguageMap({"en-US": "Python Tests"})
         self.parent.definition.description = LanguageMap(
             {"en-US": "Unit test in the test suite for the Python library"}
@@ -306,13 +306,14 @@ class RemoteLRSTest(unittest.TestCase):
 
     def test_query_none(self):
         query = {
-            "agent": Agent(mbox="unique@tincanapi.com"),
+            "agent": self.agent,
             "verb": self.verb,
             "activity": self.parent,
             "related_activities": True,
             "related_agents": True,
             "format": "ids",
-            "limit": 2
+            "limit": 2,
+            "registration": unicode(uuid.uuid4()),
         }
         response = self.lrs.query_statements(query)
 
