@@ -261,8 +261,8 @@ class RemoteLRSTest(unittest.TestCase):
             context=self.context,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=utc.localize(datetime.utcnow())
-            version=Version.latest,
+            timestamp=utc.localize(datetime.utcnow()),
+            version=Version.latest
         )
         save_resp = self.lrs.save_statement(statement)
 
