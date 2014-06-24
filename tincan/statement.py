@@ -24,7 +24,7 @@ from tincan.attachment import Attachment
 from tincan.attachment_list import AttachmentList
 from tincan.result import Result
 from tincan.context import Context
-from tincan.substatement import Substatement
+from tincan.substatement import SubStatement
 from tincan.statement_ref import StatementRef
 from tincan.activity import Activity
 from tincan.conversions.iso8601 import make_datetime
@@ -154,7 +154,7 @@ class Statement(SerializableBase):
     @object.setter
     def object(self, value):
         if value is not None:
-            if not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Substatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
+            if not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, SubStatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
                 if isinstance(value, dict):
                     if 'object_type' in value or 'objectType' in value:
                         if 'objectType' in value:
@@ -163,7 +163,7 @@ class Statement(SerializableBase):
                         if value['object_type'] == 'Agent':
                             value = Agent(value)
                         elif value['object_type'] == 'SubStatement':
-                            value = Substatement(value)
+                            value = SubStatement(value)
                         elif value['object_type'] == 'StatementRef':
                             value = StatementRef(value)
                         elif value['object_type'] == 'Activity':

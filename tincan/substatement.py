@@ -18,7 +18,7 @@ from tincan.group import Group
 from tincan.verb import Verb
 from tincan.activity import Activity
 
-class Substatement(SerializableBase):
+class SubStatement(SerializableBase):
 
     _props_req = [
         'object_type'
@@ -34,7 +34,7 @@ class Substatement(SerializableBase):
 
     @property
     def actor(self):
-        """Actor for Substatement
+        """Actor for SubStatement
 
         :setter: Tries to convert to Agent
         :setter type: :mod:`tincan.agent`
@@ -67,7 +67,7 @@ class Substatement(SerializableBase):
 
     @property
     def verb(self):
-        """Verb for Substatement
+        """Verb for SubStatement
 
         :setter: Tries to convert to Verb
         :setter type: :mod:`tincan.verb`
@@ -88,7 +88,7 @@ class Substatement(SerializableBase):
 
     @property
     def object(self):
-        """Object for Substatement
+        """Object for SubStatement
 
         :setter: Setter for object
         :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
@@ -123,7 +123,7 @@ class Substatement(SerializableBase):
 
     @property
     def object_type(self):
-        """Object Type for Substatement. Will always be "SubStatement"
+        """Object Type for SubStatement. Will always be "SubStatement"
 
         :setter: Tries to convert to unicode
         :setter type: unicode
