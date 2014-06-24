@@ -13,7 +13,7 @@
 #    limitations under the License.
 import datetime
 from tincan.base import Base
-
+from tincan.conversions.iso8601 import make_datetime
 
 class Document(Base):
     """Document class can be instantiated from a dict, another Document, or from kwargs
@@ -26,15 +26,15 @@ class Document(Base):
     :type content: bytearray
     :param etag: The etag of this document
     :type etag: unicode
-    :param time_stamp: The time stamp of this document
-    :type time_stamp: unicode
+    :param timestamp: The timestamp of this document
+    :type timestamp: :class:`datetime.datetime`
     """
     _props_req = [
         'id',
         'content',
         'content_type',
         'etag',
-        'time_stamp',
+        'timestamp',
     ]
 
     _props = []
@@ -107,21 +107,45 @@ class Document(Base):
         self._etag = value
 
     @property
-    def time_stamp(self):
-        """The Document time stamp
+    def timestamp(self):
+        """The Document timestamp.
 
-        :setter: Tries to convert to unicode
-        :setter type: str | unicode | :class:`datetime.datetime`
-        :rtype: unicode
+        :setter: Tries to convert to :class:`datetime.datetime`. If
+        no timezone is given, makes a naive `datetime.datetime`.
+
+        Strings will be parsed as ISO 8601 timestamps.
+
+        If a number is provided, it will be interpreted as a UNIX
+        timestamp, which by definition is UTC.
+
+        If a `dict` is provided, does `datetime.datetime(**value)`.
+
+        If a `tuple` or a `list` is provided, does
+        `datetime.datetime(*value)`. Uses the timezone in the tuple or
+        list if provided.
+
+        :setter type: :class:`datetime.datetime` | unicode | str | int | float | dict | tuple | None
+        :rtype: :class:`datetime.datetime`
         """
-        return self._time_stamp
+        return self._timestamp
 
-    @time_stamp.setter
-    def time_stamp(self, value):
-        if isinstance(value, datetime.datetime):
-            value = value.isoformat()
+    @timestamp.setter
+    def timestamp(self, value):
+        if value is None or isinstance(value, datetime.datetime):
+            self._timestamp = value
+            return
 
-        if not isinstance(value, unicode) and value is not None:
-            unicode(value)
-
-        self._time_stamp = value
+        try:
+            self._timestamp = make_datetime(value)
+        except TypeError as e:
+            e.message = (
+                "Property 'timestamp' in a 'tincan.documents.%s' "
+                "object must be set with a "
+                "datetime.datetime, str, unicode, int, float, dict "
+                "or None.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
+            )
+            raise e

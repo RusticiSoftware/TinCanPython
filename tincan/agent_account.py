@@ -24,7 +24,7 @@ from tincan.serializable_base import SerializableBase
 class AgentAccount(SerializableBase):
     _props = [
         "name",
-        "homepage"
+        "home_page"
     ]
 
     @property
@@ -52,25 +52,25 @@ class AgentAccount(SerializableBase):
         del self._name
 
     @property
-    def homepage(self):
+    def home_page(self):
         """Homepage for Account
- 
+
         :setter: Tries to convert to unicode
         :setter type: unicode
         :rtype: unicode
- 
-        """
-        return self._homepage
 
-    @homepage.setter
-    def homepage(self, value):
+        """
+        return self._home_page
+
+    @home_page.setter
+    def home_page(self, value):
         if value is not None:
             if value == '':
                 raise ValueError("Property homepage can not be set to an empty string")
             elif not isinstance(value, unicode):
                 value = unicode(value)
-        self._homepage = value
+        self._home_page = value
 
-    @homepage.deleter
-    def homepage(self):
-        del self._homepage
+    @home_page.deleter
+    def home_page(self):
+        del self._home_page

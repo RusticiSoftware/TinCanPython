@@ -50,8 +50,7 @@ class StatementsResultTest(TinCanBaseTestCase):
         sr.statements.append(4)
         self.assertEqual(sr.statements[3], 4, 'Did not append value!')
 
-        with self.assertRaises(AttributeError):
-            unused = sr.more
+        self.assertIsNone(sr.more)
 
         sr.more = 'http://www.example.com/more/1234'
 

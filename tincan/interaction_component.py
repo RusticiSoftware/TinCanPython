@@ -56,11 +56,11 @@ class InteractionComponent(SerializableBase):
     @property
     def description(self):
         """Description for Agent
- 
+
         :setter: Tries to convert to LanguageMap
         :setter type: :mod:`tincan.language_map`
         :rtype: :mod:`tincan.language_map`
- 
+
         """
         return self._description
 

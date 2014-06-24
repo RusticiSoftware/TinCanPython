@@ -13,6 +13,8 @@
 #    limitations under the License.
 
 import unittest
+from datetime import datetime
+import pytz
 
 if __name__ == '__main__':
     import sys
@@ -53,8 +55,8 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         self.assertIsNone(doc.content)
         self.assertTrue(hasattr(doc, "etag"))
         self.assertIsNone(doc.etag)
-        self.assertTrue(hasattr(doc, "time_stamp"))
-        self.assertIsNone(doc.time_stamp)
+        self.assertTrue(hasattr(doc, "timestamp"))
+        self.assertIsNone(doc.timestamp)
         self.assertTrue(hasattr(doc, "activity"))
         self.assertIsNone(doc.activity)
 
@@ -84,7 +86,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content_type, "test type")
         self.assertTrue(hasattr(doc, "content"))
         self.assertTrue(hasattr(doc, "etag"))
-        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "timestamp"))
         self.assertTrue(hasattr(doc, "activity"))
 
     def test_init_all(self):
@@ -93,14 +95,17 @@ class ActivityProfileDocumentTest(unittest.TestCase):
             content_type="test type",
             content=bytearray("test bytearray", "utf-8"),
             etag="test etag",
-            time_stamp="test time_stamp",
+            timestamp="2014-06-23T15:25:00-05:00",
             activity=self.activity,
         )
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.activity, self.activity)
 
     def test_setters(self):
@@ -109,14 +114,17 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         doc.content_type = "test type"
         doc.content = bytearray("test bytearray", "utf-8")
         doc.etag = "test etag"
-        doc.time_stamp = "test time_stamp"
+        doc.timestamp = "2014-06-23T15:25:00-05:00"
         doc.activity = self.activity
 
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.activity, self.activity)
 
     def test_setters_none(self):
@@ -125,14 +133,14 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         doc.content_type = None
         doc.content = None
         doc.etag = None
-        doc.time_stamp = None
+        doc.timestamp = None
         doc.activity = None
 
         self.assertIsNone(doc.id)
         self.assertIsNone(doc.content_type)
         self.assertIsNone(doc.content)
         self.assertIsNone(doc.etag)
-        self.assertIsNone(doc.time_stamp)
+        self.assertIsNone(doc.timestamp)
         self.assertIsNone(doc.activity)
 
     def test_activity_setter(self):

@@ -38,8 +38,23 @@ class SerializableBase(Base):
         '_content_type': 'contentType',
         '_fileurl': 'fileUrl',
         '_context_activities': 'contextActivities',
-        '_home_page': 'homePage'
+        '_home_page': 'homePage',
     }
+
+    def __init__(self, *args, **kwargs):
+
+        new_kwargs = {}
+        for obj in args:
+            new_kwargs.update(obj if isinstance(obj, dict) else vars(obj))
+
+        new_kwargs.update(kwargs)
+
+        for k, v in self._props_corrected.iteritems():
+            if v in new_kwargs:
+                new_kwargs[k[1:]] = new_kwargs[v]
+                new_kwargs.pop(v)
+
+        super(SerializableBase, self).__init__(**new_kwargs)
 
     @classmethod
     def from_json(cls, json_data):

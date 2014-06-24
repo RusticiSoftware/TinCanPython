@@ -147,6 +147,9 @@ class ISO8601Test(unittest.TestCase):
         with self.assertRaises(ValueError):
             make_timedelta('PT1')
 
+        with self.assertRaises(ValueError):
+            make_timedelta('')
+
     def test_timedelta_to_iso(self):
         iso = jsonify_timedelta(timedelta(seconds=0))
         self.assertEqual(iso, 'PT00S')
@@ -391,6 +394,24 @@ class ISO8601Test(unittest.TestCase):
             jsonify_datetime(pair[1]),
         )
 
+    def test_bad_iso_to_timedelta(self):
+        with self.assertRaises(ValueError):
+            make_datetime('')
+
+        with self.assertRaises(ValueError):
+            make_datetime('bad')
+
+        with self.assertRaises(TypeError):
+            make_datetime(None)
+
+        with self.assertRaises(ValueError):
+            # used '#' instead of 'T'
+            make_datetime('2014-06-19#17:03:17.361077-05:00')
+
+        with self.assertRaises(ValueError):
+            # used '#' instead of '-'
+            make_datetime('2014-06-19T17:03#17.361077-05:00')
+
     def test_bad_timedelta_to_iso(self):
         with self.assertRaises(AssertionError):
             jsonify_datetime('2014-06-19T17:03:17.361077-05:00')
@@ -412,6 +433,7 @@ class ISO8601Test(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             jsonify_datetime('PT1H')
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ISO8601Test)

@@ -14,16 +14,20 @@
 
 import uuid
 import re
+from datetime import datetime
+
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.group import Group
 from tincan.verb import Verb
 from tincan.attachment import Attachment
+from tincan.attachment_list import AttachmentList
 from tincan.result import Result
 from tincan.context import Context
 from tincan.substatement import Substatement
 from tincan.statement_ref import StatementRef
 from tincan.activity import Activity
+from tincan.conversions.iso8601 import make_datetime
 
 """
 .. module Statement
@@ -32,7 +36,13 @@ from tincan.activity import Activity
 
 class Statement(SerializableBase):
 
-    _UUID_REGEX = re.compile('^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$')
+    _UUID_REGEX = re.compile(
+        r'^[a-f0-9]{8}-'
+        r'[a-f0-9]{4}-'
+        r'[1-5][a-f0-9]{3}-'
+        r'[89ab][a-f0-9]{3}-'
+        r'[a-f0-9]{12}$'
+    )
 
     _props_req = [
         "id",
@@ -78,7 +88,7 @@ class Statement(SerializableBase):
 
     @id.deleter
     def id(self):
-        del(self._id)
+        del self._id
 
     @property
     def actor(self):
@@ -96,9 +106,9 @@ class Statement(SerializableBase):
         if value is not None:
             if not value:
                 value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group):
-                if isinstance(value, list):
-                    value = Group(member=value)
+            elif not isinstance(value, Agent):
+                if value.get('object_type') == 'Group' or value.get('objectType') == 'Group':
+                    value = Group(member=value.get('member'))
                 else:
                     value = Agent(value)
             elif len(vars(value)) == 0:
@@ -107,7 +117,7 @@ class Statement(SerializableBase):
 
     @actor.deleter
     def actor(self):
-        del(self._actor)
+        del self._actor
 
     @property
     def verb(self):
@@ -133,7 +143,7 @@ class Statement(SerializableBase):
 
     @verb.deleter
     def verb(self):
-        del(self._verb)
+        del self._verb
 
     @property
     def object(self):
@@ -180,58 +190,101 @@ class Statement(SerializableBase):
 
     @object.deleter
     def object(self):
-        del(self._object)
+        del self._object
 
-    #TODO: make timestamp and stored compatible with datetime and timedelta objects
     @property
     def timestamp(self):
         """Timestamp for Statement
 
-        :setter: Tries to convert to unicode
-        :setter type: unicode | :class:`datetime.datetime`
-        :rtype: unicode
+        :setter: Tries to convert to :class:`datetime.datetime`. If
+        no timezone is given, makes a naive `datetime.datetime`.
 
+        Strings will be parsed as ISO 8601 timestamps.
+
+        If a number is provided, it will be interpreted as a UNIX
+        timestamp, which by definition is UTC.
+
+        If a `dict` is provided, does `datetime.datetime(**value)`.
+
+        If a `tuple` or a `list` is provided, does
+        `datetime.datetime(*value)`. Uses the timezone in the tuple or
+        list if provided.
+
+        :setter type: :class:`datetime.datetime` | unicode | str | int | float | dict | tuple | list | None
+        :rtype: :class:`datetime.datetime`
         """
         return self._timestamp
 
     @timestamp.setter
     def timestamp(self, value):
-        if value is not None:
-            if value == '':
-                raise ValueError("Property timestamp can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
-        self._timestamp = value
+        if value is None or isinstance(value, datetime):
+            self._timestamp = value
+            return
+
+        try:
+            self._timestamp = make_datetime(value)
+        except TypeError as e:
+            e.message = (
+                "Property 'timestamp' in a 'tincan.%s' "
+                "object must be set with a "
+                "datetime.datetime, str, unicode, int, float, dict "
+                "or None.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
+            )
+            raise e
 
     @timestamp.deleter
     def timestamp(self):
-        del(self._timestamp)
+        del self._timestamp
 
-    #TODO: make timestamp and stored compatible with datetime and timedelta objects
     @property
     def stored(self):
-        """Stored for Statement
+        """Storage time. Tries to convert to :class:`datetime.datetime`.
+        If no timezone is given, makes a naive `datetime.datetime`.
 
-        :setter: Tries to convert to unicode
-        :setter type: unicode | :class:`datetime.datetime`
-        :rtype: unicode
+        Strings will be parsed as ISO 8601 timestamps.
 
+        If a number is provided, it will be interpreted as a UNIX
+        timestamp, which by definition is UTC.
+
+        If a `dict` is provided, does `datetime.datetime(**value)`.
+
+        If a `tuple` or a `list` is provided, does
+        `datetime.datetime(*value)`. Uses the timezone in the tuple or
+        list if provided.
+
+        :setter type: :class:`datetime.datetime` | unicode | str | int | float | dict | tuple | list | None
+        :rtype: :class:`datetime.datetime`
         """
         return self._stored
 
     @stored.setter
     def stored(self, value):
+        if value is None or isinstance(value, datetime):
+            self._stored = value
+            return
 
-        if value is not None:
-            if value == '':
-                raise ValueError("Property stored can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
-        self._stored = value
+        try:
+            self._stored = make_datetime(value)
+        except TypeError as e:
+            e.message = (
+                "Property 'stored' in a 'tincan.%s' "
+                "object must be set with a "
+                "datetime.datetime, str, unicode, int, float, dict "
+                "or None.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
+            )
+            raise e
 
     @stored.deleter
     def stored(self):
-        del(self._stored)
+        del self._stored
 
     @property
     def authority(self):
@@ -257,7 +310,7 @@ class Statement(SerializableBase):
 
     @authority.deleter
     def authority(self):
-        del(self._authority)
+        del self._authority
 
     @property
     def result(self):
@@ -283,7 +336,7 @@ class Statement(SerializableBase):
 
     @result.deleter
     def result(self):
-        del(self._result)
+        del self._result
 
     @property
     def context(self):
@@ -309,7 +362,7 @@ class Statement(SerializableBase):
 
     @context.deleter
     def context(self):
-        del(self._context)
+        del self._context
 
     @property
     def version(self):
@@ -333,7 +386,7 @@ class Statement(SerializableBase):
 
     @version.deleter
     def version(self):
-        del(self._version)
+        del self._version
 
     @property
     def attachments(self):
@@ -348,19 +401,13 @@ class Statement(SerializableBase):
 
     @attachments.setter
     def attachments(self, value):
-        newmember = []
-        if value is not None:
-            if isinstance(value, list):
-                for k in value:
-                    if not isinstance(k, Attachment):
-                        newmember.append(Attachment(k))
-                    else:
-                        newmember.append(k)
-            else:
-                 self.attachments = list(value)
-        value = newmember
+        if value is not None and not isinstance(value, AttachmentList):
+            try:
+                value = AttachmentList([Attachment(value)])
+            except (TypeError, AttributeError):
+                value = AttachmentList(value)
         self._attachments = value
 
     @attachments.deleter
     def attachments(self):
-        del(self._attachments)
+        del self._attachments

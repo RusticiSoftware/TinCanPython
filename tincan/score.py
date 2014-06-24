@@ -118,16 +118,15 @@ class Score(SerializableBase):
     @min.deleter
     def min(self):
         del self._min
-    
-    
+
     @property
     def max(self):
         """Max for Score
- 
+
         :setter: Tries to convert to float
         :setter type: float
         :rtype: float
- 
+
         """
         return self._max
 

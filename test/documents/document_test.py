@@ -14,6 +14,7 @@
 
 import unittest
 import datetime
+import pytz
 
 if __name__ == '__main__':
     import sys
@@ -43,8 +44,8 @@ class DocumentTest(unittest.TestCase):
         self.assertIsNone(doc.content)
         self.assertTrue(hasattr(doc, "etag"))
         self.assertIsNone(doc.etag)
-        self.assertTrue(hasattr(doc, "time_stamp"))
-        self.assertIsNone(doc.time_stamp)
+        self.assertTrue(hasattr(doc, "timestamp"))
+        self.assertIsNone(doc.timestamp)
 
     def test_init_kwarg_exception(self):
         with self.assertRaises(AttributeError):
@@ -72,7 +73,7 @@ class DocumentTest(unittest.TestCase):
         self.assertEqual(doc.content_type, "test type")
         self.assertTrue(hasattr(doc, "content"))
         self.assertTrue(hasattr(doc, "etag"))
-        self.assertTrue(hasattr(doc, "time_stamp"))
+        self.assertTrue(hasattr(doc, "timestamp"))
 
     def test_init_all(self):
         doc = Document(
@@ -80,13 +81,17 @@ class DocumentTest(unittest.TestCase):
             content_type="test type",
             content=bytearray("test bytearray", "utf-8"),
             etag="test etag",
-            time_stamp="test time_stamp"
+            timestamp="2014-06-23T15:25:00-05:00"
         )
+
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime.datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.timestamp, dt)
 
     def test_setters(self):
         doc = Document()
@@ -94,13 +99,16 @@ class DocumentTest(unittest.TestCase):
         doc.content_type = "test type"
         doc.content = bytearray("test bytearray", "utf-8")
         doc.etag = "test etag"
-        doc.time_stamp = "test time_stamp"
+        doc.timestamp = "2014-06-23T15:25:00-05:00"
 
         self.assertEqual(doc.id, "test")
         self.assertEqual(doc.content_type, "test type")
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
-        self.assertEqual(doc.time_stamp, "test time_stamp")
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime.datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(doc.timestamp, dt)
 
     def test_setters_none(self):
         doc = Document()
@@ -108,24 +116,24 @@ class DocumentTest(unittest.TestCase):
         doc.content_type = None
         doc.content = None
         doc.etag = None
-        doc.time_stamp = None
+        doc.timestamp = None
 
         self.assertIsNone(doc.id)
         self.assertIsNone(doc.content_type)
         self.assertIsNone(doc.content)
         self.assertIsNone(doc.etag)
-        self.assertIsNone(doc.time_stamp)
+        self.assertIsNone(doc.timestamp)
 
     def test_content_setter(self):
         doc = Document()
         doc.content = "test bytearray"
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
 
-    def test_content_time_stamp(self):
+    def test_content_timestamp(self):
         doc = Document()
         dt = datetime.datetime.now()
-        doc.time_stamp = dt
-        self.assertEqual(doc.time_stamp, dt.isoformat())
+        doc.timestamp = dt
+        self.assertEqual(doc.timestamp, dt)
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(DocumentTest)

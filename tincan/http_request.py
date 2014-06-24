@@ -48,7 +48,7 @@ class HTTPRequest(Base):
     ]
 
     _props.extend(_props_req)
-    
+
     @property
     def endpoint(self):
         """The remote lrs endpoint used for the HTTP connection
@@ -100,7 +100,7 @@ class HTTPRequest(Base):
         if not isinstance(value, unicode) and value is not None:
             unicode(value)
         self._resource = value
-        
+
     @property
     def headers(self):
         """Headers for the HTTP connection ("If-Match", "Content-Type", etc.)
@@ -134,7 +134,7 @@ class HTTPRequest(Base):
         if value is not None:
             val_dict.update(value if isinstance(value, dict) else vars(value))
         self._query_params = val_dict
-        
+
     @property
     def content(self):
         """Content body for the HTTP connection. Valid json string.
@@ -154,7 +154,7 @@ class HTTPRequest(Base):
     @content.deleter
     def content(self):
         del self._content
-        
+
     @property
     def ignore404(self):
         """True if this request should consider a 404 response successful, False otherwise

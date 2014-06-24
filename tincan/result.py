@@ -125,27 +125,38 @@ class Result(SerializableBase):
     def duration(self):
         """Duration for Result
 
-        :setter: Tries to convert to timdelta
-        :setter type: :mod:`datetime.timedelta`
-        :rtype: :mod:`datetime.timedelta`
+        :setter: Tries to convert to :class:`datetime.timedelta`.
 
+        Strings will be parsed as ISO 8601 durations.
+
+        If a number is provided, it will be interpreted as the number of
+        seconds.
+
+        If a `dict` is provided, does `datetime.timedelta(**value)`.
+
+        :setter type: :class:`datetime.timedelta` | unicode | str | int | float | dict | None
+        :rtype: :class:`datetime.timedelta`
         """
         return self._duration
 
     @duration.setter
     def duration(self, value):
-        if value is None:
-            self._duration = None
-        elif isinstance(value, timedelta):
+        if value is None or isinstance(value, timedelta):
             self._duration = value
-        elif isinstance(value, (str, unicode)):
+            return
+
+        try:
             self._duration = make_timedelta(value)
-        elif not isinstance(value, basestring):
-            raise TypeError(
+        except Exception as e:
+            e.message = (
                 "Property 'duration' in a 'tincan.%s' object must be set with a "
-                "str, unicode, or None." %
-                self.__class__.__name__
+                "datetime.timedelta, str, unicode, int, float or None.\n\n%s" %
+                (
+                    self.__class__.__name__,
+                    e.message,
+                )
             )
+            raise e
 
     @duration.deleter
     def duration(self):
@@ -185,11 +196,11 @@ class Result(SerializableBase):
     @property
     def extensions(self):
         """Extensions for Result
- 
+
         :setter: Tries to convert to Extensions
         :setter type: :mod:`tincan.extensions`
         :rtype: :mod:`tincan.extensions`
- 
+
         """
         return self._extensions
 

@@ -13,7 +13,8 @@
 #    limitations under the License.
 
 import unittest
-from datetime import timedelta
+from datetime import timedelta, datetime
+import pytz
 import uuid
 
 if __name__ == '__main__':
@@ -64,22 +65,28 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.authority)
 
     def test_InitTimestamp(self):
-        statement = Statement(timestamp='test o clock')
+        statement = Statement(timestamp="2014-06-23T15:25:00-05:00")
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
-        self.assertEqual(statement.timestamp, 'test o clock')
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(statement.timestamp, dt)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
 
     def test_InitStored(self):
-        statement = Statement(stored='test o clock')
+        statement = Statement(stored="2014-06-23T15:25:00-05:00")
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
-        self.assertEqual(statement.stored, 'test o clock')
+
+        central = pytz.timezone("US/Central")   # UTC -0500
+        dt = central.localize(datetime(2014, 6, 23, 15, 25))
+        self.assertEqual(statement.stored, dt)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.authority)
 
@@ -167,7 +174,7 @@ class StatementTest(unittest.TestCase):
         self.agentVerificationHelper(statement.actor)
 
     def test_InitAnonGroupActor(self):
-        statement = Statement(actor=[Agent(name='test')])
+        statement = Statement(actor={'member': [Agent(name='test')], 'object_type': 'Group'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
@@ -375,7 +382,7 @@ class StatementTest(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_InitUnpack(self):
-        obj = {'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'object_type':'Agent', 'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'016699c6-d600-48a7-96ab-86187498f16f'}, 'attachments':[{'usage_type':'test'}]}
+        obj = {'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor': {'name':'test'}, 'verb':{'id':'test'}, 'object':{'object_type':'Agent', 'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'016699c6-d600-48a7-96ab-86187498f16f'}, 'attachments':[{'usage_type':'test'}]}
         statement = Statement(**obj)
         self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.agentVerificationHelper(statement.actor)
@@ -407,7 +414,7 @@ class StatementTest(unittest.TestCase):
         self.assertEqual(statement.to_json(), '{"attachments": []}')
 
     def test_FromJSONToJSON(self):
-        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
+        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor": {"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
         statement = Statement.from_json(json_str)
         self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.agentVerificationHelper(statement.actor)
