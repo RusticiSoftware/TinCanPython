@@ -16,7 +16,6 @@ from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.group import Group
 from tincan.verb import Verb
-from tincan.statement_ref import StatementRef
 from tincan.activity import Activity
 
 class Substatement(SerializableBase):
@@ -46,7 +45,7 @@ class Substatement(SerializableBase):
                 value = None
             elif not isinstance(value, Agent) and not isinstance(value, Group):
                 if isinstance(value, list):
-                    value = Group(members=value)
+                    value = Group(member=value)
                 else:
                     value = Agent(value)
             elif len(vars(value)) == 0:
@@ -104,17 +103,20 @@ class Substatement(SerializableBase):
                     value = Group(member=value)
                 else:
                     if isinstance(value, dict):
-                        if value['object_type'] is not None:
+                        if 'object_type' in value or 'objectType' in value:
+                            if 'objectType' in value:
+                                value['object_type'] = value['objectType']
+                                value.pop('objectType')
                             if value['object_type'] == 'Agent':
                                 value = Agent(value)
                             elif value['object_type'] == 'Activity':
                                 value = Activity(value)
-                            elif value['object_type'] == 'StatementRef':
-                                value = StatementRef(value)
+                            elif value['object_type'] == 'Group':
+                                value = Group(value)
                             else:
-                                raise ValueError('Object type is invalid')
-                    else:
-                        raise ValueError('Must set an object_type for the statement object')
+                                value = Activity(value)
+                        else:
+                            value = Activity(value)
             elif len(vars(value)) == 0:
                 value = None
         self._object = value
