@@ -119,7 +119,7 @@ class RemoteLRSTest(unittest.TestCase):
         response = lrs.about()
 
         self.assertFalse(response.success)
-        
+
     def test_save_statement(self):
         statement = Statement(
             actor=self.agent,
