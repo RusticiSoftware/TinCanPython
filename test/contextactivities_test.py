@@ -111,15 +111,27 @@ class ContextActivitiesTest(unittest.TestCase):
         self.activityVerificationHelper(ctx_act)
 
     def test_AsVersionList(self):
-        obj = {'category': [{'id': 'categoryList'}], 'parent': [{'id': 'parentList'}], 'grouping': [{'id': 'groupingList'}], 'other': [{'id': 'otherList'}]}
+        obj = {
+            'category': [{'id': 'categoryList', "objectType": "Activity"}],
+            'parent': [{'id': 'parentList', 'objectType': 'Activity'}],
+            'grouping': [{'id': 'groupingList', 'objectType': 'Activity'}],
+            'other': [{'id': 'otherList', 'objectType': 'Activity'}]}
         ctx_act = ContextActivities(**obj)
         self.listVerificationHelper(ctx_act)
         ctx_act2 = ctx_act.as_version()
         self.assertEqual(ctx_act2, obj)
 
     def test_AsVersionActivity(self):
-        obj = {'category': {'id': 'categoryActivity'}, 'parent': {'id': 'parentActivity'}, 'grouping': {'id': 'groupingActivity'}, 'other': {'id': 'otherActivity'}}
-        check_obj = {'category': [{'id': 'categoryActivity'}], 'parent': [{'id': 'parentActivity'}], 'grouping': [{'id': 'groupingActivity'}], 'other': [{'id': 'otherActivity'}]}
+        obj = {
+            'category': {'id': 'categoryActivity', 'object_type': 'Activity'},
+            'parent': {'id': 'parentActivity', 'object_type': 'Activity'},
+            'grouping': {'id': 'groupingActivity', 'object_type': 'Activity'},
+            'other': {'id': 'otherActivity', 'object_type': 'Activity'}}
+        check_obj = {
+            'category': [{'id': 'categoryActivity', 'objectType': 'Activity'}],
+            'parent': [{'id': 'parentActivity', 'objectType': 'Activity'}],
+            'grouping': [{'id': 'groupingActivity', 'objectType': 'Activity'}],
+            'other': [{'id': 'otherActivity', 'objectType': 'Activity'}]}
         ctx_act = ContextActivities(**obj)
         self.activityVerificationHelper(ctx_act)
         ctx_act2 = ctx_act.as_version()

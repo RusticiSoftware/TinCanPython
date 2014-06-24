@@ -30,10 +30,10 @@ class Activity(SerializableBase, StatementTargetable):
 
     _props_req = [
         'id',
+        'object_type'
     ]
 
     _props = [
-        'object_type',
         'definition',
     ]
 

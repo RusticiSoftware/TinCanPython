@@ -35,19 +35,19 @@ class ActivityListTest(unittest.TestCase):
 
     def test_Init(self):
         alist = ActivityList(
-            [Activity(id='test1'), Activity(id='test2')]
+            [Activity(id='test1', object_type='Activity'), Activity(id='test2', object_type='Activity')]
         )
         self.listVerificationHelper(alist)
 
     def test_InitList(self):
-        a1 = Activity(id='test1')
-        a2 = Activity(id='test2')
+        a1 = Activity(id='test1', object_type='Activity')
+        a2 = Activity(id='test2', object_type='Activity')
         alist = ActivityList([a1, a2])
         self.listVerificationHelper(alist)
 
     def test_InitActivityList(self):
-        a1 = Activity(id='test1')
-        a2 = Activity(id='test2')
+        a1 = Activity(id='test1', object_type='Activity')
+        a2 = Activity(id='test2', object_type='Activity')
         arg = ActivityList([a1, a2])
         alist = ActivityList(arg)
         self.listVerificationHelper(alist)
@@ -83,23 +83,23 @@ class ActivityListTest(unittest.TestCase):
         self.assertEqual(check, [])
 
     def test_AsVersionNotEmpty(self):
-        a1 = Activity(id='test1')
-        a2 = Activity(id='test2')
+        a1 = Activity(id='test1', object_type='Activity')
+        a2 = Activity(id='test2', object_type='Activity')
         alist = ActivityList([a1, a2])
         check = alist.as_version()
         self.assertEqual(check,
-            [{"id": "test1"}, {"id": "test2"}]
+            [{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]
         )
 
     def test_ToJSONFromJSON(self):
-        json_str = '[{"id": "test1"}, {"id": "test2"}]'
+        json_str = '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]'
         alist = ActivityList.from_json(json_str)
         self.listVerificationHelper(alist)
         self.assertEqual(alist.to_json(), json_str)
 
     def test_ToJSON(self):
         alist = ActivityList([{"id": "test1"}, {"id": "test2"}])
-        self.assertEqual(alist.to_json(), '[{"id": "test1"}, {"id": "test2"}]')
+        self.assertEqual(alist.to_json(), '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]')
 
     def test_setItem(self):
         alist = ActivityList([Activity(), Activity()])
@@ -108,16 +108,16 @@ class ActivityListTest(unittest.TestCase):
         self.listVerificationHelper(alist)
 
     def test_setItemException(self):
-        a1 = Activity(id='test1')
-        a2 = Activity(id='test2')
+        a1 = Activity(id='test1', object_type='Activity')
+        a2 = Activity(id='test2', object_type='Activity')
         alist = ActivityList([a1, a2])
         with self.assertRaises(TypeError):
             alist[0] = 'not Activity'
         self.listVerificationHelper(alist)
 
     def test_appendItem(self):
-        a1 = Activity(id='test1')
-        a2 = Activity(id='test2')
+        a1 = Activity(id='test1', object_type='Activity')
+        a2 = Activity(id='test2', object_type='Activity')
         alist = ActivityList()
         alist.append(a1)
         alist.append(a2)
@@ -136,8 +136,8 @@ class ActivityListTest(unittest.TestCase):
         self.listVerificationHelper(alist)
 
     def test_extend(self):
-        a1 = Activity(id='test1')
-        a2 = Activity(id='test2')
+        a1 = Activity(id='test1', object_type='Activity')
+        a2 = Activity(id='test2', object_type='Activity')
         arglist = ActivityList([a1, a2])
         alist = ActivityList([Activity(id='test3')])
         alist.extend(arglist)
@@ -147,24 +147,24 @@ class ActivityListTest(unittest.TestCase):
         self.assertEqual(alist[2].id, 'test2')
 
     def test_extendExceptionNotComponent(self):
-        a1 = Activity(id='test1')
+        a1 = Activity(id='test1', object_type='Activity')
         arglist = [a1, 'not Activity']
         alist = ActivityList([Activity()])
         with self.assertRaises(TypeError):
             alist.extend(arglist)
 
     def test_insert(self):
-        a1 = Activity(id='test1')
+        a1 = Activity(id='test1', object_type='Activity')
         a2 = Activity(id='test3')
         alist = ActivityList([a1, a2])
-        alist.insert(1, Activity(id='test2'))
+        alist.insert(1, Activity(id='test2', object_type='Activity'))
         self.assertEqual(len(alist), 3)
         self.assertEqual(alist[0].id, 'test1')
         self.assertEqual(alist[1].id, 'test2')
         self.assertEqual(alist[2].id, 'test3')
 
     def test_insertExceptionNotComponent(self):
-        a1 = Activity(id='test1')
+        a1 = Activity(id='test1', object_type='Activity')
         a2 = Activity(id='test3')
         alist = ActivityList([a1, a2])
         with self.assertRaises(TypeError):

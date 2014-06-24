@@ -72,14 +72,14 @@ class ActivityTest(unittest.TestCase):
     def test_AsVersionEmpty(self):
         activity = Activity()
         activity2 = activity.as_version()
-        self.assertEqual(activity2, {})
+        self.assertEqual(activity2, {"objectType": "Activity"})
 
-    def test_asVersionNotEmpty(self):
+    def test_AsVersionNotEmpty(self):
         activity = Activity(id='test')
         activity2 = activity.as_version()
-        self.assertEqual(activity2, {'id': 'test'})
+        self.assertEqual(activity2, {'id': 'test', "objectType": "Activity"})
 
-    def test_asVersion(self):
+    def test_AsVersion(self):
         activity = Activity(id='test', definition=ActivityDefinition(), object_type='Activity')
         activity2 = activity.as_version()
         self.assertEqual(activity2, {'id': 'test', 'definition': {}, 'objectType': 'Activity'})
