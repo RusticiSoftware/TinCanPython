@@ -137,7 +137,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self.assertIsNotNone(response.content.id)
-        self.shallow_compare(statement, response.content)
+        self._vars_verifier(statement, response.content, ['_authority', '_stored'])
 
     def test_save_statement_with_id(self):
         statement = Statement(
@@ -150,7 +150,7 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.shallow_compare(statement, response.content, True)
+        self._vars_verifier(statement, response.content)
 
     def test_save_statement_conflict(self):
         test_id = unicode(uuid.uuid4())
@@ -189,7 +189,7 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.shallow_compare(statement, response.content, True)
+        self._vars_verifier(statement, response.content, ['_authority', '_stored'])
 
     def test_save_statement_group(self):
         statement = Statement(
@@ -202,7 +202,7 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.shallow_compare(statement, response.content, True)
+        self._vars_verifier(statement, response.content)
 
     def test_save_statement_substatement(self):
         statement = Statement(
@@ -215,7 +215,7 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.shallow_compare(statement, response.content, True)
+        self._vars_verifier(statement, response.content, ['_authority', '_stored'])
 
     def test_save_statements(self):
         statement1 = Statement(
@@ -235,8 +235,8 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertTrue(response.success)
         self.assertIsNotNone(response.content[0].id)
         self.assertIsNotNone(response.content[1].id)
-        self.shallow_compare(statement1, response.content[0])
-        self.shallow_compare(statement2, response.content[1])
+        self._vars_verifier(statement1, response.content[0], ['_authority', '_stored'])
+        self._vars_verifier(statement2, response.content[1], ['_authority', '_stored'])
 
     def test_retrieve_statement(self):
         id_str = str(uuid.uuid4())
@@ -258,15 +258,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertTrue(response.success)
         self._vars_verifier(response.content, statement, ['_authority', '_stored'])
 
-    def _vars_verifier(self, obj1, obj2, _ignored_attrs=[]):
-        for k, v in vars(obj1).iteritems():
-            if k in _ignored_attrs:
-                continue
-            elif isinstance(v, Base):
-                self._vars_verifier(getattr(obj1, k), getattr(obj2, k))
-            else:
-                self.assertEqual(getattr(obj1, k), getattr(obj2, k))
-
+   
     def test_query_statements(self):
         s1 = Statement(
             actor=self.agent,
@@ -313,8 +305,8 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response.content, StatementsResult)
         self.assertTrue(hasattr(response.content, 'more'))
         self.assertIsNotNone(response.content.more)
-        self._vars_verifier(s1, response.content.statements[0], ['_authority', '_stored', '_id'])
-        self._vars_verifier(s2, response.content.statements[1], ['_authority', '_stored', '_id'])
+        self._vars_verifier(s1, response.content.statements[0])
+        self._vars_verifier(s2, response.content.statements[1])
 
     def test_query_none(self):
         query = {
@@ -483,14 +475,14 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
 
-    def shallow_compare(self, s1, s2, compare_ids=False):
-        for k, v in vars(s1).iteritems():
-            if (not k == '_stored' and not k == '_authority') or compare_ids:
-                self.assertTrue(hasattr(s2, k))
-                if isinstance(v, Base):
-                    self.shallow_compare(v, getattr(s2, k), True)
-                else:
-                    self.assertEqual(v, getattr(s2, k))
+    def _vars_verifier(self, obj1, obj2, _ignored_attrs=['_authority', '_stored', '_id']):
+        for k, v in vars(obj1).iteritems():
+            if k in _ignored_attrs:
+                continue
+            elif isinstance(v, Base):
+                self._vars_verifier(getattr(obj1, k), getattr(obj2, k))
+            else:
+                self.assertEqual(getattr(obj1, k), getattr(obj2, k))
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(RemoteLRSTest)
