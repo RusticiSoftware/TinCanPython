@@ -20,12 +20,12 @@ if __name__ == '__main__':
 from tincan.typed_list import TypedList
 
 
-class TestTypedList(unittest.TestCase):
+class TypedListTest(unittest.TestCase):
 
     def test_Init(self):
         with self.assertRaises(ValueError):
             tlist = TypedList()
 
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestTypedList)
+    suite = unittest.TestLoader().loadTestsFromTestCase(TypedListTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
