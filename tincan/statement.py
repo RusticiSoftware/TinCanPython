@@ -19,6 +19,7 @@ from tincan.agent import Agent
 from tincan.group import Group
 from tincan.verb import Verb
 from tincan.attachment import Attachment
+from tincan.attachment_list import AttachmentList
 from tincan.result import Result
 from tincan.context import Context
 from tincan.substatement import Substatement
@@ -348,17 +349,11 @@ class Statement(SerializableBase):
 
     @attachments.setter
     def attachments(self, value):
-        newmember = []
-        if value is not None:
-            if isinstance(value, list):
-                for k in value:
-                    if not isinstance(k, Attachment):
-                        newmember.append(Attachment(k))
-                    else:
-                        newmember.append(k)
-            else:
-                 self.attachments = list(value)
-        value = newmember
+        if value is not None and not isinstance(value, AttachmentList):
+            try:
+                value = AttachmentList([Attachment(value)])
+            except (TypeError, AttributeError):
+                value = AttachmentList(value)
         self._attachments = value
 
     @attachments.deleter

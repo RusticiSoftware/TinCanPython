@@ -86,5 +86,4 @@ class ContextActivities(SerializableBase):
                 result = ActivityList([Activity(value)])
             except (TypeError, AttributeError):
                 result = ActivityList(value)
-
         return result
