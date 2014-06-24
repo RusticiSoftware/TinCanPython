@@ -24,6 +24,7 @@ from tincan.statements_result import StatementsResult
 from tincan.statement import Statement
 from test_utils import TinCanBaseTestCase
 
+
 class StatementsResultTest(TinCanBaseTestCase):
     def test_serialize_deserialize(self):
         sr = StatementsResult()
