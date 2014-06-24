@@ -23,7 +23,7 @@ from tincan.statement_ref import StatementRef
 from tincan.activity import Activity
 from tincan.substatement import Substatement
 
-class TestSubstatement(unittest.TestCase):
+class SubstatementTest(unittest.TestCase):
 
     def test_InitAnonAgentActor(self):
         substatement = Substatement(actor={'name':'test'})
@@ -131,3 +131,7 @@ class TestSubstatement(unittest.TestCase):
     def activityVerificationHelper(self, value):
         self.assertIsInstance(value, Activity)
         self.assertEqual(value.id, 'test')
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(SubstatementTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

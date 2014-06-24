@@ -19,7 +19,7 @@ if __name__ == '__main__':
     setup_tincan_path()
 from tincan.statement_ref import StatementRef
 
-class TestStatementRef(unittest.TestCase):
+class StatementRefTest(unittest.TestCase):
 
     def test_InitObjectType(self):
         statementref = StatementRef(object_type='StatementRef')
@@ -61,5 +61,5 @@ class TestStatementRef(unittest.TestCase):
         self.assertEqual(statementref.to_json(), '{"objectType": "StatementRef"}')
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestStatementRef)
+    suite = unittest.TestLoader().loadTestsFromTestCase(StatementRefTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
