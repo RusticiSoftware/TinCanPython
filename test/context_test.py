@@ -44,7 +44,7 @@ class ContextTest(unittest.TestCase):
             revision='revision',
             platform='platform',
             language='en-US',
-            statement=StatementRef(id='statementRef'),
+            statement=StatementRef(id='016699c6-d600-48a7-96ab-86187498f16f'),
             extensions=Extensions({'extensions': 'extend!'})
         )
         self.ctxVerificationHelper(ctx)

@@ -46,8 +46,7 @@ class Group(Agent):
 
         """
 
-        if value is not None:
-            if not isinstance(value, Agent):
+        if value is not None and not isinstance(value, Agent):
                 value = Agent(value)
 
         self._member.append(value)

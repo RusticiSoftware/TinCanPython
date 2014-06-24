@@ -169,13 +169,8 @@ class Attachment(SerializableBase):
 
     @display.setter
     def display(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, LanguageMap):
+        if value is not None and not isinstance(value, LanguageMap):
                 value = LanguageMap(value)
-            elif len(value) == 0:
-                value = None
         self._display = value
 
     @display.deleter
@@ -195,13 +190,8 @@ class Attachment(SerializableBase):
 
     @description.setter
     def description(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, LanguageMap):
+        if value is not None and not isinstance(value, LanguageMap):
                 value = LanguageMap(value)
-            elif len(value) == 0:
-                value = None
         self._description = value
 
     @description.deleter

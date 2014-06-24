@@ -93,7 +93,7 @@ class StatementTest(unittest.TestCase):
     def test_InitEmptyActor(self):
         statement = Statement(actor={})
         self.assertIsNone(statement.id)
-        self.assertIsNone(statement.actor)
+        self.assertIsInstance(statement.actor, Agent)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
         self.assertIsNone(statement.timestamp)
@@ -104,7 +104,7 @@ class StatementTest(unittest.TestCase):
         statement = Statement(verb={})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
-        self.assertIsNone(statement.verb)
+        self.assertIsInstance(statement.verb, Verb)
         self.assertIsNone(statement.object)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
@@ -115,7 +115,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
-        self.assertIsNone(statement.object)
+        self.assertIsInstance(statement.object, Activity)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
@@ -128,7 +128,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.object)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
-        self.assertIsNone(statement.authority)
+        self.assertIsInstance(statement.authority, Agent)
 
     def test_InitEmptyResult(self):
         statement = Statement(result={})
@@ -139,7 +139,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
-        self.assertIsNone(statement.result)
+        self.assertIsInstance(statement.result, Result)
 
     def test_InitEmptyContext(self):
         statement = Statement(context={})
@@ -150,7 +150,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
-        self.assertIsNone(statement.context)
+        self.assertIsInstance(statement.context, Context)
 
     def test_InitEmptyAttachments(self):
         statement = Statement(attachments=[])
@@ -411,7 +411,7 @@ class StatementTest(unittest.TestCase):
 
     def test_ToJSONEmpty(self):
         statement = Statement()
-        self.assertEqual(statement.to_json(), '{"attachments": []}')
+        self.assertEqual(statement.to_json(), '{}')
 
     def test_FromJSONToJSON(self):
         json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor": {"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
@@ -425,6 +425,10 @@ class StatementTest(unittest.TestCase):
         for k in statement.attachments:
             self.attachmentVerificationHelper(k)
         self.assertEqual(statement.to_json(), '{"attachments": [{"usageType": "test"}], "object": {"name": "test", "objectType": "Agent"}, "authority": {"name": "test", "objectType": "Agent"}, "verb": {"id": "test"}, "actor": {"name": "test", "objectType": "Agent"}, "context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, "id": "016699c6-d600-48a7-96ab-86187498f16f"}')
+
+    def test_ExceptionInvalidUUID(self):
+        with self.assertRaises(ValueError):
+            statement = Statement(id='badtest')
 
     def agentVerificationHelper(self, value):
         self.assertIsInstance(value, Agent)
@@ -454,7 +458,7 @@ class StatementTest(unittest.TestCase):
 
     def substatementVerificationHelper(self, value):
         self.assertIsInstance(value, Substatement)
-        self.assertEqual(value.object_type, 'Substatement')
+        self.assertEqual(value.object_type, 'SubStatement')
 
     def statementrefVerificationHelper(self, value):
         self.assertIsInstance(value, StatementRef)
