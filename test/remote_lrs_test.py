@@ -15,7 +15,7 @@
 import unittest
 import uuid
 from datetime import datetime
-from datetime import timedelta
+from pytz import utc
 
 if __name__ == '__main__':
     from main import setup_tincan_path
@@ -257,7 +257,7 @@ class RemoteLRSTest(unittest.TestCase):
             context=self.context,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=datetime.utcnow()
+            timestamp=utc.localize(datetime.utcnow())
         )
         save_resp = self.lrs.save_statement(statement)
 
@@ -275,7 +275,7 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.parent,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=datetime.utcnow()
+            timestamp=utc.localize(datetime.utcnow())
         )
         self.lrs.save_statement(s1)
 
@@ -285,7 +285,7 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.parent,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=datetime.utcnow()
+            timestamp=utc.localize(datetime.utcnow())
         )
         self.lrs.save_statement(s2)
 
@@ -295,7 +295,7 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.parent,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=datetime.utcnow()
+            timestamp=utc.localize(datetime.utcnow())
         )
         self.lrs.save_statement(s3)
 
