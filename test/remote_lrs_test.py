@@ -1,3 +1,17 @@
+#    Copyright 2014 Rustici Software
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
 import unittest
 import uuid
 from datetime import datetime
@@ -260,7 +274,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertTrue(response.success)
         self._vars_verifier(response.content, statement, ['_authority', '_stored'])
 
-    def test_query_statements_UTC(self):
+    def test_query_statements(self):
         tstamp = utc.localize(datetime.utcnow())
         s1 = Statement(
             actor=self.agent,
@@ -312,13 +326,14 @@ class RemoteLRSTest(unittest.TestCase):
 
     def test_query_none(self):
         query = {
-            "agent": Agent(mbox="unique@tincanapi.com"),
+            "agent": self.agent,
             "verb": self.verb,
             "activity": self.parent,
             "related_activities": True,
             "related_agents": True,
             "format": "ids",
-            "limit": 2
+            "limit": 2,
+            "registration": unicode(uuid.uuid4()),
         }
         response = self.lrs.query_statements(query)
 

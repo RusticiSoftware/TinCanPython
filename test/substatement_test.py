@@ -132,6 +132,7 @@ class SubStatementTest(unittest.TestCase):
         self.assertIsInstance(value, Activity)
         self.assertEqual(value.id, 'test')
 
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(SubStatementTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
