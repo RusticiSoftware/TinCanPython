@@ -196,11 +196,11 @@ class Result(SerializableBase):
     @property
     def extensions(self):
         """Extensions for Result
- 
+
         :setter: Tries to convert to Extensions
         :setter type: :mod:`tincan.extensions`
         :rtype: :mod:`tincan.extensions`
- 
+
         """
         return self._extensions
 

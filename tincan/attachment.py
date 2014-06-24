@@ -57,7 +57,7 @@ class Attachment(SerializableBase):
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._usage_type = value
-    
+
     @usage_type.deleter
     def usage_type(self):
         del self._usage_type
@@ -96,14 +96,14 @@ class Attachment(SerializableBase):
 
         """
         return self._length
-    
+
     @length.setter
     def length(self, value):
         if value is not None:
             if not isinstance(value, (int, long)):
                 value = long(value)
         self._length = value
-        
+
     @length.deleter
     def length(self):
         del self._length
@@ -118,7 +118,7 @@ class Attachment(SerializableBase):
 
 		"""
         return self._sha2
-    
+
     @sha2.setter
     def sha2(self, value):
         if value is not None:
@@ -127,11 +127,11 @@ class Attachment(SerializableBase):
             elif not isinstance(value, unicode):
                 value = unicode(value)
         self._sha2 = value
-        
+
     @sha2.deleter
     def sha2(self):
         del self._sha2
-        
+
     @property
     def fileurl(self):
         """File URL for Attachment
@@ -185,11 +185,11 @@ class Attachment(SerializableBase):
     @property
     def description(self):
         """Description for Attachment
- 
+
         :setter: Tries to convert to LanguageMap
         :setter type: :mod:`tincan.language_map`
         :rtype: :mod:`tincan.language_map`
- 
+
         """
         return self._description
 

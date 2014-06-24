@@ -33,11 +33,11 @@ class Agent(SerializableBase):
     @property
     def object_type(self):
         """Object Type for Agent. Will always be 'Agent'
- 
+
         :setter: Tries to convert to unicode
         :setter type: unicode
         :rtype: unicode
- 
+
         """
         return self._object_type
 
@@ -150,11 +150,11 @@ class Agent(SerializableBase):
     @property
     def account(self):
         """Account for Agent
- 
+
         :setter: Tries to convert to Account
         :setter type: :mod:`tincan.agent_account`
         :rtype: :mod:`tincan.agent_account`
- 
+
         """
         return self._account
 

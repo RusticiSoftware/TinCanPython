@@ -54,11 +54,11 @@ class AgentAccount(SerializableBase):
     @property
     def home_page(self):
         """Homepage for Account
- 
+
         :setter: Tries to convert to unicode
         :setter type: unicode
         :rtype: unicode
- 
+
         """
         return self._home_page
 

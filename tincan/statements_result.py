@@ -64,15 +64,14 @@ class StatementsResult(SerializableBase):
             msg += e.message
             raise TypeError(msg)
 
-    
     @property
     def more(self):
         """More for StatementsResult
- 
+
         :setter: Tries to convert to unicode
         :setter type: unicode
         :rtype: unicode
- 
+
         """
         return self._more
 

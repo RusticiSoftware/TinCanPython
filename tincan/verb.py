@@ -60,11 +60,11 @@ class Verb(SerializableBase):
     @property
     def display(self):
         """Display for Verb
- 
+
         :setter: Tries to convert to LanguageMap
         :setter type: :mod:`tincan.language_map`
         :rtype: :mod:`tincan.language_map`
- 
+
         """
         return self._display
 
