@@ -41,17 +41,15 @@ It is possible to run all the tests in one go, or just run one part of the tests
 
 #### All the tests: 
 1. `cd` to the `test` directory.  
-2. Run
+2. Run 
 
-
-    python main.py
+        python main.py
 
 #### One of the tests:
 1. `cd` to the directory containing the test.
 2. Run
 
-
-    python result_test.py
+        python result_test.py
     
 (or whatever test you want to run)
 
