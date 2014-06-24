@@ -204,11 +204,11 @@ class AttachmentTest(unittest.TestCase):
         attachment = Attachment.from_json('{}')
         self.assertIsNone(attachment.usage_type)
         self.assertIsNone(attachment.display)
-        self.assertIsNone(attachment.description)
+        self.assertFalse(hasattr(attachment, '_description'))
         self.assertIsNone(attachment.content_type)
         self.assertIsNone(attachment.length)
         self.assertIsNone(attachment.sha2)
-        self.assertIsNone(attachment.fileurl)
+        self.assertFalse(hasattr(attachment, '_fileurl'))
 
     def test_FromJSONExceptionEmpty(self):
         with self.assertRaises(ValueError):
@@ -221,6 +221,8 @@ class AttachmentTest(unittest.TestCase):
         self.assertIsNone(attachment.content_type)
         self.assertIsNone(attachment.length)
         self.assertIsNone(attachment.sha2)
+        self.assertFalse(hasattr(attachment, '_description'))
+        self.assertFalse(hasattr(attachment, '_fileurl'))
 
     def test_fromJSONcontent_type(self):
         attachment = Attachment.from_json('{"usage_type":"test", "content_type":"test"}')
