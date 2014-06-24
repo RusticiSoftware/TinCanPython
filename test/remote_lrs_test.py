@@ -5,6 +5,7 @@ from datetime import timedelta
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
+from tincan.base import Base
 from tincan.remote_lrs import RemoteLRS
 from tincan.lrs_response import LRSResponse
 from tincan.version import Version
@@ -61,6 +62,7 @@ class RemoteLRSTest(unittest.TestCase):
             self.activity.definition.description = LanguageMap(
                 {"en-US": "Unit test in the test suite for the Python library"}
             )
+            self.activity.object_type = 'Activity'
 
             self.parent = Activity(
                 id="http://tincanapi.com/TinCanPython/Test",
@@ -70,6 +72,7 @@ class RemoteLRSTest(unittest.TestCase):
             self.parent.definition.description = LanguageMap(
                 {"en-US": "Unit test in the test suite for the Python library"}
             )
+            self.parent.object_type = 'Activity'
 
             self.statement_ref = StatementRef(id=uuid.uuid4())
 
@@ -220,13 +223,15 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertEquals(statement2, response.content[1])
 
     def test_retrieve_statement(self):
+        id_str = str(uuid.uuid4())
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
             object=self.activity,
             context=self.context,
             result=self.result,
-            id=str(uuid.uuid4())
+            id=id_str,
+            version=Version.latest
         )
         save_resp = self.lrs.save_statement(statement)
 
@@ -234,9 +239,18 @@ class RemoteLRSTest(unittest.TestCase):
             response = self.lrs.retrieve_statement(save_resp.content.id)
             self.assertIsInstance(response, LRSResponse)
             self.assertTrue(response.success)
-            self.assertEquals(statement, response.content)
+            self._vars_verifier(response.content, statement, ['_authority', '_timestamp', '_stored'])
         else:
             print "test_retrieve_statement: save_statement failed"
+
+    def _vars_verifier(self, obj1, obj2, _ignored_attrs=[]):
+        for k, v in vars(obj1).iteritems():
+            if k in _ignored_attrs:
+                continue
+            elif isinstance(v, Base):
+                self._vars_verifier(getattr(obj1, k), getattr(obj2, k))
+            else:
+                self.assertEqual(getattr(obj1, k), getattr(obj2, k))
 
     def test_query_statements(self):
         query = {
@@ -263,6 +277,7 @@ class RemoteLRSTest(unittest.TestCase):
 
         if query_resp.success and query_resp.content.more is not None:
             response = self.lrs.more_statements(query_resp.content)
+            print response
             self.assertIsInstance(response, LRSResponse)
             self.assertTrue(response.success)
             self.assertIsInstance(response.content, StatementsResult)
