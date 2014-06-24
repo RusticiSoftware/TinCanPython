@@ -162,7 +162,7 @@ class Statement(SerializableBase):
                             value.pop('objectType')
                         if value['object_type'] == 'Agent':
                             value = Agent(value)
-                        elif value['object_type'] == 'Substatement':
+                        elif value['object_type'] == 'SubStatement':
                             value = Substatement(value)
                         elif value['object_type'] == 'StatementRef':
                             value = StatementRef(value)
