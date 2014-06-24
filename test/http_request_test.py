@@ -31,7 +31,6 @@ class HTTPRequestTest(unittest.TestCase):
     def test_init_empty(self):
         req = HTTPRequest()
         self.assertIsInstance(req, HTTPRequest)
-        self.assertFalse(hasattr(req, "endpoint"))
         self.assertFalse(hasattr(req, "content"))
         self.assertFalse(hasattr(req, "ignore404"))
 
@@ -52,14 +51,14 @@ class HTTPRequestTest(unittest.TestCase):
             HTTPRequest(bad_test="test")
 
     def test_init_arg_exception_dict(self):
-        d = {"bad_test": "test", "endpoint": "ok"}
+        d = {"bad_test": "test", "resource": "ok"}
         with self.assertRaises(AttributeError):
             HTTPRequest(d)
 
     def test_init_arg_exception_obj(self):
         class Tester(object):
-            def __init__(self, endpoint="ok", bad_test="test"):
-                self.endpoint = endpoint
+            def __init__(self, resource="ok", bad_test="test"):
+                self.resource = resource
                 self.bad_test = bad_test
 
         obj = Tester()
@@ -69,13 +68,11 @@ class HTTPRequestTest(unittest.TestCase):
 
     def test_init_partial(self):
         req = HTTPRequest(
-            endpoint="endpoint test",
             method="method test",
             query_params={"test": "val"}
         )
         self.assertIsInstance(req, HTTPRequest)
 
-        self.assertEqual(req.endpoint, "endpoint test")
         self.assertEqual(req.method, "method test")
         self.assertEqual(req.query_params, {"test": "val"})
 
@@ -90,7 +87,6 @@ class HTTPRequestTest(unittest.TestCase):
 
     def test_init_all(self):
         req = HTTPRequest(
-            endpoint="endpoint test",
             method="method test",
             resource="resource test",
             headers={"test": "val"},
@@ -100,7 +96,6 @@ class HTTPRequestTest(unittest.TestCase):
         )
         self.assertIsInstance(req, HTTPRequest)
 
-        self.assertEqual(req.endpoint, "endpoint test")
         self.assertEqual(req.method, "method test")
         self.assertEqual(req.resource, "resource test")
         self.assertEqual(req.headers, {"test": "val"})
@@ -111,7 +106,6 @@ class HTTPRequestTest(unittest.TestCase):
     def test_setters(self):
         req = HTTPRequest()
 
-        req.endpoint = "endpoint test"
         req.method = "method test"
         req.resource = "resource test"
         req.headers = {"test": "val"}
@@ -121,7 +115,6 @@ class HTTPRequestTest(unittest.TestCase):
 
         self.assertIsInstance(req, HTTPRequest)
 
-        self.assertEqual(req.endpoint, "endpoint test")
         self.assertEqual(req.method, "method test")
         self.assertEqual(req.resource, "resource test")
         self.assertEqual(req.headers, {"test": "val"})
@@ -132,7 +125,6 @@ class HTTPRequestTest(unittest.TestCase):
     def test_setters_none(self):
         req = HTTPRequest()
 
-        req.endpoint = None
         req.method = None
         req.resource = None
         req.headers = None
@@ -141,9 +133,6 @@ class HTTPRequestTest(unittest.TestCase):
         req.ignore404 = None
 
         self.assertIsInstance(req, HTTPRequest)
-
-        self.assertTrue(hasattr(req, "endpoint"))
-        self.assertIsNone(req.endpoint)
 
         self.assertTrue(hasattr(req, "content"))
         self.assertIsNone(req.content)

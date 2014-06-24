@@ -162,7 +162,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="about"
         )
@@ -185,7 +184,6 @@ class RemoteLRS(Base):
             statement = Statement(statement)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="POST",
             resource="statements"
         )
@@ -217,7 +215,6 @@ class RemoteLRS(Base):
             statements = StatementList(statements)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="POST",
             resource="statements"
         )
@@ -245,7 +242,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="statements"
         )
@@ -267,7 +263,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="statements"
         )
@@ -312,7 +307,6 @@ class RemoteLRS(Base):
                     params[k] = v
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="statements"
         )
@@ -339,7 +333,6 @@ class RemoteLRS(Base):
         more_url = self.get_endpoint_server_root() + more_url
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource=more_url
         )
@@ -372,7 +365,6 @@ class RemoteLRS(Base):
             agent = Agent(agent)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="activities/state"
         )
@@ -414,7 +406,6 @@ class RemoteLRS(Base):
             agent = Agent(agent)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="activities/state",
             ignore404=True
@@ -462,7 +453,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="PUT",
             resource="activities/state",
             content=state.content,
@@ -508,7 +498,6 @@ class RemoteLRS(Base):
             agent = Agent(agent)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="DELETE",
             resource="activities/state"
         )
@@ -577,7 +566,6 @@ class RemoteLRS(Base):
             activity = Activity(activity)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="activities/profile"
         )
@@ -607,7 +595,6 @@ class RemoteLRS(Base):
             activity = Activity(activity)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="activities/profile",
             ignore404=True
@@ -645,7 +632,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="PUT",
             resource="activities/profile",
             content=profile.content_type
@@ -676,7 +662,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="DELETE",
             resource="activities/profile"
         )
@@ -704,7 +689,6 @@ class RemoteLRS(Base):
             agent = Agent(agent)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="agents/profile"
         )
@@ -734,7 +718,6 @@ class RemoteLRS(Base):
             agent = Agent(agent)
 
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="GET",
             resource="agents/profile",
             ignore404=True
@@ -773,7 +756,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="PUT",
             resource="agents/profile",
             content=profile.content,
@@ -804,7 +786,6 @@ class RemoteLRS(Base):
         :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         request = HTTPRequest(
-            endpoint=self.endpoint,
             method="DELETE",
             resource="agents/profile"
         )
