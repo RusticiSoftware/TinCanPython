@@ -51,7 +51,7 @@ It is possible to run all the tests in one go, or just run one part of the tests
 
         python result_test.py
     
-(or whatever test you want to run)
+    (or whatever test you want to run)
 
 ## API doc generation
 To automatically generate documentation, go to the `TinCanPython` folder and run the command 

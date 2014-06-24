@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
+from tincan.statement_list import StatementList
 
 """
 .. module:: statements_result
@@ -44,22 +45,23 @@ class StatementsResult(SerializableBase):
 
     @statements.setter
     def statements(self, value):
-        if isinstance(value, list):
-            self._statements = value
-            return
         if value is None:
-            self._statements = []
+            self._statements = StatementList()
             return
         try:
-            if isinstance(value, dict):
-                raise Exception('Expected a list, got a dict: %s' % repr(value))
-
-            self._statements = list(value)
+            self._statements = StatementList(value)
         except Exception as e:
             msg = (
                 "Property 'statements' in a 'tincan.%s' object must be set with a "
-                "list or None." %
-                self.__class__.__name__
+                "list or None."
+                "\n\n"
+                "Tried to set it with a '%s' object: %s"
+                "\n\n" %
+                (
+                    self.__class__.__name__,
+                    value.__class__.__name__,
+                    repr(value),
+                )
             )
             msg += e.message
             raise TypeError(msg)
