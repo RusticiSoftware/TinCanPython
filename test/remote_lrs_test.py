@@ -18,6 +18,8 @@ from tincan.statement import Statement
 from tincan.context import Context
 from tincan.context_activities import ContextActivities
 from tincan.score import Score
+from tincan.group import Group
+from tincan.base import Base
 from tincan.result import Result
 from tincan.substatement import Substatement
 from tincan.statement_ref import StatementRef
@@ -51,6 +53,8 @@ class RemoteLRSTest(unittest.TestCase):
                 id="http://adlnet.gov/expapi/verbs/experienced",
                 display=LanguageMap({"en-US": "experienced"})
             )
+
+            self.group = Group(member=[self.agent, self.agent2])
 
             self.activity = Activity(
                 id="http://tincanapi.com/TinCanPython/Test/Unit/0",
@@ -130,8 +134,8 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
         self.assertIsNotNone(response.content.id)
+        self.shallow_compare(statement, response.content)
 
     def test_save_statement_with_id(self):
         statement = Statement(
@@ -144,21 +148,21 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
+        self.shallow_compare(statement, response.content, True)
 
     def test_save_statement_conflict(self):
-        test_id = str(uuid.uuid4())
+        test_id = unicode(uuid.uuid4())
 
         statement1 = Statement(
             actor=self.agent,
             verb=self.verb,
-            object=self.statement_ref,
+            object=self.substatement,
             id=test_id
         )
         statement2 = Statement(
             actor=self.agent2,
             verb=self.verb,
-            object=self.statement_ref,
+            object=self.substatement,
             id=test_id
         )
         response = self.lrs.save_statement(statement1)
@@ -183,7 +187,20 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
+        self.shallow_compare(statement, response.content, True)
+
+    def test_save_statement_group(self):
+        statement = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.group,
+            id=str(uuid.uuid4())
+        )
+        response = self.lrs.save_statement(statement)
+
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self.shallow_compare(statement, response.content, True)
 
     def test_save_statement_substatement(self):
         statement = Statement(
@@ -196,7 +213,7 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self.assertEqual(statement, response.content)
+        self.shallow_compare(statement, response.content, True)
 
     def test_save_statements(self):
         statement1 = Statement(
@@ -210,14 +227,15 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.activity,
             context=self.context
         )
+        #TODO:statements objects that are passed have their id's updated?
         response = self.lrs.save_statements([statement1, statement2])
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self.assertIsNotNone(response.content[0].id)
         self.assertIsNotNone(response.content[1].id)
-        self.assertEquals(statement1, response.content[0])
-        self.assertEquals(statement2, response.content[1])
+        self.shallow_compare(statement1, response.content[0])
+        self.shallow_compare(statement2, response.content[1])
 
     def test_retrieve_statement(self):
         statement = Statement(
@@ -234,11 +252,38 @@ class RemoteLRSTest(unittest.TestCase):
             response = self.lrs.retrieve_statement(save_resp.content.id)
             self.assertIsInstance(response, LRSResponse)
             self.assertTrue(response.success)
-            self.assertEquals(statement, response.content)
+            self.shallow_compare(statement, response.content)
         else:
             print "test_retrieve_statement: save_statement failed"
 
     def test_query_statements(self):
+        s1 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s1)
+
+        s2 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s2)
+
+        s3 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s3)
+
         query = {
             "agent": self.agent,
             "verb": self.verb,
@@ -246,23 +291,95 @@ class RemoteLRSTest(unittest.TestCase):
             "related_activities": True,
             "related_agents": True,
             "format": "ids",
-            "limit": 10
+            "limit": 2
+        }
+        response = self.lrs.query_statements(query)
+
+        print "++++++++++++++++++++++++++++++++++"
+        if hasattr(response.request, 'content'):
+            print response.request.content
+        print "----------------------------------"
+        print response.data
+        print "++++++++++++++++++++++++++++++++++"
+
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self.assertIsInstance(response.content, StatementsResult)
+        self.assertTrue(hasattr(response.content, 'more'))
+        self.assertIsNotNone(response.content.more)
+        self.shallow_compare(s1, response.content.statements[0])
+        self.shallow_compare(s2, response.content.statements[1])
+
+    def test_query_none(self):
+        query = {
+            "agent": Agent(mbox="unique@tincanapi.com"),
+            "verb": self.verb,
+            "activity": self.parent,
+            "related_activities": True,
+            "related_agents": True,
+            "format": "ids",
+            "limit": 2
         }
         response = self.lrs.query_statements(query)
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self.assertIsInstance(response.content, StatementsResult)
+        self.assertTrue(hasattr(response.content, 'more'))
+        self.assertTrue(hasattr(response.content, 'statements'))
+        self.assertEquals(response.content.statements, [])
 
     def test_more_statements(self):
+        s1 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s1)
+
+        s2 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s2)
+
+        s3 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4())
+        )
+        self.lrs.save_statement(s3)
+
         query = {
+            "agent": self.agent,
+            "verb": self.verb,
+            "activity": self.parent,
+            "related_activities": True,
+            "related_agents": True,
             "format": "ids",
             "limit": 2
         }
         query_resp = self.lrs.query_statements(query)
 
+        self.assertIsInstance(query_resp, LRSResponse)
+
         if query_resp.success and query_resp.content.more is not None:
             response = self.lrs.more_statements(query_resp.content)
+
+            print "++++++++++++++++++++++++++++++++++"
+            if hasattr(response.request, 'content'):
+                print response.request.content
+            print "----------------------------------"
+            print response.data
+            print "++++++++++++++++++++++++++++++++++"
+
             self.assertIsInstance(response, LRSResponse)
             self.assertTrue(response.success)
             self.assertIsInstance(response.content, StatementsResult)
@@ -368,6 +485,15 @@ class RemoteLRSTest(unittest.TestCase):
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
+
+    def shallow_compare(self, s1, s2, compare_ids=False):
+        for k, v in vars(s1).iteritems():
+            if not k == '_id' or compare_ids:
+                self.assertTrue(hasattr(s2, k))
+                if isinstance(v, Base):
+                    self.shallow_compare(v, getattr(s2, k))
+                else:
+                    self.assertEqual(v, getattr(s2, k))
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(RemoteLRSTest)
