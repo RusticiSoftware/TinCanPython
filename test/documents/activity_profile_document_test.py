@@ -149,6 +149,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
 
         self.assertEquals(doc.activity.id, "http://tincanapi.com/TinCanPython/Test/Unit/0")
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityProfileDocumentTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

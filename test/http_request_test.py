@@ -195,6 +195,7 @@ class HTTPRequestTest(unittest.TestCase):
         self.assertTrue("tester" in req.query_params)
         self.assertEqual(req.query_params["tester"], "test")
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(HTTPRequestTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

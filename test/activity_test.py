@@ -126,6 +126,7 @@ class ActivityTest(unittest.TestCase):
         self.assertIsInstance(activity.definition, ActivityDefinition)
         self.assertEqual(activity.object_type, 'Activity')
 
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

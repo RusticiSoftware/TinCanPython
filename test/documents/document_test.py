@@ -135,6 +135,7 @@ class DocumentTest(unittest.TestCase):
         doc.timestamp = dt
         self.assertEqual(doc.timestamp, dt)
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(DocumentTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

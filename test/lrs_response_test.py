@@ -179,6 +179,7 @@ class LRSResponseTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             LRSResponse(response=obj)
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(LRSResponseTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

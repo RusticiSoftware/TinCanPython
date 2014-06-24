@@ -23,6 +23,7 @@ from tincan.statement_ref import StatementRef
 from tincan.activity import Activity
 from tincan.substatement import SubStatement
 
+
 class SubStatementTest(unittest.TestCase):
 
     def test_InitAnonAgentActor(self):

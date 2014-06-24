@@ -19,6 +19,7 @@ if __name__ == '__main__':
     setup_tincan_path()
 from tincan.statement_ref import StatementRef
 
+
 class StatementRefTest(unittest.TestCase):
 
     def test_InitObjectType(self):
@@ -63,6 +64,7 @@ class StatementRefTest(unittest.TestCase):
     def test_ExceptionInvalidUUID(self):
         with self.assertRaises(ValueError):
             statementref = StatementRef(id='badtest')
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(StatementRefTest)

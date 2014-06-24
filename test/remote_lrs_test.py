@@ -480,6 +480,7 @@ class RemoteLRSTest(unittest.TestCase):
                 else:
                     self.assertEqual(v, getattr(s2, k))
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(RemoteLRSTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
