@@ -36,14 +36,6 @@ from tincan.conversions.iso8601 import make_datetime
 
 class Statement(SerializableBase):
 
-    _UUID_REGEX = re.compile(
-        r'^[a-f0-9]{8}-'
-        r'[a-f0-9]{4}-'
-        r'[1-5][a-f0-9]{3}-'
-        r'[89ab][a-f0-9]{3}-'
-        r'[a-f0-9]{12}$'
-    )
-
     _props_req = [
         "id",
         "actor",
