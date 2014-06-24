@@ -63,10 +63,6 @@ class Statement(SerializableBase):
 
     _props.extend(_props_req)
 
-    def __init__(self, *args, **kwargs):
-        self._attachments = []
-        super(Statement, self).__init__(*args, **kwargs)
-
     @property
     def id(self):
         """Id for Statement

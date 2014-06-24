@@ -411,7 +411,7 @@ class StatementTest(unittest.TestCase):
 
     def test_ToJSONEmpty(self):
         statement = Statement()
-        self.assertEqual(statement.to_json(), '{"attachments": []}')
+        self.assertEqual(statement.to_json(), '{}')
 
     def test_FromJSONToJSON(self):
         json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor": {"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
