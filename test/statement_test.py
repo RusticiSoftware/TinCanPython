@@ -426,6 +426,10 @@ class StatementTest(unittest.TestCase):
             self.attachmentVerificationHelper(k)
         self.assertEqual(statement.to_json(), '{"attachments": [{"usageType": "test"}], "object": {"name": "test", "objectType": "Agent"}, "authority": {"name": "test", "objectType": "Agent"}, "verb": {"id": "test"}, "actor": {"name": "test", "objectType": "Agent"}, "context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, "id": "016699c6-d600-48a7-96ab-86187498f16f"}')
 
+    def test_ExceptionInvalidUUID(self):
+        with self.assertRaises(ValueError):
+            statement = Statement(id='badtest')
+
     def agentVerificationHelper(self, value):
         self.assertIsInstance(value, Agent)
         self.assertEqual(value.name, 'test')

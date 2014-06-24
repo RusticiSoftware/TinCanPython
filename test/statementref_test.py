@@ -60,6 +60,10 @@ class StatementRefTest(unittest.TestCase):
         statementref = StatementRef()
         self.assertEqual(statementref.to_json(), '{"objectType": "StatementRef"}')
 
+    def test_ExceptionInvalidUUID(self):
+        with self.assertRaises(ValueError):
+            statementref = StatementRef(id='badtest')
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(StatementRefTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
