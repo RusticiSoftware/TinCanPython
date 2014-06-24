@@ -2,11 +2,11 @@ A Python library for implementing Tin Can API.
 
 For hosted API documentation, basic usage instructions, supported version listing, etc. visit the main project website at:
 
-[http://rusticisoftware.github.io/TinCanPython/]()
+<http://rusticisoftware.github.io/TinCanPython/>
 
 For more information about the Tin Can API visit:
 
-[http://tincanapi.com/]()
+<http://tincanapi.com/>
 
 Requires Python 2.7 or later.
 
@@ -21,9 +21,9 @@ If you are installing from the Github repo, you will need to install `aniso8601`
 To speed up the timezone lookups, run:
 
     pip unzip pytz
-    
+
 ## Testing
-The preferred way to run the tests is from the command line. 
+The preferred way to run the tests is from the command line.
 
 ### Unix-like systems and Mac OS X
 No preparation needed.
@@ -39,9 +39,9 @@ Make sure that your Python installation allows you to run `python` from the comm
 ### Running the tests
 It is possible to run all the tests in one go, or just run one part of the tests to verify a single part of TinCanPython. The tests are located in `TinCanPython/test`.
 
-#### All the tests: 
-1. `cd` to the `test` directory.  
-2. Run 
+#### All the tests:
+1. `cd` to the `test` directory.
+2. Run
 
         python main.py
 
@@ -50,19 +50,19 @@ It is possible to run all the tests in one go, or just run one part of the tests
 2. Run
 
         python result_test.py
-    
+
     (or whatever test you want to run)
 
 ## API doc generation
-To automatically generate documentation, go to the `TinCanPython` folder and run the command 
+To automatically generate documentation, go to the `TinCanPython` folder and run the command
 
     sphinx-apidoc -o ./docs/source/ tincan/
 
-Then from the `TinCanPython/docs` folder run 
+Then from the `TinCanPython/docs` folder run
 
     make html
 
-The docs will be put in `TinCanPython/docs/build/html/index.html`. 
+The docs will be put in `TinCanPython/docs/build/html/index.html`.
 
 If you would like to change the names of each section, you can do so by modifying `TinCanPython/docs/source/tincan.rst`.
 
