@@ -17,7 +17,7 @@ from tincan.typed_list import TypedList
 
 """
 .. module:: statement_list
-   :synopsis: A wrapper for a list that is able to type check
+   :synopsis: A type checked Statement list
 
 """
 
