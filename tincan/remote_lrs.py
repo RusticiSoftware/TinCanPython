@@ -115,8 +115,12 @@ class RemoteLRS(Base):
             web_req = httplib.HTTPConnection(parsed.hostname, parsed.port)
 
         path = parsed.path
-        if params:
-            path += "?" + params
+        if parsed.query or parsed.path:
+            path += "?"
+            if parsed.query:
+                path += parsed.query
+            if params:
+                path += params
 
         if hasattr(request, "content") and request.content is not None:
             web_req.request(
