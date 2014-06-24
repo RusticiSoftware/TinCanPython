@@ -19,7 +19,7 @@ from tincan.context import Context
 from tincan.context_activities import ContextActivities
 from tincan.score import Score
 from tincan.result import Result
-from tincan.substatement import Substatement
+from tincan.substatement import SubStatement
 from tincan.statement_ref import StatementRef
 from tincan.about import About
 from tincan.statements_result import StatementsResult
@@ -90,7 +90,7 @@ class RemoteLRSTest(unittest.TestCase):
                 duration="PT120S"
             )
 
-            self.substatement = Substatement(
+            self.substatement = SubStatement(
                 actor=self.agent,
                 verb=self.verb,
                 object=self.activity,

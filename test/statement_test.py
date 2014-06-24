@@ -27,7 +27,7 @@ from tincan.verb import Verb
 from tincan.result import Result
 from tincan.context import Context
 from tincan.attachment import Attachment
-from tincan.substatement import Substatement
+from tincan.substatement import SubStatement
 from tincan.activity import Activity
 from tincan.statement_ref import StatementRef
 
@@ -307,8 +307,8 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.authority)
         self.agentVerificationHelper(statement.object)
 
-    def test_InitSubstatementObject(self):
-        statement = Statement(object=Substatement(object_type='Substatement'))
+    def test_InitSubStatementObject(self):
+        statement = Statement(object=SubStatement(object_type='SubStatement'))
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.actor)
@@ -457,7 +457,7 @@ class StatementTest(unittest.TestCase):
         self.assertEqual(value.usage_type, 'test')
 
     def substatementVerificationHelper(self, value):
-        self.assertIsInstance(value, Substatement)
+        self.assertIsInstance(value, SubStatement)
         self.assertEqual(value.object_type, 'SubStatement')
 
     def statementrefVerificationHelper(self, value):
