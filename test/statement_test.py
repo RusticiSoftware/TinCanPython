@@ -454,7 +454,7 @@ class StatementTest(unittest.TestCase):
 
     def substatementVerificationHelper(self, value):
         self.assertIsInstance(value, Substatement)
-        self.assertEqual(value.object_type, 'Substatement')
+        self.assertEqual(value.object_type, 'SubStatement')
 
     def statementrefVerificationHelper(self, value):
         self.assertIsInstance(value, StatementRef)

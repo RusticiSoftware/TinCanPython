@@ -117,7 +117,7 @@ class Substatement(SerializableBase):
 
     @property
     def object_type(self):
-        """Object Type for Substatement. Will always be "Substatement"
+        """Object Type for Substatement. Will always be "SubStatement"
 
         :setter: Tries to convert to unicode
         :setter type: unicode
@@ -128,4 +128,4 @@ class Substatement(SerializableBase):
 
     @object_type.setter
     def object_type(self, value):
-        self._object_type = 'Substatement'
+        self._object_type = 'SubStatement'
