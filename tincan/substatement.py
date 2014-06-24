@@ -12,13 +12,12 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.serializable_base import SerializableBase
+from tincan.statement_base import StatementBase
 from tincan.agent import Agent
 from tincan.group import Group
-from tincan.verb import Verb
 from tincan.activity import Activity
 
-class SubStatement(SerializableBase):
+class SubStatement(StatementBase):
 
     _props_req = [
         'object_type'
@@ -33,66 +32,12 @@ class SubStatement(SerializableBase):
     _props.extend(_props_req)
 
     @property
-    def actor(self):
-        """Actor for SubStatement
-
-        :setter: Tries to convert to Agent
-        :setter type: :mod:`tincan.agent`
-        :rtype: :mod:`tincan.agent`
-
-        """
-        return self._actor
-
-    @actor.setter
-    def actor(self, value):
-        if value is not None and not isinstance(value, Agent) and not isinstance(value, Group):
-            if isinstance(value, dict):
-                if 'object_type' in value or 'objectType' in value:
-                    if 'objectType' in value:
-                        value['object_type'] = value['objectType']
-                        value.pop('objectType')
-                    if value['object_type'] == 'Agent':
-                        value = Agent(value)
-                    elif value['object_type'] == 'Group':
-                        value = Group(value)
-                    else:
-                        value = Agent(value)
-                else:
-                    value = Agent(value)
-        self._actor = value
-
-    @actor.deleter
-    def actor(self):
-        del(self._actor)
-
-    @property
-    def verb(self):
-        """Verb for SubStatement
-
-        :setter: Tries to convert to Verb
-        :setter type: :mod:`tincan.verb`
-        :rtype: :mod:`tincan.verb`
-
-        """
-        return self._verb
-
-    @verb.setter
-    def verb(self, value):
-        if value is not None and not isinstance(value, Verb):
-                value = Verb(value)
-        self._verb = value
-
-    @verb.deleter
-    def verb(self):
-        del(self._verb)
-
-    @property
     def object(self):
         """Object for SubStatement
 
         :setter: Setter for object
         :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
-        :rtype: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.activity` |
+        :rtype: :mod:`tincan.agent` | :mod:`tincan.group` | :mod:`tincan.activity`
 
         """
         return self._object
