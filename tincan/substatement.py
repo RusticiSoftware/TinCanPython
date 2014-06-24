@@ -18,7 +18,7 @@ from tincan.group import Group
 from tincan.verb import Verb
 from tincan.activity import Activity
 
-class Substatement(SerializableBase):
+class SubStatement(SerializableBase):
 
     _props_req = [
         'object_type'
@@ -34,7 +34,7 @@ class Substatement(SerializableBase):
 
     @property
     def actor(self):
-        """Actor for Substatement
+        """Actor for SubStatement
 
         :setter: Tries to convert to Agent
         :setter type: :mod:`tincan.agent`
@@ -46,8 +46,17 @@ class Substatement(SerializableBase):
     @actor.setter
     def actor(self, value):
         if value is not None and not isinstance(value, Agent) and not isinstance(value, Group):
-                if isinstance(value, list):
-                    value = Group(member=value)
+            if isinstance(value, dict):
+                if 'object_type' in value or 'objectType' in value:
+                    if 'objectType' in value:
+                        value['object_type'] = value['objectType']
+                        value.pop('objectType')
+                    if value['object_type'] == 'Agent':
+                        value = Agent(value)
+                    elif value['object_type'] == 'Group':
+                        value = Group(value)
+                    else:
+                        value = Agent(value)
                 else:
                     value = Agent(value)
         self._actor = value
@@ -58,7 +67,7 @@ class Substatement(SerializableBase):
 
     @property
     def verb(self):
-        """Verb for Substatement
+        """Verb for SubStatement
 
         :setter: Tries to convert to Verb
         :setter type: :mod:`tincan.verb`
@@ -79,7 +88,7 @@ class Substatement(SerializableBase):
 
     @property
     def object(self):
-        """Object for Substatement
+        """Object for SubStatement
 
         :setter: Setter for object
         :setter type: :mod:`tincan.Agent` | :mod:`tincan.Group`
@@ -91,24 +100,21 @@ class Substatement(SerializableBase):
     @object.setter
     def object(self, value):
         if value is not None and not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Activity):
-                if isinstance(value, list):
-                    value = Group(member=value)
+            if isinstance(value, dict):
+                if 'object_type' in value or 'objectType' in value:
+                    if 'objectType' in value:
+                        value['object_type'] = value['objectType']
+                        value.pop('objectType')
+                    if value['object_type'] == 'Agent':
+                        value = Agent(value)
+                    elif value['object_type'] == 'Activity':
+                        value = Activity(value)
+                    elif value['object_type'] == 'Group':
+                        value = Group(value)
+                    else:
+                        value = Activity(value)
                 else:
-                    if isinstance(value, dict):
-                        if 'object_type' in value or 'objectType' in value:
-                            if 'objectType' in value:
-                                value['object_type'] = value['objectType']
-                                value.pop('objectType')
-                            if value['object_type'] == 'Agent':
-                                value = Agent(value)
-                            elif value['object_type'] == 'Activity':
-                                value = Activity(value)
-                            elif value['object_type'] == 'Group':
-                                value = Group(value)
-                            else:
-                                value = Activity(value)
-                        else:
-                            value = Activity(value)
+                    value = Activity(value)
         self._object = value
 
     @object.deleter
@@ -117,7 +123,7 @@ class Substatement(SerializableBase):
 
     @property
     def object_type(self):
-        """Object Type for Substatement. Will always be "SubStatement"
+        """Object Type for SubStatement. Will always be "SubStatement"
 
         :setter: Tries to convert to unicode
         :setter type: unicode

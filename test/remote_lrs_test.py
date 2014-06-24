@@ -21,7 +21,7 @@ from tincan.score import Score
 from tincan.group import Group
 from tincan.base import Base
 from tincan.result import Result
-from tincan.substatement import Substatement
+from tincan.substatement import SubStatement
 from tincan.statement_ref import StatementRef
 from tincan.about import About
 from tincan.statements_result import StatementsResult

@@ -45,10 +45,6 @@ class Agent(SerializableBase):
     def object_type(self, value):
         self._object_type = 'Agent'
 
-    @object_type.deleter
-    def object_type(self):
-        del self._object_type
-
     @property
     def name(self):
         """Name for Agent

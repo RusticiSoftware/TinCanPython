@@ -29,6 +29,13 @@ class ContextActivities(SerializableBase):
 
     @property
     def category(self):
+        """Category for Context Activities
+
+        :setter: Tries to convert to Activity List
+        :setter type: :mod:`tincan.activity_list`
+        :rtype: :mod:`tincan.activity_list`
+
+        """
         return self._category
 
     @category.setter
@@ -42,6 +49,13 @@ class ContextActivities(SerializableBase):
 
     @property
     def parent(self):
+        """Parent for Context Activities
+
+        :setter: Tries to convert to Activity List
+        :setter type: :mod:`tincan.activity_list`
+        :rtype: :mod:`tincan.activity_list`
+
+        """
         return self._parent
 
     @parent.setter
@@ -55,6 +69,13 @@ class ContextActivities(SerializableBase):
 
     @property
     def grouping(self):
+        """Grouping for Context Activities
+
+        :setter: Tries to convert to Activity List
+        :setter type: :mod:`tincan.activity_list`
+        :rtype: :mod:`tincan.activity_list`
+
+        """
         return self._grouping
 
     @grouping.setter
@@ -68,6 +89,13 @@ class ContextActivities(SerializableBase):
 
     @property
     def other(self):
+        """Other for Context Activities
+
+        :setter: Tries to convert to Activity List
+        :setter type: :mod:`tincan.activity_list`
+        :rtype: :mod:`tincan.activity_list`
+
+        """
         return self._other
 
     @other.setter
@@ -80,6 +108,11 @@ class ContextActivities(SerializableBase):
         del self._other
 
     def _activity_or_list(self, value):
+        """Tries to convert value to an Activity List
+
+        :param value: The value to attempt to convert to Activity List
+        :return: A :mod:`tincan.activity_list` of value
+        """
         result = value
         if value is not None and not isinstance(value, ActivityList):
             try:

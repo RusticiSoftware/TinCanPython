@@ -49,6 +49,13 @@ class Context(SerializableBase):
 
     @property
     def registration(self):
+        """Registration for Context
+
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
+
+        """
         return self._registration
 
     @registration.setter
@@ -65,6 +72,13 @@ class Context(SerializableBase):
 
     @property
     def instructor(self):
+        """Instructor for Context
+
+        :setter: Tries to convert to Agent or Group
+        :setter type: :mod:`tincan.agent` | :mod:`tincan.group`
+        :rtype: :mod:`tincan.agent` | :mod:`tincan.group`
+
+        """
         return self._instructor
 
     @instructor.setter
@@ -82,6 +96,13 @@ class Context(SerializableBase):
 
     @property
     def team(self):
+        """Team for Context
+
+        :setter: Tries to convert to Group
+        :setter type: :mod:`tincan.group`
+        :rtype: :mod:`tincan.group`
+
+        """
         return self._team
 
     @team.setter
@@ -96,6 +117,13 @@ class Context(SerializableBase):
 
     @property
     def context_activities(self):
+        """Context Activities for Context
+
+        :setter: Tries to convert to Context Activities
+        :setter type: :mod:`tincan.context_activities`
+        :rtype: :mod:`tincan.context_activities`
+
+        """
         return self._context_activities
 
     @context_activities.setter
@@ -105,17 +133,24 @@ class Context(SerializableBase):
         self._context_activities = value
 
     @context_activities.deleter
-    def context_activities(self, value):
+    def context_activities(self):
         del self._context_activities
 
     @property
     def revision(self):
+        """Revision for Context
+
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
+
+        """
         return self._revision
 
     @revision.setter
     def revision(self, value):
         if value is not None and not isinstance(value, basestring):
-            value = str(value)
+            value = unicode(value)
         self._revision = value
 
     @revision.deleter
@@ -124,12 +159,19 @@ class Context(SerializableBase):
 
     @property
     def platform(self):
+        """Platform for Context
+
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
+
+        """
         return self._platform
 
     @platform.setter
     def platform(self, value):
         if value is not None and not isinstance(value, basestring):
-            value = str(value)
+            value = unicode(value)
         self._platform = value
 
     @platform.deleter
@@ -138,13 +180,20 @@ class Context(SerializableBase):
 
     @property
     def language(self):
+        """Language for Context
+
+        :setter: Tries to convert to unicode
+        :setter type: unicode
+        :rtype: unicode
+
+        """
         return self._language
 
     @language.setter
     def language(self, value):
         if value is not None:
             if not isinstance(value, basestring):
-                value = str(value)
+                value = unicode(value)
             if not self._LANG_REGEX.match(value):
                 raise ValueError("invalid regional identifier")
         self._language = value
@@ -155,6 +204,13 @@ class Context(SerializableBase):
 
     @property
     def statement(self):
+        """Statement for Context
+
+        :setter: Tries to convert to StatementRef
+        :setter type: :mod:`tincan.statement_ref`
+        :rtype: :mod:`tincan.statement_ref`
+
+        """
         return self._statement
 
     @statement.setter
@@ -169,6 +225,13 @@ class Context(SerializableBase):
 
     @property
     def extensions(self):
+        """Extensions for Context
+
+        :setter: Tries to convert to StatementRef
+        :setter type: :mod:`tincan.extensions`
+        :rtype: :mod:`tincan.extensions`
+
+        """
         return self._extensions
 
     @extensions.setter
