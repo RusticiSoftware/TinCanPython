@@ -182,6 +182,7 @@ class InteractionComponentListTest(unittest.TestCase):
         self.assertEqual(iclist[0].description, LanguageMap({"en-US": "test1"}))
         self.assertEqual(iclist[1].description, LanguageMap({"en-US": "test2"}))
 
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(InteractionComponentListTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

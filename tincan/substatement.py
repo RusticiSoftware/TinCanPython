@@ -18,6 +18,7 @@ from tincan.group import Group
 from tincan.verb import Verb
 from tincan.activity import Activity
 
+
 class SubStatement(SerializableBase):
 
     _props_req = [

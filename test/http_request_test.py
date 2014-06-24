@@ -13,6 +13,10 @@
 #    limitations under the License.
 
 import unittest
+
+if __name__ == '__main__':
+    from main import setup_tincan_path
+    setup_tincan_path()
 from tincan.http_request import HTTPRequest
 
 
@@ -190,6 +194,7 @@ class HTTPRequestTest(unittest.TestCase):
         self.assertEqual(req.query_params["param"], "ok")
         self.assertTrue("tester" in req.query_params)
         self.assertEqual(req.query_params["tester"], "test")
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(HTTPRequestTest)

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 #    Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,6 +61,7 @@ class ResultTest(TinCanBaseTestCase):
 
         with self.assertRaises(AttributeError):
             Result({'bad_name': 2})
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ResultTest)

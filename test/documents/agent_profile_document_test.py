@@ -139,6 +139,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
         self.assertIsInstance(doc.agent, Agent)
         self.assertEqual(doc.agent.mbox, self.agent.mbox)
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AgentProfileDocumentTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

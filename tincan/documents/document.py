@@ -15,6 +15,7 @@ import datetime
 from tincan.base import Base
 from tincan.conversions.iso8601 import make_datetime
 
+
 class Document(Base):
     """Document class can be instantiated from a dict, another Document, or from kwargs
 
@@ -131,7 +132,7 @@ class Document(Base):
 
     @timestamp.setter
     def timestamp(self, value):
-        if value is None or isinstance(value, datetime.datetime):
+        if value is None:
             self._timestamp = value
             return
 

@@ -31,6 +31,7 @@ from tincan.substatement import SubStatement
 from tincan.activity import Activity
 from tincan.statement_ref import StatementRef
 
+
 class StatementTest(unittest.TestCase):
 
     def test_InitEmpty(self):
@@ -467,6 +468,7 @@ class StatementTest(unittest.TestCase):
     def activityVerificationHelper(self, value):
         self.assertIsInstance(value, Activity)
         self.assertEqual(value.id, 'test')
+
 
 if __name__ == '__main__':
      suite = unittest.TestLoader().loadTestsFromTestCase(StatementTest)

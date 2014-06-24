@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 #    Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -438,4 +436,3 @@ class ISO8601Test(unittest.TestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ISO8601Test)
     unittest.TextTestRunner(verbosity=2).run(suite)
-

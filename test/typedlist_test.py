@@ -26,6 +26,7 @@ class TypedListTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             tlist = TypedList()
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TypedListTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

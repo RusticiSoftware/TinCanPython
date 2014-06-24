@@ -34,15 +34,8 @@ from tincan.conversions.iso8601 import make_datetime
    :synopsis: A Statement object that contains all the information for one statement that is sent to an LRS
 """
 
-class Statement(SerializableBase):
 
-    _UUID_REGEX = re.compile(
-        r'^[a-f0-9]{8}-'
-        r'[a-f0-9]{4}-'
-        r'[1-5][a-f0-9]{3}-'
-        r'[89ab][a-f0-9]{3}-'
-        r'[a-f0-9]{12}$'
-    )
+class Statement(SerializableBase):
 
     _props_req = [
         "id",
@@ -205,7 +198,7 @@ class Statement(SerializableBase):
 
     @timestamp.setter
     def timestamp(self, value):
-        if value is None or isinstance(value, datetime):
+        if value is None:
             self._timestamp = value
             return
 
@@ -251,7 +244,7 @@ class Statement(SerializableBase):
 
     @stored.setter
     def stored(self, value):
-        if value is None or isinstance(value, datetime):
+        if value is None:
             self._stored = value
             return
 
