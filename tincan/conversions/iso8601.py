@@ -135,7 +135,7 @@ def jsonify_timedelta(value):
 
 def make_datetime(value):
     """Tries to convert the given value to a :class:`datetime.datetime`. If
-    no timezone is given, makes a naive `datetime.datetime`.
+    no timezone is given, raises a ValueError.
 
     Strings will be parsed as ISO 8601 timestamps.
 
@@ -152,6 +152,45 @@ def make_datetime(value):
     :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
     :return: the value after conversion
     :rtype: :class:`datetime.datetime`
+    :raises ValueError | TypeError
+    """
+    result = _make_datetime(value)
+    if not result.tzinfo:
+        raise ValueError(
+            "value was a timestamp, but no timezone was set! "
+            "Value was a '%s' object: %s" %
+            (
+                result.__class__.__name__,
+                repr(result),
+            )
+        )
+
+    return result
+
+
+def _make_datetime(value):
+    """Helper function for `make_datetime()`.
+
+    Tries to convert the given value to a
+    :class:`datetime.datetime`. But, unlike make_datetime(), if no
+    timezone is given, makes a naive `datetime.datetime`.
+
+    Strings will be parsed as ISO 8601 timestamps.
+
+    If a number is provided, it will be interpreted as a UNIX
+    timestamp, which by definition is UTC.
+
+    If a `dict` is provided, does `datetime.datetime(**value)`.
+
+    If a `tuple` or a `list` is provided, does
+    `datetime.datetime(*value)`. Uses the timezone in the tuple or
+    list if provided.
+
+    :param value: something to convert
+    :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
+    :return: the value after conversion
+    :rtype: :class:`datetime.datetime`
+    :raises ValueError | TypeError
     """
 
     if isinstance(value, basestring):
