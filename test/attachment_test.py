@@ -98,7 +98,6 @@ class AttachmentTest(unittest.TestCase):
         self.assertEqual(attachment.fileurl, 'test.com/test.pdf')
         self.languageMapVerificationHelper(attachment.display)
 
-
     def test_AttachmentInitAnonDescription(self):
         attachment = Attachment(usage_type='test', display=None, description={"en-US":"test"}, content_type='test', length=1, sha2='test', fileurl='test.com/test.pdf')
         self.assertEqual(attachment.usage_type, 'test')
@@ -201,7 +200,7 @@ class AttachmentTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             attachment.description = ({"bad map"})
 
-     def test_FromJSONEmptyObject(self):
+    def test_FromJSONEmptyObject(self):
         attachment = Attachment.from_json('{}')
         self.assertIsNone(attachment.usage_type)
         self.assertIsNone(attachment.display)
