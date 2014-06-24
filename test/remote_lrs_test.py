@@ -93,7 +93,7 @@ class RemoteLRSTest(unittest.TestCase):
             duration="PT120S"
         )
 
-        self.substatement = Substatement(
+        self.substatement = SubStatement(
             actor=self.agent,
             verb=self.verb,
             object=self.activity,
