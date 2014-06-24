@@ -256,7 +256,7 @@ class RemoteLRSTest(unittest.TestCase):
         response = self.lrs.retrieve_statement(save_resp.content.id)
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
-        self._vars_verifier(response.content, statement, ['_authority', '_timestamp', '_stored'])
+        self._vars_verifier(response.content, statement, ['_authority', '_stored'])
 
     def _vars_verifier(self, obj1, obj2, _ignored_attrs=[]):
         for k, v in vars(obj1).iteritems():
@@ -313,8 +313,8 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response.content, StatementsResult)
         self.assertTrue(hasattr(response.content, 'more'))
         self.assertIsNotNone(response.content.more)
-        self._vars_verifier(s1, response.content.statements[0], ['_authority', '_timestamp', '_stored', '_id'])
-        self._vars_verifier(s2, response.content.statements[1], ['_authority', '_timestamp', '_stored', '_id'])
+        self._vars_verifier(s1, response.content.statements[0], ['_authority', '_stored', '_id'])
+        self._vars_verifier(s2, response.content.statements[1], ['_authority', '_stored', '_id'])
 
     def test_query_none(self):
         query = {
