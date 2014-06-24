@@ -16,7 +16,7 @@ from tincan.agent import Agent
 from tincan.typed_list import TypedList
 
 """
-.. module:: interactioncomponentlist
+.. module:: agent_list
    :synopsis: A wrapper for list that is able to type check
 
 """
