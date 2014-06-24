@@ -410,6 +410,11 @@ class ISO8601Test(unittest.TestCase):
             # used '#' instead of '-'
             make_datetime('2014-06-19T17:03#17.361077-05:00')
 
+        with self.assertRaises(ValueError):
+            # naive timestamps raise ValueError
+            make_datetime('2014-06-19T16:40:22.293913')
+
+
     def test_bad_timedelta_to_iso(self):
         with self.assertRaises(AssertionError):
             jsonify_datetime('2014-06-19T17:03:17.361077-05:00')
