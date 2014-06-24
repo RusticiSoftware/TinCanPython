@@ -160,13 +160,8 @@ class Agent(SerializableBase):
 
     @account.setter
     def account(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, AgentAccount):
+        if value is not None and not isinstance(value, AgentAccount):
                 value = AgentAccount(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._account = value
 
     @account.deleter

@@ -104,15 +104,11 @@ class Statement(SerializableBase):
     @actor.setter
     def actor(self, value):
         if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Agent):
+            if not isinstance(value, Agent):
                 if value.get('object_type') == 'Group' or value.get('objectType') == 'Group':
                     value = Group(member=value.get('member'))
                 else:
                     value = Agent(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._actor = value
 
     @actor.deleter
@@ -132,13 +128,8 @@ class Statement(SerializableBase):
 
     @verb.setter
     def verb(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Verb):
+        if value is not None and not isinstance(value, Verb):
                 value = Verb(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._verb = value
 
     @verb.deleter
@@ -159,9 +150,7 @@ class Statement(SerializableBase):
     @object.setter
     def object(self, value):
         if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Substatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
+            if not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Substatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
                 if isinstance(value, list):
                     value = Group(value)
                 else:
@@ -184,8 +173,6 @@ class Statement(SerializableBase):
                                 value = Activity(value)
                         else:
                             value = Activity(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._object = value
 
     @object.deleter
@@ -299,13 +286,8 @@ class Statement(SerializableBase):
 
     @authority.setter
     def authority(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Agent):
+        if value is not None and not isinstance(value, Agent):
                 value = Agent(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._authority = value
 
     @authority.deleter
@@ -325,13 +307,8 @@ class Statement(SerializableBase):
 
     @result.setter
     def result(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Result):
+        if value is not None and not isinstance(value, Result):
                 value = Result(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._result = value
 
     @result.deleter
@@ -351,13 +328,8 @@ class Statement(SerializableBase):
 
     @context.setter
     def context(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Context):
+        if value is not None and not isinstance(value, Context):
                 value = Context(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._context = value
 
     @context.deleter
@@ -393,8 +365,8 @@ class Statement(SerializableBase):
         """Attachments for Statement
 
         :setter: Tries to convert each element to Attachment
-        :setter type: list[:mod:`tincan.attachment`]
-        :rtype: list[:mod:`tincan.attachment`]
+        :setter type: :mod:`tincan.attachment_list`
+        :rtype: :mod:`tincan.attachment_list`
 
         """
         return self._attachments

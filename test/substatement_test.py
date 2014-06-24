@@ -95,7 +95,7 @@ class TestSubstatement(unittest.TestCase):
 
     def test_ToJSONEmpty(self):
         substatement = Substatement()
-        self.assertEqual(substatement.to_json(), '{}')
+        self.assertEqual(substatement.to_json(), '{"objectType": "Substatement"}')
 
     def test_ToJSON(self):
         substatement = Substatement(object_type='Substatement', actor=Agent(name='test'), verb=Verb(id='test'), object=Activity(id='test'))

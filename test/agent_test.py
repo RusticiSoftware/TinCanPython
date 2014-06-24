@@ -66,7 +66,7 @@ class AgentTest(unittest.TestCase):
         self.assertEqual(agent.mbox, 'mailto:test@test.com')
         self.assertEqual(agent.mbox_sha1sum, 'test')
         self.assertEqual(agent.openid, 'test')
-        self.assertIsNone(agent.account)
+        self.assertIsInstance(agent.account, AgentAccount)
 
     def test_InitAnonAccount(self):
         agent = Agent(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account={"name": "test", "home_page": "test.com"})

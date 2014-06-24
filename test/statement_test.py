@@ -93,7 +93,7 @@ class StatementTest(unittest.TestCase):
     def test_InitEmptyActor(self):
         statement = Statement(actor={})
         self.assertIsNone(statement.id)
-        self.assertIsNone(statement.actor)
+        self.assertIsInstance(statement.actor, Agent)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
         self.assertIsNone(statement.timestamp)
@@ -104,7 +104,7 @@ class StatementTest(unittest.TestCase):
         statement = Statement(verb={})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
-        self.assertIsNone(statement.verb)
+        self.assertIsInstance(statement.verb, Verb)
         self.assertIsNone(statement.object)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
@@ -115,7 +115,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
-        self.assertIsNone(statement.object)
+        self.assertIsInstance(statement.object, Activity)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
@@ -128,7 +128,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.object)
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
-        self.assertIsNone(statement.authority)
+        self.assertIsInstance(statement.authority, Agent)
 
     def test_InitEmptyResult(self):
         statement = Statement(result={})
@@ -139,7 +139,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
-        self.assertIsNone(statement.result)
+        self.assertIsInstance(statement.result, Result)
 
     def test_InitEmptyContext(self):
         statement = Statement(context={})
@@ -150,7 +150,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
-        self.assertIsNone(statement.context)
+        self.assertIsInstance(statement.context, Context)
 
     def test_InitEmptyAttachments(self):
         statement = Statement(attachments=[])

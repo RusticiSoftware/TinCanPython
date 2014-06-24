@@ -20,12 +20,17 @@ from tincan.activity import Activity
 
 class Substatement(SerializableBase):
 
+    _props_req = [
+        'object_type'
+    ]
+
     _props = [
-        "object_type",
         "actor",
         "verb",
         "object"
     ]
+
+    _props.extend(_props_req)
 
     @property
     def actor(self):
@@ -40,16 +45,11 @@ class Substatement(SerializableBase):
 
     @actor.setter
     def actor(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group):
+        if value is not None and not isinstance(value, Agent) and not isinstance(value, Group):
                 if isinstance(value, list):
                     value = Group(member=value)
                 else:
                     value = Agent(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._actor = value
 
     @actor.deleter
@@ -69,13 +69,8 @@ class Substatement(SerializableBase):
 
     @verb.setter
     def verb(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Verb):
+        if value is not None and not isinstance(value, Verb):
                 value = Verb(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._verb = value
 
     @verb.deleter
@@ -95,10 +90,7 @@ class Substatement(SerializableBase):
 
     @object.setter
     def object(self, value):
-        if value is not None:
-            if not value:
-                value = None
-            elif not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Activity):
+        if value is not None and not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Activity):
                 if isinstance(value, list):
                     value = Group(member=value)
                 else:
@@ -117,8 +109,6 @@ class Substatement(SerializableBase):
                                 value = Activity(value)
                         else:
                             value = Activity(value)
-            elif len(vars(value)) == 0:
-                value = None
         self._object = value
 
     @object.deleter
