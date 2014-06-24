@@ -26,34 +26,44 @@ class TypedList(list, SerializableBase):
     _cls = None
 
     def __init__(self, *args, **kwargs):
-        if self._cls is None:
-            raise ValueError("_cls has not be set")
-        new_args = [self._cls(v) for v in list(*args, **kwargs)]
+        self._check_cls()
+        new_args = [self._make_cls(v) for v in list(*args, **kwargs)]
         super(TypedList, self).__init__(new_args)
 
     def __setitem__(self, ind, value):
-        if self._cls is None:
-            raise ValueError("_cls has not be set")
-        if not isinstance(value, self._cls):
-            value = self._cls(value)
+        self._check_cls()
+        value = self._make_cls(value)
         super(TypedList, self).__setitem__(ind, value)
 
-    def append(self, value):
+    def _check_cls(self):
+        """If self._cls is not set, raises ValueError.
+
+        :raises ValueError
+        """
         if self._cls is None:
-            raise ValueError("_cls has not be set")
-        if not isinstance(value, self._cls):
-            value = self._cls(value)
+            raise ValueError("_cls has not been set")
+
+    def _make_cls(self, value):
+        """If value is instance of self._cls, converts and returns
+        it. Otherwise, returns value.
+
+        :rtype self._cls
+        """
+        if isinstance(value, self._cls):
+            return value
+        return self._cls(value)
+
+    def append(self, value):
+        self._check_cls()
+        value = self._make_cls(value)
         super(TypedList, self).append(value)
 
     def extend(self, value):
-        if self._cls is None:
-            raise ValueError("_cls has not be set")
-        new_args = [self._cls(v) for v in value]
+        self._check_cls()
+        new_args = [self._make_cls(v) for v in value]
         super(TypedList, self).extend(new_args)
 
     def insert(self, ind, value):
-        if self._cls is None:
-            raise ValueError("_cls has not be set")
-        if not isinstance(value, self._cls):
-            value = self._cls(value)
+        self._check_cls()
+        value = self._make_cls(value)
         super(TypedList, self).insert(ind, value)
