@@ -15,6 +15,7 @@
 import json
 import uuid
 import datetime
+import re
 from tincan.base import Base
 from tincan.version import Version
 from tincan.conversions.iso8601 import jsonify_datetime, jsonify_timedelta
@@ -40,6 +41,14 @@ class SerializableBase(Base):
         '_context_activities': 'contextActivities',
         '_home_page': 'homePage',
     }
+
+    _UUID_REGEX = re.compile(
+        r'^[a-f0-9]{8}-'
+        r'[a-f0-9]{4}-'
+        r'[1-5][a-f0-9]{3}-'
+        r'[89ab][a-f0-9]{3}-'
+        r'[a-f0-9]{12}$'
+    )
 
     def __init__(self, *args, **kwargs):
 
