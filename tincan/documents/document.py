@@ -132,7 +132,7 @@ class Document(Base):
 
     @timestamp.setter
     def timestamp(self, value):
-        if value is None or isinstance(value, datetime.datetime):
+        if value is None:
             self._timestamp = value
             return
 
