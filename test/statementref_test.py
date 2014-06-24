@@ -44,6 +44,10 @@ class TestStatementRef(unittest.TestCase):
         statementref = StatementRef(object_type='StatementRef', id='test')
         self.assertEqual(statementref.to_json(), '{"id": "test", "objectType": "StatementRef"}')
 
+    def test_ToJSONNoObjectType(self):
+        statementref = StatementRef(id='test')
+        self.assertEqual(statementref.to_json(), '{"id": "test", "objectType": "StatementRef"}')
+
     def test_FromJSONToJSON(self):
         json_str = '{"object_type":"StatementRef", "id":"test"}'
         statementref = StatementRef.from_json(json_str)
@@ -54,3 +58,7 @@ class TestStatementRef(unittest.TestCase):
     def test_ToJSONEmpty(self):
         statementref = StatementRef()
         self.assertEqual(statementref.to_json(), '{}')
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestStatementRef)
+    unittest.TextTestRunner(verbosity=2).run(suite)
