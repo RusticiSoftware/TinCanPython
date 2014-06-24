@@ -167,7 +167,7 @@ class StatementTest(unittest.TestCase):
         self.agentVerificationHelper(statement.actor)
 
     def test_InitAnonGroupActor(self):
-        statement = Statement(actor=[Agent(name='test')])
+        statement = Statement(actor={'member': [Agent(name='test')], 'object_type': 'Group'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
@@ -375,7 +375,7 @@ class StatementTest(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_InitUnpack(self):
-        obj = {'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'object_type':'Agent', 'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'016699c6-d600-48a7-96ab-86187498f16f'}, 'attachments':[{'usage_type':'test'}]}
+        obj = {'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor': {'name':'test'}, 'verb':{'id':'test'}, 'object':{'object_type':'Agent', 'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'016699c6-d600-48a7-96ab-86187498f16f'}, 'attachments':[{'usage_type':'test'}]}
         statement = Statement(**obj)
         self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.agentVerificationHelper(statement.actor)
@@ -407,7 +407,7 @@ class StatementTest(unittest.TestCase):
         self.assertEqual(statement.to_json(), '{"attachments": []}')
 
     def test_FromJSONToJSON(self):
-        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
+        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor": {"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
         statement = Statement.from_json(json_str)
         self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.agentVerificationHelper(statement.actor)
