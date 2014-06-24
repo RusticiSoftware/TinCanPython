@@ -21,6 +21,7 @@ from tincan.serializable_base import SerializableBase
 
 """
 
+
 class AgentAccount(SerializableBase):
     _props = [
         "name",

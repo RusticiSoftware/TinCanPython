@@ -115,8 +115,7 @@ class Attachment(SerializableBase):
         :setter: Tries to convert to unicode
         :setter type: unicode
         :rtype: unicode
-
-		"""
+        """
         return self._sha2
 
     @sha2.setter

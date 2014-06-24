@@ -34,6 +34,7 @@ from tincan.conversions.iso8601 import make_datetime
    :synopsis: A Statement object that contains all the information for one statement that is sent to an LRS
 """
 
+
 class Statement(SerializableBase):
 
     _UUID_REGEX = re.compile(
