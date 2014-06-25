@@ -27,12 +27,15 @@ from tincan.agent_list import AgentList
 
 class Group(Agent):
 
-    _props = [
+    _props_req = [
         "object_type",
+    ]
+
+    _props = [
         "member"
     ]
 
-
+    _props.extend(_props_req)
 
     def __init__(self, *args, **kwargs):
         self._member = AgentList()
@@ -81,7 +84,6 @@ class Group(Agent):
 
     @property
     def object_type(self):
-
         """Object type for Group. Will always be "Group"
 
         :setter: Tries to convert to unicode

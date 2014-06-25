@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 #    Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +24,7 @@ if __name__ == '__main__':
     setup_tincan_path()
 from tincan.conversions.iso8601 import (
     make_timedelta, jsonify_timedelta,
-    make_datetime, jsonify_datetime,
+    make_datetime, _make_datetime, jsonify_datetime,
 )
 
 
@@ -198,7 +196,7 @@ class ISO8601Test(unittest.TestCase):
             '2014-06-19T16:40:22.293913',
             datetime(2014, 6, 19, 16, 40, 22, 293913)
         )
-        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(_make_datetime(pair[0]), pair[1])
 
         # timezone
         pair = (
@@ -213,7 +211,7 @@ class ISO8601Test(unittest.TestCase):
             '2014-06-19T16:40:22',
             datetime(2014, 6, 19, 16, 40, 22, 0)
         )
-        self.assertEqual(make_datetime(pair[0]), pair[1])
+        self.assertEqual(_make_datetime(pair[0]), pair[1])
 
         # timezone
         pair = (
@@ -304,8 +302,8 @@ class ISO8601Test(unittest.TestCase):
             (2014, 12, 17, ),
             datetime(2014, 12, 17,),
         )
-        self.assertEqual(make_datetime(pair[0]), pair[1])
-        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+        self.assertEqual(_make_datetime(pair[0]), pair[1])
+        self.assertEqual(_make_datetime(list(pair[0])), pair[1])
 
         pair = (
             (2014, 12, 17, 5, 13, 23, 123456, utc),
@@ -318,8 +316,8 @@ class ISO8601Test(unittest.TestCase):
             (2014, 12, 17, 5, 13, 23, 123456),
             datetime(2014, 12, 17, 5, 13, 23, 123456),
         )
-        self.assertEqual(make_datetime(pair[0]), pair[1])
-        self.assertEqual(make_datetime(list(pair[0])), pair[1])
+        self.assertEqual(_make_datetime(pair[0]), pair[1])
+        self.assertEqual(_make_datetime(list(pair[0])), pair[1])
 
         # Non-UTC timezone
         central = timezone('US/Central')
@@ -411,6 +409,11 @@ class ISO8601Test(unittest.TestCase):
         with self.assertRaises(ValueError):
             # used '#' instead of '-'
             make_datetime('2014-06-19T17:03#17.361077-05:00')
+
+        with self.assertRaises(ValueError):
+            # naive timestamps raise ValueError
+            make_datetime('2014-06-19T16:40:22.293913')
+
 
     def test_bad_timedelta_to_iso(self):
         with self.assertRaises(AssertionError):

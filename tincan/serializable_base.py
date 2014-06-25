@@ -15,6 +15,7 @@
 import json
 import uuid
 import datetime
+import re
 from tincan.base import Base
 from tincan.version import Version
 from tincan.conversions.iso8601 import jsonify_datetime, jsonify_timedelta
@@ -41,6 +42,14 @@ class SerializableBase(Base):
         '_home_page': 'homePage',
     }
 
+    _UUID_REGEX = re.compile(
+        r'^[a-f0-9]{8}-'
+        r'[a-f0-9]{4}-'
+        r'[1-5][a-f0-9]{3}-'
+        r'[89ab][a-f0-9]{3}-'
+        r'[a-f0-9]{12}$'
+    )
+
     def __init__(self, *args, **kwargs):
 
         new_kwargs = {}
@@ -49,10 +58,10 @@ class SerializableBase(Base):
 
         new_kwargs.update(kwargs)
 
-        for k, v in self._props_corrected.iteritems():
-            if v in new_kwargs:
-                new_kwargs[k[1:]] = new_kwargs[v]
-                new_kwargs.pop(v)
+        for uscore, camel in self._props_corrected.iteritems():
+            if camel in new_kwargs:
+                new_kwargs[uscore[1:]] = new_kwargs[camel]
+                new_kwargs.pop(camel)
 
         super(SerializableBase, self).__init__(**new_kwargs)
 

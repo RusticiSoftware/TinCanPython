@@ -99,16 +99,16 @@ class SubStatementTest(unittest.TestCase):
 
     def test_ToJSON(self):
         substatement = SubStatement(object_type='SubStatement', actor=Agent(name='test'), verb=Verb(id='test'), object=Activity(id='test'))
-        self.assertEqual(substatement.to_json(), '{"verb": {"id": "test"}, "object": {"id": "test"}, "actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
+        self.assertEqual(substatement.to_json(), '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, "actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
 
     def test_FromJSONToJSON(self):
-        json_str = '{"object_type":"SubStatement", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"id":"test"}}'
+        json_str = '{"object_type":"SubStatement", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"id":"test", "objectType": "Activity"}}'
         substatement = SubStatement.from_json(json_str)
         self.assertEqual(substatement.object_type, 'SubStatement')
         self.agentVerificationHelper(substatement.actor)
         self.verbVerificationHelper(substatement.verb)
         self.activityVerificationHelper(substatement.object)
-        self.assertEqual(substatement.to_json(), '{"verb": {"id": "test"}, "object": {"id": "test"}, "actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
+        self.assertEqual(substatement.to_json(), '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, "actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
 
     def agentVerificationHelper(self, value):
         self.assertIsInstance(value, Agent)
@@ -131,6 +131,7 @@ class SubStatementTest(unittest.TestCase):
     def activityVerificationHelper(self, value):
         self.assertIsInstance(value, Activity)
         self.assertEqual(value.id, 'test')
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(SubStatementTest)

@@ -117,7 +117,7 @@ class ContextTest(unittest.TestCase):
             "registration": "016699c6-d600-48a7-96ab-86187498f16f",
             "instructor": {"member": [{"name": "instructorGroupMember", "objectType": "Agent"}], "objectType": "Group"},
             "team": {"member": [{"name": "teamGroupMember", "objectType": "Agent"}], "objectType": "Group"},
-            "contextActivities": {"category": [{"id": "contextActivityCategory"}]},
+            "contextActivities": {"category": [{"id": "contextActivityCategory", "objectType": "Activity"}]},
             "revision": "revision",
             "platform": "platform",
             "language": "en-US",

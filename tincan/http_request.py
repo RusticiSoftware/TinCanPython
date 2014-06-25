@@ -42,32 +42,11 @@ class HTTPRequest(Base):
     ]
 
     _props = [
-        'endpoint',
         'content',
         'ignore404',
     ]
 
     _props.extend(_props_req)
-
-    @property
-    def endpoint(self):
-        """The remote lrs endpoint used for the HTTP connection
-
-        :setter: Tries to convert to unicode
-        :setter type: str | unicode
-        :rtype: unicode
-        """
-        return self._endpoint
-
-    @endpoint.setter
-    def endpoint(self, value):
-        if not isinstance(value, unicode) and value is not None:
-            unicode(value)
-        self._endpoint = value
-
-    @endpoint.deleter
-    def endpoint(self):
-        del self._endpoint
 
     @property
     def method(self):

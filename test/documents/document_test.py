@@ -131,7 +131,7 @@ class DocumentTest(unittest.TestCase):
 
     def test_content_timestamp(self):
         doc = Document()
-        dt = datetime.datetime.now()
+        dt = pytz.utc.localize(datetime.datetime.utcnow())
         doc.timestamp = dt
         self.assertEqual(doc.timestamp, dt)
 

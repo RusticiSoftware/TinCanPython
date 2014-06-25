@@ -37,7 +37,7 @@ Make sure that your Python installation allows you to run `python` from the comm
 4. Click "Next," then "Finish."
 
 ### Running the tests
-It is possible to run all the tests in one go, or just run one part of the tests to verify a single part of TinCanPython. The tests are located in `TinCanPython/test`.
+It is possible to run all the tests in one go, or just run one part of the tests to verify a single part of TinCanPython. The tests are located in `test/`.
 
 #### All the tests:
 1. `cd` to the `test` directory.
@@ -53,17 +53,25 @@ It is possible to run all the tests in one go, or just run one part of the tests
 
     (or whatever test you want to run)
 
+#### A single test case of one of the tests:
+1. `cd` to the directory containing the test.
+2. Run
+
+        python -m unittest remote_lrs_test.RemoteLRSTest.test_retrieve_statement
+
+    Where "remote_lrs_test" is the test file, "RemoteLRSTest" is the class in that file, and "test_retrieve_statement" is the specific test case.
+
 ## API doc generation
-To automatically generate documentation, go to the `TinCanPython` folder and run the command
+To automatically generate documentation, at the root of the repository run,
 
     sphinx-apidoc -o ./docs/source/ tincan/
 
-Then from the `TinCanPython/docs` folder run
+Then from the `docs/` directory run,
 
     make html
 
-The docs will be put in `TinCanPython/docs/build/html/index.html`.
+The docs will be output to `docs/build/html/`.
 
-If you would like to change the names of each section, you can do so by modifying `TinCanPython/docs/source/tincan.rst`.
+If you would like to change the names of each section, you can do so by modifying `docs/source/tincan.rst`.
 
 ## Releasing

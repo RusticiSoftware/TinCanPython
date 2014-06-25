@@ -16,6 +16,7 @@ from tincan.serializable_base import SerializableBase
 from tincan.agent_account import AgentAccount
 
 class Agent(SerializableBase):
+
     _props_req = [
         "object_type"
     ]

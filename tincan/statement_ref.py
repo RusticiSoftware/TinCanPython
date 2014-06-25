@@ -24,14 +24,6 @@ from tincan.serializable_base import SerializableBase
 
 class StatementRef(SerializableBase):
 
-    _UUID_REGEX = re.compile(
-        r'^[a-f0-9]{8}-'
-        r'[a-f0-9]{4}-'
-        r'[1-5][a-f0-9]{3}-'
-        r'[89ab][a-f0-9]{3}-'
-        r'[a-f0-9]{12}$'
-    )
-
     _props_req = [
         'object_type'
     ]
