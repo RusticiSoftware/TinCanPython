@@ -1,9 +1,9 @@
-.. TinCan Python documentation master file, created by
+.. Tin Can Python documentation master file, created by
    sphinx-quickstart on Tue Jun 10 12:52:27 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to TinCan Python's documentation!
+Welcome to Tin Can Python's documentation!
 =========================================
 
 Contents:
