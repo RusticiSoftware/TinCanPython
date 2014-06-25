@@ -156,8 +156,8 @@ class Agent(SerializableBase):
         """Account for Agent
 
         :setter: Tries to convert to Account
-        :setter type: :mod:`tincan.agent_account`
-        :rtype: :mod:`tincan.agent_account`
+        :setter type: :class:`tincan.agent_account.AgentAccount`
+        :rtype: :class:`tincan.agent_account.AgentAccount`
 
         """
         return self._account

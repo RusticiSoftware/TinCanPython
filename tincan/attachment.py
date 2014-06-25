@@ -161,8 +161,8 @@ class Attachment(SerializableBase):
         """Display for Attachment
 
         :setter: Tries to convert to LanguageMap
-        :setter type: :mod:`tincan.language_map`
-        :rtype: :mod:`tincan.language_map`
+        :setter type: :class:`tincan.language_map.LanguageMap`
+        :rtype: :class:`tincan.language_map.LanguageMap`
 
         """
         return self._display
@@ -182,8 +182,8 @@ class Attachment(SerializableBase):
         """Description for Attachment
 
         :setter: Tries to convert to LanguageMap
-        :setter type: :mod:`tincan.language_map`
-        :rtype: :mod:`tincan.language_map`
+        :setter type: :class:`tincan.language_map.LanguageMap`
+        :rtype: :class:`tincan.language_map.LanguageMap`
 
         """
         return self._description
