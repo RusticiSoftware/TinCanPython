@@ -39,6 +39,7 @@ def make_timedelta(value):
     :type value: str | unicode | float | int | datetime.timedelta | dict
     :return: the value after conversion
     :rtype: datetime.timedelta
+
     """
 
     if isinstance(value, basestring):
@@ -88,6 +89,7 @@ def jsonify_timedelta(value):
     :type value: datetime.timedelta
     :return: the value after conversion
     :rtype unicode
+
     """
 
     assert isinstance(value, datetime.timedelta)
@@ -153,6 +155,7 @@ def make_datetime(value):
     :return: the value after conversion
     :rtype: :class:`datetime.datetime`
     :raises ValueError | TypeError
+
     """
     result = _make_datetime(value)
     if not result.tzinfo:
