@@ -17,6 +17,22 @@ from tincan.serializable_base import SerializableBase
 
 class Score(SerializableBase):
 
+    """Stores the scoring data for an activity.
+
+    Can be created from a dict, another Score, or from kwargs.
+
+    All these attributes are optional and settable to None:
+
+    :param scaled: Scaled score
+    :type scaled: float
+    :param raw: Raw score
+    :type raw: float
+    :param min: Minimum score possible
+    :type min: float
+    :param max: Maximum score possible
+    :type max: float
+    """
+
     _props = [
         'scaled',
         'raw',
@@ -28,9 +44,10 @@ class Score(SerializableBase):
     def scaled(self):
         """Scaled for Score
 
-        :setter: Tries to convert to float
-        :setter type: float
-        :rtype: float
+        :setter: Tries to convert to float. If None is provided,
+        this signifies the absence of this data.
+        :setter type: float | int | None
+        :rtype: float | None
 
         """
         return self._scaled
@@ -60,9 +77,10 @@ class Score(SerializableBase):
     def raw(self):
         """Raw for Score
 
-        :setter: Tries to convert to float
-        :setter type: float
-        :rtype: float
+        :setter: Tries to convert to float. If None is provided,
+        this signifies the absence of this data.
+        :setter type: float | int | None
+        :rtype: float | None
 
         """
         return self._raw
@@ -92,9 +110,10 @@ class Score(SerializableBase):
     def min(self):
         """Min for Score
 
-        :setter: Tries to convert to float
-        :setter type: float
-        :rtype: float
+        :setter: Tries to convert to float. If None is provided,
+        this signifies the absence of this data.
+        :setter type: float | int | None
+        :rtype: float | None
 
         """
         return self._min
@@ -123,9 +142,10 @@ class Score(SerializableBase):
     def max(self):
         """Max for Score
 
-        :setter: Tries to convert to float
-        :setter type: float
-        :rtype: float
+        :setter: Tries to convert to float. If None is provided,
+        this signifies the absence of this data.
+        :setter type: float | int | None
+        :rtype: float | None
 
         """
         return self._max

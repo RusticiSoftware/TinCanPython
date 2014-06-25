@@ -26,6 +26,8 @@ class Result(SerializableBase):
 
     Can be created from a dict, another Result, or from kwargs.
 
+    All these attributes are optional and settable to None:
+
     :param score: Contains the score and its scaling information
     :type score: Score
     :param success: Whether successful
@@ -37,7 +39,7 @@ class Result(SerializableBase):
     :param response: HTTPResponse data
     :type response: unicode
     :param extensions: Custom user data
-    :type extensions: Extensions
+    :type extensions: :class:`tincan.extensions.Extensions`
     """
 
     _props = [
@@ -53,9 +55,10 @@ class Result(SerializableBase):
     def score(self):
         """Score for Result
 
-        :setter: Tries to convert to Score
-        :setter type: :mod:`tincan.score`
-        :rtype: :mod:`tincan.score`
+        :setter: Tries to convert to :class:`tincan.score.Score`. If
+        None is provided, this signifies the absence of this data.
+        :setter type: :class:`tincan.score.Score` | dict | None
+        :rtype: :class:`tincan.score.Score` | None
 
         """
         return self._score
@@ -85,9 +88,10 @@ class Result(SerializableBase):
     def success(self):
         """Success for Result
 
-        :setter: Tries to convert to bool
-        :setter type: bool
-        :rtype: bool
+        :setter: Tries to convert to bool. If None is provided,
+        this signifies the absence of this data.
+        :setter type: bool | None
+        :rtype: bool | None
 
         """
         return self._success
@@ -105,9 +109,10 @@ class Result(SerializableBase):
     def completion(self):
         """Completion for Result
 
-        :setter: Tries to convert to bool
-        :setter type: bool
-		:rtype: bool
+        :setter: Tries to convert to bool. If None is provided,
+        this signifies the absence of this data.
+        :setter type: bool | None
+        :rtype: bool | None
 
         """
         return self._completion
@@ -125,7 +130,8 @@ class Result(SerializableBase):
     def duration(self):
         """Duration for Result
 
-        :setter: Tries to convert to :class:`datetime.timedelta`.
+        :setter: Tries to convert to :class:`datetime.timedelta`. If
+        None is provided, this signifies the absence of this data.
 
         Strings will be parsed as ISO 8601 durations.
 
@@ -135,7 +141,7 @@ class Result(SerializableBase):
         If a `dict` is provided, does `datetime.timedelta(**value)`.
 
         :setter type: :class:`datetime.timedelta` | unicode | str | int | float | dict | None
-        :rtype: :class:`datetime.timedelta`
+        :rtype: :class:`datetime.timedelta` | None
         """
         return self._duration
 
@@ -167,9 +173,10 @@ class Result(SerializableBase):
     def response(self):
         """Response for Result
 
-        :setter: Tries to convert to unicode
-        :setter type: unicode
-        :rtype: unicode
+        :setter: Tries to convert to unicode. If None is provided,
+        this signifies the absence of this data.
+        :setter type: unicode | str | None
+        :rtype: unicode | None
 
         """
         return self._response
@@ -197,9 +204,10 @@ class Result(SerializableBase):
     def extensions(self):
         """Extensions for Result
 
-        :setter: Tries to convert to Extensions
-        :setter type: :mod:`tincan.extensions`
-        :rtype: :mod:`tincan.extensions`
+        :setter: Tries to convert to Extensions. If None is provided,
+        this signifies the absence of this data.
+        :setter type: :class:`tincan.extensions.Extensions` | dict | None
+        :rtype: :class:`tincan.extensions.Extensions` | None
 
         """
         return self._extensions

@@ -44,9 +44,10 @@ class TypedList(list, SerializableBase):
             raise ValueError("_cls has not been set")
 
     def _make_cls(self, value):
-        """If value is instance of self._cls, converts and returns
+        """If value is not instance of self._cls, converts and returns
         it. Otherwise, returns value.
 
+        :param value: the thing to make a self._cls from
         :rtype self._cls
         """
         if isinstance(value, self._cls):

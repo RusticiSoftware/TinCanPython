@@ -13,12 +13,13 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
-from tincan.version import Version
 
 
 class Extensions(dict, SerializableBase):
     """
     Contains domain-specific custom data.
+
+    Can be created from a dict, another Extensions, or from args and kwargs.
 
     Use this like a regular Python dict.
     """
