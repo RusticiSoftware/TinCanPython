@@ -161,9 +161,12 @@ def make_datetime(value):
     if not result.tzinfo:
         raise ValueError(
             "value was a timestamp, but no timezone was set! "
-            "Value was a '%s' object: %s" %
+            "Value was a '%s' object: %s"
+            "\n\n"
+            "Converted to naive 'datetime.datetime' object: %s" %
             (
-                result.__class__.__name__,
+                value.__class__.__name__,
+                repr(value),
                 repr(result),
             )
         )
