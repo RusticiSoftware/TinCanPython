@@ -394,21 +394,21 @@ class ISO8601Test(unittest.TestCase):
 
     def test_bad_iso_to_datetime(self):
         with self.assertRaises(ValueError):
-            make_datetime('')
+            _make_datetime('')
 
         with self.assertRaises(ValueError):
-            make_datetime('bad')
+            _make_datetime('bad')
 
         with self.assertRaises(TypeError):
-            make_datetime(None)
+            _make_datetime(None)
 
         with self.assertRaises(ValueError):
             # used '#' instead of 'T'
-            make_datetime('2014-06-19#17:03:17.361077-05:00')
+            _make_datetime('2014-06-19#17:03:17.361077-05:00')
 
         with self.assertRaises(ValueError):
             # used '#' instead of '-'
-            make_datetime('2014-06-19T17:03#17.361077-05:00')
+            _make_datetime('2014-06-19T17:03#17.361077-05:00')
 
         with self.assertRaises(ValueError):
             # naive timestamps raise ValueError
