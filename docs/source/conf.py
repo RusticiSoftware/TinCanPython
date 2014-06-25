@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# TinCan Python documentation build configuration file, created by
+# Tin Can Python documentation build configuration file, created by
 # sphinx-quickstart on Tue Jun 10 12:52:27 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -54,7 +54,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'TinCan Python'
+project = u'Tin Can Python'
 copyright = u'2014, Rustici Software'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -207,7 +207,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'TinCanPython.tex', u'TinCan Python Documentation',
+  ('index', 'TinCanPython.tex', u'Tin Can Python Documentation',
    u'Rustici Software', 'manual'),
 ]
 
@@ -237,7 +237,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'tincanpython', u'TinCan Python Documentation',
+    ('index', 'tincanpython', u'Tin Can Python Documentation',
      [u'Rustici Software'], 1)
 ]
 
@@ -251,7 +251,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'TinCanPython', u'TinCan Python Documentation',
+  ('index', 'TinCanPython', u'Tin Can Python Documentation',
    u'Rustici Software', 'TinCanPython', 'One line description of project.',
    'Miscellaneous'),
 ]
