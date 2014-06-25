@@ -13,7 +13,7 @@
     tincan.sendStatement(
         {
             actor: {
-                mbox: "mailto:tincanphp-github@tincanapi.com"
+                mbox: "mailto:tincanpython-github@tincanapi.com"
             },
             verb: {
                 id: "http://adlnet.gov/expapi/verbs/experienced"
