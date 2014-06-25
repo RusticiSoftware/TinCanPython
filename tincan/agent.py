@@ -15,6 +15,13 @@
 from tincan.serializable_base import SerializableBase
 from tincan.agent_account import AgentAccount
 
+"""
+
+.. module:: Agent
+   :synopsis: The Agent object that contains the information about an Agent
+
+"""
+
 class Agent(SerializableBase):
 
     _props_req = [

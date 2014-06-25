@@ -28,6 +28,7 @@ class Document(Base):
     :type etag: unicode
     :param timestamp: The timestamp of this document
     :type timestamp: :class:`datetime.datetime`
+
     """
     _props_req = [
         'id',
@@ -48,6 +49,7 @@ class Document(Base):
         :setter: Tries to convert to unicode
         :setter type: str | unicode
         :rtype: unicode
+
         """
         return self._id
 
@@ -64,6 +66,7 @@ class Document(Base):
         :setter: Tries to convert to unicode
         :setter type: str | unicode
         :rtype: unicode
+
         """
         return self._content_type
 
@@ -80,6 +83,7 @@ class Document(Base):
         :setter: Tries to convert to bytearray.
         :setter type: str | unicode | bytearray
         :rtype: bytearray
+
         """
         return self._content
 
@@ -97,6 +101,7 @@ class Document(Base):
         :setter: Tries to convert to unicode
         :setter type: str | unicode
         :rtype: unicode
+
         """
         return self._etag
 
@@ -126,6 +131,7 @@ class Document(Base):
 
         :setter type: :class:`datetime.datetime` | unicode | str | int | float | dict | tuple | None
         :rtype: :class:`datetime.datetime`
+
         """
         return self._timestamp
 

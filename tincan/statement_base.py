@@ -22,6 +22,13 @@ from tincan.attachment import Attachment
 from tincan.attachment_list import AttachmentList
 from tincan.conversions.iso8601 import make_datetime
 
+"""
+
+.. module:: StatementBase
+   :synopsis: The base object for both Statement and SubStatement
+
+"""
+
 class StatementBase(SerializableBase):
 
     _props_req = [
