@@ -16,5 +16,9 @@ tmp/
 .idea/
 test/resources/lrs_properties.py
 
+# release
+dist
+tincan.egg-info/
+
 # wild
 todo.md

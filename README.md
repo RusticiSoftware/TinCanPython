@@ -75,3 +75,43 @@ The docs will be output to `docs/build/html/`.
 If you would like to change the names of each section, you can do so by modifying `docs/source/tincan.rst`.
 
 ## Releasing
+To release to PyPI, first make sure that you have a PyPI account set up at https://pypi.python.org/pypi (and at
+ https://testpypi.python.org/pypi if you plan on using the test index). You will also need a .pyirc file in your
+ home directory with the following contents.
+
+    [distutils]
+
+    index-servers =
+        pypi
+        pypitest
+
+    [pypi] # authentication details for live PyPI
+    repository: https://pypi.python.org/pypi
+    username: <username>
+    password: <password>
+
+    [pypitest] # authentication details for test PyPI
+    repository: https://testpypi.python.org/pypi
+    username: <username>
+    password: <password>
+
+The pypitest contents of the .pyirc file are optional and are used for hosting to the test PyPI index.
+
+Update setup.py to contain the correct release version and other information.
+
+To test the register/upload, run the following commands in the repo directory:
+
+    python setup.py register -r pypitest
+
+    python setup.py sdist upload -r pypitest
+
+You should get no errors, and should be able to find this tincan version at https://testpypi.python.org/pypi.
+
+To register/upload to the live PyPI server, run the following commands in the repo directory:
+
+    python setup.py register -r pypi
+
+    python setup.py sdist upload -r pypi
+
+The new module should be now be installable with pip or easy_install.
+

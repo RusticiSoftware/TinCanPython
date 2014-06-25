@@ -22,7 +22,7 @@ setup(
         'AICC',
     ],
     requires=[
-      'aniso8601',
-      'pytz',
-    ]
+        'aniso8601',
+        'pytz',
+    ],
 )
