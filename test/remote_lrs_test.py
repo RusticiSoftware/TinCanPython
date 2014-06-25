@@ -15,7 +15,9 @@
 import unittest
 import uuid
 from datetime import datetime
-from pytz import utc
+from datetime import timedelta
+from calendar import timegm
+from pytz import utc, timezone
 
 if __name__ == '__main__':
     from main import setup_tincan_path
@@ -260,9 +262,9 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.activity,
             context=self.context,
             result=self.result,
-            id=str(uuid.uuid4()),
-            timestamp=utc.localize(datetime.utcnow()),
-            version=Version.latest
+            id=id_str,
+            version=Version.latest,
+            timestamp=utc.localize(datetime.utcnow())
         )
         save_resp = self.lrs.save_statement(statement)
 
@@ -273,13 +275,14 @@ class RemoteLRSTest(unittest.TestCase):
         self._vars_verifier(response.content, statement, ['_authority', '_stored'])
 
     def test_query_statements(self):
+        tstamp = utc.localize(datetime.utcnow())
         s1 = Statement(
             actor=self.agent,
             verb=self.verb,
             object=self.parent,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=utc.localize(datetime.utcnow())
+            timestamp=tstamp
         )
         self.lrs.save_statement(s1)
 
@@ -289,7 +292,7 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.parent,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=utc.localize(datetime.utcnow())
+            timestamp=tstamp
         )
         self.lrs.save_statement(s2)
 
@@ -299,7 +302,7 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.parent,
             result=self.result,
             id=str(uuid.uuid4()),
-            timestamp=utc.localize(datetime.utcnow())
+            timestamp=tstamp
         )
         self.lrs.save_statement(s3)
 
@@ -493,6 +496,13 @@ class RemoteLRSTest(unittest.TestCase):
         for k, v in vars(obj1).iteritems():
             if k in _ignored_attrs:
                 continue
+            elif isinstance(v, datetime):
+                dt1 = getattr(obj1, k)
+                dt2 = getattr(obj2, k)
+                ts1 = timegm(dt1.timetuple())
+                ts2 = timegm(dt2.timetuple())
+                self.assertEqual(ts1, ts2)
+                self.assertEqual(round(dt1.microsecond, 3), round(dt2.microsecond, 3))
             elif isinstance(v, Base):
                 self._vars_verifier(getattr(obj1, k), getattr(obj2, k))
             else:
