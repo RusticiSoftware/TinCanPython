@@ -19,7 +19,7 @@
                 id: "http://adlnet.gov/expapi/verbs/experienced"
             },
             target: {
-                id: "http://rusticisoftware.github.com/TinCanPython"
+                id: "http://rusticisoftware.github.io/TinCanPython/"
             }
         },
         function () {}
