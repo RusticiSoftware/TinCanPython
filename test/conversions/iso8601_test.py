@@ -184,7 +184,7 @@ class ISO8601Test(unittest.TestCase):
             jsonify_timedelta('PT12H')
 
         with self.assertRaises(AssertionError):
-            jsonify_datetime('2014-06-19T17:03:17.361077-05:00')
+            jsonify_timedelta('2014-06-19T17:03:17.361077-05:00')
 
         with self.assertRaises(AssertionError):
             jsonify_timedelta(('bad', 'stuff'))
@@ -392,30 +392,29 @@ class ISO8601Test(unittest.TestCase):
             jsonify_datetime(pair[1]),
         )
 
-    def test_bad_iso_to_timedelta(self):
+    def test_bad_iso_to_datetime(self):
         with self.assertRaises(ValueError):
-            make_datetime('')
+            _make_datetime('')
 
         with self.assertRaises(ValueError):
-            make_datetime('bad')
+            _make_datetime('bad')
 
         with self.assertRaises(TypeError):
-            make_datetime(None)
+            _make_datetime(None)
 
         with self.assertRaises(ValueError):
             # used '#' instead of 'T'
-            make_datetime('2014-06-19#17:03:17.361077-05:00')
+            _make_datetime('2014-06-19#17:03:17.361077-05:00')
 
         with self.assertRaises(ValueError):
             # used '#' instead of '-'
-            make_datetime('2014-06-19T17:03#17.361077-05:00')
+            _make_datetime('2014-06-19T17:03#17.361077-05:00')
 
         with self.assertRaises(ValueError):
             # naive timestamps raise ValueError
             make_datetime('2014-06-19T16:40:22.293913')
 
-
-    def test_bad_timedelta_to_iso(self):
+    def test_bad_datetime_to_iso(self):
         with self.assertRaises(AssertionError):
             jsonify_datetime('2014-06-19T17:03:17.361077-05:00')
 
