@@ -76,7 +76,7 @@ If you would like to change the names of each section, you can do so by modifyin
 
 ## Releasing
 To release to PyPI, first make sure that you have a PyPI account set up at https://pypi.python.org/pypi (and at
- https://testpypi.python.org/pypi if you plan on using the test index). You will also need a .pyirc file in your
+ https://testpypi.python.org/pypi if you plan on using the test index). You will also need a `.pypirc` file in your
  home directory with the following contents.
 
     [distutils]
@@ -95,7 +95,7 @@ To release to PyPI, first make sure that you have a PyPI account set up at https
     username: <username>
     password: <password>
 
-The pypitest contents of the .pyirc file are optional and are used for hosting to the test PyPI index.
+The pypitest contents of the `.pypirc` file are optional and are used for hosting to the test PyPI index.
 
 Update setup.py to contain the correct release version and any other new information.
 
