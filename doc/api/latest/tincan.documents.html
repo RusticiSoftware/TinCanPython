@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tincan.documents package &mdash; TinCan Python 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TinCan Python 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="tincan package" href="tincan.html" />
+    <link rel="prev" title="tincan.conversions package" href="tincan.conversions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tincan.conversions.html" title="tincan.conversions package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TinCan Python 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >tincan</a> &raquo;</li>
+          <li><a href="tincan.html" accesskey="U">tincan package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tincan-documents-package">
+<h1>tincan.documents package<a class="headerlink" href="#tincan-documents-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tincan.documents.activity_profile_document">
+<span id="tincan-documents-activity-profile-document-module"></span><h2>tincan.documents.activity_profile_document module<a class="headerlink" href="#module-tincan.documents.activity_profile_document" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.documents.activity_profile_document.ActivityProfileDocument">
+<em class="property">class </em><tt class="descclassname">tincan.documents.activity_profile_document.</tt><tt class="descname">ActivityProfileDocument</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.documents.activity_profile_document.ActivityProfileDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.documents.document.Document" title="tincan.documents.document.Document"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.document.Document</span></tt></a></p>
+<p>Extends Document with an Activity field, can be created from a dict, another Document, or from kwargs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>unicode</em>) &#8211; The id of this document</li>
+<li><strong>content_type</strong> (<em>unicode</em>) &#8211; The content_type of the content of this document</li>
+<li><strong>content</strong> (<em>bytearray</em>) &#8211; The content of this document</li>
+<li><strong>etag</strong> (<em>unicode</em>) &#8211; The etag of this document</li>
+<li><strong>timestamp</strong> (<tt class="xref py py-mod docutils literal"><span class="pre">datetime.datetime</span></tt>) &#8211; The timestamp of this document</li>
+<li><strong>activity</strong> (<em>Activity</em>) &#8211; The activity object of this document</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="tincan.documents.activity_profile_document.ActivityProfileDocument.activity">
+<tt class="descname">activity</tt><a class="headerlink" href="#tincan.documents.activity_profile_document.ActivityProfileDocument.activity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document&#8217;s activity object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to activity</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.documents.agent_profile_document">
+<span id="tincan-documents-agent-profile-document-module"></span><h2>tincan.documents.agent_profile_document module<a class="headerlink" href="#module-tincan.documents.agent_profile_document" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.documents.agent_profile_document.AgentProfileDocument">
+<em class="property">class </em><tt class="descclassname">tincan.documents.agent_profile_document.</tt><tt class="descname">AgentProfileDocument</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.documents.agent_profile_document.AgentProfileDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.documents.document.Document" title="tincan.documents.document.Document"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.document.Document</span></tt></a></p>
+<p>Extends Document with an Agent field, can be created from a dict, another Document, or from kwargs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>unicode</em>) &#8211; The id of this document</li>
+<li><strong>content_type</strong> (<em>unicode</em>) &#8211; The content_type of the content of this document</li>
+<li><strong>content</strong> (<em>bytearray</em>) &#8211; The content of this document</li>
+<li><strong>etag</strong> (<em>unicode</em>) &#8211; The etag of this document</li>
+<li><strong>timestamp</strong> (<tt class="xref py py-mod docutils literal"><span class="pre">datetime.datetime</span></tt>) &#8211; The timestamp of this document</li>
+<li><strong>agent</strong> (<em>Agent</em>) &#8211; The agent object of this document</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="tincan.documents.agent_profile_document.AgentProfileDocument.agent">
+<tt class="descname">agent</tt><a class="headerlink" href="#tincan.documents.agent_profile_document.AgentProfileDocument.agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document&#8217;s agent object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to agent</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.documents.document">
+<span id="tincan-documents-document-module"></span><h2>tincan.documents.document module<a class="headerlink" href="#module-tincan.documents.document" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.documents.document.Document">
+<em class="property">class </em><tt class="descclassname">tincan.documents.document.</tt><tt class="descname">Document</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.documents.document.Document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tincan.html#tincan.base.Base" title="tincan.base.Base"><tt class="xref py py-class docutils literal"><span class="pre">tincan.base.Base</span></tt></a></p>
+<p>Document class can be instantiated from a dict, another Document, or from kwargs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>unicode</em>) &#8211; The id of this document</li>
+<li><strong>content_type</strong> (<em>unicode</em>) &#8211; The content type of the content of this document</li>
+<li><strong>content</strong> (<em>bytearray</em>) &#8211; The content of this document</li>
+<li><strong>etag</strong> (<em>unicode</em>) &#8211; The etag of this document</li>
+<li><strong>timestamp</strong> (<tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt>) &#8211; The timestamp of this document</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="tincan.documents.document.Document.content">
+<tt class="descname">content</tt><a class="headerlink" href="#tincan.documents.document.Document.content" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document content</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to bytearray.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode | bytearray</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytearray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.documents.document.Document.content_type">
+<tt class="descname">content_type</tt><a class="headerlink" href="#tincan.documents.document.Document.content_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document content type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.documents.document.Document.etag">
+<tt class="descname">etag</tt><a class="headerlink" href="#tincan.documents.document.Document.etag" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document etag</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.documents.document.Document.id">
+<tt class="descname">id</tt><a class="headerlink" href="#tincan.documents.document.Document.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document id</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.documents.document.Document.timestamp">
+<tt class="descname">timestamp</tt><a class="headerlink" href="#tincan.documents.document.Document.timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document timestamp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to <tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt>. If</td>
+</tr>
+</tbody>
+</table>
+<p>no timezone is given, makes a naive <cite>datetime.datetime</cite>.</p>
+<p>Strings will be parsed as ISO 8601 timestamps.</p>
+<p>If a number is provided, it will be interpreted as a UNIX
+timestamp, which by definition is UTC.</p>
+<p>If a <cite>dict</cite> is provided, does <cite>datetime.datetime(**value)</cite>.</p>
+<p>If a <cite>tuple</cite> or a <cite>list</cite> is provided, does
+<cite>datetime.datetime(*value)</cite>. Uses the timezone in the tuple or
+list if provided.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt> | unicode | str | int | float | dict | tuple | None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.documents.state_document">
+<span id="tincan-documents-state-document-module"></span><h2>tincan.documents.state_document module<a class="headerlink" href="#module-tincan.documents.state_document" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.documents.state_document.StateDocument">
+<em class="property">class </em><tt class="descclassname">tincan.documents.state_document.</tt><tt class="descname">StateDocument</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.documents.state_document.StateDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.documents.document.Document" title="tincan.documents.document.Document"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.document.Document</span></tt></a></p>
+<p>Extends Document with Agent, Activity, and Registration fields; can be created from a dict, another Document, or from kwargs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>unicode</em>) &#8211; The id of this document</li>
+<li><strong>content_type</strong> (<em>unicode</em>) &#8211; The content_type of the content of this document</li>
+<li><strong>content</strong> (<em>bytearray</em>) &#8211; The content of this document</li>
+<li><strong>etag</strong> (<em>unicode</em>) &#8211; The etag of this document</li>
+<li><strong>timestamp</strong> (<tt class="xref py py-mod docutils literal"><span class="pre">datetime.datetime</span></tt>) &#8211; The time stamp of this document</li>
+<li><strong>agent</strong> (<em>Agent</em>) &#8211; The agent object of this document</li>
+<li><strong>activity</strong> (<em>Activity</em>) &#8211; The activity object of this document</li>
+<li><strong>registration</strong> (<em>unicode</em>) &#8211; The registration id of the state for this document</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="tincan.documents.state_document.StateDocument.activity">
+<tt class="descname">activity</tt><a class="headerlink" href="#tincan.documents.state_document.StateDocument.activity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document&#8217;s activity object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to activity</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.documents.state_document.StateDocument.agent">
+<tt class="descname">agent</tt><a class="headerlink" href="#tincan.documents.state_document.StateDocument.agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document&#8217;s agent object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to agent</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="tincan.html#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.documents.state_document.StateDocument.registration">
+<tt class="descname">registration</tt><a class="headerlink" href="#tincan.documents.state_document.StateDocument.registration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Document registration id</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode | <tt class="xref py py-class docutils literal"><span class="pre">uuid.UUID</span></tt></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.documents">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tincan.documents" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tincan.documents package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-tincan.documents.activity_profile_document">tincan.documents.activity_profile_document module</a></li>
+<li><a class="reference internal" href="#module-tincan.documents.agent_profile_document">tincan.documents.agent_profile_document module</a></li>
+<li><a class="reference internal" href="#module-tincan.documents.document">tincan.documents.document module</a></li>
+<li><a class="reference internal" href="#module-tincan.documents.state_document">tincan.documents.state_document module</a></li>
+<li><a class="reference internal" href="#module-tincan.documents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tincan.conversions.html"
+                        title="previous chapter">tincan.conversions package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tincan.documents.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tincan.conversions.html" title="tincan.conversions package"
+             >previous</a> |</li>
+        <li><a href="index.html">TinCan Python 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >tincan</a> &raquo;</li>
+          <li><a href="tincan.html" >tincan package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Rustici Software.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

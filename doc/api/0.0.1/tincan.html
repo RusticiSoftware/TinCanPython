@@ -1,0 +1,2791 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tincan package &mdash; TinCan Python 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TinCan Python 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="tincan" href="modules.html" />
+    <link rel="next" title="tincan.conversions package" href="tincan.conversions.html" />
+    <link rel="prev" title="tincan" href="modules.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tincan.conversions.html" title="tincan.conversions package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="tincan"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TinCan Python 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" accesskey="U">tincan</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tincan-package">
+<h1>tincan package<a class="headerlink" href="#tincan-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tincan.conversions.html">tincan.conversions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tincan.conversions.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tincan.conversions.html#module-tincan.conversions.iso8601">tincan.conversions.iso8601 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tincan.conversions.html#module-tincan.conversions">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tincan.documents.html">tincan.documents package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tincan.documents.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tincan.documents.html#module-tincan.documents.activity_profile_document">tincan.documents.activity_profile_document module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tincan.documents.html#module-tincan.documents.agent_profile_document">tincan.documents.agent_profile_document module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tincan.documents.html#module-tincan.documents.document">tincan.documents.document module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tincan.documents.html#module-tincan.documents.state_document">tincan.documents.state_document module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tincan.documents.html#module-tincan.documents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tincan.about">
+<span id="tincan-about-module"></span><h2>tincan.about module<a class="headerlink" href="#module-tincan.about" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.about.About">
+<em class="property">class </em><tt class="descclassname">tincan.about.</tt><tt class="descname">About</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.about.About" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.about.About.extensions">
+<tt class="descname">extensions</tt><a class="headerlink" href="#tincan.about.About.extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extensions for About</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Extensions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.about.About.version">
+<tt class="descname">version</tt><a class="headerlink" href="#tincan.about.About.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Version for About</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Sets the version</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">list | tuple | str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode | list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.activity">
+<span id="tincan-activity-module"></span><h2>tincan.activity module<a class="headerlink" href="#module-tincan.activity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.activity.Activity">
+<em class="property">class </em><tt class="descclassname">tincan.activity.</tt><tt class="descname">Activity</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.activity.Activity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a>, <a class="reference internal" href="#tincan.statement_targetable.StatementTargetable" title="tincan.statement_targetable.StatementTargetable"><tt class="xref py py-class docutils literal"><span class="pre">tincan.statement_targetable.StatementTargetable</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.activity.Activity.definition">
+<tt class="descname">definition</tt><a class="headerlink" href="#tincan.activity.Activity.definition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Definition for Activity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to ActivityDefinition</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_definition" title="tincan.activity_definition"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_definition</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_definition" title="tincan.activity_definition"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_definition</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity.Activity.id">
+<tt class="descname">id</tt><a class="headerlink" href="#tincan.activity.Activity.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id for Activity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Sets the id</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity.Activity.object_type">
+<tt class="descname">object_type</tt><a class="headerlink" href="#tincan.activity.Activity.object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object type for Activity. Will always be &#8220;Activity&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.activity_definition">
+<span id="tincan-activity-definition-module"></span><h2>tincan.activity_definition module<a class="headerlink" href="#module-tincan.activity_definition" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.activity_definition.ActivityDefinition">
+<em class="property">class </em><tt class="descclassname">tincan.activity_definition.</tt><tt class="descname">ActivityDefinition</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.choices">
+<tt class="descname">choices</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.choices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choices for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to InteractionComponentList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.correct_responses_pattern">
+<tt class="descname">correct_responses_pattern</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.correct_responses_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Correct responses pattern for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Sets the correct responses pattern</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.description">
+<tt class="descname">description</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to LanguageMap</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.extensions">
+<tt class="descname">extensions</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extensions for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Extensions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.interaction_type">
+<tt class="descname">interaction_type</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.interaction_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interaction type for Activity Definition. Must be a value in interaction_types</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.more_info">
+<tt class="descname">more_info</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.more_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>More info for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.name">
+<tt class="descname">name</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to LanguageMap</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.scale">
+<tt class="descname">scale</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to InteractionComponentList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.source">
+<tt class="descname">source</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Source for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to InteractionComponentList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.steps">
+<tt class="descname">steps</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Steps for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to InteractionComponentList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.target">
+<tt class="descname">target</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to InteractionComponentList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.interaction_component_list" title="tincan.interaction_component_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.interaction_component_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.activity_definition.ActivityDefinition.type">
+<tt class="descname">type</tt><a class="headerlink" href="#tincan.activity_definition.ActivityDefinition.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type for Activity Definition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.activity_list">
+<span id="tincan-activity-list-module"></span><h2>tincan.activity_list module<a class="headerlink" href="#module-tincan.activity_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.activity_list.ActivityList">
+<em class="property">class </em><tt class="descclassname">tincan.activity_list.</tt><tt class="descname">ActivityList</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.activity_list.ActivityList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.typed_list.TypedList" title="tincan.typed_list.TypedList"><tt class="xref py py-class docutils literal"><span class="pre">tincan.typed_list.TypedList</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.agent">
+<span id="tincan-agent-module"></span><h2>tincan.agent module<a class="headerlink" href="#module-tincan.agent" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.agent.Agent">
+<em class="property">class </em><tt class="descclassname">tincan.agent.</tt><tt class="descname">Agent</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.agent.Agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.agent.Agent.account">
+<tt class="descname">account</tt><a class="headerlink" href="#tincan.agent.Agent.account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Account for Agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Account</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent_account" title="tincan.agent_account"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent_account</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent_account" title="tincan.agent_account"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent_account</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.agent.Agent.mbox">
+<tt class="descname">mbox</tt><a class="headerlink" href="#tincan.agent.Agent.mbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mbox for Agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.agent.Agent.mbox_sha1sum">
+<tt class="descname">mbox_sha1sum</tt><a class="headerlink" href="#tincan.agent.Agent.mbox_sha1sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mbox_sha1sum for Agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.agent.Agent.name">
+<tt class="descname">name</tt><a class="headerlink" href="#tincan.agent.Agent.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name for Agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.agent.Agent.object_type">
+<tt class="descname">object_type</tt><a class="headerlink" href="#tincan.agent.Agent.object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object Type for Agent. Will always be &#8216;Agent&#8217;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.agent.Agent.openid">
+<tt class="descname">openid</tt><a class="headerlink" href="#tincan.agent.Agent.openid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Openid for Agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.agent_account">
+<span id="tincan-agent-account-module"></span><h2>tincan.agent_account module<a class="headerlink" href="#module-tincan.agent_account" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.agent_account.AgentAccount">
+<em class="property">class </em><tt class="descclassname">tincan.agent_account.</tt><tt class="descname">AgentAccount</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.agent_account.AgentAccount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.agent_account.AgentAccount.home_page">
+<tt class="descname">home_page</tt><a class="headerlink" href="#tincan.agent_account.AgentAccount.home_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Homepage for Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.agent_account.AgentAccount.name">
+<tt class="descname">name</tt><a class="headerlink" href="#tincan.agent_account.AgentAccount.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name for Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.agent_list">
+<span id="tincan-agent-list-module"></span><h2>tincan.agent_list module<a class="headerlink" href="#module-tincan.agent_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.agent_list.AgentList">
+<em class="property">class </em><tt class="descclassname">tincan.agent_list.</tt><tt class="descname">AgentList</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.agent_list.AgentList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.typed_list.TypedList" title="tincan.typed_list.TypedList"><tt class="xref py py-class docutils literal"><span class="pre">tincan.typed_list.TypedList</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.attachment">
+<span id="tincan-attachment-module"></span><h2>tincan.attachment module<a class="headerlink" href="#module-tincan.attachment" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.attachment.Attachment">
+<em class="property">class </em><tt class="descclassname">tincan.attachment.</tt><tt class="descname">Attachment</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.attachment.Attachment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.attachment.Attachment.content_type">
+<tt class="descname">content_type</tt><a class="headerlink" href="#tincan.attachment.Attachment.content_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Content type for Attachment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.attachment.Attachment.description">
+<tt class="descname">description</tt><a class="headerlink" href="#tincan.attachment.Attachment.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description for Attachment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to LanguageMap</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.attachment.Attachment.display">
+<tt class="descname">display</tt><a class="headerlink" href="#tincan.attachment.Attachment.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display for Attachment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to LanguageMap</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.attachment.Attachment.fileurl">
+<tt class="descname">fileurl</tt><a class="headerlink" href="#tincan.attachment.Attachment.fileurl" title="Permalink to this definition">¶</a></dt>
+<dd><p>File URL for Attachment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.attachment.Attachment.length">
+<tt class="descname">length</tt><a class="headerlink" href="#tincan.attachment.Attachment.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usage type for Attachment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to long</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">int | long</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.attachment.Attachment.sha2">
+<tt class="descname">sha2</tt><a class="headerlink" href="#tincan.attachment.Attachment.sha2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sha2 for Attachment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.attachment.Attachment.usage_type">
+<tt class="descname">usage_type</tt><a class="headerlink" href="#tincan.attachment.Attachment.usage_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usage type for Attachment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.attachment_list">
+<span id="tincan-attachment-list-module"></span><h2>tincan.attachment_list module<a class="headerlink" href="#module-tincan.attachment_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.attachment_list.AttachmentList">
+<em class="property">class </em><tt class="descclassname">tincan.attachment_list.</tt><tt class="descname">AttachmentList</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.attachment_list.AttachmentList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.typed_list.TypedList" title="tincan.typed_list.TypedList"><tt class="xref py py-class docutils literal"><span class="pre">tincan.typed_list.TypedList</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.base">
+<span id="tincan-base-module"></span><h2>tincan.base module<a class="headerlink" href="#module-tincan.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.base.Base">
+<em class="property">class </em><tt class="descclassname">tincan.base.</tt><tt class="descname">Base</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.base.Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="tincan.base.Base.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.base.Base.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes an object by checking the provided arguments
+against lists defined in the individual class. If required
+properties are defined, this method will set them to None by default.
+Optional properties will be ignored if they are not provided. The
+class may provide custom setters for properties, in which case those
+setters (see __setattr__ below).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.context">
+<span id="tincan-context-module"></span><h2>tincan.context module<a class="headerlink" href="#module-tincan.context" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.context.Context">
+<em class="property">class </em><tt class="descclassname">tincan.context.</tt><tt class="descname">Context</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.context.Context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.context.Context.context_activities">
+<tt class="descname">context_activities</tt><a class="headerlink" href="#tincan.context.Context.context_activities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context Activities for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Context Activities</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.context_activities" title="tincan.context_activities"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.context_activities</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.context_activities" title="tincan.context_activities"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.context_activities</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.extensions">
+<tt class="descname">extensions</tt><a class="headerlink" href="#tincan.context.Context.extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extensions for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to StatementRef</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.instructor">
+<tt class="descname">instructor</tt><a class="headerlink" href="#tincan.context.Context.instructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instructor for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Agent or Group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a> | <a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a> | <a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.language">
+<tt class="descname">language</tt><a class="headerlink" href="#tincan.context.Context.language" title="Permalink to this definition">¶</a></dt>
+<dd><p>Language for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.platform">
+<tt class="descname">platform</tt><a class="headerlink" href="#tincan.context.Context.platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Platform for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.registration">
+<tt class="descname">registration</tt><a class="headerlink" href="#tincan.context.Context.registration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registration for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.revision">
+<tt class="descname">revision</tt><a class="headerlink" href="#tincan.context.Context.revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Revision for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.statement">
+<tt class="descname">statement</tt><a class="headerlink" href="#tincan.context.Context.statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Statement for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to StatementRef</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.statement_ref" title="tincan.statement_ref"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.statement_ref</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.statement_ref" title="tincan.statement_ref"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.statement_ref</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context.Context.team">
+<tt class="descname">team</tt><a class="headerlink" href="#tincan.context.Context.team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Team for Context</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.context_activities">
+<span id="tincan-context-activities-module"></span><h2>tincan.context_activities module<a class="headerlink" href="#module-tincan.context_activities" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.context_activities.ContextActivities">
+<em class="property">class </em><tt class="descclassname">tincan.context_activities.</tt><tt class="descname">ContextActivities</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.context_activities.ContextActivities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.context_activities.ContextActivities.category">
+<tt class="descname">category</tt><a class="headerlink" href="#tincan.context_activities.ContextActivities.category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Category for Context Activities</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Activity List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context_activities.ContextActivities.grouping">
+<tt class="descname">grouping</tt><a class="headerlink" href="#tincan.context_activities.ContextActivities.grouping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grouping for Context Activities</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Activity List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context_activities.ContextActivities.other">
+<tt class="descname">other</tt><a class="headerlink" href="#tincan.context_activities.ContextActivities.other" title="Permalink to this definition">¶</a></dt>
+<dd><p>Other for Context Activities</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Activity List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.context_activities.ContextActivities.parent">
+<tt class="descname">parent</tt><a class="headerlink" href="#tincan.context_activities.ContextActivities.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parent for Context Activities</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Activity List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.activity_list" title="tincan.activity_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.extensions">
+<span id="tincan-extensions-module"></span><h2>tincan.extensions module<a class="headerlink" href="#module-tincan.extensions" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.extensions.Extensions">
+<em class="property">class </em><tt class="descclassname">tincan.extensions.</tt><tt class="descname">Extensions</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.extensions.Extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt>, <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<p>Contains domain-specific custom data.</p>
+<p>Use this like a regular Python dict.</p>
+<dl class="method">
+<dt id="tincan.extensions.Extensions.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.extensions.Extensions.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.group">
+<span id="tincan-group-module"></span><h2>tincan.group module<a class="headerlink" href="#module-tincan.group" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.group.Group">
+<em class="property">class </em><tt class="descclassname">tincan.group.</tt><tt class="descname">Group</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.group.Group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a></p>
+<dl class="method">
+<dt id="tincan.group.Group.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.group.Group.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tincan.group.Group.addmember">
+<tt class="descname">addmember</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.group.Group.addmember" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a single member to this group&#8217;s list of members</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a>) &#8211; The member to add to this group</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.group.Group.member">
+<tt class="descname">member</tt><a class="headerlink" href="#tincan.group.Group.member" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members for Group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to AgentList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent_list" title="tincan.agent_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent_list" title="tincan.agent_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.group.Group.object_type">
+<tt class="descname">object_type</tt><a class="headerlink" href="#tincan.group.Group.object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object type for Group. Will always be &#8220;Group&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.http_request">
+<span id="tincan-http-request-module"></span><h2>tincan.http_request module<a class="headerlink" href="#module-tincan.http_request" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.http_request.HTTPRequest">
+<em class="property">class </em><tt class="descclassname">tincan.http_request.</tt><tt class="descname">HTTPRequest</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.http_request.HTTPRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.base.Base" title="tincan.base.Base"><tt class="xref py py-class docutils literal"><span class="pre">tincan.base.Base</span></tt></a></p>
+<p>Creates a new HTTPRequest object, either from a dict, another object, or from kwargs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<em>unicode</em>) &#8211; The remote lrs endpoint used for the HTTP connection</li>
+<li><strong>method</strong> (<em>unicode</em>) &#8211; Method for the HTTP connection (&#8220;GET&#8221;, &#8220;POST&#8221;, &#8220;DELETE&#8221;, etc.)</li>
+<li><strong>resource</strong> (<em>unicode</em>) &#8211; Resource for the LRS HTTP connection (&#8220;about&#8221;, &#8220;statements&#8221;, &#8220;activities/state&#8221;, etc.)</li>
+<li><strong>headers</strong> (<em>dict(unicode:unicode)</em>) &#8211; Headers for the HTTP connection (&#8220;If-Match&#8221;, &#8220;Content-Type&#8221;, etc.)</li>
+<li><strong>query_params</strong> (<em>dict(unicode:unicode)</em>) &#8211; Query parameters for the HTTP connection (&#8220;registration&#8221;, &#8220;since&#8221;, &#8220;statementId&#8221;, etc.)</li>
+<li><strong>content</strong> (<em>unicode</em>) &#8211; Content body for the HTTP connection. Valid json string.</li>
+<li><strong>ignore404</strong> (<em>bool</em>) &#8211; True if this request should consider a 404 response successful, False otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="tincan.http_request.HTTPRequest.content">
+<tt class="descname">content</tt><a class="headerlink" href="#tincan.http_request.HTTPRequest.content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Content body for the HTTP connection. Valid json string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.http_request.HTTPRequest.headers">
+<tt class="descname">headers</tt><a class="headerlink" href="#tincan.http_request.HTTPRequest.headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Headers for the HTTP connection (&#8220;If-Match&#8221;, &#8220;Content-Type&#8221;, etc.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Accepts a dict or an object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">dict</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.http_request.HTTPRequest.ignore404">
+<tt class="descname">ignore404</tt><a class="headerlink" href="#tincan.http_request.HTTPRequest.ignore404" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if this request should consider a 404 response successful, False otherwise</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">bool</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.http_request.HTTPRequest.method">
+<tt class="descname">method</tt><a class="headerlink" href="#tincan.http_request.HTTPRequest.method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for the HTTP connection (&#8220;GET&#8221;, &#8220;POST&#8221;, &#8220;DELETE&#8221;, etc.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.http_request.HTTPRequest.query_params">
+<tt class="descname">query_params</tt><a class="headerlink" href="#tincan.http_request.HTTPRequest.query_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query parameters for the HTTP connection (&#8220;registration&#8221;, &#8220;since&#8221;, &#8220;statementId&#8221;, etc.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Accepts a dict or an object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">dict</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.http_request.HTTPRequest.resource">
+<tt class="descname">resource</tt><a class="headerlink" href="#tincan.http_request.HTTPRequest.resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource for the LRS HTTP connection (&#8220;about&#8221;, &#8220;statements&#8221;, &#8220;activities/state&#8221;, etc.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.interaction_component">
+<span id="tincan-interaction-component-module"></span><h2>tincan.interaction_component module<a class="headerlink" href="#module-tincan.interaction_component" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.interaction_component.InteractionComponent">
+<em class="property">class </em><tt class="descclassname">tincan.interaction_component.</tt><tt class="descname">InteractionComponent</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.interaction_component.InteractionComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.interaction_component.InteractionComponent.description">
+<tt class="descname">description</tt><a class="headerlink" href="#tincan.interaction_component.InteractionComponent.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description for Agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to LanguageMap</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.interaction_component.InteractionComponent.id">
+<tt class="descname">id</tt><a class="headerlink" href="#tincan.interaction_component.InteractionComponent.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id for Agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.interaction_component_list">
+<span id="tincan-interaction-component-list-module"></span><h2>tincan.interaction_component_list module<a class="headerlink" href="#module-tincan.interaction_component_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.interaction_component_list.InteractionComponentList">
+<em class="property">class </em><tt class="descclassname">tincan.interaction_component_list.</tt><tt class="descname">InteractionComponentList</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.interaction_component_list.InteractionComponentList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.typed_list.TypedList" title="tincan.typed_list.TypedList"><tt class="xref py py-class docutils literal"><span class="pre">tincan.typed_list.TypedList</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.language_map">
+<span id="tincan-language-map-module"></span><h2>tincan.language_map module<a class="headerlink" href="#module-tincan.language_map" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.language_map.LanguageMap">
+<em class="property">class </em><tt class="descclassname">tincan.language_map.</tt><tt class="descname">LanguageMap</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.language_map.LanguageMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt>, <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="method">
+<dt id="tincan.language_map.LanguageMap.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.language_map.LanguageMap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a LanguageMap with the given mapping</p>
+<p>This constructor will first check the arguments for flatness
+to avoid nested languagemaps (which are invalid) and then
+call the base dict constructor</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.lrs_response">
+<span id="tincan-lrs-response-module"></span><h2>tincan.lrs_response module<a class="headerlink" href="#module-tincan.lrs_response" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.lrs_response.LRSResponse">
+<em class="property">class </em><tt class="descclassname">tincan.lrs_response.</tt><tt class="descname">LRSResponse</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.lrs_response.LRSResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.base.Base" title="tincan.base.Base"><tt class="xref py py-class docutils literal"><span class="pre">tincan.base.Base</span></tt></a></p>
+<p>Creates a new LRSResponse object, either from a dict, another object, or from kwargs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>success</strong> (<em>bool</em>) &#8211; True if the LRS return a successful status (sometimes includes 404), False otherwise</li>
+<li><strong>request</strong> (<em>HTTPRequest</em>) &#8211; HTTPRequest object that was sent to the LRS</li>
+<li><strong>response</strong> (<em>HTTPResponse</em>) &#8211; HTTPResponse object that was received from the LRS</li>
+<li><strong>data</strong> (<em>unicode</em>) &#8211; Body of the HTTPResponse</li>
+<li><strong>content</strong> &#8211; Parsed content received from the LRS</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="tincan.lrs_response.LRSResponse.content">
+<tt class="descname">content</tt><a class="headerlink" href="#tincan.lrs_response.LRSResponse.content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parsed content received from the LRS</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.lrs_response.LRSResponse.data">
+<tt class="descname">data</tt><a class="headerlink" href="#tincan.lrs_response.LRSResponse.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.lrs_response.LRSResponse.request">
+<tt class="descname">request</tt><a class="headerlink" href="#tincan.lrs_response.LRSResponse.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTPRequest object that was sent to the LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to an HTTPRequest object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#tincan.http_request.HTTPRequest" title="tincan.http_request.HTTPRequest"><tt class="xref py py-class docutils literal"><span class="pre">tincan.http_request.HTTPRequest</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.http_request.HTTPRequest" title="tincan.http_request.HTTPRequest"><tt class="xref py py-class docutils literal"><span class="pre">tincan.http_request.HTTPRequest</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.lrs_response.LRSResponse.response">
+<tt class="descname">response</tt><a class="headerlink" href="#tincan.lrs_response.LRSResponse.response" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTPResponse object that was sent to the LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Must be an HTTPResponse object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">httplib.HTTPResponse</span></tt></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">httplib.HTTPResponse</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.lrs_response.LRSResponse.success">
+<tt class="descname">success</tt><a class="headerlink" href="#tincan.lrs_response.LRSResponse.success" title="Permalink to this definition">¶</a></dt>
+<dd><p>The LRSResponse&#8217;s success. True if the LRS return a
+successful status (sometimes includes 404), False otherwise.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">bool</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.remote_lrs">
+<span id="tincan-remote-lrs-module"></span><h2>tincan.remote_lrs module<a class="headerlink" href="#module-tincan.remote_lrs" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.remote_lrs.RemoteLRS">
+<em class="property">class </em><tt class="descclassname">tincan.remote_lrs.</tt><tt class="descname">RemoteLRS</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.base.Base" title="tincan.base.Base"><tt class="xref py py-class docutils literal"><span class="pre">tincan.base.Base</span></tt></a></p>
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>RemoteLRS Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<em>str | unicode</em>) &#8211; lrs endpoint</li>
+<li><strong>version</strong> (<em>str | unicode</em>) &#8211; Version used for lrs communication</li>
+<li><strong>username</strong> (<em>str | unicode</em>) &#8211; Username for lrs. Used to build the authentication string.</li>
+<li><strong>password</strong> (<em>str | unicode</em>) &#8211; Password for lrs. Used to build the authentication string.</li>
+<li><strong>auth</strong> (<em>str | unicode</em>) &#8211; Authentication string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.about">
+<tt class="descname">about</tt><big>(</big><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.about" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets about response from LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the returned LRS about object as content</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.remote_lrs.RemoteLRS.auth">
+<tt class="descname">auth</tt><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.auth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authority being used for remote LRS communication</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.clear_state">
+<tt class="descname">clear_state</tt><big>(</big><em>activity</em>, <em>agent</em>, <em>registration=None</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.clear_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear state(s) with specified activity and agent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>activity</strong> (<a class="reference internal" href="#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a>) &#8211; Activity object of state(s) to be deleted</li>
+<li><strong>agent</strong> (<a class="reference internal" href="#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a>) &#8211; Agent object of state(s) to be deleted</li>
+<li><strong>registration</strong> (<em>str | unicode</em>) &#8211; registration UUID of state(s) to be deleted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LRS Response object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.delete_activity_profile">
+<tt class="descname">delete_activity_profile</tt><big>(</big><em>profile</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.delete_activity_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete activity profile doc from LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>profile</strong> (<a class="reference internal" href="tincan.documents.html#tincan.documents.activity_profile_document.ActivityProfileDocument" title="tincan.documents.activity_profile_document.ActivityProfileDocument"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.activity_profile_document.ActivityProfileDocument</span></tt></a>) &#8211; Activity profile document to be deleted</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.delete_agent_profile">
+<tt class="descname">delete_agent_profile</tt><big>(</big><em>profile</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.delete_agent_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete agent profile doc from LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>profile</strong> (<a class="reference internal" href="tincan.documents.html#tincan.documents.agent_profile_document.AgentProfileDocument" title="tincan.documents.agent_profile_document.AgentProfileDocument"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.agent_profile_document.AgentProfileDocument</span></tt></a>) &#8211; Agent profile document to be deleted</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.delete_state">
+<tt class="descname">delete_state</tt><big>(</big><em>state</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.delete_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a specified state from the LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<a class="reference internal" href="tincan.documents.html#tincan.documents.state_document.StateDocument" title="tincan.documents.state_document.StateDocument"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.state_document.StateDocument</span></tt></a>) &#8211; State document to be deleted</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.remote_lrs.RemoteLRS.endpoint">
+<tt class="descname">endpoint</tt><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>The endpoint of the Remote LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode.  Appends a &#8220;/&#8221; if necessary. Prepends <a class="reference external" href="http://">http://</a> if necessary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">str | unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.get_endpoint_server_root">
+<tt class="descname">get_endpoint_server_root</tt><big>(</big><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.get_endpoint_server_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses RemoteLRS object&#8217;s endpoint and returns its root</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Root of the RemoteLRS object endpoint</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.more_statements">
+<tt class="descname">more_statements</tt><big>(</big><em>more_url</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.more_statements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query the LRS for more statements</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>more_url</strong> (<em>str | unicode</em>) &#8211; URL from a StatementsResult object used to retrieve more statements</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the returned StatementsResult object as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.query_statements">
+<tt class="descname">query_statements</tt><big>(</big><em>query</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.query_statements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query the LRS for statements with specified parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>dict</em>) &#8211; Dictionary of query parameters and their values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the returned StatementsResult object as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_activity_profile">
+<tt class="descname">retrieve_activity_profile</tt><big>(</big><em>activity</em>, <em>profile_id</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_activity_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve activity profile with the specified parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>activity</strong> (<a class="reference internal" href="#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a>) &#8211; Activity object of the desired activity profile</li>
+<li><strong>profile_id</strong> (<em>str | unicode</em>) &#8211; UUID of the desired profile</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LRS Response object with an activity profile doc as content</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_activity_profile_ids">
+<tt class="descname">retrieve_activity_profile_ids</tt><big>(</big><em>activity</em>, <em>since=None</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_activity_profile_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve activity profile id(s) with the specified parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>activity</strong> (<a class="reference internal" href="#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a>) &#8211; Activity object of desired activity profiles</li>
+<li><strong>since</strong> (<em>str | unicode</em>) &#8211; Retrieve activity profile id&#8217;s since this time</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LRS Response object with list of retrieved activity profile id&#8217;s as content</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_agent_profile">
+<tt class="descname">retrieve_agent_profile</tt><big>(</big><em>agent</em>, <em>profile_id</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_agent_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve agent profile with the specified parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>agent</strong> (<a class="reference internal" href="#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a>) &#8211; Agent object of the desired agent profile</li>
+<li><strong>profile_id</strong> (<em>str | unicode</em>) &#8211; UUID of the desired agent profile</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LRS Response object with an agent profile doc as content</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_agent_profile_ids">
+<tt class="descname">retrieve_agent_profile_ids</tt><big>(</big><em>agent</em>, <em>since=None</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_agent_profile_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve agent profile id(s) with the specified parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>agent</strong> (<a class="reference internal" href="#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a>) &#8211; Agent object of desired agent profiles</li>
+<li><strong>since</strong> (<em>str | unicode</em>) &#8211; Retrieve agent profile id&#8217;s since this time</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LRS Response object with list of retrieved agent profile id&#8217;s as content</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_state">
+<tt class="descname">retrieve_state</tt><big>(</big><em>activity</em>, <em>agent</em>, <em>state_id</em>, <em>registration=None</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve state from LRS with the provided parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>activity</strong> (<a class="reference internal" href="#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a>) &#8211; Activity object of desired state</li>
+<li><strong>agent</strong> (<a class="reference internal" href="#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a>) &#8211; Agent object of desired state</li>
+<li><strong>state_id</strong> (<em>str | unicode</em>) &#8211; UUID of desired state</li>
+<li><strong>registration</strong> (<em>str | unicode</em>) &#8211; registration UUID of desired state</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LRS Response object with retrieved state document as content</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_state_ids">
+<tt class="descname">retrieve_state_ids</tt><big>(</big><em>activity</em>, <em>agent</em>, <em>registration=None</em>, <em>since=None</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_state_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve state id&#8217;s from the LRS with the provided parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>activity</strong> (<a class="reference internal" href="#tincan.activity.Activity" title="tincan.activity.Activity"><tt class="xref py py-class docutils literal"><span class="pre">tincan.activity.Activity</span></tt></a>) &#8211; Activity object of desired states</li>
+<li><strong>agent</strong> (<a class="reference internal" href="#tincan.agent.Agent" title="tincan.agent.Agent"><tt class="xref py py-class docutils literal"><span class="pre">tincan.agent.Agent</span></tt></a>) &#8211; Agent object of desired states</li>
+<li><strong>registration</strong> (<em>str | unicode</em>) &#8211; Registration UUID of desired states</li>
+<li><strong>since</strong> (<em>str | unicode</em>) &#8211; Retrieve state id&#8217;s since this time</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LRS Response object with the retrieved state id&#8217;s as content</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_statement">
+<tt class="descname">retrieve_statement</tt><big>(</big><em>statement_id</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a statement from the server from its id</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statement_id</strong> (<em>str | unicode</em>) &#8211; The UUID of the desired statement</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the retrieved statement as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.retrieve_voided_statement">
+<tt class="descname">retrieve_voided_statement</tt><big>(</big><em>statement_id</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.retrieve_voided_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a voided statement from the server from its id</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statement_id</strong> (<em>str | unicode</em>) &#8211; The UUID of the desired voided statement</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the retrieved voided statement as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.save_activity_profile">
+<tt class="descname">save_activity_profile</tt><big>(</big><em>profile</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.save_activity_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save an activity profile doc to the LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>profile</strong> (<a class="reference internal" href="tincan.documents.html#tincan.documents.activity_profile_document.ActivityProfileDocument" title="tincan.documents.activity_profile_document.ActivityProfileDocument"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.activity_profile_document.ActivityProfileDocument</span></tt></a>) &#8211; Activity profile doc to be saved</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the saved activity profile doc as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.save_agent_profile">
+<tt class="descname">save_agent_profile</tt><big>(</big><em>profile</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.save_agent_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save an agent profile doc to the LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>profile</strong> (<a class="reference internal" href="tincan.documents.html#tincan.documents.agent_profile_document.AgentProfileDocument" title="tincan.documents.agent_profile_document.AgentProfileDocument"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.agent_profile_document.AgentProfileDocument</span></tt></a>) &#8211; Agent profile doc to be saved</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the saved agent profile doc as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.save_state">
+<tt class="descname">save_state</tt><big>(</big><em>state</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.save_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a state doc to the LRS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<a class="reference internal" href="tincan.documents.html#tincan.documents.state_document.StateDocument" title="tincan.documents.state_document.StateDocument"><tt class="xref py py-class docutils literal"><span class="pre">tincan.documents.state_document.StateDocument</span></tt></a>) &#8211; State document to be saved</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with saved state as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.save_statement">
+<tt class="descname">save_statement</tt><big>(</big><em>statement</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.save_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save statement to LRS and update statement id if necessary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statement</strong> (<a class="reference internal" href="#tincan.statement.Statement" title="tincan.statement.Statement"><tt class="xref py py-class docutils literal"><span class="pre">tincan.statement.Statement</span></tt></a>) &#8211; Statement object to be saved</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the saved statement as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.remote_lrs.RemoteLRS.save_statements">
+<tt class="descname">save_statements</tt><big>(</big><em>statements</em><big>)</big><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.save_statements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save statements to LRS and update their statement id&#8217;s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statements</strong> (<tt class="xref py py-class docutils literal"><span class="pre">StatementList</span></tt>) &#8211; A list of statement objects to be saved</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">LRS Response object with the saved list of statements as content</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#tincan.lrs_response.LRSResponse" title="tincan.lrs_response.LRSResponse"><tt class="xref py py-class docutils literal"><span class="pre">tincan.lrs_response.LRSResponse</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.remote_lrs.RemoteLRS.version">
+<tt class="descname">version</tt><a class="headerlink" href="#tincan.remote_lrs.RemoteLRS.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Version being used for remote LRS communication</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode.  Must be a supported</td>
+</tr>
+</tbody>
+</table>
+<p>version. Setting to None defaults to the latest version.
+:setter type: str | unicode
+:rtype: unicode</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.result">
+<span id="tincan-result-module"></span><h2>tincan.result module<a class="headerlink" href="#module-tincan.result" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.result.Result">
+<em class="property">class </em><tt class="descclassname">tincan.result.</tt><tt class="descname">Result</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.result.Result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<p>Stores the state of an activity.</p>
+<p>Can be created from a dict, another Result, or from kwargs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>score</strong> (<em>Score</em>) &#8211; Contains the score and its scaling information</li>
+<li><strong>success</strong> (<em>bool</em>) &#8211; Whether successful</li>
+<li><strong>completion</strong> (<em>bool</em>) &#8211; Whether completed</li>
+<li><strong>duration</strong> (<em>timedelta</em>) &#8211; How long it took</li>
+<li><strong>response</strong> (<em>unicode</em>) &#8211; HTTPResponse data</li>
+<li><strong>extensions</strong> (<em>Extensions</em>) &#8211; Custom user data</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="tincan.result.Result.completion">
+<tt class="descname">completion</tt><a class="headerlink" href="#tincan.result.Result.completion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Completion for Result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to bool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">bool
+:rtype: bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.result.Result.duration">
+<tt class="descname">duration</tt><a class="headerlink" href="#tincan.result.Result.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration for Result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to <tt class="xref py py-class docutils literal"><span class="pre">datetime.timedelta</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+<p>Strings will be parsed as ISO 8601 durations.</p>
+<p>If a number is provided, it will be interpreted as the number of
+seconds.</p>
+<p>If a <cite>dict</cite> is provided, does <cite>datetime.timedelta(**value)</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.timedelta</span></tt> | unicode | str | int | float | dict | None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.timedelta</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.result.Result.extensions">
+<tt class="descname">extensions</tt><a class="headerlink" href="#tincan.result.Result.extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extensions for Result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Extensions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.extensions" title="tincan.extensions"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.extensions</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.result.Result.response">
+<tt class="descname">response</tt><a class="headerlink" href="#tincan.result.Result.response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Response for Result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.result.Result.score">
+<tt class="descname">score</tt><a class="headerlink" href="#tincan.result.Result.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Score for Result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Score</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.score" title="tincan.score"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.score</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.score" title="tincan.score"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.score</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.result.Result.success">
+<tt class="descname">success</tt><a class="headerlink" href="#tincan.result.Result.success" title="Permalink to this definition">¶</a></dt>
+<dd><p>Success for Result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to bool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">bool</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.score">
+<span id="tincan-score-module"></span><h2>tincan.score module<a class="headerlink" href="#module-tincan.score" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.score.Score">
+<em class="property">class </em><tt class="descclassname">tincan.score.</tt><tt class="descname">Score</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.score.Score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.score.Score.max">
+<tt class="descname">max</tt><a class="headerlink" href="#tincan.score.Score.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Max for Score</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.score.Score.min">
+<tt class="descname">min</tt><a class="headerlink" href="#tincan.score.Score.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Min for Score</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.score.Score.raw">
+<tt class="descname">raw</tt><a class="headerlink" href="#tincan.score.Score.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raw for Score</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.score.Score.scaled">
+<tt class="descname">scaled</tt><a class="headerlink" href="#tincan.score.Score.scaled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scaled for Score</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.serializable_base">
+<span id="tincan-serializable-base-module"></span><h2>tincan.serializable_base module<a class="headerlink" href="#module-tincan.serializable_base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.serializable_base.SerializableBase">
+<em class="property">class </em><tt class="descclassname">tincan.serializable_base.</tt><tt class="descname">SerializableBase</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.serializable_base.SerializableBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.base.Base" title="tincan.base.Base"><tt class="xref py py-class docutils literal"><span class="pre">tincan.base.Base</span></tt></a></p>
+<dl class="method">
+<dt id="tincan.serializable_base.SerializableBase.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.serializable_base.SerializableBase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tincan.serializable_base.SerializableBase.as_version">
+<tt class="descname">as_version</tt><big>(</big><em>version='1.0.1'</em><big>)</big><a class="headerlink" href="#tincan.serializable_base.SerializableBase.as_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict that has been modified based on versioning
+in order to be represented in JSON properly</p>
+<p>A class should overload as_version(self, version)
+implementation in order to tailor a more specific representation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>version</strong> (<em>str | unicode</em>) &#8211; the relevant version. This allows for variance
+between versions</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="tincan.serializable_base.SerializableBase.from_json">
+<em class="property">classmethod </em><tt class="descname">from_json</tt><big>(</big><em>json_data</em><big>)</big><a class="headerlink" href="#tincan.serializable_base.SerializableBase.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to convert a JSON representation to an object of the same
+type as self</p>
+<p>A class can provide a _fromJSON implementation in order to do specific
+type checking or other custom implementation details. This method
+will throw a ValueError for invalid JSON, a TypeError for
+improperly constructed, but valid JSON, and any custom errors
+that can be be propagated from class constructors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>json_data</strong> (<em>str | unicode</em>) &#8211; The JSON string to convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">TypeError, ValueError, LanguageMapInitError</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tincan.serializable_base.SerializableBase.to_json">
+<tt class="descname">to_json</tt><big>(</big><em>version='1.0.1'</em><big>)</big><a class="headerlink" href="#tincan.serializable_base.SerializableBase.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to convert an object into a JSON representation and return
+the resulting string</p>
+<p>An Object can define how it is serialized by overriding the as_version()
+implementation. A caller may further define how the object is serialized
+by passing in a custom encoder. The default encoder will ignore
+properties of an object that are None at the time of serialization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>version</strong> &#8211; The version to which the object must be serialized to.</td>
+</tr>
+</tbody>
+</table>
+<p>This will default to the latest version supported by the library.
+:type version: str | unicode
+:param encoder: The custom encoder. The default is described above.
+:type encoder: json.JSONEncoder</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.statement">
+<span id="tincan-statement-module"></span><h2>tincan.statement module<a class="headerlink" href="#module-tincan.statement" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.statement.Statement">
+<em class="property">class </em><tt class="descclassname">tincan.statement.</tt><tt class="descname">Statement</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.statement.Statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.statement_base.StatementBase" title="tincan.statement_base.StatementBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.statement_base.StatementBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.statement.Statement.authority">
+<tt class="descname">authority</tt><a class="headerlink" href="#tincan.statement.Statement.authority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authority for Statement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Agent</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement.Statement.id">
+<tt class="descname">id</tt><a class="headerlink" href="#tincan.statement.Statement.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id for Statement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement.Statement.object">
+<tt class="descname">object</tt><a class="headerlink" href="#tincan.statement.Statement.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object for Statement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Sets the object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a> | <a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a> | <a class="reference internal" href="#module-tincan.statement_ref" title="tincan.statement_ref"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.statement_ref</span></tt></a> | <a class="reference internal" href="#module-tincan.substatement" title="tincan.substatement"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.substatement</span></tt></a> | <a class="reference internal" href="#module-tincan.activity" title="tincan.activity"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a> | <a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a> | <a class="reference internal" href="#module-tincan.statement_ref" title="tincan.statement_ref"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.statement_ref</span></tt></a> | <a class="reference internal" href="#module-tincan.substatement" title="tincan.substatement"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.substatement</span></tt></a> | <a class="reference internal" href="#module-tincan.activity" title="tincan.activity"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement.Statement.result">
+<tt class="descname">result</tt><a class="headerlink" href="#tincan.statement.Statement.result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result for Statement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Result</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.result" title="tincan.result"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.result</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.result" title="tincan.result"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.result</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement.Statement.stored">
+<tt class="descname">stored</tt><a class="headerlink" href="#tincan.statement.Statement.stored" title="Permalink to this definition">¶</a></dt>
+<dd><p>Storage time. Tries to convert to <tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt>.
+If no timezone is given, makes a naive <cite>datetime.datetime</cite>.</p>
+<p>Strings will be parsed as ISO 8601 timestamps.</p>
+<p>If a number is provided, it will be interpreted as a UNIX
+timestamp, which by definition is UTC.</p>
+<p>If a <cite>dict</cite> is provided, does <cite>datetime.datetime(**value)</cite>.</p>
+<p>If a <cite>tuple</cite> or a <cite>list</cite> is provided, does
+<cite>datetime.datetime(*value)</cite>. Uses the timezone in the tuple or
+list if provided.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt> | unicode | str | int | float | dict | tuple | list | None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement.Statement.version">
+<tt class="descname">version</tt><a class="headerlink" href="#tincan.statement.Statement.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Version for Statement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.statement_base">
+<span id="tincan-statement-base-module"></span><h2>tincan.statement_base module<a class="headerlink" href="#module-tincan.statement_base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.statement_base.StatementBase">
+<em class="property">class </em><tt class="descclassname">tincan.statement_base.</tt><tt class="descname">StatementBase</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.statement_base.StatementBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.statement_base.StatementBase.actor">
+<tt class="descname">actor</tt><a class="headerlink" href="#tincan.statement_base.StatementBase.actor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actor for StatementBase</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Agent or Group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a> | <a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a> | <a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement_base.StatementBase.attachments">
+<tt class="descname">attachments</tt><a class="headerlink" href="#tincan.statement_base.StatementBase.attachments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attachments for StatementBase</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert each element to Attachment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.attachment_list" title="tincan.attachment_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.attachment_list</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.attachment_list" title="tincan.attachment_list"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.attachment_list</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement_base.StatementBase.context">
+<tt class="descname">context</tt><a class="headerlink" href="#tincan.statement_base.StatementBase.context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context for StatementBase</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Context</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.context" title="tincan.context"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.context</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.context" title="tincan.context"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.context</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement_base.StatementBase.timestamp">
+<tt class="descname">timestamp</tt><a class="headerlink" href="#tincan.statement_base.StatementBase.timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timestamp for StatementBase</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to <tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt>. If</td>
+</tr>
+</tbody>
+</table>
+<p>no timezone is given, makes a naive <cite>datetime.datetime</cite>.</p>
+<p>Strings will be parsed as ISO 8601 timestamps.</p>
+<p>If a number is provided, it will be interpreted as a UNIX
+timestamp, which by definition is UTC.</p>
+<p>If a <cite>dict</cite> is provided, does <cite>datetime.datetime(**value)</cite>.</p>
+<p>If a <cite>tuple</cite> or a <cite>list</cite> is provided, does
+<cite>datetime.datetime(*value)</cite>. Uses the timezone in the tuple or
+list if provided.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt> | unicode | str | int | float | dict | tuple | list | None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement_base.StatementBase.verb">
+<tt class="descname">verb</tt><a class="headerlink" href="#tincan.statement_base.StatementBase.verb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verb for StatementBase</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to Verb</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.verb" title="tincan.verb"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.verb</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.verb" title="tincan.verb"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.verb</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.statement_list">
+<span id="tincan-statement-list-module"></span><h2>tincan.statement_list module<a class="headerlink" href="#module-tincan.statement_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.statement_list.StatementList">
+<em class="property">class </em><tt class="descclassname">tincan.statement_list.</tt><tt class="descname">StatementList</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.statement_list.StatementList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.typed_list.TypedList" title="tincan.typed_list.TypedList"><tt class="xref py py-class docutils literal"><span class="pre">tincan.typed_list.TypedList</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.statement_ref">
+<span id="tincan-statement-ref-module"></span><h2>tincan.statement_ref module<a class="headerlink" href="#module-tincan.statement_ref" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.statement_ref.StatementRef">
+<em class="property">class </em><tt class="descclassname">tincan.statement_ref.</tt><tt class="descname">StatementRef</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.statement_ref.StatementRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.statement_ref.StatementRef.id">
+<tt class="descname">id</tt><a class="headerlink" href="#tincan.statement_ref.StatementRef.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id for Statement Ref</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statement_ref.StatementRef.object_type">
+<tt class="descname">object_type</tt><a class="headerlink" href="#tincan.statement_ref.StatementRef.object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object type for Statement Ref. Will always be &#8220;StatementRef&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.statement_targetable">
+<span id="tincan-statement-targetable-module"></span><h2>tincan.statement_targetable module<a class="headerlink" href="#module-tincan.statement_targetable" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.statement_targetable.StatementTargetable">
+<em class="property">class </em><tt class="descclassname">tincan.statement_targetable.</tt><tt class="descname">StatementTargetable</tt><a class="headerlink" href="#tincan.statement_targetable.StatementTargetable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="tincan.statement_targetable.StatementTargetable.get_object_type">
+<tt class="descname">get_object_type</tt><big>(</big><big>)</big><a class="headerlink" href="#tincan.statement_targetable.StatementTargetable.get_object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the object type of self [Activity | Agent |         StatementRef | SubStatement]</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.statements_result">
+<span id="tincan-statements-result-module"></span><h2>tincan.statements_result module<a class="headerlink" href="#module-tincan.statements_result" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.statements_result.StatementsResult">
+<em class="property">class </em><tt class="descclassname">tincan.statements_result.</tt><tt class="descname">StatementsResult</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.statements_result.StatementsResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.statements_result.StatementsResult.more">
+<tt class="descname">more</tt><a class="headerlink" href="#tincan.statements_result.StatementsResult.more" title="Permalink to this definition">¶</a></dt>
+<dd><p>More for StatementsResult</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.statements_result.StatementsResult.statements">
+<tt class="descname">statements</tt><a class="headerlink" href="#tincan.statements_result.StatementsResult.statements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Statements for StatementsResult</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert each element to Statement</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">list[<a class="reference internal" href="#module-tincan.statement" title="tincan.statement"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.statement</span></tt></a>]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list[<a class="reference internal" href="#module-tincan.statement" title="tincan.statement"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.statement</span></tt></a>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.substatement">
+<span id="tincan-substatement-module"></span><h2>tincan.substatement module<a class="headerlink" href="#module-tincan.substatement" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.substatement.SubStatement">
+<em class="property">class </em><tt class="descclassname">tincan.substatement.</tt><tt class="descname">SubStatement</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.substatement.SubStatement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.statement_base.StatementBase" title="tincan.statement_base.StatementBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.statement_base.StatementBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.substatement.SubStatement.object">
+<tt class="descname">object</tt><a class="headerlink" href="#tincan.substatement.SubStatement.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object for SubStatement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Setter for object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.Agent</span></tt> | <tt class="xref py py-mod docutils literal"><span class="pre">tincan.Group</span></tt></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.agent" title="tincan.agent"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.agent</span></tt></a> | <a class="reference internal" href="#module-tincan.group" title="tincan.group"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.group</span></tt></a> | <a class="reference internal" href="#module-tincan.activity" title="tincan.activity"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.activity</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.substatement.SubStatement.object_type">
+<tt class="descname">object_type</tt><a class="headerlink" href="#tincan.substatement.SubStatement.object_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object Type for SubStatement. Will always be &#8220;SubStatement&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.typed_list">
+<span id="tincan-typed-list-module"></span><h2>tincan.typed_list module<a class="headerlink" href="#module-tincan.typed_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.typed_list.TypedList">
+<em class="property">class </em><tt class="descclassname">tincan.typed_list.</tt><tt class="descname">TypedList</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.typed_list.TypedList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt>, <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="method">
+<dt id="tincan.typed_list.TypedList.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.typed_list.TypedList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tincan.typed_list.TypedList.append">
+<tt class="descname">append</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.typed_list.TypedList.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tincan.typed_list.TypedList.extend">
+<tt class="descname">extend</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.typed_list.TypedList.extend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tincan.typed_list.TypedList.insert">
+<tt class="descname">insert</tt><big>(</big><em>ind</em>, <em>value</em><big>)</big><a class="headerlink" href="#tincan.typed_list.TypedList.insert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.verb">
+<span id="tincan-verb-module"></span><h2>tincan.verb module<a class="headerlink" href="#module-tincan.verb" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tincan.verb.Verb">
+<em class="property">class </em><tt class="descclassname">tincan.verb.</tt><tt class="descname">Verb</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tincan.verb.Verb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tincan.serializable_base.SerializableBase" title="tincan.serializable_base.SerializableBase"><tt class="xref py py-class docutils literal"><span class="pre">tincan.serializable_base.SerializableBase</span></tt></a></p>
+<dl class="attribute">
+<dt id="tincan.verb.Verb.display">
+<tt class="descname">display</tt><a class="headerlink" href="#tincan.verb.Verb.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display for Verb</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to LanguageMap</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-tincan.language_map" title="tincan.language_map"><tt class="xref py py-mod docutils literal"><span class="pre">tincan.language_map</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.verb.Verb.id">
+<tt class="descname">id</tt><a class="headerlink" href="#tincan.verb.Verb.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id for Verb</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Setter:</th><td class="field-body">Tries to convert to unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter type:</th><td class="field-body">unicode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan.version">
+<span id="tincan-version-module"></span><h2>tincan.version module<a class="headerlink" href="#module-tincan.version" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-version"></span><dl class="class">
+<dt id="tincan.version.Version">
+<em class="property">class </em><tt class="descclassname">tincan.version.</tt><tt class="descname">Version</tt><a class="headerlink" href="#tincan.version.Version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="tincan.version.Version.latest">
+<tt class="descname">latest</tt><em class="property"> = '1.0.1'</em><a class="headerlink" href="#tincan.version.Version.latest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tincan.version.Version.supported">
+<tt class="descname">supported</tt><em class="property"> = ['1.0.1', '1.0.0']</em><a class="headerlink" href="#tincan.version.Version.supported" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tincan">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tincan" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tincan package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-tincan.about">tincan.about module</a></li>
+<li><a class="reference internal" href="#module-tincan.activity">tincan.activity module</a></li>
+<li><a class="reference internal" href="#module-tincan.activity_definition">tincan.activity_definition module</a></li>
+<li><a class="reference internal" href="#module-tincan.activity_list">tincan.activity_list module</a></li>
+<li><a class="reference internal" href="#module-tincan.agent">tincan.agent module</a></li>
+<li><a class="reference internal" href="#module-tincan.agent_account">tincan.agent_account module</a></li>
+<li><a class="reference internal" href="#module-tincan.agent_list">tincan.agent_list module</a></li>
+<li><a class="reference internal" href="#module-tincan.attachment">tincan.attachment module</a></li>
+<li><a class="reference internal" href="#module-tincan.attachment_list">tincan.attachment_list module</a></li>
+<li><a class="reference internal" href="#module-tincan.base">tincan.base module</a></li>
+<li><a class="reference internal" href="#module-tincan.context">tincan.context module</a></li>
+<li><a class="reference internal" href="#module-tincan.context_activities">tincan.context_activities module</a></li>
+<li><a class="reference internal" href="#module-tincan.extensions">tincan.extensions module</a></li>
+<li><a class="reference internal" href="#module-tincan.group">tincan.group module</a></li>
+<li><a class="reference internal" href="#module-tincan.http_request">tincan.http_request module</a></li>
+<li><a class="reference internal" href="#module-tincan.interaction_component">tincan.interaction_component module</a></li>
+<li><a class="reference internal" href="#module-tincan.interaction_component_list">tincan.interaction_component_list module</a></li>
+<li><a class="reference internal" href="#module-tincan.language_map">tincan.language_map module</a></li>
+<li><a class="reference internal" href="#module-tincan.lrs_response">tincan.lrs_response module</a></li>
+<li><a class="reference internal" href="#module-tincan.remote_lrs">tincan.remote_lrs module</a></li>
+<li><a class="reference internal" href="#module-tincan.result">tincan.result module</a></li>
+<li><a class="reference internal" href="#module-tincan.score">tincan.score module</a></li>
+<li><a class="reference internal" href="#module-tincan.serializable_base">tincan.serializable_base module</a></li>
+<li><a class="reference internal" href="#module-tincan.statement">tincan.statement module</a></li>
+<li><a class="reference internal" href="#module-tincan.statement_base">tincan.statement_base module</a></li>
+<li><a class="reference internal" href="#module-tincan.statement_list">tincan.statement_list module</a></li>
+<li><a class="reference internal" href="#module-tincan.statement_ref">tincan.statement_ref module</a></li>
+<li><a class="reference internal" href="#module-tincan.statement_targetable">tincan.statement_targetable module</a></li>
+<li><a class="reference internal" href="#module-tincan.statements_result">tincan.statements_result module</a></li>
+<li><a class="reference internal" href="#module-tincan.substatement">tincan.substatement module</a></li>
+<li><a class="reference internal" href="#module-tincan.typed_list">tincan.typed_list module</a></li>
+<li><a class="reference internal" href="#module-tincan.verb">tincan.verb module</a></li>
+<li><a class="reference internal" href="#module-tincan.version">tincan.version module</a></li>
+<li><a class="reference internal" href="#module-tincan">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">tincan</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tincan.conversions.html"
+                        title="next chapter">tincan.conversions package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tincan.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tincan.conversions.html" title="tincan.conversions package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="tincan"
+             >previous</a> |</li>
+        <li><a href="index.html">TinCan Python 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >tincan</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Rustici Software.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

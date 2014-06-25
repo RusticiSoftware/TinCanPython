@@ -1,0 +1,7 @@
+tincan
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   tincan

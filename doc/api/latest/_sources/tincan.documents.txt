@@ -1,0 +1,46 @@
+tincan.documents package
+========================
+
+Submodules
+----------
+
+tincan.documents.activity_profile_document module
+-------------------------------------------------
+
+.. automodule:: tincan.documents.activity_profile_document
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.documents.agent_profile_document module
+----------------------------------------------
+
+.. automodule:: tincan.documents.agent_profile_document
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.documents.document module
+--------------------------------
+
+.. automodule:: tincan.documents.document
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.documents.state_document module
+--------------------------------------
+
+.. automodule:: tincan.documents.state_document
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tincan.documents
+    :members:
+    :undoc-members:
+    :show-inheritance:
