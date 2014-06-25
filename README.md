@@ -97,14 +97,14 @@ To release to PyPI, first make sure that you have a PyPI account set up at https
 
 The pypitest contents of the .pyirc file are optional and are used for hosting to the test PyPI index.
 
-Update setup.py to contain the correct release version and other information.
+Update setup.py to contain the correct release version and any other new information.
 
 To test the register/upload, run the following commands in the repo directory:
 
     python setup.py register -r pypitest
     python setup.py sdist upload -r pypitest
 
-You should get no errors, and should be able to find this tincan version at https://testpypi.python.org/pypi.
+You should get no errors and should be able to find this tincan version at https://testpypi.python.org/pypi.
 
 To register/upload to the live PyPI server, run the following commands in the repo directory:
 
