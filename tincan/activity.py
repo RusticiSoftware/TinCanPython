@@ -13,10 +13,8 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
-from tincan.language_map import LanguageMap
 from tincan.statement_targetable import StatementTargetable
 from tincan.activity_definition import ActivityDefinition
-from tincan.verb import Verb
 
 """
 .. module:: activity

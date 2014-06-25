@@ -15,7 +15,6 @@
 from tincan.serializable_base import SerializableBase
 from tincan.language_map import LanguageMap
 from tincan.extensions import Extensions
-from tincan.interaction_component import InteractionComponent
 from tincan.interaction_component_list import InteractionComponentList
 
 """

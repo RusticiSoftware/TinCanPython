@@ -12,9 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
-from tincan.version import Version
 from tincan.agent_list import AgentList
 
 """

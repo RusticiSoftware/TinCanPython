@@ -14,7 +14,6 @@
 from tincan.documents import Document
 from tincan.agent import Agent
 from tincan.activity import Activity
-import uuid
 
 
 class StateDocument(Document):

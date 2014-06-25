@@ -15,7 +15,6 @@
 from tincan.serializable_base import SerializableBase
 from tincan.activity_list import ActivityList
 from tincan.activity import Activity
-from tincan.version import Version
 
 
 class ContextActivities(SerializableBase):

@@ -13,7 +13,6 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
-from tincan.version import Version
 
 
 class Extensions(dict, SerializableBase):

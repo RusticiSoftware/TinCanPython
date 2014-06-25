@@ -15,14 +15,12 @@
 import unittest
 import uuid
 from datetime import datetime
-from datetime import timedelta
 from calendar import timegm
-from pytz import utc, timezone
+from pytz import utc
 
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.base import Base
 from tincan.remote_lrs import RemoteLRS
 from tincan.lrs_response import LRSResponse
 from tincan.version import Version
@@ -34,7 +32,6 @@ from tincan.verb import Verb
 from tincan.agent import Agent
 from tincan.statement import Statement
 from tincan.context import Context
-from tincan.context_activities import ContextActivities
 from tincan.score import Score
 from tincan.group import Group
 from tincan.base import Base
