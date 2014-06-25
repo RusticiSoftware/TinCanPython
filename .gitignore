@@ -5,6 +5,8 @@
 docs/build
 docs/source/modules.rst
 docs/source/tincan.rst
+docs/source/tincan.conversions.rst
+docs/source/tincan.documents.rst
 test/resources/lrs_properties.py
 
 # bad
