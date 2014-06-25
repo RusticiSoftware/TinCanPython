@@ -12,9 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
-from tincan.version import Version
 from tincan.agent_list import AgentList
 
 """
@@ -45,7 +43,7 @@ class Group(Agent):
         """Adds a single member to this group's list of members
 
         :param value: The member to add to this group
-        :type value: :mod:`tincan.agent`
+        :type value: :class:`tincan.agent.Agent`
 
         """
 
@@ -59,8 +57,8 @@ class Group(Agent):
         """Members for Group
 
         :setter: Tries to convert to AgentList
-        :setter type: :mod:`tincan.agent_list`
-        :rtype: :mod:`tincan.agent_list`
+        :setter type: :class:`tincan.agent_list.AgentList`
+        :rtype: :class:`tincan.agent_list.AgentList`
         """
         return self._member
 

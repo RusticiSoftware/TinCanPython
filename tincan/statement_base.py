@@ -50,8 +50,8 @@ class StatementBase(SerializableBase):
         """Actor for StatementBase
 
         :setter: Tries to convert to Agent or Group
-        :setter type: :mod:`tincan.agent` | :mod:`tincan.group`
-        :rtype: :mod:`tincan.agent` | :mod:`tincan.group`
+        :setter type: :class:`tincan.agent.Agent` | :class:`tincan.group.Group`
+        :rtype: :class:`tincan.agent.Agent` | :class:`tincan.group.Group`
 
         """
         return self._actor
@@ -83,8 +83,8 @@ class StatementBase(SerializableBase):
         """Verb for StatementBase
 
         :setter: Tries to convert to Verb
-        :setter type: :mod:`tincan.verb`
-        :rtype: :mod:`tincan.verb`
+        :setter type: :class:`tincan.verb.Verb`
+        :rtype: :class:`tincan.verb.Verb`
 
         """
         return self._verb
@@ -152,8 +152,8 @@ class StatementBase(SerializableBase):
         """Context for StatementBase
 
         :setter: Tries to convert to Context
-        :setter type: :mod:`tincan.context`
-        :rtype: :mod:`tincan.context`
+        :setter type: :class:`tincan.context.Context`
+        :rtype: :class:`tincan.context.Context`
 
         """
         return self._context
@@ -173,8 +173,8 @@ class StatementBase(SerializableBase):
         """Attachments for StatementBase
 
         :setter: Tries to convert each element to Attachment
-        :setter type: :mod:`tincan.attachment_list`
-        :rtype: :mod:`tincan.attachment_list`
+        :setter type: :class:`tincan.attachment_list.AttachmentList`
+        :rtype: :class:`tincan.attachment_list.AttachmentList`
 
         """
         return self._attachments

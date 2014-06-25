@@ -13,7 +13,6 @@
 #    limitations under the License.
 
 import uuid
-import re
 from tincan.serializable_base import SerializableBase
 
 """

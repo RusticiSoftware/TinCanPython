@@ -86,9 +86,9 @@ class RemoteLRS(Base):
         """Establishes connection and returns http response based off of request.
 
         :param request: HTTPRequest object
-        :type request: :mod:`tincan.http_request.HTTPRequest`
+        :type request: :class:`tincan.http_request.HTTPRequest`
         :returns: LRS Response object
-        :rtype: :mod:`tincan.lrs_response.LRSResponse`
+        :rtype: :class:`tincan.lrs_response.LRSResponse`
         """
         headers = {"X-Experience-API-Version": self.version}
 
@@ -864,7 +864,7 @@ class RemoteLRS(Base):
         """Parses RemoteLRS object's endpoint and returns its root
 
         :return: Root of the RemoteLRS object endpoint
-        :rtype: str
+        :rtype: unicode
         """
         parsed = urlparse(self._endpoint)
         root = parsed.scheme + "://" + parsed.hostname
