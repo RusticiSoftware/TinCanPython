@@ -254,6 +254,7 @@ class RemoteLRSTest(unittest.TestCase):
         self._vars_verifier(statement1, response.content[0], ['_authority', '_stored'])
         self._vars_verifier(statement2, response.content[1], ['_authority', '_stored'])
 
+    @unittest.skip("LRS truncates timestamps which makes returned statements evaluate not equal")
     def test_retrieve_statement(self):
         id_str = str(uuid.uuid4())
         statement = Statement(
@@ -274,8 +275,80 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertTrue(response.success)
         self._vars_verifier(response.content, statement, ['_authority', '_stored'])
 
+    def test_retrieve_statement_no_microsecond(self):
+        id_str = str(uuid.uuid4())
+        dt = utc.localize(datetime.min)
+        statement = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.activity,
+            context=self.context,
+            result=self.result,
+            id=id_str,
+            version=Version.latest,
+            timestamp=dt
+        )
+        save_resp = self.lrs.save_statement(statement)
+
+        self.assertTrue(save_resp.success)
+        response = self.lrs.retrieve_statement(save_resp.content.id)
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self._vars_verifier(response.content, statement, ['_authority', '_stored'])
+
+    @unittest.skip("LRS truncates timestamps which makes returned statements evaluate not equal")
     def test_query_statements(self):
         tstamp = utc.localize(datetime.utcnow())
+        s1 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4()),
+            timestamp=tstamp
+        )
+        self.lrs.save_statement(s1)
+
+        s2 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4()),
+            timestamp=tstamp
+        )
+        self.lrs.save_statement(s2)
+
+        s3 = Statement(
+            actor=self.agent,
+            verb=self.verb,
+            object=self.parent,
+            result=self.result,
+            id=str(uuid.uuid4()),
+            timestamp=tstamp
+        )
+        self.lrs.save_statement(s3)
+
+        query = {
+            "agent": self.agent,
+            "verb": self.verb,
+            "activity": self.parent,
+            "related_activities": True,
+            "related_agents": True,
+            "limit": 2
+        }
+        response = self.lrs.query_statements(query)
+
+        self.assertIsInstance(response, LRSResponse)
+        self.assertTrue(response.success)
+        self.assertIsInstance(response.content, StatementsResult)
+        self.assertTrue(hasattr(response.content, 'more'))
+        self.assertIsNotNone(response.content.more)
+        self._vars_verifier(s1, response.content.statements[0])
+        self._vars_verifier(s2, response.content.statements[1])
+
+    def test_query_statements_no_microsecond(self):
+        tstamp = utc.localize(datetime.min)
         s1 = Statement(
             actor=self.agent,
             verb=self.verb,
