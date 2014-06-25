@@ -113,3 +113,10 @@ To register/upload to the live PyPI server, run the following commands in the re
 
 The new module should be now be installable with pip or easy_install.
 
+    easy_install tincan
+    
+or
+
+    pip install tincan
+    
+Use sudo as necessary.
