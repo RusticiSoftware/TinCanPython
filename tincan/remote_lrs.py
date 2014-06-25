@@ -101,7 +101,7 @@ class RemoteLRS(Base):
         params = {k: unicode(params[k]).encode('utf-8') for k in params.keys()}
         params = urllib.urlencode(params)
 
-        if "http" in request.resource:
+        if request.resource.startswith('http'):
             url = request.resource
         else:
             url = self.endpoint
