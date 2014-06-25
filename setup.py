@@ -21,7 +21,7 @@ setup(
         'SCORM',
         'AICC',
     ],
-    requires=[
+    install_requires=[
         'aniso8601',
         'pytz',
     ],
