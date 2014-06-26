@@ -18,8 +18,7 @@ import httplib
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.lrs_response import LRSResponse
-from tincan.http_request import HTTPRequest
+from tincan import LRSResponse, HTTPRequest
 
 
 class LRSResponseTest(unittest.TestCase):

@@ -17,7 +17,7 @@ import unittest
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.http_request import HTTPRequest
+from tincan import HTTPRequest
 
 
 class HTTPRequestTest(unittest.TestCase):

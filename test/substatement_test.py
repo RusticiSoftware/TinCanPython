@@ -16,12 +16,14 @@ import unittest
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.agent import Agent
-from tincan.group import Group
-from tincan.verb import Verb
-from tincan.statement_ref import StatementRef
-from tincan.activity import Activity
-from tincan.substatement import SubStatement
+from tincan import (
+    Agent,
+    Group,
+    Verb,
+    StatementRef,
+    Activity,
+    SubStatement,
+)
 
 class SubStatementTest(unittest.TestCase):
 
