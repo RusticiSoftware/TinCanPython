@@ -18,8 +18,6 @@ from tincan.base import Base
 class HTTPRequest(Base):
     """Creates a new HTTPRequest object, either from a dict, another object, or from kwargs
 
-    :param endpoint: The remote lrs endpoint used for the HTTP connection
-    :type endpoint: unicode
     :param method: Method for the HTTP connection ("GET", "POST", "DELETE", etc.)
     :type method: unicode
     :param resource: Resource for the LRS HTTP connection ("about", "statements", "activities/state", etc.)
