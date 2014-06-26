@@ -57,9 +57,9 @@ class InteractionComponent(SerializableBase):
     def description(self):
         """Description for Agent
 
-        :setter: Tries to convert to LanguageMap
-        :setter type: :mod:`tincan.language_map`
-        :rtype: :mod:`tincan.language_map`
+        :setter: Tries to convert to :class:`tincan.LanguageMap`
+        :setter type: :class:`tincan.LanguageMap`
+        :rtype: :class:`tincan.LanguageMap`
 
         """
         return self._description

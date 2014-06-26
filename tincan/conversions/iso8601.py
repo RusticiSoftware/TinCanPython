@@ -26,7 +26,7 @@ from pytz import utc
 
 
 def make_timedelta(value):
-    """Tries to convert the given value to a `datetime.timedelta`.
+    """Tries to convert the given value to a :class:`datetime.timedelta`.
 
     Strings will be parsed as ISO 8601 durations.
 

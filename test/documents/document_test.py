@@ -22,7 +22,7 @@ if __name__ == '__main__':
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
     from test.main import setup_tincan_path
     setup_tincan_path()
-from tincan.documents import Document
+from tincan import Document
 
 
 class DocumentTest(unittest.TestCase):

@@ -22,10 +22,12 @@ if __name__ == '__main__':
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
     from test.main import setup_tincan_path
     setup_tincan_path()
-from tincan.documents import ActivityProfileDocument
-from tincan.activity import Activity
-from tincan.activity_definition import ActivityDefinition
-from tincan.language_map import LanguageMap
+from tincan import (
+    ActivityProfileDocument,
+    Activity,
+    ActivityDefinition,
+    LanguageMap,
+)
 
 
 class ActivityProfileDocumentTest(unittest.TestCase):

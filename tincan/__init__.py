@@ -30,6 +30,10 @@ from attachment_list import AttachmentList
 from base import Base
 from context import Context
 from context_activities import ContextActivities
+from documents.activity_profile_document import ActivityProfileDocument
+from documents.agent_profile_document import AgentProfileDocument
+from documents.document import Document
+from documents.state_document import StateDocument
 from extensions import Extensions
 from group import Group
 from http_request import HTTPRequest

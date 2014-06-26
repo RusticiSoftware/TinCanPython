@@ -76,9 +76,9 @@ class Activity(SerializableBase, StatementTargetable):
     def definition(self):
         """Definition for Activity
 
-        :setter: Tries to convert to ActivityDefinition
-        :setter type: :mod:`tincan.activity_definition`
-        :rtype: :mod:`tincan.activity_definition`
+        :setter: Tries to convert to :class:`tincan.ActivityDefinition`
+        :setter type: :class:`tincan.ActivityDefinition`
+        :rtype: :class:`tincan.ActivityDefinition`
 
         """
         return self._definition

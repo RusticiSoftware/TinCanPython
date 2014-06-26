@@ -58,9 +58,9 @@ class ActivityDefinition(SerializableBase):
     def name(self):
         """Name for Activity Definition
 
-        :setter: Tries to convert to LanguageMap
-        :setter type: :mod:`tincan.language_map`
-        :rtype: :mod:`tincan.language_map`
+        :setter: Tries to convert to :class:`tincan.LanguageMap`
+        :setter type: :class:`tincan.LanguageMap`
+        :rtype: :class:`tincan.LanguageMap`
 
         """
         return self._name
@@ -79,9 +79,9 @@ class ActivityDefinition(SerializableBase):
     def description(self):
         """Description for Activity Definition
 
-        :setter: Tries to convert to LanguageMap
-        :setter type: :mod:`tincan.language_map`
-        :rtype: :mod:`tincan.language_map`
+        :setter: Tries to convert to :class:`tincan.LanguageMap`
+        :setter type: :class:`tincan.LanguageMap`
+        :rtype: :class:`tincan.LanguageMap`
 
         """
         return self._description
@@ -190,9 +190,9 @@ class ActivityDefinition(SerializableBase):
     def choices(self):
         """Choices for Activity Definition
 
-        :setter: Tries to convert to InteractionComponentList
-        :setter type: :mod:`tincan.interaction_component_list`
-        :rtype: :mod:`tincan.interaction_component_list`
+        :setter: Tries to convert to :class:`tincan.InteractionComponentList`
+        :setter type: :class:`tincan.InteractionComponentList`
+        :rtype: :class:`tincan.InteractionComponentList`
 
         """
         return self._choices
@@ -211,9 +211,9 @@ class ActivityDefinition(SerializableBase):
     def scale(self):
         """Scale for Activity Definition
 
-        :setter: Tries to convert to InteractionComponentList
-        :setter type: :mod:`tincan.interaction_component_list`
-        :rtype: :mod:`tincan.interaction_component_list`
+        :setter: Tries to convert to :class:`tincan.InteractionComponentList`
+        :setter type: :class:`tincan.InteractionComponentList`
+        :rtype: :class:`tincan.InteractionComponentList`
 
         """
         return self._scale
@@ -232,9 +232,9 @@ class ActivityDefinition(SerializableBase):
     def source(self):
         """Source for Activity Definition
 
-        :setter: Tries to convert to InteractionComponentList
-        :setter type: :mod:`tincan.interaction_component_list`
-        :rtype: :mod:`tincan.interaction_component_list`
+        :setter: Tries to convert to :class:`tincan.InteractionComponentList`
+        :setter type: :class:`tincan.InteractionComponentList`
+        :rtype: :class:`tincan.InteractionComponentList`
 
         """
         return self._source
@@ -253,9 +253,9 @@ class ActivityDefinition(SerializableBase):
     def target(self):
         """Target for Activity Definition
 
-        :setter: Tries to convert to InteractionComponentList
-        :setter type: :mod:`tincan.interaction_component_list`
-        :rtype: :mod:`tincan.interaction_component_list`
+        :setter: Tries to convert to :class:`tincan.InteractionComponentList`
+        :setter type: :class:`tincan.InteractionComponentList`
+        :rtype: :class:`tincan.InteractionComponentList`
 
         """
         return self._target
@@ -274,9 +274,9 @@ class ActivityDefinition(SerializableBase):
     def steps(self):
         """Steps for Activity Definition
 
-        :setter: Tries to convert to InteractionComponentList
-        :setter type: :mod:`tincan.interaction_component_list`
-        :rtype: :mod:`tincan.interaction_component_list`
+        :setter: Tries to convert to :class:`tincan.InteractionComponentList`
+        :setter type: :class:`tincan.InteractionComponentList`
+        :rtype: :class:`tincan.InteractionComponentList`
 
         """
         return self._steps
@@ -295,9 +295,9 @@ class ActivityDefinition(SerializableBase):
     def extensions(self):
         """Extensions for Activity Definition
 
-        :setter: Tries to convert to Extensions
-        :setter type: :mod:`tincan.extensions`
-        :rtype: :mod:`tincan.extensions`
+        :setter: Tries to convert to :class:`tincan.Extensions`
+        :setter type: :class:`tincan.Extensions`
+        :rtype: :class:`tincan.Extensions`
 
         """
         return self._extensions

@@ -103,8 +103,8 @@ class About(SerializableBase):
     def extensions(self):
         """Extensions for About
 
-        :setter: Tries to convert to Extensions. If None is provided,
-        sets to an empty `tincan.Extensions` dict.
+        :setter: Tries to convert to :class:`tincan.Extensions`. If None is provided,
+        sets to an empty :class:`tincan.Extensions` dict.
         :setter type: :class:`tincan.Extensions` | dict | None
         :rtype: :class:`tincan.Extensions`
         """

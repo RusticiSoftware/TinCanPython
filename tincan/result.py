@@ -206,7 +206,7 @@ class Result(SerializableBase):
     def extensions(self):
         """Extensions for Result
 
-        :setter: Tries to convert to Extensions. If None is provided,
+        :setter: Tries to convert to :class:`tincan.Extensions`. If None is provided,
         this signifies the absence of this data.
         :setter type: :class:`tincan.Extensions` | dict | None
         :rtype: :class:`tincan.Extensions` | None
