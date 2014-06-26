@@ -45,7 +45,6 @@ class About(SerializableBase):
         makes a 1-element list containing the string.
         :setter type: list | tuple | str | unicode | None
         :rtype: list
-        
         """
         return self._version
 
@@ -108,7 +107,6 @@ class About(SerializableBase):
         sets to an empty `tincan.Extensions` dict.
         :setter type: :class:`tincan.Extensions` | dict | None
         :rtype: :class:`tincan.Extensions`
-
         """
         return self._extensions
 
