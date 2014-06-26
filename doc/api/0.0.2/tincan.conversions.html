@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tincan.conversions package &mdash; Tin Can Python 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Tin Can Python 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="tincan package" href="tincan.html" />
+    <link rel="next" title="tincan.documents package" href="tincan.documents.html" />
+    <link rel="prev" title="tincan package" href="tincan.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tincan.documents.html" title="tincan.documents package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tincan.html" title="tincan package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Tin Can Python 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >tincan</a> &raquo;</li>
+          <li><a href="tincan.html" accesskey="U">tincan package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tincan-conversions-package">
+<h1>tincan.conversions package<a class="headerlink" href="#tincan-conversions-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tincan.conversions.iso8601">
+<span id="tincan-conversions-iso8601-module"></span><h2>tincan.conversions.iso8601 module<a class="headerlink" href="#module-tincan.conversions.iso8601" title="Permalink to this headline">¶</a></h2>
+<p>Functions for converting <tt class="docutils literal"><span class="pre">datetime.timedelta</span></tt> and
+<tt class="docutils literal"><span class="pre">datetime.datetime</span></tt> to and from ISO 8601 strings.</p>
+<dl class="function">
+<dt id="tincan.conversions.iso8601.jsonify_datetime">
+<tt class="descclassname">tincan.conversions.iso8601.</tt><tt class="descname">jsonify_datetime</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.conversions.iso8601.jsonify_datetime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tincan.conversions.iso8601.jsonify_timedelta">
+<tt class="descclassname">tincan.conversions.iso8601.</tt><tt class="descname">jsonify_timedelta</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.conversions.iso8601.jsonify_timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a <cite>datetime.timedelta</cite> to an ISO 8601 duration
+string for JSON-ification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>datetime.timedelta</em>) &#8211; something to convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the value after conversion</td>
+</tr>
+</tbody>
+</table>
+<p>:rtype unicode</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tincan.conversions.iso8601.make_datetime">
+<tt class="descclassname">tincan.conversions.iso8601.</tt><tt class="descname">make_datetime</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.conversions.iso8601.make_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to convert the given value to a <tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt>. If
+no timezone is given, raises a ValueError.</p>
+<p>Strings will be parsed as ISO 8601 timestamps.</p>
+<p>If a number is provided, it will be interpreted as a UNIX
+timestamp, which by definition is UTC.</p>
+<p>If a <cite>dict</cite> is provided, does <cite>datetime.datetime(**value)</cite>.</p>
+<p>If a <cite>tuple</cite> or a <cite>list</cite> is provided, does
+<cite>datetime.datetime(*value)</cite>. Uses the timezone in the tuple or
+list if provided.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (str | unicode | float | int | <tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt> | dict | list | tuple) &#8211; something to convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the value after conversion</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>:raises ValueError | TypeError</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tincan.conversions.iso8601.make_timedelta">
+<tt class="descclassname">tincan.conversions.iso8601.</tt><tt class="descname">make_timedelta</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.conversions.iso8601.make_timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to convert the given value to a <cite>datetime.timedelta</cite>.</p>
+<p>Strings will be parsed as ISO 8601 durations.</p>
+<p>If a number is provided, it will be interpreted as the number of
+seconds.</p>
+<p>If a <cite>dict</cite> is provided, does <cite>datetime.timedelta(**value)</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str | unicode | float | int | datetime.timedelta | dict</em>) &#8211; something to convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the value after conversion</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">datetime.timedelta</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tincan.conversions.iso8601.tuple_to_datetime">
+<tt class="descclassname">tincan.conversions.iso8601.</tt><tt class="descname">tuple_to_datetime</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#tincan.conversions.iso8601.tuple_to_datetime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-tincan.conversions">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tincan.conversions" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tincan.conversions package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-tincan.conversions.iso8601">tincan.conversions.iso8601 module</a></li>
+<li><a class="reference internal" href="#module-tincan.conversions">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tincan.html"
+                        title="previous chapter">tincan package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tincan.documents.html"
+                        title="next chapter">tincan.documents package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tincan.conversions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tincan.documents.html" title="tincan.documents package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tincan.html" title="tincan package"
+             >previous</a> |</li>
+        <li><a href="index.html">Tin Can Python 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >tincan</a> &raquo;</li>
+          <li><a href="tincan.html" >tincan package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Rustici Software.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

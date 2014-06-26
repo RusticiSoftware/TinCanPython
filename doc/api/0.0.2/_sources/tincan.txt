@@ -1,0 +1,286 @@
+tincan package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    tincan.conversions
+    tincan.documents
+
+Submodules
+----------
+
+tincan.about module
+-------------------
+
+.. automodule:: tincan.about
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.activity module
+----------------------
+
+.. automodule:: tincan.activity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.activity_definition module
+---------------------------------
+
+.. automodule:: tincan.activity_definition
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.activity_list module
+---------------------------
+
+.. automodule:: tincan.activity_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.agent module
+-------------------
+
+.. automodule:: tincan.agent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.agent_account module
+---------------------------
+
+.. automodule:: tincan.agent_account
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.agent_list module
+------------------------
+
+.. automodule:: tincan.agent_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.attachment module
+------------------------
+
+.. automodule:: tincan.attachment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.attachment_list module
+-----------------------------
+
+.. automodule:: tincan.attachment_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.base module
+------------------
+
+.. automodule:: tincan.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.context module
+---------------------
+
+.. automodule:: tincan.context
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.context_activities module
+--------------------------------
+
+.. automodule:: tincan.context_activities
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.extensions module
+------------------------
+
+.. automodule:: tincan.extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.group module
+-------------------
+
+.. automodule:: tincan.group
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.http_request module
+--------------------------
+
+.. automodule:: tincan.http_request
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.interaction_component module
+-----------------------------------
+
+.. automodule:: tincan.interaction_component
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.interaction_component_list module
+----------------------------------------
+
+.. automodule:: tincan.interaction_component_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.language_map module
+--------------------------
+
+.. automodule:: tincan.language_map
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.lrs_response module
+--------------------------
+
+.. automodule:: tincan.lrs_response
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.remote_lrs module
+------------------------
+
+.. automodule:: tincan.remote_lrs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.result module
+--------------------
+
+.. automodule:: tincan.result
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.score module
+-------------------
+
+.. automodule:: tincan.score
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.serializable_base module
+-------------------------------
+
+.. automodule:: tincan.serializable_base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.statement module
+-----------------------
+
+.. automodule:: tincan.statement
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.statement_base module
+----------------------------
+
+.. automodule:: tincan.statement_base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.statement_list module
+----------------------------
+
+.. automodule:: tincan.statement_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.statement_ref module
+---------------------------
+
+.. automodule:: tincan.statement_ref
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.statement_targetable module
+----------------------------------
+
+.. automodule:: tincan.statement_targetable
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.statements_result module
+-------------------------------
+
+.. automodule:: tincan.statements_result
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.substatement module
+--------------------------
+
+.. automodule:: tincan.substatement
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.typed_list module
+------------------------
+
+.. automodule:: tincan.typed_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.verb module
+------------------
+
+.. automodule:: tincan.verb
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tincan.version module
+---------------------
+
+.. automodule:: tincan.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tincan
+    :members:
+    :undoc-members:
+    :show-inheritance:

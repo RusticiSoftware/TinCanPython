@@ -1,0 +1,22 @@
+tincan.conversions package
+==========================
+
+Submodules
+----------
+
+tincan.conversions.iso8601 module
+---------------------------------
+
+.. automodule:: tincan.conversions.iso8601
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tincan.conversions
+    :members:
+    :undoc-members:
+    :show-inheritance:
