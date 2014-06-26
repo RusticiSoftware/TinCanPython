@@ -24,7 +24,7 @@ class About(SerializableBase):
     :param version: The versions supported. This attribute is required.
     :type version: list of unicode
     :param extensions: Custom user data. This attribute is optional.
-    :type extensions: :class:`tincan.extensions.Extensions`
+    :type extensions: :class:`tincan.Extensions`
     """
 
     _props_req = [
@@ -41,10 +41,11 @@ class About(SerializableBase):
         """Version for About
 
         :setter: Sets the version. If None is provided, defaults to
-        `[tincan.version.Version.latest]`. If a string is provided,
+        `[tincan.Version.latest]`. If a string is provided,
         makes a 1-element list containing the string.
         :setter type: list | tuple | str | unicode | None
         :rtype: list
+        
         """
         return self._version
 
@@ -57,7 +58,6 @@ class About(SerializableBase):
             :param v: the version string to check
             :type v: list of str or unicode | tuple of str or unicode
             :raises ValueError
-
             """
             if v in Version.supported:
                 return
@@ -105,9 +105,9 @@ class About(SerializableBase):
         """Extensions for About
 
         :setter: Tries to convert to Extensions. If None is provided,
-        sets to an empty `tincan.extensions.Extensions` dict.
-        :setter type: :class:`tincan.extensions.Extensions` | dict | None
-        :rtype: :class:`tincan.extensions.Extensions`
+        sets to an empty `tincan.Extensions` dict.
+        :setter type: :class:`tincan.Extensions` | dict | None
+        :rtype: :class:`tincan.Extensions`
 
         """
         return self._extensions
@@ -123,8 +123,8 @@ class About(SerializableBase):
                 self._extensions = Extensions(value)
             except Exception as e:
                 msg = (
-                    "Property 'extensions' in a 'tincan.%s' object must be set with an "
-                    "Extensions, dict, or None.\n\n" %
+                    "Property 'extensions' in a 'tincan.%s' object must be set with a "
+                    "tincan.Extensions, dict, or None.\n\n" %
                     self.__class__.__name__,
                 )
                 msg += e.message
