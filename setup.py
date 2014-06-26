@@ -3,12 +3,16 @@ from setuptools import setup
 setup(
     name='tincan',
     packages=[
-        'tincan'
+        'tincan',
+        'tincan/conversions',
+        'tincan/documents',
     ],
-    version='0.0.1',
+    version='0.0.2',
     description='A Python library for implementing Tin Can API.',
     author='Rustici Software',
     author_email='mailto:support+tincanpython@tincanapi.com',
+    maintainer='Brian J. Miller',
+    maintainer_email='mailto:brian.miller@tincanapi.com',
     url='http://rusticisoftware.github.io/TinCanPython/',
     license='Apache License 2.0',
     keywords=[
