@@ -1,2 +1,2 @@
 markdown: redcarpet
-include: _static _sources
+include: ['_static','_sources']
