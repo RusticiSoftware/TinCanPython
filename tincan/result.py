@@ -142,6 +142,8 @@ class Result(SerializableBase):
 
         :setter type: :class:`datetime.timedelta` | unicode | str | int | float | dict | None
         :rtype: :class:`datetime.timedelta` | None
+        :raises ValueError if the provided data was a valid type, but could not be converted
+        :raises TypeError if unsupported type is provided
         """
         return self._duration
 
@@ -189,7 +191,7 @@ class Result(SerializableBase):
             e_type = ValueError if isinstance(value, (list, tuple)) else TypeError
             msg = (
                 "Property 'response' in a 'tincan.%s' object must be set with a "
-                "bytestring, string, unicode, list of ints 0-255, or None.\n\n" %
+                "string, unicode or None.\n\n" %
                 self.__class__.__name__,
             )
             msg += e.message
@@ -208,7 +210,7 @@ class Result(SerializableBase):
         this signifies the absence of this data.
         :setter type: :class:`tincan.extensions.Extensions` | dict | None
         :rtype: :class:`tincan.extensions.Extensions` | None
-
+        :raises TypeError if unsupported type is provided
         """
         return self._extensions
 
@@ -228,7 +230,7 @@ class Result(SerializableBase):
                     repr(value)
                 ))
             msg += e.message
-            e_type = TypeError if not isinstance(value, dict) else ValueError
+            e_type = ValueError if isinstance(value, dict) else TypeError
             raise e_type(msg)
 
     @extensions.deleter

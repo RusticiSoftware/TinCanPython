@@ -45,7 +45,8 @@ class About(SerializableBase):
         makes a 1-element list containing the string.
         :setter type: list | tuple | str | unicode | None
         :rtype: list
-
+        :raises ValueError if invalid version string provided
+        :raises TypeError if unsupported type is provided
         """
         return self._version
 
