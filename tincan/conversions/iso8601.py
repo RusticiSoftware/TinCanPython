@@ -154,7 +154,7 @@ def make_datetime(value):
     :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
     :return: the value after conversion
     :rtype: :class:`datetime.datetime`
-    :raises ValueError | TypeError
+    :raises: ValueError | TypeError
 
     """
     result = _make_datetime(value)
@@ -196,7 +196,7 @@ def _make_datetime(value):
     :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
     :return: the value after conversion
     :rtype: :class:`datetime.datetime`
-    :raises ValueError | TypeError
+    :raises: ValueError | TypeError
     """
 
     if isinstance(value, basestring):

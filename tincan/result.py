@@ -142,8 +142,8 @@ class Result(SerializableBase):
 
         :setter type: :class:`datetime.timedelta` | unicode | str | int | float | dict | None
         :rtype: :class:`datetime.timedelta` | None
-        :raises ValueError if the provided data was a valid type, but could not be converted
-        :raises TypeError if unsupported type is provided
+        :raises: ValueError if the provided data was a valid type, but could not be converted
+        :raises: TypeError if unsupported type is provided
         """
         return self._duration
 

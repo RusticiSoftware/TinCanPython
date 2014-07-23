@@ -38,7 +38,7 @@ class TypedList(list, SerializableBase):
     def _check_cls(self):
         """If self._cls is not set, raises ValueError.
 
-        :raises ValueError
+        :raises: ValueError
         """
         if self._cls is None:
             raise ValueError("_cls has not been set")

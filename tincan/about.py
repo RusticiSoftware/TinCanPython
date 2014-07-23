@@ -56,7 +56,7 @@ class About(SerializableBase):
 
             :param v: the version string to check
             :type v: list of str or unicode | tuple of str or unicode
-            :raises ValueError
+            :raises: ValueError
             """
             if v in Version.supported:
                 return
