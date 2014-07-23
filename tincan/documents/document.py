@@ -16,7 +16,7 @@ from tincan.base import Base
 from tincan.conversions.iso8601 import make_datetime
 
 class Document(Base):
-    """Document class can be instantiated from a dict, another Document, or from kwargs
+    """Document class can be instantiated from a dict, another :class:`tincan.Document`, or from kwargs
 
     :param id: The id of this document
     :type id: unicode
@@ -145,7 +145,7 @@ class Document(Base):
             self._timestamp = make_datetime(value)
         except TypeError as e:
             e.message = (
-                "Property 'timestamp' in a 'tincan.documents.%s' "
+                "Property 'timestamp' in a 'tincan.%s' "
                 "object must be set with a "
                 "datetime.datetime, str, unicode, int, float, dict "
                 "or None.\n\n%s" %

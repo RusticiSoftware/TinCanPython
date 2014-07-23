@@ -18,8 +18,7 @@ if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
 from test_utils import TinCanBaseTestCase
-from tincan.version import Version
-from tincan.about import About
+from tincan import Version, About
 
 
 class AboutTest(TinCanBaseTestCase):

@@ -72,9 +72,9 @@ class Context(SerializableBase):
     def instructor(self):
         """Instructor for Context
 
-        :setter: Tries to convert to Agent or Group
-        :setter type: :mod:`tincan.agent` | :mod:`tincan.group`
-        :rtype: :mod:`tincan.agent` | :mod:`tincan.group`
+        :setter: Tries to convert to :class:`tincan.Agent` or :class:`tincan.Group`
+        :setter type: :class:`tincan.Agent` | :class:`tincan.Group`
+        :rtype: :class:`tincan.Agent` | :class:`tincan.Group`
 
         """
         return self._instructor
@@ -96,9 +96,9 @@ class Context(SerializableBase):
     def team(self):
         """Team for Context
 
-        :setter: Tries to convert to Group
-        :setter type: :mod:`tincan.group`
-        :rtype: :mod:`tincan.group`
+        :setter: Tries to convert to :class:`tincan.Group`
+        :setter type: :class:`tincan.Group`
+        :rtype: :class:`tincan.Group`
 
         """
         return self._team
@@ -117,9 +117,9 @@ class Context(SerializableBase):
     def context_activities(self):
         """Context Activities for Context
 
-        :setter: Tries to convert to Context Activities
-        :setter type: :mod:`tincan.context_activities`
-        :rtype: :mod:`tincan.context_activities`
+        :setter: Tries to convert to :class:`tincan.ContextActivities`
+        :setter type: :class:`tincan.ContextActivities`
+        :rtype: :class:`tincan.ContextActivities`
 
         """
         return self._context_activities
@@ -204,9 +204,9 @@ class Context(SerializableBase):
     def statement(self):
         """Statement for Context
 
-        :setter: Tries to convert to StatementRef
-        :setter type: :mod:`tincan.statement_ref`
-        :rtype: :mod:`tincan.statement_ref`
+        :setter: Tries to convert to :class:`tincan.StatementRef`
+        :setter type: :class:`tincan.StatementRef`
+        :rtype: :class:`tincan.StatementRef`
 
         """
         return self._statement
@@ -225,9 +225,9 @@ class Context(SerializableBase):
     def extensions(self):
         """Extensions for Context
 
-        :setter: Tries to convert to StatementRef
-        :setter type: :mod:`tincan.extensions`
-        :rtype: :mod:`tincan.extensions`
+        :setter: Tries to convert to :class:`tincan.Extensions`
+        :setter type: :class:`tincan.Extensions`
+        :rtype: :class:`tincan.Extensions`
 
         """
         return self._extensions

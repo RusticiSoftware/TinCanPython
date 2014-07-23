@@ -16,7 +16,7 @@ from tincan.activity import Activity
 
 
 class ActivityProfileDocument(Document):
-    """Extends Document with an Activity field, can be created from a dict, another Document, or from kwargs.
+    """Extends :class:`tincan.Document` with an Activity field, can be created from a dict, another :class:`tincan.Document`, or from kwargs.
 
     :param id: The id of this document
     :type id: unicode
@@ -27,9 +27,9 @@ class ActivityProfileDocument(Document):
     :param etag: The etag of this document
     :type etag: unicode
     :param timestamp: The timestamp of this document
-    :type timestamp: :mod:`datetime.datetime`
+    :type timestamp: :class:`datetime.datetime`
     :param activity: The activity object of this document
-    :type activity: Activity
+    :type activity: :class:`tincan.Activity`
     """
 
     _props_req = list(Document._props_req)
@@ -46,9 +46,9 @@ class ActivityProfileDocument(Document):
     def activity(self):
         """The Document's activity object
 
-        :setter: Tries to convert to activity
-        :setter type: :class:`tincan.activity.Activity`
-        :rtype: :class:`tincan.activity.Activity`
+        :setter: Tries to convert to :class:`tincan.Activity`
+        :setter type: :class:`tincan.Activity`
+        :rtype: :class:`tincan.Activity`
         """
         return self._activity
 
@@ -59,7 +59,8 @@ class ActivityProfileDocument(Document):
                 value = Activity(value)
             except:
                 raise TypeError(
-                    "Property 'activity' in 'tincan.documents.%s' must be set with a type "
-                    "that can be constructed into an Activity object." % self.__class__.__name__
+                    "Property 'activity' in 'tincan.%s' must be set with a type "
+                    "that can be constructed into an tincan.Activity object." %
+                    self.__class__.__name__
                 )
         self._activity = value

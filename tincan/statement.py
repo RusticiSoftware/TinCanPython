@@ -87,8 +87,8 @@ class Statement(StatementBase):
         """Object for Statement
 
         :setter: Sets the object
-        :setter type: :class:`tincan.agent.Agent` | :class:`tincan.group.Group` | :class:`tincan.statement_ref.StatementRef` | :class:`tincan.substatement.SubStatement` | :class:`tincan.activity.Activity`
-        :rtype: :class:`tincan.agent.Agent` | :class:`tincan.group.Group` | :class:`tincan.statement_ref.StatementRef` | :class:`tincan.substatement.SubStatement` | :class:`tincan.activity.Activity`
+        :setter type: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.StatementRef` | :class:`tincan.SubStatement` | :class:`tincan.Activity`
+        :rtype: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.StatementRef` | :class:`tincan.SubStatement` | :class:`tincan.Activity`
 
         """
         return self._object
@@ -172,9 +172,9 @@ class Statement(StatementBase):
     def authority(self):
         """Authority for Statement
 
-        :setter: Tries to convert to Agent
-        :setter type: :class:`tincan.agent.Agent`
-        :rtype: :class:`tincan.agent.Agent`
+        :setter: Tries to convert to :class:`tincan.Agent`
+        :setter type: :class:`tincan.Agent`
+        :rtype: :class:`tincan.Agent`
 
         """
         return self._authority
@@ -193,9 +193,9 @@ class Statement(StatementBase):
     def result(self):
         """Result for Statement
 
-        :setter: Tries to convert to Result
-        :setter type: :class:`tincan.result.Result`
-        :rtype: :class:`tincan.result.Result`
+        :setter: Tries to convert to :class:`tincan.Result`
+        :setter type: :class:`tincan.Result`
+        :rtype: :class:`tincan.Result`
 
         """
         return self._result

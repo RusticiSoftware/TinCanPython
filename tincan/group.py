@@ -40,10 +40,11 @@ class Group(Agent):
         super(Group, self).__init__(*args, **kwargs)
 
     def addmember(self, value):
-        """Adds a single member to this group's list of members
+        """Adds a single member to this group's list of members.
+        Tries to convert to :class:`tincan.Agent`
 
         :param value: The member to add to this group
-        :type value: :class:`tincan.agent.Agent`
+        :type value: :class:`tincan.Agent`
 
         """
 
@@ -56,9 +57,9 @@ class Group(Agent):
     def member(self):
         """Members for Group
 
-        :setter: Tries to convert to AgentList
-        :setter type: :class:`tincan.agent_list.AgentList`
-        :rtype: :class:`tincan.agent_list.AgentList`
+        :setter: Tries to convert to :class:`tincan.AgentList`
+        :setter type: :class:`tincan.AgentList`
+        :rtype: :class:`tincan.AgentList`
         """
         return self._member
 

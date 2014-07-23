@@ -4,14 +4,14 @@
    contain the root `toctree` directive.
 
 Welcome to Tin Can Python's documentation!
-=========================================
+==========================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 4
 
-   modules   
+   modules
 
 Indices and tables
 ==================

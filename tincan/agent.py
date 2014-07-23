@@ -155,9 +155,9 @@ class Agent(SerializableBase):
     def account(self):
         """Account for Agent
 
-        :setter: Tries to convert to Account
-        :setter type: :class:`tincan.agent_account.AgentAccount`
-        :rtype: :class:`tincan.agent_account.AgentAccount`
+        :setter: Tries to convert to :class:`tincan.AgentAccount`
+        :setter type: :class:`tincan.AgentAccount`
+        :rtype: :class:`tincan.AgentAccount`
 
         """
         return self._account

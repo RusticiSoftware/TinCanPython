@@ -48,7 +48,7 @@ class Score(SerializableBase):
         this signifies the absence of this data.
         :setter type: float | int | None
         :rtype: float | None
-
+        :raises TypeError if unsupported type is provided
         """
         return self._scaled
 
@@ -81,7 +81,7 @@ class Score(SerializableBase):
         this signifies the absence of this data.
         :setter type: float | int | None
         :rtype: float | None
-
+        :raises TypeError if unsupported type is provided
         """
         return self._raw
 
@@ -114,7 +114,7 @@ class Score(SerializableBase):
         this signifies the absence of this data.
         :setter type: float | int | None
         :rtype: float | None
-
+        :raises TypeError if unsupported type is provided
         """
         return self._min
 
@@ -146,7 +146,7 @@ class Score(SerializableBase):
         this signifies the absence of this data.
         :setter type: float | int | None
         :rtype: float | None
-
+        :raises TypeError if unsupported type is provided
         """
         return self._max
 

@@ -17,7 +17,8 @@ import uuid
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.statement_ref import StatementRef
+from tincan import StatementRef
+
 
 class StatementRefTest(unittest.TestCase):
 

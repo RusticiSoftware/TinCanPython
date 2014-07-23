@@ -30,9 +30,9 @@ class ContextActivities(SerializableBase):
     def category(self):
         """Category for Context Activities
 
-        :setter: Tries to convert to Activity List
-        :setter type: :mod:`tincan.activity_list`
-        :rtype: :mod:`tincan.activity_list`
+        :setter: Tries to convert to :class:`tincan.ActivityList`
+        :setter type: :class:`tincan.ActivityList`
+        :rtype: :class:`tincan.ActivityList`
 
         """
         return self._category
@@ -50,9 +50,9 @@ class ContextActivities(SerializableBase):
     def parent(self):
         """Parent for Context Activities
 
-        :setter: Tries to convert to Activity List
-        :setter type: :mod:`tincan.activity_list`
-        :rtype: :mod:`tincan.activity_list`
+        :setter: Tries to convert to :class:`tincan.ActivityList`
+        :setter type: :class:`tincan.ActivityList`
+        :rtype: :class:`tincan.ActivityList`
 
         """
         return self._parent
@@ -70,9 +70,9 @@ class ContextActivities(SerializableBase):
     def grouping(self):
         """Grouping for Context Activities
 
-        :setter: Tries to convert to Activity List
-        :setter type: :mod:`tincan.activity_list`
-        :rtype: :mod:`tincan.activity_list`
+        :setter: Tries to convert to :class:`tincan.ActivityList`
+        :setter type: :class:`tincan.ActivityList`
+        :rtype: :class:`tincan.ActivityList`
 
         """
         return self._grouping
@@ -90,9 +90,9 @@ class ContextActivities(SerializableBase):
     def other(self):
         """Other for Context Activities
 
-        :setter: Tries to convert to Activity List
-        :setter type: :mod:`tincan.activity_list`
-        :rtype: :mod:`tincan.activity_list`
+        :setter: Tries to convert to :class:`tincan.ActivityList`
+        :setter type: :class:`tincan.ActivityList`
+        :rtype: :class:`tincan.ActivityList`
 
         """
         return self._other
@@ -107,10 +107,10 @@ class ContextActivities(SerializableBase):
         del self._other
 
     def _activity_or_list(self, value):
-        """Tries to convert value to an Activity List
+        """Tries to convert value to :class:`tincan.ActivityList`
 
-        :param value: The value to attempt to convert to Activity List
-        :return: A :mod:`tincan.activity_list` of value
+        :setter type: :class:`tincan.ActivityList`
+        :rtype: :class:`tincan.ActivityList`
         """
         result = value
         if value is not None and not isinstance(value, ActivityList):
