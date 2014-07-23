@@ -64,7 +64,7 @@ It is possible to run all the tests in one go, or just run one part of the tests
 ## API doc generation
 To automatically generate documentation, at the root of the repository run,
 
-    sphinx-apidoc -o ./docs/source/ tincan/
+    sphinx-apidoc -f -o ./docs/source/ tincan/
 
 Then from the `docs/` directory run,
 
