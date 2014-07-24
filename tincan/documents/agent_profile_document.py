@@ -16,7 +16,7 @@ from tincan.agent import Agent
 
 
 class AgentProfileDocument(Document):
-    """Extends Document with an Agent field, can be created from a dict, another Document, or from kwargs.
+    """Extends :class:`tincan.Document` with an Agent field, can be created from a dict, another :class:`tincan.Document`, or from kwargs.
 
     :param id: The id of this document
     :type id: unicode
@@ -27,9 +27,9 @@ class AgentProfileDocument(Document):
     :param etag: The etag of this document
     :type etag: unicode
     :param timestamp: The timestamp of this document
-    :type timestamp: :mod:`datetime.datetime`
+    :type timestamp: :class:`datetime.datetime`
     :param agent: The agent object of this document
-    :type agent: Agent
+    :type agent: :class:`tincan.Agent`
     """
 
     _props_req = list(Document._props_req)
@@ -46,9 +46,9 @@ class AgentProfileDocument(Document):
     def agent(self):
         """The Document's agent object
 
-        :setter: Tries to convert to agent
-        :setter type: :class:`tincan.agent.Agent`
-        :rtype: :class:`tincan.agent.Agent`
+        :setter: Tries to convert to :class:`tincan.Agent`
+        :setter type: :class:`tincan.Agent`
+        :rtype: :class:`tincan.Agent`
         """
         return self._agent
 
@@ -59,7 +59,8 @@ class AgentProfileDocument(Document):
                 value = Agent(value)
             except:
                 raise TypeError(
-                    "Property 'agent' in 'tincan.documents.%s' must be set with a type "
-                    "that can be constructed into an Agent object." % self.__class__.__name__
+                    "Property 'agent' in 'tincan.%s' must be set with a type "
+                    "that can be constructed into an tincan.Agent object." %
+                    self.__class__.__name__
                 )
         self._agent = value

@@ -17,13 +17,15 @@ import unittest
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.context import Context
-from tincan.context_activities import ContextActivities
-from tincan.activity import Activity
-from tincan.agent import Agent
-from tincan.statement_ref import StatementRef
-from tincan.extensions import Extensions
-from tincan.group import Group
+from tincan import (
+    Context,
+    ContextActivities,
+    Activity,
+    Agent,
+    StatementRef,
+    Extensions,
+    Group,
+)
 import uuid
 import re
 

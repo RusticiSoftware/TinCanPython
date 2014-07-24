@@ -22,8 +22,7 @@ if __name__ == '__main__':
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
     from test.main import setup_tincan_path
     setup_tincan_path()
-from tincan.documents import AgentProfileDocument
-from tincan.agent import Agent
+from tincan import AgentProfileDocument, Agent
 
 
 class AgentProfileDocumentTest(unittest.TestCase):

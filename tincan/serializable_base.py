@@ -22,7 +22,7 @@ from tincan.conversions.iso8601 import jsonify_datetime, jsonify_timedelta
 
 """
 .. module:: serializable_base
-   :synopsis: A base object that provides the common initializer from :mod:`base`
+   :synopsis: A base object that provides the common initializer from :class:`tincan.Base`
    as well as common serialization functionality
 
 """

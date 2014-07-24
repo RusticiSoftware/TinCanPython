@@ -29,7 +29,7 @@ class Result(SerializableBase):
     All these attributes are optional and settable to None:
 
     :param score: Contains the score and its scaling information
-    :type score: Score
+    :type score: :class:`tincan.Score`
     :param success: Whether successful
     :type success: bool
     :param completion: Whether completed
@@ -39,7 +39,7 @@ class Result(SerializableBase):
     :param response: HTTPResponse data
     :type response: unicode
     :param extensions: Custom user data
-    :type extensions: :class:`tincan.extensions.Extensions`
+    :type extensions: :class:`tincan.Extensions`
     """
 
     _props = [
@@ -55,10 +55,10 @@ class Result(SerializableBase):
     def score(self):
         """Score for Result
 
-        :setter: Tries to convert to :class:`tincan.score.Score`. If
+        :setter: Tries to convert to :class:`tincan.Score`. If
         None is provided, this signifies the absence of this data.
-        :setter type: :class:`tincan.score.Score` | dict | None
-        :rtype: :class:`tincan.score.Score` | None
+        :setter type: :class:`tincan.Score` | dict | None
+        :rtype: :class:`tincan.Score` | None
 
         """
         return self._score
@@ -142,6 +142,8 @@ class Result(SerializableBase):
 
         :setter type: :class:`datetime.timedelta` | unicode | str | int | float | dict | None
         :rtype: :class:`datetime.timedelta` | None
+        :raises: ValueError if the provided data was a valid type, but could not be converted
+        :raises: TypeError if unsupported type is provided
         """
         return self._duration
 
@@ -189,7 +191,7 @@ class Result(SerializableBase):
             e_type = ValueError if isinstance(value, (list, tuple)) else TypeError
             msg = (
                 "Property 'response' in a 'tincan.%s' object must be set with a "
-                "bytestring, string, unicode, list of ints 0-255, or None.\n\n" %
+                "string, unicode or None.\n\n" %
                 self.__class__.__name__,
             )
             msg += e.message
@@ -204,10 +206,10 @@ class Result(SerializableBase):
     def extensions(self):
         """Extensions for Result
 
-        :setter: Tries to convert to Extensions. If None is provided,
+        :setter: Tries to convert to :class:`tincan.Extensions`. If None is provided,
         this signifies the absence of this data.
-        :setter type: :class:`tincan.extensions.Extensions` | dict | None
-        :rtype: :class:`tincan.extensions.Extensions` | None
+        :setter type: :class:`tincan.Extensions` | dict | None
+        :rtype: :class:`tincan.Extensions` | None
 
         """
         return self._extensions
@@ -228,7 +230,7 @@ class Result(SerializableBase):
                     repr(value)
                 ))
             msg += e.message
-            e_type = TypeError if not isinstance(value, dict) else ValueError
+            e_type = ValueError if isinstance(value, dict) else TypeError
             raise e_type(msg)
 
     @extensions.deleter

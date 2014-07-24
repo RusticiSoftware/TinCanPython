@@ -17,7 +17,7 @@ from tincan.activity import Activity
 
 
 class StateDocument(Document):
-    """Extends Document with Agent, Activity, and Registration fields; can be created from a dict, another Document, or from kwargs.
+    """Extends :class:`tincan.Document` with Agent, Activity, and Registration fields; can be created from a dict, another :class:`tincan.Document`, or from kwargs.
 
     :param id: The id of this document
     :type id: unicode
@@ -28,11 +28,11 @@ class StateDocument(Document):
     :param etag: The etag of this document
     :type etag: unicode
     :param timestamp: The time stamp of this document
-    :type timestamp: :mod:`datetime.datetime`
+    :type timestamp: :class:`datetime.datetime`
     :param agent: The agent object of this document
-    :type agent: Agent
+    :type agent: :class:`tincan.Agent`
     :param activity: The activity object of this document
-    :type activity: Activity
+    :type activity: :class:`Activity`
     :param registration: The registration id of the state for this document
     :type registration: unicode
     """
@@ -53,9 +53,9 @@ class StateDocument(Document):
     def agent(self):
         """The Document's agent object
 
-        :setter: Tries to convert to agent
-        :setter type: :class:`tincan.agent.Agent`
-        :rtype: :class:`tincan.agent.Agent`
+        :setter: Tries to convert to :class:`tincan.Agent`
+        :setter type: :class:`tincan.Agent`
+        :rtype: :class:`tincan.Agent`
         """
         return self._agent
 
@@ -66,8 +66,9 @@ class StateDocument(Document):
                 value = Agent(value)
             except:
                 raise TypeError(
-                    "Property 'agent' in 'tincan.documents.%s' must be set with a type "
-                    "that can be constructed into an Agent object." % self.__class__.__name__
+                    "Property 'agent' in 'tincan.%s' must be set with a type "
+                    "that can be constructed into a tincan.Agent object." %
+                    self.__class__.__name__
                 )
         self._agent = value
 
@@ -76,8 +77,8 @@ class StateDocument(Document):
         """The Document's activity object
 
         :setter: Tries to convert to activity
-        :setter type: :class:`tincan.activity.Activity`
-        :rtype: :class:`tincan.activity.Activity`
+        :setter type: :class:`tincan.Activity`
+        :rtype: :class:`tincan.Activity`
         """
         return self._activity
 
@@ -88,8 +89,9 @@ class StateDocument(Document):
                 value = Activity(value)
             except:
                 raise TypeError(
-                    "Property 'activity' in 'tincan.documents.%s' must be set with a type "
-                    "that can be constructed into an Activity object." % self.__class__.__name__
+                    "Property 'activity' in 'tincan.%s' must be set with a type "
+                    "that can be constructed into a tincan.Activity object." %
+                    self.__class__.__name__
                 )
         self._activity = value
 

@@ -17,7 +17,7 @@ import unittest
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.language_map import LanguageMap
+from tincan import LanguageMap
 
 
 class LanguageMapTest(unittest.TestCase):

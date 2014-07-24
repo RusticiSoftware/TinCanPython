@@ -36,8 +36,8 @@ class SubStatement(StatementBase):
         """Object for SubStatement
 
         :setter: Setter for object
-        :setter type: :class:`tincan.agent.Agent` | :class:`tincan.group.Group` | :class:`tincan.activity.Activity`
-        :rtype: :class:`tincan.agent.Agent` | :class:`tincan.group.Group` | :class:`tincan.activity.Activity`
+        :setter type: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.Activity`
+        :rtype: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.Activity`
 
         """
         return self._object

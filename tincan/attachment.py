@@ -116,7 +116,7 @@ class Attachment(SerializableBase):
         :setter type: unicode
         :rtype: unicode
 
-		"""
+        """
         return self._sha2
 
     @sha2.setter
@@ -160,9 +160,9 @@ class Attachment(SerializableBase):
     def display(self):
         """Display for Attachment
 
-        :setter: Tries to convert to LanguageMap
-        :setter type: :class:`tincan.language_map.LanguageMap`
-        :rtype: :class:`tincan.language_map.LanguageMap`
+        :setter: Tries to convert to :class:`tincan.LanguageMap`
+        :setter type: :class:`tincan.LanguageMap`
+        :rtype: :class:`tincan.LanguageMap`
 
         """
         return self._display
@@ -181,9 +181,9 @@ class Attachment(SerializableBase):
     def description(self):
         """Description for Attachment
 
-        :setter: Tries to convert to LanguageMap
-        :setter type: :class:`tincan.language_map.LanguageMap`
-        :rtype: :class:`tincan.language_map.LanguageMap`
+        :setter: Tries to convert to :class:`tincan.LanguageMap`
+        :setter type: :class:`tincan.LanguageMap`
+        :rtype: :class:`tincan.LanguageMap`
 
         """
         return self._description

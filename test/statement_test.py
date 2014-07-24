@@ -20,16 +20,19 @@ import uuid
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.statement import Statement
-from tincan.agent import Agent
-from tincan.group import Group
-from tincan.verb import Verb
-from tincan.result import Result
-from tincan.context import Context
-from tincan.attachment import Attachment
-from tincan.substatement import SubStatement
-from tincan.activity import Activity
-from tincan.statement_ref import StatementRef
+from tincan import (
+    Statement,
+    Agent,
+    Group,
+    Verb,
+    Result,
+    Context,
+    Attachment,
+    SubStatement,
+    Activity,
+    StatementRef,
+)
+
 
 class StatementTest(unittest.TestCase):
 

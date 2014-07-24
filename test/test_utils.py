@@ -17,7 +17,7 @@ import unittest
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.version import Version
+from tincan import Version
 
 
 class TinCanBaseTestCase(unittest.TestCase):

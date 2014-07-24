@@ -18,8 +18,7 @@ import uuid
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.statements_result import StatementsResult
-from tincan.statement import Statement
+from tincan import StatementsResult, Statement
 from test_utils import TinCanBaseTestCase
 
 

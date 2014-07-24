@@ -19,7 +19,8 @@ class Extensions(dict, SerializableBase):
     """
     Contains domain-specific custom data.
 
-    Can be created from a dict, another Extensions, or from args and kwargs.
+    Can be created from a dict, another :class:`tincan.Extensions`,
+    or from args and kwargs.
 
     Use this like a regular Python dict.
     """

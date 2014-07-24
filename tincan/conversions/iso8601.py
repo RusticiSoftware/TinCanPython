@@ -26,7 +26,7 @@ from pytz import utc
 
 
 def make_timedelta(value):
-    """Tries to convert the given value to a `datetime.timedelta`.
+    """Tries to convert the given value to a :class:`datetime.timedelta`.
 
     Strings will be parsed as ISO 8601 durations.
 
@@ -154,7 +154,7 @@ def make_datetime(value):
     :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
     :return: the value after conversion
     :rtype: :class:`datetime.datetime`
-    :raises ValueError | TypeError
+    :raises: ValueError | TypeError
 
     """
     result = _make_datetime(value)
@@ -196,7 +196,7 @@ def _make_datetime(value):
     :type value: str | unicode | float | int | :class:`datetime.datetime` | dict | list | tuple
     :return: the value after conversion
     :rtype: :class:`datetime.datetime`
-    :raises ValueError | TypeError
+    :raises: ValueError | TypeError
     """
 
     if isinstance(value, basestring):

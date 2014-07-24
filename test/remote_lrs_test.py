@@ -21,25 +21,27 @@ from pytz import utc
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan.remote_lrs import RemoteLRS
-from tincan.lrs_response import LRSResponse
-from tincan.version import Version
 from resources import lrs_properties
-from tincan.activity import Activity
-from tincan.activity_definition import ActivityDefinition
-from tincan.language_map import LanguageMap
-from tincan.verb import Verb
-from tincan.agent import Agent
-from tincan.statement import Statement
-from tincan.context import Context
-from tincan.score import Score
-from tincan.group import Group
-from tincan.base import Base
-from tincan.result import Result
-from tincan.substatement import SubStatement
-from tincan.statement_ref import StatementRef
-from tincan.about import About
-from tincan.statements_result import StatementsResult
+from tincan import (
+    RemoteLRS,
+    LRSResponse,
+    Version,
+    Activity,
+    ActivityDefinition,
+    LanguageMap,
+    Verb,
+    Agent,
+    Statement,
+    Context,
+    Score,
+    Group,
+    Base,
+    Result,
+    SubStatement,
+    StatementRef,
+    About,
+    StatementsResult,
+)
 from tincan.documents import (
     StateDocument,
     ActivityProfileDocument,
