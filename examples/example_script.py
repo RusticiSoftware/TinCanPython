@@ -1,16 +1,18 @@
-# An example script showing the functionality of the TinCan Python Library
+# An example script showing the functionality of the TinCanPython Library
 
 import uuid
 from resources import lrs_properties
-from tincan.remote_lrs import RemoteLRS
-from tincan.statement import Statement
-from tincan.agent import Agent
-from tincan.verb import Verb
-from tincan.activity import Activity
-from tincan.context import Context
-from tincan.language_map import LanguageMap
-from tincan.activity_definition import ActivityDefinition
-from tincan.documents import StateDocument
+from tincan import (
+    RemoteLRS,
+    Statement,
+    Agent,
+    Verb,
+    Activity,
+    Context,
+    LanguageMap,
+    ActivityDefinition,
+    StateDocument,
+)
 
 # construct an LRS
 print "constructing the LRS..."
@@ -41,7 +43,7 @@ print "...done"
 # construct the object of the statement
 print "constructing the Object..."
 object = Activity(
-    id='http://tincanapi.com/TinCanPython/Test/Unit/0',
+    id='http://tincanapi.com/TinCanPython/Example/0',
     definition=ActivityDefinition(
         name=LanguageMap({'en-US': 'TinCanPython Library'}),
         description=LanguageMap({'en-US': 'Use of, or interaction with, the TinCanPython Library'}),
@@ -55,7 +57,7 @@ context = Context(
     registration=uuid.uuid4(),
     instructor=Agent(
         name='Lord TinCan',
-        mbox='mailto:tincanpython@tincanapi.com',
+        mbox='mailto:lordtincan@tincanapi.com',
     ),
     #language='en-US',
 )
@@ -88,7 +90,7 @@ if not response.success:
 print "...done"
 
 print "constructing new Statement from retrieved statement data..."
-ret_statement = Statement.from_json(response.data)
+ret_statement = response.content
 print "...done"
 
 # now, using our old statement and our returned statement, we can send multiple statements
@@ -102,8 +104,8 @@ print "...done"
 
 # we can query our statements using an object
 # constructing the query object with common fields
-# note: more information about queries can be found in the xAPI spec
-#   https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#723-getstatements
+# note: more information about queries can be found in the API documentation:
+#   docs/build/html/tincan.html#module-tincan.remote_lrs
 query = {
     "agent": actor,
     "verb": verb,
