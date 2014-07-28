@@ -282,6 +282,26 @@ class RemoteLRS(Base):
         :type query: dict
         :return: LRS Response object with the returned StatementsResult object as content
         :rtype: :class:`tincan.lrs_response.LRSResponse`
+
+        .. note::
+           Optional query parameters are\n
+               **statementId:** (*str*) ID of the Statement to fetch\n
+               **voidedStatementId:** (*str*) ID of the voided Statement to fetch\n
+               **agent:** (*Agent* |*Group*) Filter to return Statements for which the specified Agent or Group is the Actor\n
+               **verb:** (*Verb id IRI*) Filter to return Statements matching the verb id\n
+               **activity:** (*Activity id IRI*) Filter to return Statements for which the specified Activity is the Object\n
+               **registration:** (*UUID*) Filter to return Statements matching the specified registration ID\n
+               **related_activities:** (*bool*) Include Statements for which the Object, Context Activities or any Sub-Statement
+               properties match the specified Activity\n
+               **related_agents:** (*bool*) Include Statements for which the Actor, Object, Authority, Instructor, Team, or
+               any Sub-Statement properties match the specified Agent\n
+               **since:** (*datetime*) Filter to return Statements stored since the specified datetime\n
+               **until:** (*datetime*) Filter to return Statements stored at or before the specified datetime\n
+               **limit:** (*positive int*) Allow <limit> Statements to be returned. 0 indicates the maximum supported by the LRS\n
+               **format:** (*str* {"ids"|"exact"|"canonical"}) Manipulates how the LRS handles importing and returning the statements\n
+               **attachments:** (*bool*) If true, the LRS will use multipart responses and include all attachment data per Statement returned.
+               Otherwise, application/json is used and no attachment information will be returned\n
+               **ascending:** (*bool*) If true, the LRS will return results in ascending order of stored time (oldest first)\n
         """
         params = {}
 
