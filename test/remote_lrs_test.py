@@ -485,10 +485,19 @@ class RemoteLRSTest(unittest.TestCase):
             id="test",
             content=bytearray("Test value", encoding="utf-8")
         )
-        response = self.lrs.save_state(doc)
+        saveResp = self.lrs.save_state(doc)
 
+        self.assertIsInstance(saveResp, LRSResponse)
+        self.assertTrue(saveResp.success)
+
+        response = self.lrs.retrieve_state(
+            activity=self.activity,
+            agent=self.agent,
+            state_id="test"
+        )
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
+        self._vars_verifier(response.content, doc)
 
     def test_delete_state(self):
         doc = StateDocument(
@@ -525,10 +534,19 @@ class RemoteLRSTest(unittest.TestCase):
             id="test",
             content=bytearray("Test value", encoding="utf-8")
         )
-        response = self.lrs.save_activity_profile(doc)
+        saveResp = self.lrs.save_activity_profile(doc)
 
+        self.assertIsInstance(saveResp, LRSResponse)
+        self.assertTrue(saveResp.success)
+
+        response = self.lrs.retrieve_activity_profile(
+            activity=self.activity,
+            profile_id="test"
+        )
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
+        self._vars_verifier(response.content, doc)
+
 
     def test_delete_activity_profile(self):
         doc = ActivityProfileDocument(activity=self.activity, id="test")
@@ -553,9 +571,18 @@ class RemoteLRSTest(unittest.TestCase):
             id="test",
             content=bytearray("Test value", encoding="utf-8")
         )
-        response = self.lrs.save_agent_profile(doc)
+        saveResp = self.lrs.save_agent_profile(doc)
+        self.assertIsInstance(saveResp, LRSResponse)
+        self.assertTrue(saveResp.success)
+
+        response = self.lrs.retrieve_agent_profile(
+            agent=self.agent,
+            profile_id="test"
+        )
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
+        self._vars_verifier(response.content, doc)
+
 
     def test_delete_agent_profile(self):
         doc = AgentProfileDocument(agent=self.agent, id="test")
