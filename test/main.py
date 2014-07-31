@@ -60,8 +60,15 @@ def locate_package(pkg):
 def setup_tincan_path():
     tincan_pardir = locate_package('tincan')
     if tincan_pardir and tincan_pardir not in sys.path:
+        #
+        # using sys.path.insert in this manner is considered a little evil,
+        # see http://stackoverflow.com/questions/10095037/why-use-sys-path-appendpath-instead-of-sys-path-insert1-path
+        # but this is better than using the sys.path.append as before
+        # as that was catching the system installed version, if virtualenv
+        # is ever implemented for the test suite then this can go away
+        #
         print "Adding %s to PYTHONPATH" % repr(tincan_pardir)
-        sys.path.append(tincan_pardir)
+        sys.path.insert(1, tincan_pardir)
     check_tincan_importability()
 
 
