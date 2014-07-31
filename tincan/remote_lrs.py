@@ -654,7 +654,7 @@ class RemoteLRS(Base):
         request = HTTPRequest(
             method="PUT",
             resource="activities/profile",
-            content=profile.content_type
+            content=profile.content
         )
         if profile.content_type is not None:
             request.headers["Content-Type"] = profile.content_type
