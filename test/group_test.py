@@ -17,7 +17,7 @@ import unittest
 if __name__ == '__main__':
     from main import setup_tincan_path
     setup_tincan_path()
-from tincan import Group, Agent
+from tincan import Group, Agent, AgentAccount
 
 
 class GroupTest(unittest.TestCase):
@@ -79,6 +79,17 @@ class GroupTest(unittest.TestCase):
     def test_ToJSON(self):
          group = Group(**{'member':[{'name':'test'}, {'name':'test2'}]})
          self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
+
+    def test_InitIFI(self):
+        group = Group(name='test', mbox='mailto:test@test.com', mbox_sha1sum='test', openid='test', account=AgentAccount(name="test", home_page="test.com"), object_type='Agent')
+        self.assertEqual(group.name, 'test')
+        self.assertEqual(group.mbox, 'mailto:test@test.com')
+        self.assertEqual(group.mbox_sha1sum, 'test')
+        self.assertEqual(group.openid, 'test')
+        self.assertIsInstance(group.account, AgentAccount)
+        self.assertEqual(len(vars(group.account)), 2)
+        self.assertIn('_name', group.account.__dict__)
+        self.assertIn('_home_page', group.account.__dict__)
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(GroupTest)

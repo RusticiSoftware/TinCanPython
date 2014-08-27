@@ -30,8 +30,8 @@ class Group(Agent):
     ]
 
     _props = [
-        "member"
-    ]
+        "member",
+    ] + Agent._props
 
     _props.extend(_props_req)
 
