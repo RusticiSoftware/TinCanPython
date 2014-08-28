@@ -57,6 +57,7 @@ class Statement(StatementBase):
         "attachments"
     ]
 
+    _props.extend(StatementBase._props)
     _props.extend(_props_req)
 
     @property

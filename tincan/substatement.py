@@ -29,6 +29,7 @@ class SubStatement(StatementBase):
         "object"
     ]
 
+    _props.extend(StatementBase._props)
     _props.extend(_props_req)
 
     @property
