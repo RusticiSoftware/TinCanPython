@@ -1,3 +1,5 @@
+# coding=utf-8
+#
 #    Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -128,6 +130,15 @@ class LRSResponseTest(unittest.TestCase):
 
         self.assertIsInstance(resp.response, httplib.HTTPResponse)
         self.assertEqual(resp.response, web_resp)
+
+    def test_unicode(self):
+        resp = LRSResponse()
+        resp.data = "\xce\xb4\xce\xbf\xce\xba\xce\xb9\xce\xbc\xce\xae " \
+                    "\xcf\x80\xce\xb5\xcf\x81\xce\xb9\xce\xb5\xcf\x87\xce\xbf\xce\xbc\xce\xad\xce\xbd\xce\xbf\xcf\x85"
+
+        self.assertIsInstance(resp, LRSResponse)
+        self.assertIsInstance(resp.data, unicode)
+        self.assertEqual(resp.data, u"δοκιμή περιεχομένου")
 
     def test_setters_none(self):
         resp = LRSResponse()
