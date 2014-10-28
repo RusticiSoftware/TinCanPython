@@ -58,7 +58,7 @@ class About(SerializableBase):
             :type v: list of str or unicode | tuple of str or unicode
             :raises: ValueError
             """
-            if v in Version.supported:
+            if v in ['1.0.1', '1.0.0', '0.95', '0.9']:
                 return
 
             # Construct the error message
