@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -230,10 +230,8 @@ def _make_datetime(value):
         #     return datetime.datetime.utcfromtimestamp(posix).replace(tzinfo=utc)
         elif isinstance(value, (tuple, list)):
             return tuple_to_datetime(value)
-        elif isinstance(value, (float, int)):
-            return datetime.datetime.utcfromtimestamp(value).replace(tzinfo=utc)
         else:
-            return datetime.datetime(value)
+            return datetime.datetime.utcfromtimestamp(value).replace(tzinfo=utc)
     except Exception as e:
         msg = (
             "Could not convert the given value of type '%s' to a "

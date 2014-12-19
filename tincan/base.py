@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@
 
 
 class Base(object):
+    _props = []
 
     def __init__(self, *args, **kwargs):
         """Initializes an object by checking the provided arguments
@@ -33,7 +34,7 @@ class Base(object):
 
         """
         if hasattr(self, '_props_req') and self._props_req:
-            map(lambda(k): setattr(self, k, None), self._props_req)
+            map(lambda (k): setattr(self, k, None), self._props_req)
 
         new_kwargs = {}
         for obj in args:
@@ -41,8 +42,8 @@ class Base(object):
 
         new_kwargs.update(kwargs)
 
-        for k, v in new_kwargs.iteritems():
-            setattr(self, k, v)
+        for key, value in new_kwargs.iteritems():
+            setattr(self, key, value)
 
     def __setattr__(self, attr, value):
         """Makes sure that only allowed properties are set. This method will

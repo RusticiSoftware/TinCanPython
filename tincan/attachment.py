@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -37,6 +37,17 @@ class Attachment(SerializableBase):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._usage_type = None
+        self._display = None
+        self._content_type = None
+        self._length = None
+        self._sha2 = None
+        self._description = None
+        self._fileurl = None
+
+        super(Attachment, self).__init__(*args, **kwargs)
 
     @property
     def usage_type(self):
@@ -170,7 +181,7 @@ class Attachment(SerializableBase):
     @display.setter
     def display(self, value):
         if value is not None and not isinstance(value, LanguageMap):
-                value = LanguageMap(value)
+            value = LanguageMap(value)
         self._display = value
 
     @display.deleter
@@ -191,7 +202,7 @@ class Attachment(SerializableBase):
     @description.setter
     def description(self, value):
         if value is not None and not isinstance(value, LanguageMap):
-                value = LanguageMap(value)
+            value = LanguageMap(value)
         self._description = value
 
     @description.deleter

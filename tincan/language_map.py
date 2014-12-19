@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ from tincan.serializable_base import SerializableBase
 
 
 class LanguageMap(dict, SerializableBase):
-
     def __init__(self, *args, **kwargs):
         """Initializes a LanguageMap with the given mapping
 
@@ -32,7 +31,7 @@ class LanguageMap(dict, SerializableBase):
 
         """
         check_args = dict(*args, **kwargs)
-        map(lambda(k,v): (k, self._check_basestring(v)), check_args.iteritems())
+        map(lambda (k, v): (k, self._check_basestring(v)), check_args.iteritems())
         super(LanguageMap, self).__init__(check_args)
 
     def __setitem__(self, prop, value):
@@ -49,7 +48,8 @@ class LanguageMap(dict, SerializableBase):
         self._check_basestring(value)
         super(LanguageMap, self).__setitem__(prop, value)
 
-    def _check_basestring(self, value):
+    @staticmethod
+    def _check_basestring(value):
         """Ensures that value is an instance of basestring
 
         :param value: the value to check

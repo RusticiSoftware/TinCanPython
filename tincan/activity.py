@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ from tincan.activity_definition import ActivityDefinition
 
 
 class Activity(SerializableBase, StatementTargetable):
-
     _props_req = [
         'id',
         'object_type'
@@ -36,6 +35,13 @@ class Activity(SerializableBase, StatementTargetable):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._id = None
+        self._object_type = None
+        self._definition = None
+
+        super(Activity, self).__init__(*args, **kwargs)
 
     @property
     def id(self):
@@ -53,7 +59,7 @@ class Activity(SerializableBase, StatementTargetable):
         if value is not None:
             if value == '':
                 raise ValueError(
-                    "Property 'id' in 'tincan.%s' object must be not empty." \
+                    "Property 'id' in 'tincan.%s' object must be not empty."
                     % self.__class__.__name__)
         self._id = None if value is None else unicode(value)
 
@@ -69,7 +75,7 @@ class Activity(SerializableBase, StatementTargetable):
         return self._object_type
 
     @object_type.setter
-    def object_type(self, value):
+    def object_type(self, _):
         self._object_type = 'Activity'
 
     @property

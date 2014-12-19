@@ -1,6 +1,6 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
-#    Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
 #
@@ -17,19 +17,21 @@ from tincan.agent import Agent
 from tincan.group import Group
 from tincan.activity import Activity
 
-class SubStatement(StatementBase):
 
+class SubStatement(StatementBase):
     _props_req = [
         'object_type'
     ]
 
-    _props = [
-        "actor",
-        "verb",
-        "object"
-    ]
+    _props = []
 
+    _props.extend(StatementBase._props)
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._object_type = None
+
+        super(SubStatement, self).__init__(*args, **kwargs)
 
     @property
     def object(self):
@@ -44,7 +46,10 @@ class SubStatement(StatementBase):
 
     @object.setter
     def object(self, value):
-        if value is not None and not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, Activity):
+        if value is not None and \
+                not isinstance(value, Agent) and \
+                not isinstance(value, Group) and \
+                not isinstance(value, Activity):
             if isinstance(value, dict):
                 if 'object_type' in value or 'objectType' in value:
                     if 'objectType' in value:
@@ -64,7 +69,7 @@ class SubStatement(StatementBase):
 
     @object.deleter
     def object(self):
-        del(self._object)
+        del self._object
 
     @property
     def object_type(self):
@@ -78,5 +83,5 @@ class SubStatement(StatementBase):
         return self._object_type
 
     @object_type.setter
-    def object_type(self, value):
+    def object_type(self, _):
         self._object_type = 'SubStatement'

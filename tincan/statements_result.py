@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ from tincan.statement_list import StatementList
 
 
 class StatementsResult(SerializableBase):
-
     _props_req = [
         'statements',
         'more',
@@ -31,6 +30,12 @@ class StatementsResult(SerializableBase):
 
     _props = []
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._statements = None
+        self._more = None
+
+        super(StatementsResult, self).__init__(*args, **kwargs)
 
     @property
     def statements(self):

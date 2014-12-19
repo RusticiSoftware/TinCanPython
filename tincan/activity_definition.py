@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ from tincan.interaction_component_list import InteractionComponentList
 
 
 class ActivityDefinition(SerializableBase):
-
     _props = [
         'name',
         'description',
@@ -50,9 +49,26 @@ class ActivityDefinition(SerializableBase):
         'performance',
         'true-false',
         'fill-in',
+        'long-fill-in',
         'numeric',
         'other',
     ]
+
+    def __init__(self, *args, **kwargs):
+        self._name = None
+        self._description = None
+        self._type = None
+        self._more_info = None
+        self._interaction_type = None
+        self._correct_responses_pattern = None
+        self._choices = None
+        self._scale = None
+        self._source = None
+        self._target = None
+        self._steps = None
+        self._extensions = None
+
+        super(ActivityDefinition, self).__init__(*args, **kwargs)
 
     @property
     def name(self):

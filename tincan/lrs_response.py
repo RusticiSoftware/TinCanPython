@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -43,6 +43,15 @@ class LRSResponse(Base):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._success = None
+        self._request = None
+        self._response = None
+        self._data = None
+        self._content = None
+
+        super(LRSResponse, self).__init__(*args, **kwargs)
 
     @property
     def success(self):

@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ from tincan.agent_account import AgentAccount
 
 """
 
-class Agent(SerializableBase):
 
+class Agent(SerializableBase):
     _props_req = [
         "object_type"
     ]
@@ -38,6 +38,16 @@ class Agent(SerializableBase):
 
     _props.extend(_props_req)
 
+    def __init__(self, *args, **kwargs):
+        self._object_type = None
+        self._name = None
+        self._mbox = None
+        self._mbox_sha1sum = None
+        self._openid = None
+        self._account = None
+
+        super(Agent, self).__init__(*args, **kwargs)
+
     @property
     def object_type(self):
         """Object Type for Agent. Will always be 'Agent'
@@ -50,7 +60,7 @@ class Agent(SerializableBase):
         return self._object_type
 
     @object_type.setter
-    def object_type(self, value):
+    def object_type(self, _):
         self._object_type = 'Agent'
 
     @property
@@ -165,7 +175,7 @@ class Agent(SerializableBase):
     @account.setter
     def account(self, value):
         if value is not None and not isinstance(value, AgentAccount):
-                value = AgentAccount(value)
+            value = AgentAccount(value)
         self._account = value
 
     @account.deleter

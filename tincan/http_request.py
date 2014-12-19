@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -45,6 +45,16 @@ class HTTPRequest(Base):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._method = None
+        self._resource = None
+        self._headers = None
+        self._query_params = None
+        self._content = None
+        self._ignore404 = None
+
+        super(HTTPRequest, self).__init__(*args, **kwargs)
 
     @property
     def method(self):

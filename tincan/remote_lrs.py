@@ -1,10 +1,10 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#    http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 #    Unless required by applicable law or agreed to in writing, software
 #    distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,6 +34,7 @@ from tincan.documents import (
     AgentProfileDocument
 )
 
+
 """
 .. module:: remote_lrs
    :synopsis: The RemoteLRS class implements LRS communication.
@@ -41,7 +42,6 @@ from tincan.documents import (
 
 
 class RemoteLRS(Base):
-
     _props_req = [
         'version',
         'endpoint',
@@ -66,19 +66,24 @@ class RemoteLRS(Base):
         :param auth: Authentication string
         :type auth: str | unicode
         """
-        if (
-            "username" in kwargs
-            and kwargs["username"] is not None
-            and "password" in kwargs
-            and kwargs["password"] is not None
-            and not "auth" in kwargs
-        ):
-            #The base64 encode tacks on a \n character to the string which needs to be removed.
-            auth = "Basic " + base64.encodestring(unicode(kwargs["username"]) + ":" + unicode(kwargs["password"]))[:-1]
+
+        self._version = Version.latest
+        self._endpoint = None
+        self._auth = None
+
+        if "username" in kwargs \
+                and kwargs["username"] is not None \
+                and "password" in kwargs \
+                and kwargs["password"] is not None \
+                and not "auth" in kwargs:
+            # The base64 encode tacks on a \n character to the string which needs to be removed.
+            auth_string = "Basic " + base64.encodestring(unicode(kwargs["username"]) +
+                                                         ":" +
+                                                         unicode(kwargs["password"]))[:-1]
 
             kwargs.pop("username")
             kwargs.pop("password")
-            kwargs["auth"] = auth
+            kwargs["auth"] = auth_string
 
         super(RemoteLRS, self).__init__(*args, **kwargs)
 
@@ -226,8 +231,8 @@ class RemoteLRS(Base):
 
         if lrs_response.success:
             id_list = json.loads(lrs_response.data)
-            for s, id in zip(statements, id_list):
-                s.id = id
+            for s, statement_id in zip(statements, id_list):
+                s.id = statement_id
 
             lrs_response.content = statements
 
@@ -285,23 +290,30 @@ class RemoteLRS(Base):
 
         .. note::
            Optional query parameters are\n
-               **statementId:** (*str*) ID of the Statement to fetch\n
-               **voidedStatementId:** (*str*) ID of the voided Statement to fetch\n
-               **agent:** (*Agent* |*Group*) Filter to return Statements for which the specified Agent or Group is the Actor\n
-               **verb:** (*Verb id IRI*) Filter to return Statements matching the verb id\n
-               **activity:** (*Activity id IRI*) Filter to return Statements for which the specified Activity is the Object\n
-               **registration:** (*UUID*) Filter to return Statements matching the specified registration ID\n
-               **related_activities:** (*bool*) Include Statements for which the Object, Context Activities or any Sub-Statement
-               properties match the specified Activity\n
-               **related_agents:** (*bool*) Include Statements for which the Actor, Object, Authority, Instructor, Team, or
-               any Sub-Statement properties match the specified Agent\n
-               **since:** (*datetime*) Filter to return Statements stored since the specified datetime\n
-               **until:** (*datetime*) Filter to return Statements stored at or before the specified datetime\n
-               **limit:** (*positive int*) Allow <limit> Statements to be returned. 0 indicates the maximum supported by the LRS\n
-               **format:** (*str* {"ids"|"exact"|"canonical"}) Manipulates how the LRS handles importing and returning the statements\n
-               **attachments:** (*bool*) If true, the LRS will use multipart responses and include all attachment data per Statement returned.
-               Otherwise, application/json is used and no attachment information will be returned\n
-               **ascending:** (*bool*) If true, the LRS will return results in ascending order of stored time (oldest first)\n
+               **statementId:** (*str*) ID of the Statement to fetch
+               **voidedStatementId:** (*str*) ID of the voided Statement to fetch
+               **agent:** (*Agent* |*Group*) Filter to return Statements for which the
+               specified Agent or Group is the Actor
+               **verb:** (*Verb id IRI*) Filter to return Statements matching the verb id
+               **activity:** (*Activity id IRI*) Filter to return Statements for which the
+               specified Activity is the Object
+               **registration:** (*UUID*) Filter to return Statements matching the specified registration ID
+               **related_activities:** (*bool*) Include Statements for which the Object,
+               Context Activities or any Sub-Statement
+               properties match the specified Activity
+               **related_agents:** (*bool*) Include Statements for which the Actor, Object,
+               Authority, Instructor, Team, or any Sub-Statement properties match the specified Agent
+               **since:** (*datetime*) Filter to return Statements stored since the specified datetime
+               **until:** (*datetime*) Filter to return Statements stored at or before the specified datetime
+               **limit:** (*positive int*) Allow <limit> Statements to be returned. 0 indicates the
+               maximum supported by the LRS
+               **format:** (*str* {"ids"|"exact"|"canonical"}) Manipulates how the LRS handles
+               importing and returning the statements
+               **attachments:** (*bool*) If true, the LRS will use multipart responses and include
+               all attachment data per Statement returned.
+               Otherwise, application/json is used and no attachment information will be returned
+               **ascending:** (*bool*) If true, the LRS will return results in ascending order of
+               stored time (oldest first)
         """
         params = {}
 

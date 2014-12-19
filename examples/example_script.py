@@ -1,6 +1,7 @@
 # An example script showing the functionality of the TinCanPython Library
 
 import uuid
+
 from resources import lrs_properties
 from tincan import (
     RemoteLRS,
@@ -13,6 +14,7 @@ from tincan import (
     ActivityDefinition,
     StateDocument,
 )
+
 
 # construct an LRS
 print "constructing the LRS..."
@@ -59,7 +61,7 @@ context = Context(
         name='Lord TinCan',
         mbox='mailto:lordtincan@tincanapi.com',
     ),
-    #language='en-US',
+    # language='en-US',
 )
 print "...done"
 
@@ -105,7 +107,7 @@ print "...done"
 # we can query our statements using an object
 # constructing the query object with common fields
 # note: more information about queries can be found in the API documentation:
-#   docs/build/html/tincan.html#module-tincan.remote_lrs
+# docs/build/html/tincan.html#module-tincan.remote_lrs
 query = {
     "agent": actor,
     "verb": verb,

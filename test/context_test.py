@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import (
     Context,
@@ -27,15 +28,21 @@ from tincan import (
     Group,
 )
 import uuid
-import re
 
 
 class ContextTest(unittest.TestCase):
-
     def test_InitEmpty(self):
         ctx = Context()
         self.assertIsInstance(ctx, Context)
-        self.assertEqual(vars(ctx), {})
+        self.assertEqual(vars(ctx), {'_context_activities': None,
+                                      '_extensions': None,
+                                      '_instructor': None,
+                                      '_language': None,
+                                      '_platform': None,
+                                      '_registration': None,
+                                      '_revision': None,
+                                      '_statement': None,
+                                      '_team': None})
 
     def test_InitAll(self):
         ctx = Context(
@@ -60,12 +67,13 @@ class ContextTest(unittest.TestCase):
     def test_InitExceptionInvalidUUID(self):
         reg = 'not a valid uuid'
         with self.assertRaises(ValueError):
-            ctx = Context(registration=reg)
+            Context(registration=reg)
 
     """ Try to break instructor, team, context_activities. See: test_InitException... in other test classes """
 
     def test_InitLanguages(self):
-        language_ids = ['en','ast','zh-yue','ar-afb','zh-Hans','az-Latn','en-GB','es-005','zh-Hant-HK','sl-nedis','sl-IT-nedis','de-CH-1901','de-DE-u-co-phonebk','en-US-x-twain']
+        language_ids = ['en', 'ast', 'zh-yue', 'ar-afb', 'zh-Hans', 'az-Latn', 'en-GB', 'es-005', 'zh-Hant-HK',
+                        'sl-nedis', 'sl-IT-nedis', 'de-CH-1901', 'de-DE-u-co-phonebk', 'en-US-x-twain']
         for tag in language_ids:
             ctx = Context(language=tag)
             self.assertEqual(ctx.language, tag)
@@ -74,20 +82,21 @@ class ContextTest(unittest.TestCase):
     def test_InitExceptionInvalidLanguage(self):
         regional_id = 'In-valiD-Code'
         with self.assertRaises(ValueError):
-            ctx = Context(language=regional_id)
+            Context(language=regional_id)
 
     """ Statement Ref tests - will be trival """
+
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            ctx = Context.from_json('{"bad JSON"}')
+            Context.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            ctx = Context.from_json('{"test": "invalid property"}')
+            Context.from_json('{"test": "invalid property"}')
 
     def test_FromJSONExceptionPartiallyMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            ctx = Context.from_json('{"test": "invalid property", "id": \
+            Context.from_json('{"test": "invalid property", "id": \
             "valid property"}')
 
     def test_FromJSON(self):

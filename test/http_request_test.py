@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import HTTPRequest
 
 
 class HTTPRequestTest(unittest.TestCase):
-
     def setUp(self):
         pass
 
@@ -31,8 +31,8 @@ class HTTPRequestTest(unittest.TestCase):
     def test_init_empty(self):
         req = HTTPRequest()
         self.assertIsInstance(req, HTTPRequest)
-        self.assertFalse(hasattr(req, "content"))
-        self.assertFalse(hasattr(req, "ignore404"))
+        self.assertIsNone(req.content)
+        self.assertIsNone(req.ignore404)
 
         self.assertTrue(hasattr(req, "method"))
         self.assertIsNone(req.method)
@@ -76,8 +76,8 @@ class HTTPRequestTest(unittest.TestCase):
         self.assertEqual(req.method, "method test")
         self.assertEqual(req.query_params, {"test": "val"})
 
-        self.assertFalse(hasattr(req, "content"))
-        self.assertFalse(hasattr(req, "ignore404"))
+        self.assertIsNone(req.content)
+        self.assertIsNone(req.ignore404)
 
         self.assertTrue(hasattr(req, "resource"))
         self.assertIsNone(req.resource)
@@ -183,6 +183,7 @@ class HTTPRequestTest(unittest.TestCase):
         self.assertEqual(req.query_params["param"], "ok")
         self.assertTrue("tester" in req.query_params)
         self.assertEqual(req.query_params["tester"], "test")
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(HTTPRequestTest)

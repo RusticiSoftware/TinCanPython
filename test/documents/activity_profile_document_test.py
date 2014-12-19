@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -14,13 +14,17 @@
 
 import unittest
 from datetime import datetime
+
 import pytz
+
 
 if __name__ == '__main__':
     import sys
     from os.path import dirname, abspath
+
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
     from test.main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import (
     ActivityProfileDocument,
@@ -31,7 +35,6 @@ from tincan import (
 
 
 class ActivityProfileDocumentTest(unittest.TestCase):
-
     def setUp(self):
         self.activity = Activity(
             id="http://tincanapi.com/TinCanPython/Test/Unit/0",
@@ -105,7 +108,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
         self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.activity, self.activity)
@@ -124,7 +127,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
         self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.activity, self.activity)
@@ -150,6 +153,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         doc.activity = {"id": "http://tincanapi.com/TinCanPython/Test/Unit/0"}
 
         self.assertEquals(doc.activity.id, "http://tincanapi.com/TinCanPython/Test/Unit/0")
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityProfileDocumentTest)

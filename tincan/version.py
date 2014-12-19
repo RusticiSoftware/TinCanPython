@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 
 class Version(object):
-
     supported = [
         '1.0.1',
         '1.0.0',

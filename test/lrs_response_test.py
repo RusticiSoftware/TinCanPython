@@ -1,6 +1,6 @@
 # coding=utf-8
 #
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ import httplib
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import LRSResponse, HTTPRequest
 
 
 class LRSResponseTest(unittest.TestCase):
-
     def setUp(self):
         pass
 
@@ -34,7 +34,7 @@ class LRSResponseTest(unittest.TestCase):
     def test_init_empty(self):
         resp = LRSResponse()
         self.assertIsInstance(resp, LRSResponse)
-        self.assertFalse(hasattr(resp, "content"))
+        self.assertIsNone(resp.content)
 
         self.assertTrue(hasattr(resp, "success"))
         self.assertFalse(resp.success)
@@ -133,8 +133,7 @@ class LRSResponseTest(unittest.TestCase):
 
     def test_unicode(self):
         resp = LRSResponse()
-        resp.data = "\xce\xb4\xce\xbf\xce\xba\xce\xb9\xce\xbc\xce\xae " \
-                    "\xcf\x80\xce\xb5\xcf\x81\xce\xb9\xce\xb5\xcf\x87\xce\xbf\xce\xbc\xce\xad\xce\xbd\xce\xbf\xcf\x85"
+        resp.data = "\xce\xb4\xce\xbf\xce\xba\xce\xb9\xce\xbc\xce\xae \xcf\x80\xce\xb5\xcf\x81\xce\xb9\xce\xb5\xcf\x87\xce\xbf\xce\xbc\xce\xad\xce\xbd\xce\xbf\xcf\x85"
 
         self.assertIsInstance(resp, LRSResponse)
         self.assertIsInstance(resp.data, unicode)
@@ -164,7 +163,10 @@ class LRSResponseTest(unittest.TestCase):
 
     def test_request_setter(self):
         class Tester(object):
-            def __init__(self, resource="ok", headers={"test": "ok"}):
+            def __init__(self, resource="ok", headers=None):
+                if headers is None:
+                    headers = {"test": "ok"}
+
                 self.resource = resource
                 self.headers = headers
 
@@ -188,6 +190,7 @@ class LRSResponseTest(unittest.TestCase):
         obj = Tester()
         with self.assertRaises(TypeError):
             LRSResponse(response=obj)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(LRSResponseTest)

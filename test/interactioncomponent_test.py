@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import InteractionComponent, LanguageMap
 
 
 class InteractionComponentTest(unittest.TestCase):
-
     def test_InitEmpty(self):
         icomp = InteractionComponent()
         self.assertIsNone(icomp.id)
@@ -29,7 +29,7 @@ class InteractionComponentTest(unittest.TestCase):
 
     def test_InitExceptionEmptyId(self):
         with self.assertRaises(ValueError):
-            icomp = InteractionComponent(id='')
+            InteractionComponent(id='')
 
     def test_InitId(self):
         icomp = InteractionComponent(id='test')
@@ -77,27 +77,27 @@ class InteractionComponentTest(unittest.TestCase):
     def test_InitExceptionUnpackEmptyId(self):
         obj = {"id": ""}
         with self.assertRaises(ValueError):
-            icomp = InteractionComponent(**obj)
+            InteractionComponent(**obj)
 
     def test_InitExceptionUnpackFlatDescription(self):
         obj = {"id": "test", "description": "test"}
         with self.assertRaises(ValueError):
-            icomp = InteractionComponent(**obj)
+            InteractionComponent(**obj)
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            icomp = InteractionComponent.from_json('{"bad JSON"}')
+            InteractionComponent.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            icomp = InteractionComponent.from_json('{"test": "invalid property"}')
+            InteractionComponent.from_json('{"test": "invalid property"}')
 
     """ An exception is best here to keep client code from thinking its doing \
     something its not when instantiating a InteractionComponent """
 
     def test_FromJSONExceptionPartiallyMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            icomp = InteractionComponent.from_json('{"test": "invalid property", "id": \
+            InteractionComponent.from_json('{"test": "invalid property", "id": \
             "valid property"}')
 
     def test_FromJSONEmptyObject(self):
@@ -107,7 +107,7 @@ class InteractionComponentTest(unittest.TestCase):
 
     def test_FromJSONExceptionEmpty(self):
         with self.assertRaises(ValueError):
-            icomp = InteractionComponent.from_json('')
+            InteractionComponent.from_json('')
 
     def test_FromJSONId(self):
         icomp = InteractionComponent.from_json('{"id": "test"}')
@@ -116,7 +116,7 @@ class InteractionComponentTest(unittest.TestCase):
 
     def test_FromJSONExceptionFlatDescription(self):
         with self.assertRaises(ValueError):
-            icomp = InteractionComponent.from_json('{"id": "test", "description": "flatdescription"}')
+            InteractionComponent.from_json('{"id": "test", "description": "flatdescription"}')
 
     def test_FromJSON(self):
         icomp = InteractionComponent.from_json('{"id": "test", "description": {"en-US": "test"}}')

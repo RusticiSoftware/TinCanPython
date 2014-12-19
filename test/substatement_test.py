@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -13,8 +13,10 @@
 #    limitations under the License.
 
 import unittest
+
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import (
     Agent,
@@ -25,30 +27,30 @@ from tincan import (
     SubStatement,
 )
 
-class SubStatementTest(unittest.TestCase):
 
+class SubStatementTest(unittest.TestCase):
     def test_InitAnonAgentActor(self):
-        substatement = SubStatement(actor={'object_type':'Agent', 'name':'test'})
+        substatement = SubStatement(actor={'object_type': 'Agent', 'name': 'test'})
         self.agentVerificationHelper(substatement.actor)
 
     def test_InitAnonGroupActor(self):
-        substatement = SubStatement(actor={'object_type':'Group', 'member':[{"name":"test"}]})
+        substatement = SubStatement(actor={'object_type': 'Group', 'member': [{"name": "test"}]})
         self.groupVerificationHelper(substatement.actor)
 
     def test_InitAnonVerb(self):
-        substatement = SubStatement(verb={'id':'test'})
+        substatement = SubStatement(verb={'id': 'test'})
         self.verbVerificationHelper(substatement.verb)
 
     def test_InitAnonObject(self):
-        substatement = SubStatement(object={'id':'test'})
+        substatement = SubStatement(object={'id': 'test'})
         self.activityVerificationHelper(substatement.object)
 
     def test_InitAnonAgentObject(self):
-        substatement = SubStatement(object={'object_type':'Agent', 'name':'test'})
+        substatement = SubStatement(object={'object_type': 'Agent', 'name': 'test'})
         self.agentVerificationHelper(substatement.object)
 
     def test_InitDifferentNamingObject(self):
-        substatement = SubStatement(object={'objectType':'Agent', 'name':'test'})
+        substatement = SubStatement(object={'objectType': 'Agent', 'name': 'test'})
         self.agentVerificationHelper(substatement.object)
 
     def test_InitObjectType(self):
@@ -80,7 +82,8 @@ class SubStatementTest(unittest.TestCase):
         self.activityVerificationHelper(substatement.object)
 
     def test_InitUnpack(self):
-        obj = {'object_type':'SubStatement', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'id':'test'}}
+        obj = {'object_type': 'SubStatement', 'actor': {'name': 'test'}, 'verb': {'id': 'test'},
+               'object': {'id': 'test'}}
         substatement = SubStatement(**obj)
         self.assertEqual(substatement.object_type, 'SubStatement')
         self.agentVerificationHelper(substatement.actor)
@@ -88,7 +91,8 @@ class SubStatementTest(unittest.TestCase):
         self.activityVerificationHelper(substatement.object)
 
     def test_FromJSON(self):
-        json_str = '{"object_type":"SubStatement", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"id":"test"}}'
+        json_str = '{"object_type":"SubStatement", "actor":{"name":"test"}, ' \
+                   '"verb":{"id":"test"}, "object":{"id":"test"}}'
         substatement = SubStatement.from_json(json_str)
         self.assertEqual(substatement.object_type, 'SubStatement')
         self.agentVerificationHelper(substatement.actor)
@@ -100,17 +104,23 @@ class SubStatementTest(unittest.TestCase):
         self.assertEqual(substatement.to_json(), '{"objectType": "SubStatement"}')
 
     def test_ToJSON(self):
-        substatement = SubStatement(object_type='SubStatement', actor=Agent(name='test'), verb=Verb(id='test'), object=Activity(id='test'))
-        self.assertEqual(substatement.to_json(), '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, "actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
+        substatement = SubStatement(object_type='SubStatement', actor=Agent(name='test'), verb=Verb(id='test'),
+                                    object=Activity(id='test'))
+        self.assertEqual(substatement.to_json(),
+                         '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, '
+                         '"actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
 
     def test_FromJSONToJSON(self):
-        json_str = '{"object_type":"SubStatement", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"id":"test", "objectType": "Activity"}}'
+        json_str = '{"object_type":"SubStatement", "actor":{"name":"test"}, "verb":{"id":"test"}, "' \
+                   'object":{"id":"test", "objectType": "Activity"}}'
         substatement = SubStatement.from_json(json_str)
         self.assertEqual(substatement.object_type, 'SubStatement')
         self.agentVerificationHelper(substatement.actor)
         self.verbVerificationHelper(substatement.verb)
         self.activityVerificationHelper(substatement.object)
-        self.assertEqual(substatement.to_json(), '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, "actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
+        self.assertEqual(substatement.to_json(),
+                         '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, '
+                         '"actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
 
     def agentVerificationHelper(self, value):
         self.assertIsInstance(value, Agent)

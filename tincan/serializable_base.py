@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,9 +16,11 @@ import json
 import uuid
 import datetime
 import re
+
 from tincan.base import Base
 from tincan.version import Version
 from tincan.conversions.iso8601 import jsonify_datetime, jsonify_timedelta
+
 
 """
 .. module:: serializable_base
@@ -29,7 +31,6 @@ from tincan.conversions.iso8601 import jsonify_datetime, jsonify_timedelta
 
 
 class SerializableBase(Base):
-
     _props_corrected = {
         '_more_info': 'moreInfo',
         '_interaction_type': 'interactionType',
@@ -99,8 +100,6 @@ class SerializableBase(Base):
         :param version: The version to which the object must be serialized to.
         This will default to the latest version supported by the library.
         :type version: str | unicode
-        :param encoder: The custom encoder. The default is described above.
-        :type encoder: json.JSONEncoder
 
         """
         return json.dumps(self.as_version(version))
@@ -148,7 +147,8 @@ class SerializableBase(Base):
                     result.append(v)
         return result
 
-    def _filter_none(self, obj):
+    @staticmethod
+    def _filter_none(obj):
         """Filters out attributes set to None prior to serialization, and
         returns a new object without those attributes. This saves
         the serializer from sending empty bytes over the network. This method also

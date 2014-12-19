@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -14,11 +14,14 @@
 
 import unittest
 from datetime import timedelta, datetime
-import pytz
 import uuid
+
+import pytz
+
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import (
     Statement,
@@ -35,7 +38,6 @@ from tincan import (
 
 
 class StatementTest(unittest.TestCase):
-
     def test_InitEmpty(self):
         statement = Statement()
         self.assertIsNone(statement.id)
@@ -74,7 +76,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
         self.assertEqual(statement.timestamp, dt)
         self.assertIsNone(statement.stored)
@@ -87,7 +89,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
         self.assertEqual(statement.stored, dt)
         self.assertIsNone(statement.timestamp)
@@ -167,7 +169,7 @@ class StatementTest(unittest.TestCase):
         self.assertEqual(statement.attachments, [])
 
     def test_InitAnonAgentActor(self):
-        statement = Statement(actor={'name':'test'})
+        statement = Statement(actor={'name': 'test'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
@@ -187,7 +189,7 @@ class StatementTest(unittest.TestCase):
         self.groupVerificationHelper(statement.actor)
 
     def test_InitAnonVerb(self):
-        statement = Statement(verb={'id':'test'})
+        statement = Statement(verb={'id': 'test'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.object)
@@ -197,7 +199,7 @@ class StatementTest(unittest.TestCase):
         self.verbVerificationHelper(statement.verb)
 
     def test_InitAnonObject(self):
-        statement = Statement(object={'id':'test'})
+        statement = Statement(object={'id': 'test'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -207,7 +209,7 @@ class StatementTest(unittest.TestCase):
         self.activityVerificationHelper(statement.object)
 
     def test_InitAnonAgentObject(self):
-        statement = Statement(object={'object_type':'Agent', 'name':'test'})
+        statement = Statement(object={'object_type': 'Agent', 'name': 'test'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -217,7 +219,7 @@ class StatementTest(unittest.TestCase):
         self.agentVerificationHelper(statement.object)
 
     def test_InitDifferentNamingObject(self):
-        statement = Statement(object={'objectType':'Agent', 'name':'test'})
+        statement = Statement(object={'objectType': 'Agent', 'name': 'test'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -227,7 +229,7 @@ class StatementTest(unittest.TestCase):
         self.agentVerificationHelper(statement.object)
 
     def test_InitAnonAuthority(self):
-        statement = Statement(authority={'name':'test'})
+        statement = Statement(authority={'name': 'test'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
@@ -248,7 +250,7 @@ class StatementTest(unittest.TestCase):
         self.resultVerificationHelper(statement.result)
 
     def test_InitAnonContext(self):
-        statement = Statement(context={'registration':'016699c6-d600-48a7-96ab-86187498f16f'})
+        statement = Statement(context={'registration': '016699c6-d600-48a7-96ab-86187498f16f'})
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -259,7 +261,7 @@ class StatementTest(unittest.TestCase):
         self.contextVerificationHelper(statement.context)
 
     def test_InitAnonAttachments(self):
-        statement = Statement(attachments=[{'usage_type':'test'}])
+        statement = Statement(attachments=[{'usage_type': 'test'}])
         self.assertIsNone(statement.id)
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
@@ -385,7 +387,10 @@ class StatementTest(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_InitUnpack(self):
-        obj = {'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor': {'name':'test'}, 'verb':{'id':'test'}, 'object':{'object_type':'Agent', 'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'016699c6-d600-48a7-96ab-86187498f16f'}, 'attachments':[{'usage_type':'test'}]}
+        obj = {'id': '016699c6-d600-48a7-96ab-86187498f16f', 'actor': {'name': 'test'}, 'verb': {'id': 'test'},
+               'object': {'object_type': 'Agent', 'name': 'test'}, 'authority': {'name': 'test'},
+               'context': {'registration': '016699c6-d600-48a7-96ab-86187498f16f'},
+               'attachments': [{'usage_type': 'test'}]}
         statement = Statement(**obj)
         self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.agentVerificationHelper(statement.actor)
@@ -397,7 +402,10 @@ class StatementTest(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_FromJSON(self):
-        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
+        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor":{"name":"test"}, ' \
+                   '"verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, ' \
+                   '"authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, ' \
+                   '"attachments":[{"usage_type":"test"}]}'
         statement = Statement.from_json(json_str)
         self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.agentVerificationHelper(statement.actor)
@@ -409,15 +417,33 @@ class StatementTest(unittest.TestCase):
             self.attachmentVerificationHelper(k)
 
     def test_ToJSON(self):
-        statement = Statement(**{'id':'016699c6-d600-48a7-96ab-86187498f16f', 'actor':{'name':'test'}, 'verb':{'id':'test'}, 'object':{'object_type':'Agent', 'name':'test'}, 'authority':{'name':'test'}, 'context':{'registration':'016699c6-d600-48a7-96ab-86187498f16f'}, 'attachments':[{'usage_type':'test'}]})
-        self.assertEqual(statement.to_json(), '{"attachments": [{"usageType": "test"}], "object": {"name": "test", "objectType": "Agent"}, "authority": {"name": "test", "objectType": "Agent"}, "verb": {"id": "test"}, "actor": {"name": "test", "objectType": "Agent"}, "context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, "id": "016699c6-d600-48a7-96ab-86187498f16f"}')
+        statement = Statement(
+            **{'id': '016699c6-d600-48a7-96ab-86187498f16f', 'actor': {'name': 'test'}, 'verb': {'id': 'test'},
+               'object': {'object_type': 'Agent', 'name': 'test'}, 'authority': {'name': 'test'},
+               'context': {'registration': '016699c6-d600-48a7-96ab-86187498f16f'},
+               'attachments': [{'usage_type': 'test'}]})
+        self.assertEqual(statement.to_json(),
+                         '{"verb": {"id": "test"}, '
+                         '"attachments": [{"usageType": "test"}], '
+                         '"object": {"name": "test", "objectType": "Agent"}, '
+                         '"actor": {"name": "test", "objectType": "Agent"}, '
+                         '"version": "1.0.1", '
+                         '"authority": {"name": "test", "objectType": "Agent"}, '
+                         '"context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, '
+                         '"id": "016699c6-d600-48a7-96ab-86187498f16f"}')
 
     def test_ToJSONEmpty(self):
         statement = Statement()
-        self.assertEqual(statement.to_json(), '{}')
+        self.assertEqual(statement.to_json(), '{"version": "1.0.1"}')
 
     def test_FromJSONToJSON(self):
-        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", "actor": {"name":"test"}, "verb":{"id":"test"}, "object":{"object_type":"Agent", "name":"test"}, "authority":{"name":"test"}, "context":{"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, "attachments":[{"usage_type":"test"}]}'
+        json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", ' \
+                   '"actor": {"name":"test"}, ' \
+                   '"verb": {"id":"test"}, ' \
+                   '"object": {"object_type":"Agent", "name":"test"}, ' \
+                   '"authority":{ "name":"test"}, ' \
+                   '"context": {"registration":"016699c6-d600-48a7-96ab-86187498f16f"}, ' \
+                   '"attachments":[{"usage_type":"test"}]}'
         statement = Statement.from_json(json_str)
         self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.agentVerificationHelper(statement.actor)
@@ -427,11 +453,19 @@ class StatementTest(unittest.TestCase):
         self.contextVerificationHelper(statement.context)
         for k in statement.attachments:
             self.attachmentVerificationHelper(k)
-        self.assertEqual(statement.to_json(), '{"attachments": [{"usageType": "test"}], "object": {"name": "test", "objectType": "Agent"}, "authority": {"name": "test", "objectType": "Agent"}, "verb": {"id": "test"}, "actor": {"name": "test", "objectType": "Agent"}, "context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, "id": "016699c6-d600-48a7-96ab-86187498f16f"}')
+        self.assertEqual(statement.to_json(),
+                         '{"verb": {"id": "test"}, '
+                         '"attachments": [{"usageType": "test"}], '
+                         '"object": {"name": "test", "objectType": "Agent"}, '
+                         '"actor": {"name": "test", "objectType": "Agent"}, '
+                         '"version": "1.0.1", '
+                         '"authority": {"name": "test", "objectType": "Agent"}, '
+                         '"context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, '
+                         '"id": "016699c6-d600-48a7-96ab-86187498f16f"}')
 
     def test_ExceptionInvalidUUID(self):
         with self.assertRaises(ValueError):
-            statement = Statement(id='badtest')
+            Statement(id='badtest')
 
     def agentVerificationHelper(self, value):
         self.assertIsInstance(value, Agent)
@@ -471,6 +505,7 @@ class StatementTest(unittest.TestCase):
         self.assertIsInstance(value, Activity)
         self.assertEqual(value.id, 'test')
 
+
 if __name__ == '__main__':
-     suite = unittest.TestLoader().loadTestsFromTestCase(StatementTest)
-     unittest.TextTestRunner(verbosity = 2).run(suite)
+    suite = unittest.TestLoader().loadTestsFromTestCase(StatementTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)

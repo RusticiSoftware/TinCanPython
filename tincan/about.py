@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ from tincan.extensions import Extensions
 
 
 class About(SerializableBase):
-
     """Stores info about this installation of `tincan`.
 
     :param version: The versions supported. This attribute is required.
@@ -35,6 +34,11 @@ class About(SerializableBase):
     ]
     _props.extend(_props_req)
 
+    def __init__(self, *args, **kwargs):
+        self._version = None
+        self._extensions = None
+
+        super(About, self).__init__(*args, **kwargs)
 
     @property
     def version(self):
@@ -50,22 +54,22 @@ class About(SerializableBase):
 
     @version.setter
     def version(self, value):
-        def check_version(v):
+        def check_version(version):
             """Checks a single version string for validity. Raises
             if invalid.
 
-            :param v: the version string to check
-            :type v: list of str or unicode | tuple of str or unicode
+            :param version: the version string to check
+            :type version: list of str or tuple of str or basestring or unicode
             :raises: ValueError
             """
-            if v in ['1.0.1', '1.0.0', '0.95', '0.9']:
+            if version in ['1.0.1', '1.0.0', '0.95', '0.9']:
                 return
 
             # Construct the error message
             if isinstance(value, (list, tuple)):
-                value_str = repr(v) + ' in ' + repr(value)
+                value_str = repr(version) + ' in ' + repr(value)
             else:
-                value_str = repr(v)
+                value_str = repr(version)
 
             msg = (
                 "Tried to set property 'version' in a 'tincan.%s' object "
@@ -97,7 +101,6 @@ class About(SerializableBase):
                     self.__class__.__name__,
                     repr(value),
                 ))
-
 
     @property
     def extensions(self):

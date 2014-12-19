@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
 
 import uuid
 import re
+
 from tincan.serializable_base import SerializableBase
 from tincan.group import Group
 from tincan.agent import Agent
 from tincan.extensions import Extensions
 from tincan.context_activities import ContextActivities
 from tincan.statement_ref import StatementRef
+
 
 """
 .. module:: context
@@ -30,8 +32,12 @@ from tincan.statement_ref import StatementRef
 
 
 class Context(SerializableBase):
-
-    _LANG_REGEX = re.compile('^(((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+)|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$')
+    _LANG_REGEX = re.compile(
+        '^(((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]'
+        '{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Z'
+        'a-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+)|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|'
+        'i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|'
+        'zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$')
 
     _props = [
         'registration',
@@ -44,6 +50,19 @@ class Context(SerializableBase):
         'statement',
         'extensions'
     ]
+
+    def __init__(self, *args, **kwargs):
+        self._registration = None
+        self._instructor = None
+        self._team = None
+        self._context_activities = None
+        self._revision = None
+        self._platform = None
+        self._language = None
+        self._statement = None
+        self._extensions = None
+
+        super(Context, self).__init__(*args, **kwargs)
 
     @property
     def registration(self):

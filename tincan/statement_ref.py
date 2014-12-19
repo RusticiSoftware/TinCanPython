@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -13,7 +13,9 @@
 #    limitations under the License.
 
 import uuid
+
 from tincan.serializable_base import SerializableBase
+
 
 """
 .. module StatementRef
@@ -22,7 +24,6 @@ from tincan.serializable_base import SerializableBase
 
 
 class StatementRef(SerializableBase):
-
     _props_req = [
         'object_type'
     ]
@@ -32,6 +33,12 @@ class StatementRef(SerializableBase):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._object_type = None
+        self._id = None
+
+        super(StatementRef, self).__init__(*args, **kwargs)
 
     @property
     def object_type(self):
@@ -45,7 +52,7 @@ class StatementRef(SerializableBase):
         return self._object_type
 
     @object_type.setter
-    def object_type(self, value):
+    def object_type(self, _):
         self._object_type = 'StatementRef'
 
     @property
@@ -69,4 +76,4 @@ class StatementRef(SerializableBase):
 
     @id.deleter
     def id(self):
-        del(self._id)
+        del self._id

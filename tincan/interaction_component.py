@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ from tincan.language_map import LanguageMap
 
 
 class InteractionComponent(SerializableBase):
-
     _props_req = [
         'id',
     ]
@@ -34,6 +33,12 @@ class InteractionComponent(SerializableBase):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._id = None
+        self._description = None
+
+        super(InteractionComponent, self).__init__(*args, **kwargs)
 
     @property
     def id(self):

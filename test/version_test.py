@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import Version
 
 
 class VersionTest(unittest.TestCase):
-
     def test_Supported(self):
         self.assertEqual(Version.supported, ["1.0.1", "1.0.0"])
 

@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import InteractionComponentList, InteractionComponent, LanguageMap
 
 
 class InteractionComponentListTest(unittest.TestCase):
-
     def test_InitNoArgs(self):
         iclist = InteractionComponentList()
         self.assertEqual(iclist, [])
@@ -53,7 +53,7 @@ class InteractionComponentListTest(unittest.TestCase):
 
     def test_InitExceptionNotInteractionComponent(self):
         with self.assertRaises(TypeError):
-            iclist = InteractionComponentList([InteractionComponent(), 'not InteractionComponent'])
+            InteractionComponentList([InteractionComponent(), 'not InteractionComponent'])
 
     def test_FromJSON(self):
         iclist = InteractionComponentList.from_json(
@@ -63,11 +63,11 @@ class InteractionComponentListTest(unittest.TestCase):
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            iclist = InteractionComponentList.from_json('{"bad JSON"}')
+            InteractionComponentList.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionNestedObject(self):
         with self.assertRaises(TypeError):
-            iclist = InteractionComponentList.from_json(
+            InteractionComponentList.from_json(
                 '[{"id": "test1", "description": {"en-US": "test1"}}, [{"id": "nested!"}]]'
             )
 
@@ -87,19 +87,23 @@ class InteractionComponentListTest(unittest.TestCase):
         iclist = InteractionComponentList([ic1, ic2])
         check = iclist.as_version()
         self.assertEqual(check,
-            [{"id": "test1", "description": {"en-US": "test1"}}, {"id": "test2", "description": {"en-US": "test2"}}]
-        )
+                         [{"id": "test1", "description": {"en-US": "test1"}},
+                          {"id": "test2", "description": {"en-US": "test2"}}])
 
     def test_ToJSONFromJSON(self):
-        json_str = '[{"id": "test1", "description": {"en-US": "test1"}}, {"id": "test2", "description": {"en-US": "test2"}}]'
+        json_str = '[{"id": "test1", "description": {"en-US": "test1"}}, ' \
+                   '{"id": "test2", "description": {"en-US": "test2"}}]'
         iclist = InteractionComponentList.from_json(json_str)
         self.listVerificationHelper(iclist)
         self.assertEqual(iclist.to_json(), json_str)
 
     def test_ToJSON(self):
-        iclist = InteractionComponentList([{"id": "test1", "description": {"en-US": "test1"}}, {"id": "test2", "description": {"en-US": "test2"}}])
+        iclist = InteractionComponentList(
+            [{"id": "test1", "description": {"en-US": "test1"}}, {"id": "test2", "description": {"en-US": "test2"}}])
         # since the map is unordered, it is ok that to_json() changes ordering
-        self.assertEqual(iclist.to_json(), '[{"id": "test1", "description": {"en-US": "test1"}}, {"id": "test2", "description": {"en-US": "test2"}}]')
+        self.assertEqual(iclist.to_json(),
+                         '[{"id": "test1", "description": {"en-US": "test1"}}, '
+                         '{"id": "test2", "description": {"en-US": "test2"}}]')
 
     def test_setItem(self):
         iclist = InteractionComponentList([InteractionComponent(), InteractionComponent()])
@@ -179,6 +183,7 @@ class InteractionComponentListTest(unittest.TestCase):
         self.assertEqual(iclist[1].id, 'test2')
         self.assertEqual(iclist[0].description, LanguageMap({"en-US": "test1"}))
         self.assertEqual(iclist[1].description, LanguageMap({"en-US": "test2"}))
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(InteractionComponentListTest)

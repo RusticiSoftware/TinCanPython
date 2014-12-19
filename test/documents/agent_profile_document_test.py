@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -14,19 +14,22 @@
 
 import unittest
 from datetime import datetime
+
 import pytz
+
 
 if __name__ == '__main__':
     import sys
     from os.path import dirname, abspath
+
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
     from test.main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import AgentProfileDocument, Agent
 
 
 class AgentProfileDocumentTest(unittest.TestCase):
-
     def setUp(self):
         self.agent = Agent(mbox="mailto:tincanpython@tincanapi.com")
 
@@ -92,7 +95,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
         self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.agent, self.agent)
@@ -111,7 +114,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime(2014, 6, 23, 15, 25))
         self.assertEqual(doc.timestamp, dt)
         self.assertEqual(doc.agent, self.agent)
@@ -137,6 +140,7 @@ class AgentProfileDocumentTest(unittest.TestCase):
         doc.agent = {"mbox": "mailto:tincanpython@tincanapi.com"}
         self.assertIsInstance(doc.agent, Agent)
         self.assertEqual(doc.agent.mbox, self.agent.mbox)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AgentProfileDocumentTest)

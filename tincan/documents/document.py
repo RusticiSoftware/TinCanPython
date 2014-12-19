@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -12,8 +12,10 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 import datetime
+
 from tincan.base import Base
 from tincan.conversions.iso8601 import make_datetime
+
 
 class Document(Base):
     """Document class can be instantiated from a dict, another :class:`tincan.Document`, or from kwargs
@@ -41,6 +43,15 @@ class Document(Base):
     _props = []
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._id = None
+        self._content = None
+        self._content_type = None
+        self._etag = None
+        self._timestamp = None
+
+        super(Document, self).__init__(*args, **kwargs)
 
     @property
     def id(self):

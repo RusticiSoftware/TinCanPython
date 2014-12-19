@@ -12,7 +12,7 @@ For more info about the Tin Can API, see <http://tincanapi.com/>.
 # since this file will not have run yet.
 #
 # For example, from the outside, you can say:
-#    from tincan import RemoteLRS, LRSResponse
+# from tincan import RemoteLRS, LRSResponse
 #
 # but inside the tincan package, we have to use:
 #    from tincan.remote_lrs import RemoteLRS
