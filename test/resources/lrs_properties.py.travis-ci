@@ -1,0 +1,9 @@
+"""
+Contains configuration specific to Travis CI testing
+"""
+
+
+endpoint="https://cloud.scorm.com/tc/RQVHO4MI7J/sandbox/"
+version="1.0.1"
+username="VaNxecRiU3pv3WG5Ouw"
+password="m7Uwk71z7PJfbzQCWcU"

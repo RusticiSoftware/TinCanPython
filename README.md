@@ -1,5 +1,7 @@
 A Python library for implementing Tin Can API.
 
+[![Build Status](https://travis-ci.org/RusticiSoftware/TinCanPython.png)](https://travis-ci.org/RusticiSoftware/TinCanPython)
+
 For hosted API documentation, basic usage instructions, supported version listing, etc. visit the main project website at:
 
 <http://rusticisoftware.github.io/TinCanPython/>
