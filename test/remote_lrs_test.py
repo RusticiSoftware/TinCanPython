@@ -276,7 +276,7 @@ class RemoteLRSTest(unittest.TestCase):
 
     def test_retrieve_statement_no_microsecond(self):
         id_str = str(uuid.uuid4())
-        dt = utc.localize(datetime.min)
+        dt = utc.localize(datetime.utcnow())
         statement = Statement(
             actor=self.agent,
             verb=self.verb,
@@ -347,7 +347,7 @@ class RemoteLRSTest(unittest.TestCase):
         self._vars_verifier(s2, response.content.statements[1])
 
     def test_query_statements_no_microsecond(self):
-        tstamp = utc.localize(datetime.min)
+        tstamp = utc.localize(datetime.utcnow())
         s1 = Statement(
             actor=self.agent,
             verb=self.verb,
@@ -601,7 +601,15 @@ class RemoteLRSTest(unittest.TestCase):
                 ts1 = timegm(dt1.timetuple())
                 ts2 = timegm(dt2.timetuple())
                 self.assertEqual(ts1, ts2)
-                self.assertEqual(round(dt1.microsecond, 3), round(dt2.microsecond, 3))
+
+                #
+                # dealing in math operations on the microsecond was too much of a pain,
+                # and the value should be truncated as opposed to rounded so it is just
+                # as easy to deal with it in string form, so convert to string, zero pad
+                # to 6 characters, then truncate to only the first 3 of those characters
+                # and then string compare
+                #
+                self.assertEqual(str(dt1.microsecond).zfill(6)[:3], str(dt2.microsecond).zfill(6)[:3])
             elif isinstance(v, Base):
                 self._vars_verifier(getattr(obj1, k), getattr(obj2, k))
             else:
