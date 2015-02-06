@@ -79,5 +79,5 @@ if __name__ == '__main__':
     test_pardir = locate_package('test')
     test_dir = os.path.join(test_pardir, 'test')
     suite = loader.discover(test_dir, pattern='*_test.py')
-    ret = unittest.TextTestRunner(verbosity=1).run(suite).wasSuccessful()
+    ret = not unittest.TextTestRunner(verbosity=1).run(suite).wasSuccessful()
     sys.exit(ret)
