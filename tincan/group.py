@@ -30,9 +30,10 @@ class Group(Agent):
     ]
 
     _props = [
-        "member"
+        "member",
     ]
 
+    _props.extend(Agent._props)
     _props.extend(_props_req)
 
     def __init__(self, *args, **kwargs):
