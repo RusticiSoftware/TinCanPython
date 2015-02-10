@@ -35,14 +35,14 @@ class ContextTest(unittest.TestCase):
         ctx = Context()
         self.assertIsInstance(ctx, Context)
         self.assertEqual(vars(ctx), {'_context_activities': None,
-                                      '_extensions': None,
-                                      '_instructor': None,
-                                      '_language': None,
-                                      '_platform': None,
-                                      '_registration': None,
-                                      '_revision': None,
-                                      '_statement': None,
-                                      '_team': None})
+                                     '_extensions': None,
+                                     '_instructor': None,
+                                     '_language': None,
+                                     '_platform': None,
+                                     '_registration': None,
+                                     '_revision': None,
+                                     '_statement': None,
+                                     '_team': None})
 
     def test_InitAll(self):
         ctx = Context(

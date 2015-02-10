@@ -98,7 +98,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.statement_ref = StatementRef(id=uuid.uuid4())
 
         self.context = Context(registration=uuid.uuid4(), statement=self.statement_ref)
-        #self.context.context_activities = ContextActivities(parent=[self.parent])
+        # self.context.context_activities = ContextActivities(parent=[self.parent])
 
         self.score = Score(
             raw=97,

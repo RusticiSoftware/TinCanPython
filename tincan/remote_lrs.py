@@ -75,7 +75,7 @@ class RemoteLRS(Base):
                 and kwargs["username"] is not None \
                 and "password" in kwargs \
                 and kwargs["password"] is not None \
-                and not "auth" in kwargs:
+                and "auth" not in kwargs:
             # The base64 encode tacks on a \n character to the string which needs to be removed.
             auth_string = "Basic " + base64.encodestring(unicode(kwargs["username"]) +
                                                          ":" +
@@ -869,7 +869,7 @@ class RemoteLRS(Base):
         if value is not None:
             if not isinstance(value, unicode):
                 unicode(value)
-            if not value in Version.supported:
+            if value not in Version.supported:
                 raise Exception("Unsupported Version")
         else:
             value = Version.latest

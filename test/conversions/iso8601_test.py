@@ -193,7 +193,7 @@ class ISO8601Test(unittest.TestCase):
             jsonify_timedelta(('bad', 'stuff'))
 
     def test_iso_to_datetime(self):
-        ## with microseconds
+        # with microseconds
         # naive
         pair = (
             '2014-06-19T16:40:22.293913',
@@ -208,7 +208,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
-        ## with integer seconds
+        # with integer seconds
         # naive
         pair = (
             '2014-06-19T16:40:22',
@@ -223,7 +223,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
-        ## timezone other than UTC
+        # timezone other than UTC
         central = timezone('US/Central')
         pair = (
             '2014-06-19T17:03:17.361077-05:00',
@@ -338,8 +338,9 @@ class ISO8601Test(unittest.TestCase):
         self.assertEqual(make_datetime(pair[0]), pair[1])
         self.assertEqual(make_datetime(list(pair[0])), pair[1])
 
-    ## struct_time does not preserve millisecond accuracy per
-    ## TinCan spec, so this is disabled to discourage its use.
+    # struct_time does not preserve millisecond accuracy per
+    # TinCan spec, so this is disabled to discourage its use.
+    #
     # def test_struct_time_to_iso(self):
     #     now = datetime.now(tz=utc)
     #     now.second = 0              # timetuple() doesn't preserve this
@@ -351,7 +352,7 @@ class ISO8601Test(unittest.TestCase):
     #     self.assertEqual(make_datetime(pair[0]), pair[1])
 
     def test_datetime_to_iso(self):
-        ## with microseconds
+        # with microseconds
         # naive
         pair = (
             '2014-06-19T16:40:22.293913',
@@ -366,7 +367,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(pair[0], jsonify_datetime(pair[1]))
 
-        ## integer seconds
+        # integer seconds
         # naive
         pair = (
             '2014-06-19T16:40:22',
@@ -381,7 +382,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(pair[0], jsonify_datetime(pair[1]))
 
-        ## timezone other than UTC
+        # timezone other than UTC
         central = timezone('US/Central')
         pair = (
             '2014-06-19T17:03:17.361077-05:00',
@@ -443,4 +444,3 @@ class ISO8601Test(unittest.TestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ISO8601Test)
     unittest.TextTestRunner(verbosity=2).run(suite)
-

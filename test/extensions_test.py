@@ -29,7 +29,7 @@ class ExtensionsTest(TinCanBaseTestCase):
         ext['http://example.com/int'] = 10
         ext['http://example.com/double'] = 1.897
 
-        #ext['http://example.com/object'] = get_agent('Random', 'mbox', 'mailto:random@example.com')
+        # ext['http://example.com/object'] = get_agent('Random', 'mbox', 'mailto:random@example.com')
 
         self.assertSerializeDeserialize(ext)
 
