@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -18,13 +18,20 @@ from tincan.activity import Activity
 
 
 class ContextActivities(SerializableBase):
-
     _props = [
         'category',
         'parent',
         'grouping',
         'other',
     ]
+
+    def __init__(self, *args, **kwargs):
+        self._category = None
+        self._parent = None
+        self._grouping = None
+        self._other = None
+
+        super(ContextActivities, self).__init__(*args, **kwargs)
 
     @property
     def category(self):
@@ -106,7 +113,8 @@ class ContextActivities(SerializableBase):
     def other(self):
         del self._other
 
-    def _activity_or_list(self, value):
+    @staticmethod
+    def _activity_or_list(value):
         """Tries to convert value to :class:`tincan.ActivityList`
 
         :setter type: :class:`tincan.ActivityList`

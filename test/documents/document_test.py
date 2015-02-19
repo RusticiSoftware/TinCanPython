@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -14,19 +14,22 @@
 
 import unittest
 import datetime
+
 import pytz
+
 
 if __name__ == '__main__':
     import sys
     from os.path import dirname, abspath
+
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
     from test.main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import Document
 
 
 class DocumentTest(unittest.TestCase):
-
     def setUp(self):
         pass
 
@@ -89,7 +92,7 @@ class DocumentTest(unittest.TestCase):
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime.datetime(2014, 6, 23, 15, 25))
         self.assertEqual(doc.timestamp, dt)
 
@@ -106,7 +109,7 @@ class DocumentTest(unittest.TestCase):
         self.assertEqual(doc.content, bytearray("test bytearray", "utf-8"))
         self.assertEqual(doc.etag, "test etag")
 
-        central = pytz.timezone("US/Central")   # UTC -0500
+        central = pytz.timezone("US/Central")  # UTC -0500
         dt = central.localize(datetime.datetime(2014, 6, 23, 15, 25))
         self.assertEqual(doc.timestamp, dt)
 
@@ -134,6 +137,7 @@ class DocumentTest(unittest.TestCase):
         dt = pytz.utc.localize(datetime.datetime.utcnow())
         doc.timestamp = dt
         self.assertEqual(doc.timestamp, dt)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(DocumentTest)

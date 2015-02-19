@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ from tincan.language_map import LanguageMap
 
 
 class Verb(SerializableBase):
-
     _props_req = [
         'id',
     ]
@@ -33,6 +32,12 @@ class Verb(SerializableBase):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._id = None
+        self._display = None
+
+        super(Verb, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return 'Verb: %s' % self.__dict__
@@ -53,7 +58,7 @@ class Verb(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError(
-                    "Property 'id' in 'tincan.%s' object must be not empty." \
+                    "Property 'id' in 'tincan.%s' object must be not empty."
                     % self.__class__.__name__)
         self._id = None if value is None else unicode(value)
 

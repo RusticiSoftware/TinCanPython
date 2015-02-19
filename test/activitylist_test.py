@@ -1,6 +1,6 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
-#    Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
 #
@@ -16,12 +16,12 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import ActivityList, Activity
 
 
 class ActivityListTest(unittest.TestCase):
-
     def test_InitNoArgs(self):
         alist = ActivityList()
         self.assertEqual(alist, [])
@@ -53,7 +53,7 @@ class ActivityListTest(unittest.TestCase):
 
     def test_InitExceptionNotActivity(self):
         with self.assertRaises(TypeError):
-            alist = ActivityList([Activity(), 'not InteractionComponent'])
+            ActivityList([Activity(), 'not InteractionComponent'])
 
     def test_FromJSON(self):
         alist = ActivityList.from_json(
@@ -63,11 +63,11 @@ class ActivityListTest(unittest.TestCase):
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            alist = ActivityList.from_json('{"bad JSON"}')
+            ActivityList.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionNestedObject(self):
         with self.assertRaises(TypeError):
-            alist = ActivityList.from_json(
+            ActivityList.from_json(
                 '[{"id": "test1"}, [{"id": "nested!"}]]'
             )
 
@@ -87,8 +87,7 @@ class ActivityListTest(unittest.TestCase):
         alist = ActivityList([a1, a2])
         check = alist.as_version()
         self.assertEqual(check,
-            [{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]
-        )
+                         [{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}])
 
     def test_ToJSONFromJSON(self):
         json_str = '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]'
@@ -98,7 +97,8 @@ class ActivityListTest(unittest.TestCase):
 
     def test_ToJSON(self):
         alist = ActivityList([{"id": "test1"}, {"id": "test2"}])
-        self.assertEqual(alist.to_json(), '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]')
+        self.assertEqual(alist.to_json(),
+                         '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]')
 
     def test_setItem(self):
         alist = ActivityList([Activity(), Activity()])
@@ -176,6 +176,7 @@ class ActivityListTest(unittest.TestCase):
         self.assertIsInstance(alist[1], Activity)
         self.assertEqual(alist[0].id, 'test1')
         self.assertEqual(alist[1].id, 'test2')
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityListTest)

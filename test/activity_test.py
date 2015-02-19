@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import (
     Activity,
@@ -26,7 +27,6 @@ from tincan import (
 
 
 class ActivityTest(unittest.TestCase):
-
     def test_InitEmpty(self):
         activity = Activity()
         self.assertIsNone(activity.id)
@@ -95,7 +95,7 @@ class ActivityTest(unittest.TestCase):
 
     def test_ToJSON(self):
         check_str = '{"definition": {}, "id": "test", "objectType": "Activity"}'
-        activity = Activity(**{'id':'test', 'definition':{}, 'object_type':'Activity'})
+        activity = Activity(**{'id': 'test', 'definition': {}, 'object_type': 'Activity'})
         self.assertEqual(activity.to_json(), check_str)
 
     def test_setDefinitionException(self):
@@ -127,6 +127,7 @@ class ActivityTest(unittest.TestCase):
         self.assertEqual(activity.id, 'test')
         self.assertIsInstance(activity.definition, ActivityDefinition)
         self.assertEqual(activity.object_type, 'Activity')
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ActivityTest)

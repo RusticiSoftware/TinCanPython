@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ import uuid
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import StatementsResult, Statement
 from test_utils import TinCanBaseTestCase
@@ -34,7 +35,8 @@ class StatementsResultTest(TinCanBaseTestCase):
     def test_serialize_deserialize_init(self):
         uuid_str = '016699c6-d600-48a7-96ab-86187498f16f'
         data = {
-            'statements': [Statement(id=uuid_str), Statement(id=uuid_str), Statement(id=uuid_str), Statement(id=uuid_str), ],
+            'statements': [Statement(id=uuid_str), Statement(id=uuid_str), Statement(id=uuid_str),
+                           Statement(id=uuid_str), ],
             'more': 'http://www.example.com/more/1234',
         }
 
@@ -50,7 +52,8 @@ class StatementsResultTest(TinCanBaseTestCase):
         self.assertIsInstance(sr.statements, list, 'Did not convert tuple to list!')
 
         sr.statements.append(Statement(id=uuid_str))
-        self.assertEqual(sr.statements[3].id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'), 'Did not append value!')
+        self.assertEqual(sr.statements[3].id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'),
+                         'Did not append value!')
 
         self.assertIsNone(sr.more)
 

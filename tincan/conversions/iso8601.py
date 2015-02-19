@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ Functions for converting ``datetime.timedelta`` and
 """
 
 import datetime
-## struct_time does not preserve millisecond accuracy per
-## TinCan spec, so this is disabled to discourage its use.
-#from time import mktime, struct_time
+# struct_time does not preserve millisecond accuracy per
+# Tin Can spec, so this is disabled to discourage its use.
+# from time import mktime, struct_time
 import aniso8601
 from pytz import utc
 
@@ -103,12 +103,12 @@ def jsonify_timedelta(value):
     days, hours, minutes = map(int, (days, hours, minutes))
     seconds = round(seconds, 6)
 
-    ## build date
+    # build date
     date = ''
     if days:
         date = '%sD' % days
 
-    ## build time
+    # build time
     time = u'T'
 
     # hours
@@ -223,17 +223,15 @@ def _make_datetime(value):
                 return tzinfo.localize(datetime.datetime(**value))
             else:
                 return datetime.datetime(**value)
-        ## struct_time does not preserve millisecond accuracy per
-        ## TinCan spec, so this is disabled to discourage its use.
+        # struct_time does not preserve millisecond accuracy per
+        # TinCan spec, so this is disabled to discourage its use.
         # elif isinstance(value, struct_time):
         #     posix = mktime(value)
         #     return datetime.datetime.utcfromtimestamp(posix).replace(tzinfo=utc)
         elif isinstance(value, (tuple, list)):
             return tuple_to_datetime(value)
-        elif isinstance(value, (float, int)):
-            return datetime.datetime.utcfromtimestamp(value).replace(tzinfo=utc)
         else:
-            return datetime.datetime(value)
+            return datetime.datetime.utcfromtimestamp(value).replace(tzinfo=utc)
     except Exception as e:
         msg = (
             "Could not convert the given value of type '%s' to a "

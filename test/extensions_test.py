@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import Extensions
 from test_utils import TinCanBaseTestCase
@@ -28,7 +29,7 @@ class ExtensionsTest(TinCanBaseTestCase):
         ext['http://example.com/int'] = 10
         ext['http://example.com/double'] = 1.897
 
-        #ext['http://example.com/object'] = get_agent('Random', 'mbox', 'mailto:random@example.com')
+        # ext['http://example.com/object'] = get_agent('Random', 'mbox', 'mailto:random@example.com')
 
         self.assertSerializeDeserialize(ext)
 

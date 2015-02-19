@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -21,11 +21,18 @@ from tincan.serializable_base import SerializableBase
 
 """
 
+
 class AgentAccount(SerializableBase):
     _props = [
         "name",
         "home_page"
     ]
+
+    def __init__(self, *args, **kwargs):
+        self._name = None
+        self._home_page = None
+
+        super(AgentAccount, self).__init__(*args, **kwargs)
 
     @property
     def name(self):

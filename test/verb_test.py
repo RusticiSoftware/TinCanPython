@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,19 +16,19 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import Verb, LanguageMap
 
 
 class VerbTest(unittest.TestCase):
-
     def test_InitEmpty(self):
         verb = Verb()
         self.assertIsNone(verb.id)
 
     def test_InitExceptionEmptyId(self):
         with self.assertRaises(ValueError):
-            verb = Verb(id='')
+            Verb(id='')
 
     def test_InitId(self):
         verb = Verb(id='test')
@@ -63,27 +63,27 @@ class VerbTest(unittest.TestCase):
     def test_InitExceptionUnpackEmptyId(self):
         obj = {"id": ""}
         with self.assertRaises(ValueError):
-            verb = Verb(**obj)
+            Verb(**obj)
 
     def test_InitExceptionUnpackFlatDisplay(self):
         obj = {"id": "test", "display": "test"}
         with self.assertRaises(ValueError):
-            verb = Verb(**obj)
+            Verb(**obj)
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            verb = Verb.from_json('{"bad JSON"}')
+            Verb.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            verb = Verb.from_json('{"test": "invalid property"}')
+            Verb.from_json('{"test": "invalid property"}')
 
     """ An exception is best here to keep client code from thinking its doing \
     something its not when instantiating a Verb """
 
     def test_FromJSONExceptionPartiallyMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            verb = Verb.from_json('{"test": "invalid property", "id": \
+            Verb.from_json('{"test": "invalid property", "id": \
             "valid property"}')
 
     def test_FromJSONEmptyObject(self):
@@ -92,11 +92,11 @@ class VerbTest(unittest.TestCase):
 
     def test_FromJSONExceptionEmptyId(self):
         with self.assertRaises(ValueError):
-            verb = Verb.from_json('{"id":"''"}')
+            Verb.from_json('{"id":"''"}')
 
     def test_FromJSONExceptionEmpty(self):
         with self.assertRaises(ValueError):
-            verb = Verb.from_json('')
+            Verb.from_json('')
 
     def test_FromJSONId(self):
         verb = Verb.from_json('{"id": "test"}')
@@ -104,7 +104,7 @@ class VerbTest(unittest.TestCase):
 
     def test_FromJSONExceptionFlatDisplay(self):
         with self.assertRaises(ValueError):
-            verb = Verb.from_json('{"id": "test", "display": "flatdisplay"}')
+            Verb.from_json('{"id": "test", "display": "flatdisplay"}')
 
     def test_FromJSON(self):
         verb = Verb.from_json('{"id": "test", "display": {"en-US": "test"}}')

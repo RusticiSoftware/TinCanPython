@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ from tincan.activity import Activity
 
 
 class StateDocument(Document):
-    """Extends :class:`tincan.Document` with Agent, Activity, and Registration fields; can be created from a dict, another :class:`tincan.Document`, or from kwargs.
+    """Extends :class:`tincan.Document` with Agent, Activity, and Registration fields; can be created from a dict,
+    another :class:`tincan.Document`, or from kwargs.
 
     :param id: The id of this document
     :type id: unicode
@@ -48,6 +49,13 @@ class StateDocument(Document):
     _props = list(Document._props)
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._agent = None
+        self._activity = None
+        self._registration = None
+
+        super(StateDocument, self).__init__(*args, **kwargs)
 
     @property
     def agent(self):

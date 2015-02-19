@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,20 +16,32 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import (
     ActivityDefinition,
     LanguageMap,
     InteractionComponentList,
-    InteractionComponent,
 )
 
 
 class ActivityDefinitionTest(unittest.TestCase):
-
     def test_InitEmpty(self):
         adef = ActivityDefinition()
-        self.assertEqual(vars(adef), {})
+        self.assertEqual(vars(adef), {
+            '_choices': None,
+            '_correct_responses_pattern': None,
+            '_description': None,
+            '_extensions': None,
+            '_interaction_type': None,
+            '_more_info': None,
+            '_name': None,
+            '_scale': None,
+            '_source': None,
+            '_steps': None,
+            '_target': None,
+            '_type': None
+        })
         self.assertIsInstance(adef, ActivityDefinition)
 
     def test_InitAll(self):
@@ -43,7 +55,7 @@ class ActivityDefinitionTest(unittest.TestCase):
             'choices': InteractionComponentList(),
             'scale': InteractionComponentList(),
             'source': InteractionComponentList(),
-            'target':InteractionComponentList(),
+            'target': InteractionComponentList(),
             'steps': InteractionComponentList(),
             'extensions': {'test': 'test'}
         })
@@ -51,59 +63,59 @@ class ActivityDefinitionTest(unittest.TestCase):
 
     def test_InitExceptionType(self):
         with self.assertRaises(ValueError):
-            adef = ActivityDefinition(type='')
+            ActivityDefinition(type='')
 
     def test_InitExceptionMoreInfo(self):
         with self.assertRaises(ValueError):
-            adef = ActivityDefinition(more_info='')
+            ActivityDefinition(more_info='')
 
     def test_InitExceptionInteractionType(self):
         with self.assertRaises(ValueError):
-            adef = ActivityDefinition(interaction_type='notvalidinteraction')
+            ActivityDefinition(interaction_type='notvalidinteraction')
 
     def test_InitExceptionCorrectResponsesPattern(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(correct_responses_pattern='notlist')
+            ActivityDefinition(correct_responses_pattern='notlist')
 
     def test_InitExceptionChoices(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(choices='notlist')
+            ActivityDefinition(choices='notlist')
 
     def test_InitExceptionChoicesNotComponentList(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(choices=['not component'])
+            ActivityDefinition(choices=['not component'])
 
     def test_InitExceptionScale(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(scale='notlist')
+            ActivityDefinition(scale='notlist')
 
     def test_InitExceptionScaleNotComponentList(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(scale=['not component'])
+            ActivityDefinition(scale=['not component'])
 
     def test_InitExceptionSource(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(source='notlist')
+            ActivityDefinition(source='notlist')
 
     def test_InitExceptionSourceNotComponentList(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(source=['not component'])
+            ActivityDefinition(source=['not component'])
 
     def test_InitExceptionTarget(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(target='notlist')
+            ActivityDefinition(target='notlist')
 
     def test_InitExceptionTargetNotComponentList(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(target=['not component'])
+            ActivityDefinition(target=['not component'])
 
     def test_InitExceptionSteps(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(steps='notlist')
+            ActivityDefinition(steps='notlist')
 
     def test_InitExceptionStepsNotComponentList(self):
         with self.assertRaises(TypeError):
-            adef = ActivityDefinition(steps=['not component'])
+            ActivityDefinition(steps=['not component'])
 
     def test_InitUnpack(self):
         obj = {
@@ -116,7 +128,7 @@ class ActivityDefinitionTest(unittest.TestCase):
             'choices': InteractionComponentList(),
             'scale': InteractionComponentList(),
             'source': InteractionComponentList(),
-            'target':InteractionComponentList(),
+            'target': InteractionComponentList(),
             'steps': InteractionComponentList(),
             'extensions': {'test': 'test'}
         }
@@ -125,20 +137,20 @@ class ActivityDefinitionTest(unittest.TestCase):
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            adef = ActivityDefinition.from_json('{"bad JSON"}')
+            ActivityDefinition.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            adef = ActivityDefinition.from_json('{"test": "invalid property"}')
+            ActivityDefinition.from_json('{"test": "invalid property"}')
 
     def test_FromJSONExceptionPartiallyMalformedJSON(self):
         with self.assertRaises(AttributeError):
-            adef = ActivityDefinition.from_json('{"test": "invalid property", "id": \
+            ActivityDefinition.from_json('{"test": "invalid property", "id": \
             "valid property"}')
 
     def test_FromJSONExceptionEmpty(self):
         with self.assertRaises(ValueError):
-            adef = ActivityDefinition.from_json('')
+            ActivityDefinition.from_json('')
 
     def test_FromJSON(self):
         json_str = '{"name":{"en-US":"test"},\

@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@ from tincan.serializable_base import SerializableBase
 
 
 class Score(SerializableBase):
-
     """Stores the scoring data for an activity.
 
     Can be created from a dict, another Score, or from kwargs.
@@ -39,6 +38,14 @@ class Score(SerializableBase):
         'min',
         'max',
     ]
+
+    def __init__(self, *args, **kwargs):
+        self._scaled = None
+        self._raw = None
+        self._min = None
+        self._max = None
+
+        super(SerializableBase, self).__init__(*args, **kwargs)
 
     @property
     def scaled(self):
@@ -72,7 +79,6 @@ class Score(SerializableBase):
     def scaled(self):
         del self._scaled
 
-
     @property
     def raw(self):
         """Raw for Score
@@ -104,7 +110,6 @@ class Score(SerializableBase):
     @raw.deleter
     def raw(self):
         del self._raw
-
 
     @property
     def min(self):

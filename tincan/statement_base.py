@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 from datetime import datetime
+
 from tincan.serializable_base import SerializableBase
 from tincan.agent import Agent
 from tincan.group import Group
@@ -22,6 +23,7 @@ from tincan.attachment import Attachment
 from tincan.attachment_list import AttachmentList
 from tincan.conversions.iso8601 import make_datetime
 
+
 """
 
 .. module:: StatementBase
@@ -29,8 +31,8 @@ from tincan.conversions.iso8601 import make_datetime
 
 """
 
-class StatementBase(SerializableBase):
 
+class StatementBase(SerializableBase):
     _props_req = [
         'actor',
         'verb',
@@ -44,6 +46,16 @@ class StatementBase(SerializableBase):
     ]
 
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._actor = None
+        self._verb = None
+        self._object = None
+        self._timestamp = None
+        self._context = None
+        self._attachments = None
+
+        super(StatementBase, self).__init__(*args, **kwargs)
 
     @property
     def actor(self):
@@ -92,7 +104,7 @@ class StatementBase(SerializableBase):
     @verb.setter
     def verb(self, value):
         if value is not None and not isinstance(value, Verb):
-                value = Verb(value)
+            value = Verb(value)
         self._verb = value
 
     @verb.deleter
@@ -161,7 +173,7 @@ class StatementBase(SerializableBase):
     @context.setter
     def context(self, value):
         if value is not None and not isinstance(value, Context):
-                value = Context(value)
+            value = Context(value)
         self._context = value
 
     @context.deleter

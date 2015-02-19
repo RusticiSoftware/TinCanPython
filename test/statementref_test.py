@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
 
 import unittest
 import uuid
+
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import StatementRef
 
 
 class StatementRefTest(unittest.TestCase):
-
     def test_InitObjectType(self):
         statementref = StatementRef(object_type='StatementRef')
         self.assertEqual(statementref.object_type, 'StatementRef')
@@ -31,7 +32,7 @@ class StatementRefTest(unittest.TestCase):
         self.assertEqual(statementref.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
 
     def test_InitUnpack(self):
-        obj = {'object_type':'StatementRef', 'id':'016699c6-d600-48a7-96ab-86187498f16f'}
+        obj = {'object_type': 'StatementRef', 'id': '016699c6-d600-48a7-96ab-86187498f16f'}
         statementref = StatementRef(**obj)
         self.assertEqual(statementref.object_type, 'StatementRef')
         self.assertEqual(statementref.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
@@ -44,18 +45,21 @@ class StatementRefTest(unittest.TestCase):
 
     def test_ToJSON(self):
         statementref = StatementRef(object_type='StatementRef', id='016699c6-d600-48a7-96ab-86187498f16f')
-        self.assertEqual(statementref.to_json(), '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
+        self.assertEqual(statementref.to_json(),
+                         '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
 
     def test_ToJSONNoObjectType(self):
         statementref = StatementRef(id='016699c6-d600-48a7-96ab-86187498f16f')
-        self.assertEqual(statementref.to_json(), '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
+        self.assertEqual(statementref.to_json(),
+                         '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
 
     def test_FromJSONToJSON(self):
         json_str = '{"object_type":"StatementRef", "id":"016699c6-d600-48a7-96ab-86187498f16f"}'
         statementref = StatementRef.from_json(json_str)
         self.assertEqual(statementref.object_type, 'StatementRef')
         self.assertEqual(statementref.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
-        self.assertEqual(statementref.to_json(), '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
+        self.assertEqual(statementref.to_json(),
+                         '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
 
     def test_ToJSONEmpty(self):
         statementref = StatementRef()
@@ -63,7 +67,8 @@ class StatementRefTest(unittest.TestCase):
 
     def test_ExceptionInvalidUUID(self):
         with self.assertRaises(ValueError):
-            statementref = StatementRef(id='badtest')
+            StatementRef(id='badtest')
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(StatementRefTest)

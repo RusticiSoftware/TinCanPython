@@ -1,6 +1,6 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
-#    Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
 #
@@ -24,14 +24,16 @@ from tincan.substatement import SubStatement
 from tincan.statement_ref import StatementRef
 from tincan.activity import Activity
 from tincan.conversions.iso8601 import make_datetime
+from tincan.version import Version
+
 
 """
 .. module Statement
    :synopsis: A Statement object that contains all the information for one statement that is sent to an LRS
 """
 
-class Statement(StatementBase):
 
+class Statement(StatementBase):
     _UUID_REGEX = re.compile(
         r'^[a-f0-9]{8}-'
         r'[a-f0-9]{4}-'
@@ -42,22 +44,26 @@ class Statement(StatementBase):
 
     _props_req = [
         "id",
-        "actor",
-        "verb",
-        "object",
-        "timestamp",
         "stored",
         "authority"
     ]
 
     _props = [
         "result",
-        "context",
-        "version",
-        "attachments"
+        "version"
     ]
 
+    _props.extend(StatementBase._props)
     _props.extend(_props_req)
+
+    def __init__(self, *args, **kwargs):
+        self._id = None
+        self._stored = None
+        self._authority = None
+        self._result = None
+        self._version = Version.latest
+
+        super(Statement, self).__init__(*args, **kwargs)
 
     @property
     def id(self):
@@ -87,8 +93,10 @@ class Statement(StatementBase):
         """Object for Statement
 
         :setter: Sets the object
-        :setter type: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.StatementRef` | :class:`tincan.SubStatement` | :class:`tincan.Activity`
-        :rtype: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.StatementRef` | :class:`tincan.SubStatement` | :class:`tincan.Activity`
+        :setter type: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.StatementRef` |
+                      :class:`tincan.SubStatement` | :class:`tincan.Activity`
+        :rtype: :class:`tincan.Agent` | :class:`tincan.Group` | :class:`tincan.StatementRef` |
+                :class:`tincan.SubStatement` | :class:`tincan.Activity`
 
         """
         return self._object
@@ -96,7 +104,11 @@ class Statement(StatementBase):
     @object.setter
     def object(self, value):
         if value is not None:
-            if not isinstance(value, Agent) and not isinstance(value, Group) and not isinstance(value, SubStatement) and not isinstance(value, StatementRef) and not isinstance(value, Activity):
+            if not isinstance(value, Agent) and \
+                    not isinstance(value, Group) and \
+                    not isinstance(value, SubStatement) and \
+                    not isinstance(value, StatementRef) and \
+                    not isinstance(value, Activity):
                 if isinstance(value, dict):
                     if 'object_type' in value or 'objectType' in value:
                         if 'objectType' in value:
@@ -182,7 +194,7 @@ class Statement(StatementBase):
     @authority.setter
     def authority(self, value):
         if value is not None and not isinstance(value, Agent):
-                value = Agent(value)
+            value = Agent(value)
         self._authority = value
 
     @authority.deleter
@@ -203,7 +215,7 @@ class Statement(StatementBase):
     @result.setter
     def result(self, value):
         if value is not None and not isinstance(value, Result):
-                value = Result(value)
+            value = Result(value)
         self._result = value
 
     @result.deleter

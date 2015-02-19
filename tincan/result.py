@@ -1,6 +1,6 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
-#    Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
 #
@@ -21,7 +21,6 @@ from tincan.conversions.iso8601 import make_timedelta
 
 
 class Result(SerializableBase):
-
     """Stores the state of an activity.
 
     Can be created from a dict, another Result, or from kwargs.
@@ -50,6 +49,16 @@ class Result(SerializableBase):
         'response',
         'extensions',
     ]
+
+    def __init__(self, *args, **kwargs):
+        self._score = None
+        self._success = None
+        self._completion = None
+        self._duration = None
+        self._response = None
+        self._extensions = None
+
+        super(Result, self).__init__(*args, **kwargs)
 
     @property
     def score(self):
@@ -83,7 +92,6 @@ class Result(SerializableBase):
     def score(self):
         del self._score
 
-
     @property
     def success(self):
         """Success for Result
@@ -104,7 +112,6 @@ class Result(SerializableBase):
     def success(self):
         del self._success
 
-
     @property
     def completion(self):
         """Completion for Result
@@ -124,7 +131,6 @@ class Result(SerializableBase):
     @completion.deleter
     def completion(self):
         del self._completion
-
 
     @property
     def duration(self):
@@ -170,7 +176,6 @@ class Result(SerializableBase):
     def duration(self):
         del self._duration
 
-
     @property
     def response(self):
         """Response for Result
@@ -200,7 +205,6 @@ class Result(SerializableBase):
     @response.deleter
     def response(self):
         del self._response
-
 
     @property
     def extensions(self):

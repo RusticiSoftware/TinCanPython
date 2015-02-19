@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from tincan import LanguageMap
 
 
 class LanguageMapTest(unittest.TestCase):
-
     def test_InitNoArgs(self):
         lmap = LanguageMap()
         self.assertEqual(lmap, {})
@@ -34,15 +34,15 @@ class LanguageMapTest(unittest.TestCase):
 
     def test_InitExceptionNotMap(self):
         with self.assertRaises(ValueError):
-            lmap = LanguageMap('not map')
+            LanguageMap('not map')
 
     def test_InitExceptionBadMap(self):
         with self.assertRaises(ValueError):
-            lmap = LanguageMap({"bad map"})
+            LanguageMap({"bad map"})
 
     def test_InitExceptionNestedObject(self):
         with self.assertRaises(TypeError):
-            lmap = LanguageMap({"en-US": {"nested": "object"}})
+            LanguageMap({"en-US": {"nested": "object"}})
 
     def test_InitDict(self):
         lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
@@ -61,7 +61,7 @@ class LanguageMapTest(unittest.TestCase):
     def test_InitUnpackExceptionNestedObject(self):
         obj = {"en-US": {"nested": "object"}}
         with self.assertRaises(TypeError):
-            lmap = LanguageMap(**obj)
+            LanguageMap(**obj)
 
     def test_FromJSON(self):
         lmap = LanguageMap.from_json('{"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"}')
@@ -69,11 +69,11 @@ class LanguageMapTest(unittest.TestCase):
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            lmap = LanguageMap.from_json('{"bad JSON"}')
+            LanguageMap.from_json('{"bad JSON"}')
 
     def test_FromJSONExceptionNestedObject(self):
         with self.assertRaises(TypeError):
-            lmap = LanguageMap.from_json('{"fr-CA": "test", "en-US": {"nested": "object"}}')
+            LanguageMap.from_json('{"fr-CA": "test", "en-US": {"nested": "object"}}')
 
     def test_FromJSONEmptyObject(self):
         lmap = LanguageMap.from_json('{}')
@@ -104,7 +104,7 @@ class LanguageMapTest(unittest.TestCase):
     def test_getItemException(self):
         lmap = LanguageMap()
         with self.assertRaises(KeyError):
-            lmap['en-Anything']
+            _ = lmap['en-Anything']
 
     def test_setItem(self):
         lmap = LanguageMap()

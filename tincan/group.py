@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -24,19 +24,16 @@ from tincan.agent_list import AgentList
 
 
 class Group(Agent):
-
-    _props_req = [
-        "object_type",
-    ]
-
     _props = [
         "member"
     ]
 
-    _props.extend(_props_req)
+    _props.extend(Agent._props)
 
     def __init__(self, *args, **kwargs):
+        self._object_type = None
         self._member = AgentList()
+
         super(Group, self).__init__(*args, **kwargs)
 
     def addmember(self, value):
@@ -49,7 +46,7 @@ class Group(Agent):
         """
 
         if value is not None and not isinstance(value, Agent):
-                value = Agent(value)
+            value = Agent(value)
 
         self._member.append(value)
 
@@ -93,5 +90,5 @@ class Group(Agent):
         return self._object_type
 
     @object_type.setter
-    def object_type(self, value):
+    def object_type(self, _):
         self._object_type = 'Group'

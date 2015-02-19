@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,10 +16,13 @@ import unittest
 import uuid
 from datetime import datetime
 from calendar import timegm
+
 from pytz import utc
+
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
 from resources import lrs_properties
 from tincan import (
@@ -50,7 +53,6 @@ from tincan.documents import (
 
 
 class RemoteLRSTest(unittest.TestCase):
-
     def setUp(self):
         self.endpoint = lrs_properties.endpoint
         self.version = lrs_properties.version
@@ -96,7 +98,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.statement_ref = StatementRef(id=uuid.uuid4())
 
         self.context = Context(registration=uuid.uuid4(), statement=self.statement_ref)
-        #self.context.context_activities = ContextActivities(parent=[self.parent])
+        # self.context.context_activities = ContextActivities(parent=[self.parent])
 
         self.score = Score(
             raw=97,
@@ -547,7 +549,6 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertTrue(response.success)
         self._vars_verifier(response.content, doc)
 
-
     def test_delete_activity_profile(self):
         doc = ActivityProfileDocument(activity=self.activity, id="test")
         response = self.lrs.delete_activity_profile(doc)
@@ -583,7 +584,6 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertTrue(response.success)
         self._vars_verifier(response.content, doc)
 
-
     def test_delete_agent_profile(self):
         doc = AgentProfileDocument(agent=self.agent, id="test")
         response = self.lrs.delete_agent_profile(doc)
@@ -591,7 +591,9 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
 
-    def _vars_verifier(self, obj1, obj2, _ignored_attrs=['_authority', '_stored', '_id']):
+    def _vars_verifier(self, obj1, obj2, _ignored_attrs=None):
+        if _ignored_attrs is None:
+            _ignored_attrs = ['_authority', '_stored', '_id']
         for k, v in vars(obj1).iteritems():
             if k in _ignored_attrs:
                 continue
@@ -614,6 +616,7 @@ class RemoteLRSTest(unittest.TestCase):
                 self._vars_verifier(getattr(obj1, k), getattr(obj2, k))
             else:
                 self.assertEqual(getattr(obj1, k), getattr(obj2, k))
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(RemoteLRSTest)

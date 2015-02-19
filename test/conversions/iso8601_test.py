@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -14,13 +14,17 @@
 
 import unittest
 from datetime import timedelta, datetime
+
 from pytz import utc, timezone
+
 
 if __name__ == '__main__':
     import sys
     from os.path import dirname, abspath
+
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
     from test.main import setup_tincan_path
+
     setup_tincan_path()
 from tincan.conversions.iso8601 import (
     make_timedelta, jsonify_timedelta,
@@ -39,7 +43,6 @@ timezone('US/Central')
 
 
 class ISO8601Test(unittest.TestCase):
-
     def test_iso_to_timedelta(self):
         td = make_timedelta('PT0S')
         self.assertEqual(td.total_seconds(), 0)
@@ -75,15 +78,15 @@ class ISO8601Test(unittest.TestCase):
         self.assertEqual(td.microseconds, 0)
 
         td = make_timedelta('PT01H02M03.045S')
-        self.assertEqual(td.total_seconds(), 3600 + 2*60 + 3.045)
+        self.assertEqual(td.total_seconds(), 3600 + 2 * 60 + 3.045)
         self.assertEqual(td.seconds, 3723)
         self.assertEqual(td.microseconds, 45000)
 
         td = make_timedelta('P1D')
-        self.assertEqual(td.total_seconds(), 24*3600)
+        self.assertEqual(td.total_seconds(), 24 * 3600)
 
         td = make_timedelta('P00.5D')
-        self.assertEqual(td.total_seconds(), 12*3600)
+        self.assertEqual(td.total_seconds(), 12 * 3600)
 
     def test_seconds_to_timedelta(self):
         td = make_timedelta(0)
@@ -98,8 +101,8 @@ class ISO8601Test(unittest.TestCase):
         self.assertEqual(td.seconds, 61)
         self.assertEqual(td.microseconds, 500000)
 
-        td = make_timedelta(24*3600 + 61.5)
-        self.assertEqual(td.total_seconds(), 24*3600 + 61.5)
+        td = make_timedelta(24 * 3600 + 61.5)
+        self.assertEqual(td.total_seconds(), 24 * 3600 + 61.5)
         self.assertEqual(td.days, 1)
         self.assertEqual(td.seconds, 61)
         self.assertEqual(td.microseconds, 500000)
@@ -117,20 +120,20 @@ class ISO8601Test(unittest.TestCase):
         self.assertEqual(td.seconds, 0)
         self.assertEqual(td.microseconds, 0)
 
-        td = make_timedelta({'seconds': 24*3600 + 61.5})
-        self.assertEqual(td.total_seconds(), 24*3600 + 61.5)
+        td = make_timedelta({'seconds': 24 * 3600 + 61.5})
+        self.assertEqual(td.total_seconds(), 24 * 3600 + 61.5)
         self.assertEqual(td.days, 1)
         self.assertEqual(td.seconds, 61)
         self.assertEqual(td.microseconds, 500000)
 
         td = make_timedelta({'days': 1, 'seconds': 61.5})
-        self.assertEqual(td.total_seconds(), 24*3600 + 61.5)
+        self.assertEqual(td.total_seconds(), 24 * 3600 + 61.5)
         self.assertEqual(td.days, 1)
         self.assertEqual(td.seconds, 61)
         self.assertEqual(td.microseconds, 500000)
 
         td = make_timedelta({'days': 3, 'seconds': 61, 'microseconds': 500000})
-        self.assertEqual(td.total_seconds(), 3*24*3600 + 61.5)
+        self.assertEqual(td.total_seconds(), 3 * 24 * 3600 + 61.5)
         self.assertEqual(td.days, 3)
         self.assertEqual(td.seconds, 61)
         self.assertEqual(td.microseconds, 500000)
@@ -190,7 +193,7 @@ class ISO8601Test(unittest.TestCase):
             jsonify_timedelta(('bad', 'stuff'))
 
     def test_iso_to_datetime(self):
-        ## with microseconds
+        # with microseconds
         # naive
         pair = (
             '2014-06-19T16:40:22.293913',
@@ -205,7 +208,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
-        ## with integer seconds
+        # with integer seconds
         # naive
         pair = (
             '2014-06-19T16:40:22',
@@ -220,7 +223,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
 
-        ## timezone other than UTC
+        # timezone other than UTC
         central = timezone('US/Central')
         pair = (
             '2014-06-19T17:03:17.361077-05:00',
@@ -261,7 +264,7 @@ class ISO8601Test(unittest.TestCase):
         pair = (
             {'year': 2014, 'month': 12, 'day': 17,
              'hour': 12, 'minute': 4, 'second': 3,
-             'microsecond': 560000, 'tzinfo': utc,},
+             'microsecond': 560000, 'tzinfo': utc, },
             utc.localize(datetime(2014, 12, 17, 12, 4, 3, 560000)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
@@ -285,7 +288,7 @@ class ISO8601Test(unittest.TestCase):
         pair = (
             {'year': 2014, 'month': 12, 'day': 17,
              'hour': 12, 'minute': 4, 'second': 3,
-             'microsecond': 560000, 'tzinfo': central,},
+             'microsecond': 560000, 'tzinfo': central, },
             central.localize(datetime(2014, 12, 17, 12, 4, 3, 560000)),
         )
         self.assertEqual(make_datetime(pair[0]), pair[1])
@@ -300,7 +303,7 @@ class ISO8601Test(unittest.TestCase):
 
         pair = (
             (2014, 12, 17, ),
-            datetime(2014, 12, 17,),
+            datetime(2014, 12, 17, ),
         )
         self.assertEqual(_make_datetime(pair[0]), pair[1])
         self.assertEqual(_make_datetime(list(pair[0])), pair[1])
@@ -335,8 +338,9 @@ class ISO8601Test(unittest.TestCase):
         self.assertEqual(make_datetime(pair[0]), pair[1])
         self.assertEqual(make_datetime(list(pair[0])), pair[1])
 
-    ## struct_time does not preserve millisecond accuracy per
-    ## TinCan spec, so this is disabled to discourage its use.
+    # struct_time does not preserve millisecond accuracy per
+    # TinCan spec, so this is disabled to discourage its use.
+    #
     # def test_struct_time_to_iso(self):
     #     now = datetime.now(tz=utc)
     #     now.second = 0              # timetuple() doesn't preserve this
@@ -348,7 +352,7 @@ class ISO8601Test(unittest.TestCase):
     #     self.assertEqual(make_datetime(pair[0]), pair[1])
 
     def test_datetime_to_iso(self):
-        ## with microseconds
+        # with microseconds
         # naive
         pair = (
             '2014-06-19T16:40:22.293913',
@@ -363,7 +367,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(pair[0], jsonify_datetime(pair[1]))
 
-        ## integer seconds
+        # integer seconds
         # naive
         pair = (
             '2014-06-19T16:40:22',
@@ -378,7 +382,7 @@ class ISO8601Test(unittest.TestCase):
         )
         self.assertEqual(pair[0], jsonify_datetime(pair[1]))
 
-        ## timezone other than UTC
+        # timezone other than UTC
         central = timezone('US/Central')
         pair = (
             '2014-06-19T17:03:17.361077-05:00',
@@ -440,4 +444,3 @@ class ISO8601Test(unittest.TestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ISO8601Test)
     unittest.TextTestRunner(verbosity=2).run(suite)
-

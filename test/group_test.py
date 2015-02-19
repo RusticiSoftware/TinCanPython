@@ -1,4 +1,4 @@
-#    Copyright 2014 Rustici Software
+# Copyright 2014 Rustici Software
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@ import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
+
     setup_tincan_path()
-from tincan import Group, Agent
+from tincan import Group, Agent, AgentAccount
 
 
 class GroupTest(unittest.TestCase):
-
     def test_InitEmpty(self):
         group = Group()
         self.assertEquals(group.member, [])
@@ -36,12 +36,12 @@ class GroupTest(unittest.TestCase):
         self.assertIsInstance(group.member[0], Agent)
 
     def test_InitMemberAnon(self):
-        group = Group(member=[{"name":"test"}])
+        group = Group(member=[{"name": "test"}])
         self.assertIsInstance(group.member[0], Agent)
 
     def test_FromJSONExceptionEmpty(self):
         with self.assertRaises(ValueError):
-            group = Group.from_json('')
+            Group.from_json('')
 
     def test_FromJSONEmptyObject(self):
         group = Group.from_json('{}')
@@ -54,11 +54,11 @@ class GroupTest(unittest.TestCase):
 
     def test_FromJSONExceptionBadJSON(self):
         with self.assertRaises(ValueError):
-            group = Group.from_json('{"bad JSON"}')
+            Group.from_json('{"bad JSON"}')
 
     def test_AddMemberAnon(self):
         group = Group()
-        group.addmember({"name":"test"})
+        group.addmember({"name": "test"})
         self.assertIsInstance(group.member[0], Agent)
 
     def test_AddMember(self):
@@ -67,18 +67,23 @@ class GroupTest(unittest.TestCase):
         self.assertIsInstance(group.member[0], Agent)
 
     def test_InitUnpack(self):
-        obj = {"member":[{"name":"test"}]}
+        obj = {"member": [{"name": "test"}]}
         group = Group(**obj)
         self.assertIsInstance(group.member[0], Agent)
 
     def test_ToJSONFromJSON(self):
-         group = Group.from_json('{"member":[{"name":"test"}, {"name":"test2"}]}')
-         self.assertIsInstance(group.member[0], Agent)
-         self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
+        group = Group.from_json('{"member":[{"name":"test"}, {"name":"test2"}]}')
+        self.assertIsInstance(group.member[0], Agent)
+        self.assertEqual(group.to_json(),
+                         '{"member": [{"name": "test", "objectType": "Agent"}, '
+                         '{"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
 
     def test_ToJSON(self):
-         group = Group(**{'member':[{'name':'test'}, {'name':'test2'}]})
-         self.assertEqual(group.to_json(), '{"member": [{"name": "test", "objectType": "Agent"}, {"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
+        group = Group(**{'member': [{'name': 'test'}, {'name': 'test2'}]})
+        self.assertEqual(group.to_json(),
+                         '{"member": [{"name": "test", "objectType": "Agent"}, '
+                         '{"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(GroupTest)
