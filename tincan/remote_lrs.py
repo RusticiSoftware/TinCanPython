@@ -76,7 +76,6 @@ class RemoteLRS(Base):
                 and "password" in kwargs \
                 and kwargs["password"] is not None \
                 and "auth" not in kwargs:
-            # The base64 encode tacks on a \n character to the string which needs to be removed.
             auth_string = "Basic " + base64.b64encode(unicode(kwargs["username"]) +
                                                       ":" +
                                                       unicode(kwargs["password"]))
