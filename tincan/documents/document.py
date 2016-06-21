@@ -66,8 +66,8 @@ class Document(Base):
 
     @id.setter
     def id(self, value):
-        if not isinstance(value, unicode) and value is not None:
-            unicode(value)
+        if isinstance(value, (bytes, bytearray)) and value is not None:
+            value = value.decode("utf-8")
         self._id = value
 
     @property
@@ -83,8 +83,8 @@ class Document(Base):
 
     @content_type.setter
     def content_type(self, value):
-        if not isinstance(value, unicode) and value is not None:
-            unicode(value)
+        if isinstance(value, (bytes, bytearray)) and value is not None:
+            value = value.decode("utf-8")
         self._content_type = value
 
     @property
@@ -101,7 +101,7 @@ class Document(Base):
     @content.setter
     def content(self, value):
         if not isinstance(value, bytearray) and value is not None:
-            value = bytearray(unicode(value), "utf-8")
+            value = bytearray(value, "utf-8")
 
         self._content = value
 
@@ -118,8 +118,8 @@ class Document(Base):
 
     @etag.setter
     def etag(self, value):
-        if not isinstance(value, unicode) and value is not None:
-            unicode(value)
+        if isinstance(value, (bytes, bytearray)) and value is not None:
+            value = value.decode("utf-8")
         self._etag = value
 
     @property

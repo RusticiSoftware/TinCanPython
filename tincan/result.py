@@ -191,7 +191,7 @@ class Result(SerializableBase):
     @response.setter
     def response(self, value):
         try:
-            self._response = value if value is None else unicode(value)
+            self._response = value if value is None else str(value)
         except Exception as e:
             e_type = ValueError if isinstance(value, (list, tuple)) else TypeError
             msg = (

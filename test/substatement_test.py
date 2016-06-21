@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -101,14 +101,14 @@ class SubStatementTest(unittest.TestCase):
 
     def test_ToJSONEmpty(self):
         substatement = SubStatement()
-        self.assertEqual(substatement.to_json(), '{"objectType": "SubStatement"}')
+        self.assertEqual(json.loads(substatement.to_json()), json.loads('{"objectType": "SubStatement"}'))
 
     def test_ToJSON(self):
         substatement = SubStatement(object_type='SubStatement', actor=Agent(name='test'), verb=Verb(id='test'),
                                     object=Activity(id='test'))
-        self.assertEqual(substatement.to_json(),
-                         '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, '
-                         '"actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
+        self.assertEqual(json.loads(substatement.to_json()),
+                         json.loads('{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, '
+                                    '"actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}'))
 
     def test_FromJSONToJSON(self):
         json_str = '{"object_type":"SubStatement", "actor":{"name":"test"}, "verb":{"id":"test"}, "' \
@@ -118,9 +118,9 @@ class SubStatementTest(unittest.TestCase):
         self.agentVerificationHelper(substatement.actor)
         self.verbVerificationHelper(substatement.verb)
         self.activityVerificationHelper(substatement.object)
-        self.assertEqual(substatement.to_json(),
-                         '{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, '
-                         '"actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}')
+        self.assertEqual(json.loads(substatement.to_json()),
+                         json.loads('{"verb": {"id": "test"}, "object": {"id": "test", "objectType": "Activity"}, '
+                                    '"actor": {"name": "test", "objectType": "Agent"}, "objectType": "SubStatement"}'))
 
     def agentVerificationHelper(self, value):
         self.assertIsInstance(value, Agent)
