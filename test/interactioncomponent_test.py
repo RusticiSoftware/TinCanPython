@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -138,11 +138,11 @@ class InteractionComponentTest(unittest.TestCase):
         icomp = InteractionComponent.from_json(json_str)
         self.assertEqual(icomp.id, 'test')
         self.descriptionVerificationHelper(icomp.description)
-        self.assertEqual(icomp.to_json(), json_str)
+        self.assertEqual(json.loads(icomp.to_json()), json.loads(json_str))
 
     def test_ToJSON(self):
         icomp = InteractionComponent(**{"id": "test", "description": {"en-US": "test"}})
-        self.assertEqual(icomp.to_json(), '{"id": "test", "description": {"en-US": "test"}}')
+        self.assertEqual(json.loads(icomp.to_json()), json.loads('{"id": "test", "description": {"en-US": "test"}}'))
 
     def test_ToJSONIgnoreNoneDescription(self):
         icomp = InteractionComponent(id='test')

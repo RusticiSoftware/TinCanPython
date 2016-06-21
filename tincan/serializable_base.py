@@ -59,7 +59,7 @@ class SerializableBase(Base):
 
         new_kwargs.update(kwargs)
 
-        for uscore, camel in self._props_corrected.iteritems():
+        for uscore, camel in self._props_corrected.items():
             if camel in new_kwargs:
                 new_kwargs[uscore[1:]] = new_kwargs[camel]
                 new_kwargs.pop(camel)
@@ -82,6 +82,7 @@ class SerializableBase(Base):
 
         :raises: TypeError, ValueError, LanguageMapInitError
         """
+
         data = json.loads(json_data)
         result = cls(data)
         if hasattr(result, "_from_json"):
@@ -118,7 +119,7 @@ class SerializableBase(Base):
         """
         if not isinstance(self, list):
             result = {}
-            for k, v in self.iteritems() if isinstance(self, dict) else vars(self).iteritems():
+            for k, v in iter(self.items()) if isinstance(self, dict) else iter(vars(self).items()):
                 k = self._props_corrected.get(k, k)
                 if isinstance(v, SerializableBase):
                     result[k] = v.as_version(version)
@@ -130,7 +131,7 @@ class SerializableBase(Base):
                         else:
                             result[k].append(val)
                 elif isinstance(v, uuid.UUID):
-                    result[k] = unicode(v)
+                    result[k] = str(v)
                 elif isinstance(v, datetime.timedelta):
                     result[k] = jsonify_timedelta(v)
                 elif isinstance(v, datetime.datetime):
@@ -161,7 +162,7 @@ class SerializableBase(Base):
 
         """
         result = {}
-        for k, v in obj.iteritems():
+        for k, v in obj.items():
             if v is not None:
                 if k.startswith('_'):
                     k = k[1:]

@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -136,15 +136,15 @@ class VerbTest(unittest.TestCase):
         verb = Verb.from_json(json_str)
         self.assertEqual(verb.id, 'test')
         self.displayVerificationHelper(verb.display)
-        self.assertEqual(verb.to_json(), json_str)
+        self.assertEqual(json.loads(verb.to_json()), json.loads(json_str))
 
     def test_ToJSON(self):
         verb = Verb(**{"id": "test", "display": {"en-US": "test"}})
-        self.assertEqual(verb.to_json(), '{"id": "test", "display": {"en-US": "test"}}')
+        self.assertEqual(json.loads(verb.to_json()), json.loads('{"id": "test", "display": {"en-US": "test"}}'))
 
     def test_ToJSONIgnoreNoneId(self):
         verb = Verb(display={"en-US": "test"})
-        self.assertEqual(verb.to_json(), '{"display": {"en-US": "test"}}')
+        self.assertEqual(json.loads(verb.to_json()), json.loads('{"display": {"en-US": "test"}}'))
 
     def test_ToJSONEmpty(self):
         verb = Verb()

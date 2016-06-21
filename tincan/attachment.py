@@ -11,6 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+from six import string_types
 
 from tincan.serializable_base import SerializableBase
 from tincan.language_map import LanguageMap
@@ -65,8 +66,8 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property usage_type can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
+            elif not isinstance(value, string_types):
+                value = str(value)
         self._usage_type = value
 
     @usage_type.deleter
@@ -89,8 +90,8 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property content_type can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
+            elif not isinstance(value, string_types):
+                value = str(value)
         self._content_type = value
 
     @content_type.deleter
@@ -111,8 +112,8 @@ class Attachment(SerializableBase):
     @length.setter
     def length(self, value):
         if value is not None:
-            if not isinstance(value, (int, long)):
-                value = long(value)
+            if not isinstance(value, int):
+                value = int(value)
         self._length = value
 
     @length.deleter
@@ -135,8 +136,8 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property sha2 can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
+            elif not isinstance(value, string_types):
+                value = str(value)
         self._sha2 = value
 
     @sha2.deleter
@@ -159,8 +160,8 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property fileurl can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
+            elif not isinstance(value, string_types):
+                value = str(value)
         self._fileurl = value
 
     @fileurl.deleter

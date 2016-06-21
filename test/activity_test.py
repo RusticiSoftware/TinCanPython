@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -91,12 +91,12 @@ class ActivityTest(unittest.TestCase):
         check_str = '{"definition": {}, "id": "test", "objectType": "Activity"}'
         activity = Activity.from_json(json_str)
         self.activityVerificationHelper(activity)
-        self.assertEqual(activity.to_json(), check_str)
+        self.assertEqual(json.loads(activity.to_json()), json.loads(check_str))
 
     def test_ToJSON(self):
         check_str = '{"definition": {}, "id": "test", "objectType": "Activity"}'
         activity = Activity(**{'id': 'test', 'definition': {}, 'object_type': 'Activity'})
-        self.assertEqual(activity.to_json(), check_str)
+        self.assertEqual(json.loads(activity.to_json()), json.loads(check_str))
 
     def test_setDefinitionException(self):
         activity = Activity()

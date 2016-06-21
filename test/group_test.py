@@ -11,20 +11,20 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
     from main import setup_tincan_path
 
     setup_tincan_path()
-from tincan import Group, Agent, AgentAccount
+from tincan import Group, Agent
 
 
 class GroupTest(unittest.TestCase):
     def test_InitEmpty(self):
         group = Group()
-        self.assertEquals(group.member, [])
+        self.assertEqual(group.member, [])
 
     def test_InitObjectType(self):
         group = Group(object_type='Group')
@@ -45,7 +45,7 @@ class GroupTest(unittest.TestCase):
 
     def test_FromJSONEmptyObject(self):
         group = Group.from_json('{}')
-        self.assertEquals(group.member, [])
+        self.assertEqual(group.member, [])
 
     def test_FromJSONmember(self):
         group = Group.from_json('''{"member":[{"name":"test"}]}''')
@@ -74,15 +74,15 @@ class GroupTest(unittest.TestCase):
     def test_ToJSONFromJSON(self):
         group = Group.from_json('{"member":[{"name":"test"}, {"name":"test2"}]}')
         self.assertIsInstance(group.member[0], Agent)
-        self.assertEqual(group.to_json(),
-                         '{"member": [{"name": "test", "objectType": "Agent"}, '
-                         '{"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
+        self.assertEqual(json.loads(group.to_json()),
+                         json.loads('{"member": [{"name": "test", "objectType": "Agent"}, '
+                                    '{"name": "test2", "objectType": "Agent"}], "objectType": "Group"}'))
 
     def test_ToJSON(self):
         group = Group(**{'member': [{'name': 'test'}, {'name': 'test2'}]})
-        self.assertEqual(group.to_json(),
-                         '{"member": [{"name": "test", "objectType": "Agent"}, '
-                         '{"name": "test2", "objectType": "Agent"}], "objectType": "Group"}')
+        self.assertEqual(json.loads(group.to_json()),
+                         json.loads('{"member": [{"name": "test", "objectType": "Agent"}, '
+                                    '{"name": "test2", "objectType": "Agent"}], "objectType": "Group"}'))
 
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -215,7 +215,7 @@ class ActivityDefinitionTest(unittest.TestCase):
             'description': {'en-US': 'test'},
             'more_info': None
         })
-        self.assertEqual(adef.to_json(), '{"description": {"en-US": "test"}}')
+        self.assertEqual(json.loads(adef.to_json()), json.loads('{"description": {"en-US": "test"}}'))
 
     def test_ToJSONEmpty(self):
         adef = ActivityDefinition()

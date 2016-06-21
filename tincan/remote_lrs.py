@@ -11,12 +11,30 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+from six import string_types
 
-import httplib
-import urllib
+try:
+    import http.client as httplib
+except ImportError:
+    import httplib
+
+try:
+    import urllib.request, urllib.error
+except ImportError:
+    import urllib
+
 import json
 import base64
-from urlparse import urlparse
+
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
+
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 from tincan.lrs_response import LRSResponse
 from tincan.http_request import HTTPRequest
@@ -33,7 +51,6 @@ from tincan.documents import (
     ActivityProfileDocument,
     AgentProfileDocument
 )
-
 
 """
 .. module:: remote_lrs
@@ -76,9 +93,11 @@ class RemoteLRS(Base):
                 and "password" in kwargs \
                 and kwargs["password"] is not None \
                 and "auth" not in kwargs:
-            auth_string = "Basic " + base64.b64encode(unicode(kwargs["username"]) +
-                                                      ":" +
-                                                      unicode(kwargs["password"]))
+            bytes = (
+                str(kwargs["username"]) +
+                ":" +
+                str(kwargs["password"])).encode('ASCII')
+            auth_string = str.format("Basic {}", base64.b64encode(bytes).decode("utf-8"))
 
             kwargs.pop("username")
             kwargs.pop("password")
@@ -102,8 +121,8 @@ class RemoteLRS(Base):
         headers.update(request.headers)
 
         params = request.query_params
-        params = {k: unicode(params[k]).encode('utf-8') for k in params.keys()}
-        params = urllib.urlencode(params)
+        params = {k: str(params[k]).encode('utf-8') for k in list(params.keys())}
+        params = urlencode(params)
 
         if request.resource.startswith('http'):
             url = request.resource
@@ -328,7 +347,7 @@ class RemoteLRS(Base):
             "attachments",
         ]
 
-        for k, v in query.iteritems():
+        for k, v in query.items():
             if v is not None:
                 if k == "agent":
                     params[k] = v.to_json(self.version)
@@ -843,8 +862,8 @@ class RemoteLRS(Base):
     @endpoint.setter
     def endpoint(self, value):
         if value is not None:
-            if not isinstance(value, unicode):
-                value = unicode(value)
+            if not isinstance(value, string_types):
+                value = str(value)
             if not value.endswith("/"):
                 value += "/"
             if not value.startswith("http"):
@@ -866,8 +885,8 @@ class RemoteLRS(Base):
     @version.setter
     def version(self, value):
         if value is not None:
-            if not isinstance(value, unicode):
-                unicode(value)
+            if not isinstance(value, string_types):
+                str(value)
             if value not in Version.supported:
                 raise Exception("Unsupported Version")
         else:
@@ -887,8 +906,8 @@ class RemoteLRS(Base):
 
     @auth.setter
     def auth(self, value):
-        if value is not None and not isinstance(value, unicode):
-            unicode(value)
+        if value is not None and not isinstance(value, string_types):
+            str(value)
         self._auth = value
 
     def get_endpoint_server_root(self):
@@ -901,6 +920,6 @@ class RemoteLRS(Base):
         root = parsed.scheme + "://" + parsed.hostname
 
         if parsed.port is not None:
-            root += ":" + unicode(parsed.port)
+            root += ":" + str(parsed.port)
 
         return root

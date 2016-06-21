@@ -16,6 +16,8 @@ import uuid
 import re
 from datetime import datetime
 
+from six import string_types
+
 from tincan.statement_base import StatementBase
 from tincan.agent import Agent
 from tincan.group import Group
@@ -79,7 +81,7 @@ class Statement(StatementBase):
     @id.setter
     def id(self, value):
         if value is not None and not isinstance(value, uuid.UUID):
-            if isinstance(value, basestring) and not self._UUID_REGEX.match(value):
+            if isinstance(value, string_types) and not self._UUID_REGEX.match(value):
                 raise ValueError("Invalid UUID string")
             value = uuid.UUID(value)
         self._id = value
@@ -238,8 +240,8 @@ class Statement(StatementBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property version can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
+            elif not isinstance(value, string_types):
+                value = str(value)
         self._version = value
 
     @version.deleter
