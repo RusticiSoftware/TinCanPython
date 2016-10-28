@@ -306,6 +306,7 @@ class RemoteLRS(Base):
                **until:** (*datetime*) Filter to return Statements stored at or before the specified datetime
                **limit:** (*positive int*) Allow <limit> Statements to be returned. 0 indicates the
                maximum supported by the LRS
+               **offset:** (*positive int*) Only statements which index is greater than the offset will be returned 
                **format:** (*str* {"ids"|"exact"|"canonical"}) Manipulates how the LRS handles
                importing and returning the statements
                **attachments:** (*bool*) If true, the LRS will use multipart responses and include
@@ -321,6 +322,7 @@ class RemoteLRS(Base):
             "since",
             "until",
             "limit",
+            "offset",
             "ascending",
             "related_activities",
             "related_agents",
