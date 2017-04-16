@@ -80,6 +80,10 @@ class RemoteLRS(Base):
                                                       ":" +
                                                       unicode(kwargs["password"]))
 
+	    # If username and password are long, the base64 encoded string might have one or more '\n' chars
+            # we need to remove them
+            auth_string = "".join(auth_string.split('\n'))
+
             kwargs.pop("username")
             kwargs.pop("password")
             kwargs["auth"] = auth_string
