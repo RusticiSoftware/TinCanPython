@@ -23,6 +23,7 @@ import datetime
 # from time import mktime, struct_time
 import aniso8601
 from pytz import utc
+from six import string_types
 
 
 def make_timedelta(value):
@@ -42,7 +43,7 @@ def make_timedelta(value):
 
     """
 
-    if isinstance(value, basestring):
+    if isinstance(value, string_types):
         try:
             return aniso8601.parse_duration(value)
         except Exception as e:
@@ -53,7 +54,7 @@ def make_timedelta(value):
                 "%s" %
                 (
                     repr(value),
-                    e.message,
+                    e.message if hasattr(e, 'message') else "",
                 )
             )
             raise ValueError(msg)
@@ -75,7 +76,7 @@ def make_timedelta(value):
             (
                 value.__class__.__name__,
                 repr(value),
-                e.message,
+                e.message if hasattr(e, 'message') else "",
             )
         )
         raise TypeError(msg) if isinstance(e, TypeError) else ValueError(msg)
@@ -100,7 +101,7 @@ def jsonify_timedelta(value):
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
 
-    days, hours, minutes = map(int, (days, hours, minutes))
+    days, hours, minutes = list(map(int, (days, hours, minutes)))
     seconds = round(seconds, 6)
 
     # build date
@@ -109,7 +110,7 @@ def jsonify_timedelta(value):
         date = '%sD' % days
 
     # build time
-    time = u'T'
+    time = 'T'
 
     # hours
     bigger_exists = date or hours
@@ -132,7 +133,7 @@ def jsonify_timedelta(value):
 
     time += '{}S'.format(seconds)
 
-    return u'P' + date + time
+    return 'P' + date + time
 
 
 def make_datetime(value):
@@ -199,7 +200,7 @@ def _make_datetime(value):
     :raises: ValueError | TypeError
     """
 
-    if isinstance(value, basestring):
+    if isinstance(value, string_types):
         try:
             return aniso8601.parse_datetime(value)
         except Exception as e:
@@ -210,7 +211,7 @@ def _make_datetime(value):
                 "%s" %
                 (
                     repr(value),
-                    e.message,
+                    e.message if hasattr(e, 'message') else ""
                 )
             )
 
@@ -240,7 +241,7 @@ def _make_datetime(value):
             (
                 value.__class__.__name__,
                 repr(value),
-                e.message,
+                e.message if hasattr(e, 'message') else ""
             )
         )
         raise TypeError(msg) if isinstance(e, TypeError) else ValueError(msg)
@@ -269,7 +270,7 @@ def tuple_to_datetime(value):
                 "%s" % (
                     repr(tzinfo),
                     repr(value),
-                    e.message,
+                    e.message if hasattr(e, 'message') else ""
                 )
             )
     else:

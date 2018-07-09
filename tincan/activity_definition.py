@@ -128,7 +128,7 @@ class ActivityDefinition(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("type cannot be set to an empty string")
-            value = unicode(value)
+            value = str(value)
         self._type = value
 
     @type.deleter
@@ -151,7 +151,7 @@ class ActivityDefinition(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("more_info cannot be set to an empty string")
-            value = unicode(value)
+            value = str(value)
         self._more_info = value
 
     @more_info.deleter

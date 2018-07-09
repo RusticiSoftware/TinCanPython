@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -301,10 +301,11 @@ class AttachmentTest(unittest.TestCase):
         attachment = Attachment(
             **{"usage_type": "test", "content_type": "test", "length": 1, "sha2": "test", "fileurl": "test",
                "display": {"en-US": "test"}, "description": {"en-US": "test"}})
-        self.assertEqual(attachment.to_json(), ('{"sha2": "test", "contentType": "test", '
-                                                '"description": {"en-US": "test"}, '
-                                                '"usageType": "test", "length": 1, "fileUrl": "test", '
-                                                '"display": {"en-US": "test"}}'))
+        self.assertEqual(json.loads(attachment.to_json()),
+                         json.loads('{"sha2": "test", "contentType": "test", '
+                                    '"description": {"en-US": "test"}, '
+                                    '"usageType": "test", "length": 1, "fileUrl": "test", '
+                                    '"display": {"en-US": "test"}}'))
 
     def test_ToJSONEmpty(self):
         attachment = Attachment()
@@ -322,9 +323,9 @@ class AttachmentTest(unittest.TestCase):
         self.languageMapVerificationHelper(attachment.description)
         self.languageMapVerificationHelper(attachment.display)
         self.assertEqual(
-            attachment.to_json(),
-            '{"sha2": "test", "contentType": "test", "description": {"en-US": "test"}, '
-            '"usageType": "test", "length": 1, "fileUrl": "test", "display": {"en-US": "test"}}')
+            json.loads(attachment.to_json()),
+            json.loads('{"sha2": "test", "contentType": "test", "description": {"en-US": "test"}, '
+                       '"usageType": "test", "length": 1, "fileUrl": "test", "display": {"en-US": "test"}}'))
 
     def languageMapVerificationHelper(self, value):
         self.assertIsInstance(value, LanguageMap)

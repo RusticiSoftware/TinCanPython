@@ -11,6 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+from six import string_types
 
 from tincan.serializable_base import SerializableBase
 from tincan.version import Version
@@ -62,7 +63,7 @@ class About(SerializableBase):
             :type version: list of str or tuple of str or basestring or unicode
             :raises: ValueError
             """
-            if version in ['1.0.1', '1.0.0', '0.95', '0.9']:
+            if version in ['1.0.2', '1.0.1', '1.0.0', '0.95', '0.9']:
                 return
 
             # Construct the error message
@@ -86,7 +87,7 @@ class About(SerializableBase):
 
         if value is None:
             self._version = [Version.latest]
-        elif isinstance(value, basestring):
+        elif isinstance(value, string_types):
             check_version(value)
             self._version = [value]
         elif isinstance(value, (list, tuple)):

@@ -37,6 +37,7 @@ def check_tincan_importability():
     try:
         import tincan
     except ImportError as e:
+        tincan = None
         raise ImportError(
             "Could not import tincan."
             "\n\n"
@@ -67,7 +68,7 @@ def setup_tincan_path():
         # as that was catching the system installed version, if virtualenv
         # is ever implemented for the test suite then this can go away
         #
-        print "Adding %s to PYTHONPATH" % repr(tincan_pardir)
+        print("Adding %s to PYTHONPATH" % repr(tincan_pardir))
         sys.path.insert(1, tincan_pardir)
     check_tincan_importability()
 

@@ -11,6 +11,8 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+from six import string_types
+
 from tincan.documents import Document
 from tincan.agent import Agent
 from tincan.activity import Activity
@@ -115,7 +117,7 @@ class StateDocument(Document):
 
     @registration.setter
     def registration(self, value):
-        if not isinstance(value, unicode) and value is not None:
-            unicode(value)
+        if not isinstance(value, string_types) and value is not None:
+            str(value)
 
         self._registration = value
