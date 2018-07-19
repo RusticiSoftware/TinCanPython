@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 import uuid
 
@@ -45,21 +45,21 @@ class StatementRefTest(unittest.TestCase):
 
     def test_ToJSON(self):
         statementref = StatementRef(object_type='StatementRef', id='016699c6-d600-48a7-96ab-86187498f16f')
-        self.assertEqual(statementref.to_json(),
-                         '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
+        self.assertEqual(json.loads(statementref.to_json()),
+                         json.loads('{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}'))
 
     def test_ToJSONNoObjectType(self):
         statementref = StatementRef(id='016699c6-d600-48a7-96ab-86187498f16f')
-        self.assertEqual(statementref.to_json(),
-                         '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
+        self.assertEqual(json.loads(statementref.to_json()),
+                         json.loads('{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}'))
 
     def test_FromJSONToJSON(self):
         json_str = '{"object_type":"StatementRef", "id":"016699c6-d600-48a7-96ab-86187498f16f"}'
         statementref = StatementRef.from_json(json_str)
         self.assertEqual(statementref.object_type, 'StatementRef')
         self.assertEqual(statementref.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
-        self.assertEqual(statementref.to_json(),
-                         '{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}')
+        self.assertEqual(json.loads(statementref.to_json()),
+                         json.loads('{"id": "016699c6-d600-48a7-96ab-86187498f16f", "objectType": "StatementRef"}'))
 
     def test_ToJSONEmpty(self):
         statementref = StatementRef()

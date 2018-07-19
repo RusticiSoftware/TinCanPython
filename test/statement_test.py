@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 from datetime import timedelta, datetime
 import uuid
@@ -57,11 +57,11 @@ class StatementTest(unittest.TestCase):
         self.assertIsNone(statement.timestamp)
         self.assertIsNone(statement.stored)
         self.assertIsNone(statement.authority)
-        self.assertEquals(statement.version, 'test')
+        self.assertEqual(statement.version, 'test')
 
     def test_InitId(self):
         statement = Statement(id='016699c6-d600-48a7-96ab-86187498f16f')
-        self.assertEquals(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
+        self.assertEqual(statement.id, uuid.UUID('016699c6-d600-48a7-96ab-86187498f16f'))
         self.assertIsNone(statement.actor)
         self.assertIsNone(statement.verb)
         self.assertIsNone(statement.object)
@@ -422,19 +422,19 @@ class StatementTest(unittest.TestCase):
                'object': {'object_type': 'Agent', 'name': 'test'}, 'authority': {'name': 'test'},
                'context': {'registration': '016699c6-d600-48a7-96ab-86187498f16f'},
                'attachments': [{'usage_type': 'test'}]})
-        self.assertEqual(statement.to_json(),
-                         '{"verb": {"id": "test"}, '
+        self.assertEqual(json.loads(statement.to_json()),
+                         json.loads('{"verb": {"id": "test"}, '
                          '"attachments": [{"usageType": "test"}], '
                          '"object": {"name": "test", "objectType": "Agent"}, '
                          '"actor": {"name": "test", "objectType": "Agent"}, '
                          '"version": "1.0.1", '
                          '"authority": {"name": "test", "objectType": "Agent"}, '
                          '"context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, '
-                         '"id": "016699c6-d600-48a7-96ab-86187498f16f"}')
+                                    '"id": "016699c6-d600-48a7-96ab-86187498f16f"}'))
 
     def test_ToJSONEmpty(self):
         statement = Statement()
-        self.assertEqual(statement.to_json(), '{"version": "1.0.1"}')
+        self.assertEqual(json.loads(statement.to_json()), json.loads('{"version": "1.0.1"}'))
 
     def test_FromJSONToJSON(self):
         json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", ' \
@@ -453,15 +453,15 @@ class StatementTest(unittest.TestCase):
         self.contextVerificationHelper(statement.context)
         for k in statement.attachments:
             self.attachmentVerificationHelper(k)
-        self.assertEqual(statement.to_json(),
-                         '{"verb": {"id": "test"}, '
+        self.assertEqual(json.loads(statement.to_json()),
+                         json.loads('{"verb": {"id": "test"}, '
                          '"attachments": [{"usageType": "test"}], '
                          '"object": {"name": "test", "objectType": "Agent"}, '
                          '"actor": {"name": "test", "objectType": "Agent"}, '
                          '"version": "1.0.1", '
                          '"authority": {"name": "test", "objectType": "Agent"}, '
                          '"context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, '
-                         '"id": "016699c6-d600-48a7-96ab-86187498f16f"}')
+                                    '"id": "016699c6-d600-48a7-96ab-86187498f16f"}'))
 
     def test_ExceptionInvalidUUID(self):
         with self.assertRaises(ValueError):

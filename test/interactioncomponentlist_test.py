@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -95,15 +95,15 @@ class InteractionComponentListTest(unittest.TestCase):
                    '{"id": "test2", "description": {"en-US": "test2"}}]'
         iclist = InteractionComponentList.from_json(json_str)
         self.listVerificationHelper(iclist)
-        self.assertEqual(iclist.to_json(), json_str)
+        self.assertEqual(json.loads(iclist.to_json()), json.loads(json_str))
 
     def test_ToJSON(self):
         iclist = InteractionComponentList(
             [{"id": "test1", "description": {"en-US": "test1"}}, {"id": "test2", "description": {"en-US": "test2"}}])
         # since the map is unordered, it is ok that to_json() changes ordering
-        self.assertEqual(iclist.to_json(),
-                         '[{"id": "test1", "description": {"en-US": "test1"}}, '
-                         '{"id": "test2", "description": {"en-US": "test2"}}]')
+        self.assertEqual(json.loads(iclist.to_json()),
+                         json.loads('[{"id": "test1", "description": {"en-US": "test1"}}, '
+                                    '{"id": "test2", "description": {"en-US": "test2"}}]'))
 
     def test_setItem(self):
         iclist = InteractionComponentList([InteractionComponent(), InteractionComponent()])

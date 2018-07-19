@@ -56,7 +56,7 @@ class InteractionComponent(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("id cannot be set to an empty string or non-string type")
-        self._id = None if value is None else unicode(value)
+        self._id = None if value is None else str(value)
 
     @property
     def description(self):

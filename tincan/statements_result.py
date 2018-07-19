@@ -11,6 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+from six import string_types
 
 from tincan.serializable_base import SerializableBase
 from tincan.statement_list import StatementList
@@ -84,11 +85,11 @@ class StatementsResult(SerializableBase):
 
     @more.setter
     def more(self, value):
-        if value is None or isinstance(value, basestring):
+        if value is None or isinstance(value, string_types):
             self._more = value
             return
         try:
-            self._more = unicode(value)
+            self._more = str(value)
         except Exception as e:
             msg = (
                 "Property 'more' in a 'tincan.%s' object must be set with a "

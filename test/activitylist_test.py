@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -93,12 +93,13 @@ class ActivityListTest(unittest.TestCase):
         json_str = '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]'
         alist = ActivityList.from_json(json_str)
         self.listVerificationHelper(alist)
-        self.assertEqual(alist.to_json(), json_str)
+        self.assertEqual(json.loads(alist.to_json()), json.loads(json_str))
 
     def test_ToJSON(self):
         alist = ActivityList([{"id": "test1"}, {"id": "test2"}])
-        self.assertEqual(alist.to_json(),
-                         '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]')
+        self.assertEqual(json.loads(alist.to_json()),
+                         json.loads(
+                             '[{"id": "test1", "objectType": "Activity"}, {"id": "test2", "objectType": "Activity"}]'))
 
     def test_setItem(self):
         alist = ActivityList([Activity(), Activity()])

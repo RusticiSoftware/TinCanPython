@@ -11,7 +11,7 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
+import json
 import unittest
 
 if __name__ == '__main__':
@@ -94,12 +94,13 @@ class LanguageMapTest(unittest.TestCase):
         json_str = '{"fr-CA": "CA-test", "en-US": "US-test", "fr-FR": "FR-test"}'
         lmap = LanguageMap.from_json(json_str)
         self.mapVerificationHelper(lmap)
-        self.assertEqual(lmap.to_json(), json_str)
+        self.assertEqual(json.loads(lmap.to_json()), json.loads(json_str))
 
     def test_ToJSON(self):
         lmap = LanguageMap({"en-US": "US-test", "fr-CA": "CA-test", "fr-FR": "FR-test"})
         # since the map is unordered, it is ok that to_json() changes ordering
-        self.assertEqual(lmap.to_json(), '{"fr-CA": "CA-test", "en-US": "US-test", "fr-FR": "FR-test"}')
+        self.assertEqual(json.loads(lmap.to_json()),
+                         json.loads('{"fr-CA": "CA-test", "en-US": "US-test", "fr-FR": "FR-test"}'))
 
     def test_getItemException(self):
         lmap = LanguageMap()

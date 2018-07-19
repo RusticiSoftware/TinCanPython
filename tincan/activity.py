@@ -61,7 +61,7 @@ class Activity(SerializableBase, StatementTargetable):
                 raise ValueError(
                     "Property 'id' in 'tincan.%s' object must be not empty."
                     % self.__class__.__name__)
-        self._id = None if value is None else unicode(value)
+        self._id = None if value is None else str(value)
 
     @property
     def object_type(self):
