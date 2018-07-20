@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
+from six import string_types
 
 """
 .. module:: languagemap
@@ -31,7 +32,7 @@ class LanguageMap(dict, SerializableBase):
 
         """
         check_args = dict(*args, **kwargs)
-        map(lambda (k, v): (k, self._check_basestring(v)), check_args.iteritems())
+        list(map(lambda k_v: (k_v[0], self._check_basestring(k_v[1])), iter(check_args.items())))
         super(LanguageMap, self).__init__(check_args)
 
     def __setitem__(self, prop, value):
@@ -56,5 +57,5 @@ class LanguageMap(dict, SerializableBase):
         :type value: any
 
         """
-        if not isinstance(value, basestring):
-            raise TypeError("Value must be of type basestring")
+        if not isinstance(value, string_types):
+            raise TypeError("Value must be a stringstring_types")

@@ -34,7 +34,7 @@ class Base(object):
 
         """
         if hasattr(self, '_props_req') and self._props_req:
-            map(lambda (k): setattr(self, k, None), self._props_req)
+            list(map(lambda k: setattr(self, k, None), self._props_req))
 
         new_kwargs = {}
         for obj in args:
@@ -42,7 +42,7 @@ class Base(object):
 
         new_kwargs.update(kwargs)
 
-        for key, value in new_kwargs.iteritems():
+        for key, value in new_kwargs.items():
             setattr(self, key, value)
 
     def __setattr__(self, attr, value):
