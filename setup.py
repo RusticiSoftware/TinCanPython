@@ -1,17 +1,16 @@
 from setuptools import setup
 
 setup(
-    name='tincan',
+    name='edx-tincan-py35',
     packages=[
         'tincan',
         'tincan/conversions',
         'tincan/documents',
     ],
-    version='0.0.5.py.35',
-    description='A Python library for implementing Tin Can API.',
-    author='Rustici Software',
-    author_email='mailto:support+tincanpython@tincanapi.com',
-    maintainer='Brian J. Miller',
+    version='0.0.5',
+    description='A Python 3 library for implementing Tin Can API.',
+    author='edX',
+    author_email='oscm@edx.org',
     maintainer_email='mailto:brian.miller@tincanapi.com',
     url='http://rusticisoftware.github.io/TinCanPython/',
     license='Apache License 2.0',
