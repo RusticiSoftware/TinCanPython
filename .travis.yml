@@ -1,15 +1,16 @@
 language: python
 python:
-  - "3.5"
+  - '3.5'
 install: easy_install aniso8601 pytz
 before_script:
   - cd test
   - cp resources/lrs_properties.py.travis-ci resources/lrs_properties.py
 script: python main.py
-
 deploy:
   provider: pypi
   user: edx
   distributions: sdist bdist_wheel
   on:
     tags: true
+  password:
+    secure: XftLPhN6LpfOxPTiTnlwFDi53qjZIkp0VeR+Ydy4MTUbJKla5/yfXfSFmBX0lHN3PYa1A2A4rIUhvMWd9j66ist+2nqPjcJJy1DwSX1nKgVLanOpV/fFTC8yt/BOxgiaT+vdOUdoi3LmbTpezc6dYZHPmts5maAtG/RLGZG9Bcoreu28WPCGv45t1t36s+HUxtbDrMCTEqgwrBKJiaHza3m1XtFOjF722ypyoOlPPutq565tlmacJ7A44jaCrv/6SVtPCOsBd48qXyULvpZJdWor2vGdKzPQOWi7cOLty6iNc9chHCP5CCCJvRIwiv3RMkOhtcxqT/ch5eVhzBpTb8uV3upbQslP88q8bGeMVDWNBnpwPvNYipMX4mEJHKCESzGp9doJtPF17e3fPw7L52sGtHbn8peLm0Itw65W8UH1w49LDmJSOqPeZmzlSg/tp/Tt4FvYWt8zxH2J5Q4UReM5SCROWfBq5Asn1rzHZCgHauLRrBd0SjeO9RgDHPsuDUZmvzMiJ/wPwQ21IpSXl7xBEx79mI3NOdYRGxOA+y8fQUdfPLtY0TV3xhv4dU6YCc2jrpmwNu07jbHO5w47RtZr0TBfIR6wjcVMSeQBtUkKpn0QPKN+JpAU6qrEeDNx92YUm6V0z7MXZmtcxr/dcxq4fsTK5hQqy2zOzkw8VYY=
