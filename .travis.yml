@@ -1,7 +1,9 @@
 language: python
 python:
-  - '3.5'
-install: easy_install aniso8601 pytz
+  - 3.5
+  - 3.8
+install:
+  - pip install -r requirements/travis.txt
 before_script:
   - cd test
   - cp resources/lrs_properties.py.travis-ci resources/lrs_properties.py
