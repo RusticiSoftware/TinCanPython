@@ -1,0 +1,6 @@
+# Core requirements for using this package
+-c constraints.txt
+
+aniso8601
+pytz
+six
