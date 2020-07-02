@@ -11,8 +11,6 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from six import string_types
-
 from tincan.serializable_base import SerializableBase
 from tincan.agent_account import AgentAccount
 
@@ -80,7 +78,7 @@ class Agent(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property name can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         self._name = value
 
@@ -104,7 +102,7 @@ class Agent(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property mbox can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         if not value.startswith("mailto:"):
             value = "mailto:" + value
@@ -130,7 +128,7 @@ class Agent(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property mbox_sha1sum can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         self._mbox_sha1sum = value
 
@@ -154,7 +152,7 @@ class Agent(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property openid can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         self._openid = value
 

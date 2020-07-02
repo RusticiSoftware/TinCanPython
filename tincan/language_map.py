@@ -13,8 +13,6 @@
 #    limitations under the License.
 
 from tincan.serializable_base import SerializableBase
-from six import string_types
-
 """
 .. module:: languagemap
    :synopsis: A simple wrapper for a map containing language mappings
@@ -57,5 +55,5 @@ class LanguageMap(dict, SerializableBase):
         :type value: any
 
         """
-        if not isinstance(value, string_types):
-            raise TypeError("Value must be a stringstring_types")
+        if not isinstance(value, str):
+            raise TypeError("Value must be a string str")

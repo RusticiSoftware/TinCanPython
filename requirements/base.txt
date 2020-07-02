@@ -6,4 +6,3 @@
 #
 aniso8601==8.0.0          # via -r requirements/base.in
 pytz==2020.1              # via -r requirements/base.in
-six==1.14.0               # via -r requirements/base.in

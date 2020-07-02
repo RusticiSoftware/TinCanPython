@@ -6,4 +6,3 @@
 #
 aniso8601==8.0.0          # via -r requirements/test.txt
 pytz==2020.1              # via -r requirements/test.txt
-six==1.14.0               # via -r requirements/test.txt

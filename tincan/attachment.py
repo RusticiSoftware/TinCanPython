@@ -11,8 +11,6 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from six import string_types
-
 from tincan.serializable_base import SerializableBase
 from tincan.language_map import LanguageMap
 
@@ -66,7 +64,7 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property usage_type can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         self._usage_type = value
 
@@ -90,7 +88,7 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property content_type can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         self._content_type = value
 
@@ -136,7 +134,7 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property sha2 can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         self._sha2 = value
 
@@ -160,7 +158,7 @@ class Attachment(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property fileurl can not be set to an empty string")
-            elif not isinstance(value, string_types):
+            elif not isinstance(value, str):
                 value = str(value)
         self._fileurl = value
 

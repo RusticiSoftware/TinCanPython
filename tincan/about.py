@@ -11,8 +11,6 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from six import string_types
-
 from tincan.serializable_base import SerializableBase
 from tincan.version import Version
 from tincan.extensions import Extensions
@@ -87,7 +85,7 @@ class About(SerializableBase):
 
         if value is None:
             self._version = [Version.latest]
-        elif isinstance(value, string_types):
+        elif isinstance(value, str):
             check_version(value)
             self._version = [value]
         elif isinstance(value, (list, tuple)):

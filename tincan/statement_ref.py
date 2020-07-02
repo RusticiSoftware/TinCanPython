@@ -14,8 +14,6 @@
 
 import uuid
 
-from six import string_types
-
 from tincan.serializable_base import SerializableBase
 
 
@@ -71,7 +69,7 @@ class StatementRef(SerializableBase):
     @id.setter
     def id(self, value):
         if value is not None and not isinstance(value, uuid.UUID):
-            if isinstance(value, string_types) and not self._UUID_REGEX.match(value):
+            if isinstance(value, str) and not self._UUID_REGEX.match(value):
                 raise ValueError("Invalid UUID string")
             value = uuid.UUID(value)
         self._id = value

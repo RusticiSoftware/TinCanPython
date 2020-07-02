@@ -11,8 +11,6 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from six import string_types
-
 try:
     import http.client as httplib
 except ImportError:
@@ -862,7 +860,7 @@ class RemoteLRS(Base):
     @endpoint.setter
     def endpoint(self, value):
         if value is not None:
-            if not isinstance(value, string_types):
+            if not isinstance(value, str):
                 value = str(value)
             if not value.endswith("/"):
                 value += "/"
@@ -885,7 +883,7 @@ class RemoteLRS(Base):
     @version.setter
     def version(self, value):
         if value is not None:
-            if not isinstance(value, string_types):
+            if not isinstance(value, str):
                 str(value)
             if value not in Version.supported:
                 raise Exception("Unsupported Version")
@@ -906,7 +904,7 @@ class RemoteLRS(Base):
 
     @auth.setter
     def auth(self, value):
-        if value is not None and not isinstance(value, string_types):
+        if value is not None and not isinstance(value, str):
             str(value)
         self._auth = value
 
