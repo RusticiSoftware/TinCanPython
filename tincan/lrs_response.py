@@ -12,11 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-try:
-    from http.client import HTTPResponse
-except ImportError:
-    from httplib import HTTPResponse
-
+from http.client import HTTPResponse
 
 from tincan.http_request import HTTPRequest
 from tincan.base import Base

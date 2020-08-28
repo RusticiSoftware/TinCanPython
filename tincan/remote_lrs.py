@@ -11,30 +11,13 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from six import string_types
 
-try:
-    import http.client as httplib
-except ImportError:
-    import httplib
-
-try:
-    import urllib.request, urllib.error
-except ImportError:
-    import urllib
-
+import http.client
 import json
 import base64
 
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
 
-try:
-    from urllib.parse import urlencode
-except ImportError:
-    from urllib import urlencode
+from urllib.parse import urlparse, urlencode
 
 from tincan.lrs_response import LRSResponse
 from tincan.http_request import HTTPRequest
@@ -133,9 +116,9 @@ class RemoteLRS(Base):
         parsed = urlparse(url)
 
         if parsed.scheme == "https":
-            web_req = httplib.HTTPSConnection(parsed.hostname, parsed.port)
+            web_req = http.client.HTTPSConnection(parsed.hostname, parsed.port)
         else:
-            web_req = httplib.HTTPConnection(parsed.hostname, parsed.port)
+            web_req = http.client.HTTPConnection(parsed.hostname, parsed.port)
 
         path = parsed.path
         if parsed.query or parsed.path:
