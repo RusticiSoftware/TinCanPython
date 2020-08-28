@@ -15,7 +15,7 @@ import json
 import unittest
 
 if __name__ == '__main__':
-    from main import setup_tincan_path
+    from test.main import setup_tincan_path
 
     setup_tincan_path()
 from tincan import Attachment, LanguageMap

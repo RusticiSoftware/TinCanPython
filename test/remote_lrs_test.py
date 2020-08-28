@@ -21,10 +21,10 @@ from pytz import utc
 from tincan.statement_list import StatementList
 
 if __name__ == '__main__':
-    from main import setup_tincan_path
+    from test.main import setup_tincan_path
 
     setup_tincan_path()
-from resources import lrs_properties
+from test.resources import lrs_properties
 from tincan import (
     RemoteLRS,
     LRSResponse,

@@ -2,7 +2,7 @@
 
 import uuid
 
-from resources import lrs_properties
+from test.resources import lrs_properties
 from tincan import (
     RemoteLRS,
     Statement,
