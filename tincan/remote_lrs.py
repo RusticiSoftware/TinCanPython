@@ -862,7 +862,7 @@ class RemoteLRS(Base):
     @endpoint.setter
     def endpoint(self, value):
         if value is not None:
-            if not isinstance(value, string_types):
+            if not isinstance(value, str):
                 value = str(value)
             if not value.endswith("/"):
                 value += "/"
@@ -885,7 +885,7 @@ class RemoteLRS(Base):
     @version.setter
     def version(self, value):
         if value is not None:
-            if not isinstance(value, string_types):
+            if not isinstance(value, str):
                 str(value)
             if value not in Version.supported:
                 raise Exception("Unsupported Version")
@@ -906,7 +906,7 @@ class RemoteLRS(Base):
 
     @auth.setter
     def auth(self, value):
-        if value is not None and not isinstance(value, string_types):
+        if value is not None and not isinstance(value, str):
             str(value)
         self._auth = value
 

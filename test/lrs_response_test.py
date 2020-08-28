@@ -15,9 +15,6 @@
 #    limitations under the License.
 
 import unittest
-
-from six import string_types
-
 try:
     import http.client as httplib
 except ImportError:
@@ -144,7 +141,7 @@ class LRSResponseTest(unittest.TestCase):
                     b"\xce\xbf\xce\xbc\xce\xad\xce\xbd\xce\xbf\xcf\x85"
 
         self.assertIsInstance(resp, LRSResponse)
-        self.assertIsInstance(resp.data, string_types)
+        self.assertIsInstance(resp.data, str)
         self.assertEqual(resp.data, u"δοκιμή περιεχομένου")
 
     def test_setters_none(self):

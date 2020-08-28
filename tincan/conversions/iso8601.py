@@ -23,8 +23,6 @@ import datetime
 # from time import mktime, struct_time
 import aniso8601
 from pytz import utc
-from six import string_types
-
 
 def make_timedelta(value):
     """Tries to convert the given value to a :class:`datetime.timedelta`.
@@ -43,7 +41,7 @@ def make_timedelta(value):
 
     """
 
-    if isinstance(value, string_types):
+    if isinstance(value, str):
         try:
             return aniso8601.parse_duration(value)
         except Exception as e:
@@ -200,7 +198,7 @@ def _make_datetime(value):
     :raises: ValueError | TypeError
     """
 
-    if isinstance(value, string_types):
+    if isinstance(value, str):
         try:
             return aniso8601.parse_datetime(value)
         except Exception as e:

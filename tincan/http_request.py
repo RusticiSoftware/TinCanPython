@@ -11,8 +11,6 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from six import string_types
-
 from tincan.base import Base
 
 
@@ -69,7 +67,7 @@ class HTTPRequest(Base):
 
     @method.setter
     def method(self, value):
-        if not isinstance(value, string_types) and value is not None:
+        if not isinstance(value, str) and value is not None:
             str(value)
         self._method = value
 
@@ -85,7 +83,7 @@ class HTTPRequest(Base):
 
     @resource.setter
     def resource(self, value):
-        if not isinstance(value, string_types) and value is not None:
+        if not isinstance(value, str) and value is not None:
             str(value)
         self._resource = value
 

@@ -11,7 +11,6 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from six import string_types
 
 from tincan.serializable_base import SerializableBase
 from tincan.statement_list import StatementList
@@ -56,21 +55,13 @@ class StatementsResult(SerializableBase):
             return
         try:
             self._statements = StatementList(value)
-        except Exception as e:
-            msg = (
-                "Property 'statements' in a 'tincan.%s' object must be set with a "
-                "list or None."
-                "\n\n"
-                "Tried to set it with a '%s' object: %s"
-                "\n\n" %
-                (
-                    self.__class__.__name__,
-                    value.__class__.__name__,
-                    repr(value),
-                )
-            )
-            msg += e.message
-            raise TypeError(msg)
+        except Exception:
+            raise TypeError(f"Property 'statements' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                            f"list or None."
+                            f"\n\n"
+                            f"Tried to set it with a '{value.__class__.__name__}' object: {repr(value)}"
+                            f"\n\n")
+
 
     @property
     def more(self):
@@ -85,7 +76,7 @@ class StatementsResult(SerializableBase):
 
     @more.setter
     def more(self, value):
-        if value is None or isinstance(value, string_types):
+        if value is None or isinstance(value, str):
             self._more = value
             return
         try:
