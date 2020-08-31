@@ -100,7 +100,7 @@ class LRSResponse(Base):
     def response(self, value):
         if value is not None and not isinstance(value, HTTPResponse):
             raise TypeError(
-                "Property 'response' in 'tincan.%s' must be set with an HTTPResponse object" % self.__class__.__name__
+                f"Property 'response' in 'tincan.{self.__class__.__name__}' must be set with an HTTPResponse object"
             )
         self._response = value
 

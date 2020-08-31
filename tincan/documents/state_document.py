@@ -75,9 +75,8 @@ class StateDocument(Document):
                 value = Agent(value)
             except:
                 raise TypeError(
-                    "Property 'agent' in 'tincan.%s' must be set with a type "
-                    "that can be constructed into a tincan.Agent object." %
-                    self.__class__.__name__
+                    f"Property 'agent' in 'tincan.{self.__class__.__name__}' must be set with a type "
+                    f"that can be constructed into a tincan.Agent object."
                 )
         self._agent = value
 
@@ -98,9 +97,8 @@ class StateDocument(Document):
                 value = Activity(value)
             except:
                 raise TypeError(
-                    "Property 'activity' in 'tincan.%s' must be set with a type "
-                    "that can be constructed into a tincan.Activity object." %
-                    self.__class__.__name__
+                    f"Property 'activity' in 'tincan.{self.__class__.__name__}' must be set with a type "
+                    f"that can be constructed into a tincan.Activity object."
                 )
         self._activity = value
 

@@ -72,14 +72,9 @@ class About(SerializableBase):
                 value_str = repr(version)
 
             msg = (
-                "Tried to set property 'version' in a 'tincan.%s' object "
-                "with an invalid value: %s\n"
-                "Allowed versions are: %s" %
-                (
-                    self.__class__.__name__,
-                    value_str,
-                    ', '.join(map(repr, Version.supported)),
-                )
+                f"Tried to set property 'version' in a 'tincan.{self.__class__.__name__}' object "
+                f"with an invalid value: {value_str}\n"
+                f"Allowed versions are: {', '.join(map(repr, Version.supported))}"
             )
 
             raise ValueError(msg)
@@ -95,12 +90,9 @@ class About(SerializableBase):
             self._version = list(value)
         else:
             raise TypeError(
-                "Property 'version' in a 'tincan.%s' object must be set with a "
-                "list, tuple, str, unicode or None. Tried to set it with: %s" %
-                (
-                    self.__class__.__name__,
-                    repr(value),
-                ))
+                f"Property 'version' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"list, tuple, str, unicode or None. Tried to set it with: {repr(value)}"
+            )
 
     @property
     def extensions(self):
@@ -124,11 +116,10 @@ class About(SerializableBase):
                 self._extensions = Extensions(value)
             except Exception as e:
                 msg = (
-                    "Property 'extensions' in a 'tincan.%s' object must be set with a "
-                    "tincan.Extensions, dict, or None.\n\n" %
-                    self.__class__.__name__,
+                    f"Property 'extensions' in a 'tincan.{self.__class__.__name__} object must be set with a "
+                    f"tincan.Extensions, dict, or None.\n\n"
                 )
-                msg += e.message
+                msg += repr(e)
                 raise TypeError(msg)
 
     @extensions.deleter

@@ -59,12 +59,9 @@ class Base(object):
             super(Base, self).__setattr__(attr, value)
         elif attr not in self._props:
             raise AttributeError(
-                "Property '%s' cannot be set on a 'tincan.%s' object. Allowed properties: %s" %
-                (
-                    attr,
-                    self.__class__.__name__,
-                    ', '.join(self._props)
-                ))
+                f"Property '{attr}' cannot be set on a 'tincan.{self.__class__.__name__}' object."
+                f"Allowed properties: {', '.join(self._props)}"
+            )
         else:
             super(Base, self).__setattr__(attr, value)
 

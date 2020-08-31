@@ -83,9 +83,8 @@ class StatementsResult(SerializableBase):
             self._more = str(value)
         except Exception as e:
             msg = (
-                "Property 'more' in a 'tincan.%s' object must be set with a "
-                "str or None." %
-                self.__class__.__name__
+                f"Property 'more' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"str or None."
             )
-            msg += e.message
-            raise TypeError(msg)
+            msg += repr(e)
+            raise TypeError(msg) from e

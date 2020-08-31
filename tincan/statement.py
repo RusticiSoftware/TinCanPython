@@ -164,17 +164,14 @@ class Statement(StatementBase):
         try:
             self._stored = make_datetime(value)
         except TypeError as e:
-            e.message = (
-                "Property 'stored' in a 'tincan.%s' "
-                "object must be set with a "
-                "datetime.datetime, str, unicode, int, float, dict "
-                "or None.\n\n%s" %
-                (
-                    self.__class__.__name__,
-                    e.message,
-                )
+            message = (
+                f"Property 'stored' in a 'tincan.{self.__class__.__name__}' "
+                f"object must be set with a "
+                f"datetime.datetime, str, unicode, int, float, dict "
+                f"or None.\n\n{repr(e)}"
             )
-            raise e
+            raise TypeError(message) from e
+
 
     @stored.deleter
     def stored(self):

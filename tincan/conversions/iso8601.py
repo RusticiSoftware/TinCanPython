@@ -46,14 +46,10 @@ def make_timedelta(value):
             return aniso8601.parse_duration(value)
         except Exception as e:
             msg = (
-                "Conversion to datetime.timedelta failed. Could not "
-                "parse the given string as an ISO 8601 duration: "
-                "%s\n\n"
-                "%s" %
-                (
-                    repr(value),
-                    e.message if hasattr(e, 'message') else "",
-                )
+                f"Conversion to datetime.timedelta failed. Could not "
+                f"parse the given string as an ISO 8601 duration: "
+                f"{repr(value)}\n\n"
+                f"{repr(e)}"
             )
             raise ValueError(msg)
 
@@ -68,14 +64,9 @@ def make_timedelta(value):
             return datetime.timedelta(value)
     except Exception as e:
         msg = (
-            "Could not convert the given value of type '%s' to a "
-            "datetime.timedelta: %s\n\n"
-            "%s" %
-            (
-                value.__class__.__name__,
-                repr(value),
-                e.message if hasattr(e, 'message') else "",
-            )
+            f"Could not convert the given value of type '{value.__class__.__name__}' to a "
+            f"datetime.timedelta: {repr(value)}\n\n"
+            f"{repr(e)}"
         )
         raise TypeError(msg) if isinstance(e, TypeError) else ValueError(msg)
 
@@ -159,15 +150,10 @@ def make_datetime(value):
     result = _make_datetime(value)
     if not result.tzinfo:
         raise ValueError(
-            "value was a timestamp, but no timezone was set! "
-            "Value was a '%s' object: %s"
-            "\n\n"
-            "Converted to naive 'datetime.datetime' object: %s" %
-            (
-                value.__class__.__name__,
-                repr(value),
-                repr(result),
-            )
+            f"value was a timestamp, but no timezone was set! "
+            f"Value was a '{value.__class__.__name__}' object: {repr(value)}"
+            f"\n\n"
+            f"Converted to naive 'datetime.datetime' object: {repr(result)}"
         )
 
     return result
@@ -203,14 +189,10 @@ def _make_datetime(value):
             return aniso8601.parse_datetime(value)
         except Exception as e:
             raise ValueError(
-                "Conversion to datetime.datetime failed. Could not "
-                "parse the given string as an ISO 8601 timestamp: "
-                "%s\n\n"
-                "%s" %
-                (
-                    repr(value),
-                    e.message if hasattr(e, 'message') else ""
-                )
+                f"Conversion to datetime.datetime failed. Could not "
+                f"parse the given string as an ISO 8601 timestamp: "
+                f"{repr(value)}\n\n"
+                f"{repr(e)}"
             )
 
     try:
@@ -233,14 +215,9 @@ def _make_datetime(value):
             return datetime.datetime.utcfromtimestamp(value).replace(tzinfo=utc)
     except Exception as e:
         msg = (
-            "Could not convert the given value of type '%s' to a "
-            "datetime.datetime: %s\n\n"
-            "%s" %
-            (
-                value.__class__.__name__,
-                repr(value),
-                e.message if hasattr(e, 'message') else ""
-            )
+            f"Could not convert the given value of type '{value.__class__.__name__}' to a "
+            f"datetime.datetime: {repr(value)}\n\n"
+            f"{repr(e)}"
         )
         raise TypeError(msg) if isinstance(e, TypeError) else ValueError(msg)
 
@@ -261,15 +238,11 @@ def tuple_to_datetime(value):
             return tzinfo.localize(datetime.datetime(*args))
         except Exception as e:
             raise ValueError(
-                "Failed to call tzinfo.localize(datetime) method "
-                "of tzinfo object: %s\n"
-                "tuple to convert to datetime.datetime was: %s"
-                "\n\n"
-                "%s" % (
-                    repr(tzinfo),
-                    repr(value),
-                    e.message if hasattr(e, 'message') else ""
-                )
+                f"Failed to call tzinfo.localize(datetime) method "
+                f"of tzinfo object: {repr(tzinfo)}\n"
+                f"tuple to convert to datetime.datetime was: {repr(value)}"
+                f"\n\n"
+                f"{repr(e)}"
             )
     else:
         return datetime.datetime(*value)
