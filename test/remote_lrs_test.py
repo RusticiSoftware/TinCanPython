@@ -18,7 +18,6 @@ from datetime import datetime
 from calendar import timegm
 
 from pytz import utc
-from tincan.statement_list import StatementList
 
 if __name__ == '__main__':
     from test.main import setup_tincan_path
@@ -220,7 +219,7 @@ class RemoteLRSTest(unittest.TestCase):
             object=self.activity,
             context=self.context
         )
-        response = self.lrs.save_statements(StatementList([statement1, statement2]))
+        response = self.lrs.save_statements([statement1, statement2])
 
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
