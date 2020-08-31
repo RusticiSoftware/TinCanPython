@@ -23,7 +23,7 @@ from tincan import Version
 
 class VersionTest(unittest.TestCase):
     def test_Supported(self):
-        self.assertEqual(Version.supported, ["1.0.1", "1.0.0"])
+        self.assertEqual(Version.supported, ["1.0.3", "1.0.2", "1.0.1", "1.0.0"])
 
     def test_Latest(self):
         self.assertEqual(Version.latest, Version.supported[0])

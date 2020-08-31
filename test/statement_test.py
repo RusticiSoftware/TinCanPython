@@ -427,14 +427,14 @@ class StatementTest(unittest.TestCase):
                          '"attachments": [{"usageType": "test"}], '
                          '"object": {"name": "test", "objectType": "Agent"}, '
                          '"actor": {"name": "test", "objectType": "Agent"}, '
-                         '"version": "1.0.1", '
+                         '"version": "1.0.3", '
                          '"authority": {"name": "test", "objectType": "Agent"}, '
                          '"context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, '
                                     '"id": "016699c6-d600-48a7-96ab-86187498f16f"}'))
 
     def test_ToJSONEmpty(self):
         statement = Statement()
-        self.assertEqual(json.loads(statement.to_json()), json.loads('{"version": "1.0.1"}'))
+        self.assertEqual(json.loads(statement.to_json()), json.loads('{"version": "1.0.3"}'))
 
     def test_FromJSONToJSON(self):
         json_str = '{"id":"016699c6-d600-48a7-96ab-86187498f16f", ' \
@@ -458,7 +458,7 @@ class StatementTest(unittest.TestCase):
                          '"attachments": [{"usageType": "test"}], '
                          '"object": {"name": "test", "objectType": "Agent"}, '
                          '"actor": {"name": "test", "objectType": "Agent"}, '
-                         '"version": "1.0.1", '
+                         '"version": "1.0.3", '
                          '"authority": {"name": "test", "objectType": "Agent"}, '
                          '"context": {"registration": "016699c6-d600-48a7-96ab-86187498f16f"}, '
                                     '"id": "016699c6-d600-48a7-96ab-86187498f16f"}'))

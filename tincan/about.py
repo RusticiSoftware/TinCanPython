@@ -62,7 +62,7 @@ class About(SerializableBase):
             :type version: list of str or tuple of str or basestring or unicode
             :raises: ValueError
             """
-            if version in ['1.0.2', '1.0.1', '1.0.0', '0.95', '0.9']:
+            if version in ['1.0.3', '1.0.2', '1.0.1', '1.0.0', '0.95', '0.9']:
                 return
 
             # Construct the error message
