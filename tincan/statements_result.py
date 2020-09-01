@@ -55,21 +55,13 @@ class StatementsResult(SerializableBase):
             return
         try:
             self._statements = StatementList(value)
-        except Exception as e:
-            msg = (
-                "Property 'statements' in a 'tincan.%s' object must be set with a "
-                "list or None."
-                "\n\n"
-                "Tried to set it with a '%s' object: %s"
-                "\n\n" %
-                (
-                    self.__class__.__name__,
-                    value.__class__.__name__,
-                    repr(value),
-                )
-            )
-            msg += e.message
-            raise TypeError(msg)
+        except Exception:
+            raise TypeError(f"Property 'statements' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                            f"list or None."
+                            f"\n\n"
+                            f"Tried to set it with a '{value.__class__.__name__}' object: {repr(value)}"
+                            f"\n\n")
+
 
     @property
     def more(self):
@@ -84,16 +76,15 @@ class StatementsResult(SerializableBase):
 
     @more.setter
     def more(self, value):
-        if value is None or isinstance(value, basestring):
+        if value is None or isinstance(value, str):
             self._more = value
             return
         try:
-            self._more = unicode(value)
+            self._more = str(value)
         except Exception as e:
             msg = (
-                "Property 'more' in a 'tincan.%s' object must be set with a "
-                "str or None." %
-                self.__class__.__name__
+                f"Property 'more' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"str or None."
             )
-            msg += e.message
-            raise TypeError(msg)
+            msg += repr(e)
+            raise TypeError(msg) from e

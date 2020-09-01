@@ -19,12 +19,11 @@ from calendar import timegm
 
 from pytz import utc
 
-
 if __name__ == '__main__':
-    from main import setup_tincan_path
+    from test.main import setup_tincan_path
 
     setup_tincan_path()
-from resources import lrs_properties
+from test.resources import lrs_properties
 from tincan import (
     RemoteLRS,
     LRSResponse,
@@ -66,7 +65,7 @@ class RemoteLRSTest(unittest.TestCase):
         )
 
         self.agent = Agent(mbox="mailto:tincanpython@tincanapi.com")
-        self.agent2 = Agent(mbox="Agent2.mailto:tincanpython@tincanapi.com")
+        self.agent2 = Agent(mbox="mailto:tincanpython2@tincanapi.com")
         self.verb = Verb(
             id="http://adlnet.gov/expapi/verbs/experienced",
             display=LanguageMap({"en-US": "experienced"})
@@ -168,32 +167,6 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response, LRSResponse)
         self.assertTrue(response.success)
         self._vars_verifier(statement, response.content)
-
-    def test_save_statement_conflict(self):
-        test_id = unicode(uuid.uuid4())
-
-        statement1 = Statement(
-            actor=self.agent,
-            verb=self.verb,
-            object=self.substatement,
-            id=test_id
-        )
-        statement2 = Statement(
-            actor=self.agent2,
-            verb=self.verb,
-            object=self.substatement,
-            id=test_id
-        )
-        response = self.lrs.save_statement(statement1)
-
-        self.assertIsInstance(response, LRSResponse)
-        self.assertTrue(response.success)
-
-        response = self.lrs.save_statement(statement2)
-
-        self.assertIsInstance(response, LRSResponse)
-        self.assertFalse(response.success)
-        self.assertEquals(response.response.status, 409)
 
     def test_save_statement_ref(self):
         statement = Statement(
@@ -407,7 +380,7 @@ class RemoteLRSTest(unittest.TestCase):
             "related_agents": True,
             "format": "ids",
             "limit": 2,
-            "registration": unicode(uuid.uuid4()),
+            "registration": str(uuid.uuid4()),
         }
         response = self.lrs.query_statements(query)
 
@@ -416,7 +389,7 @@ class RemoteLRSTest(unittest.TestCase):
         self.assertIsInstance(response.content, StatementsResult)
         self.assertTrue(hasattr(response.content, 'more'))
         self.assertTrue(hasattr(response.content, 'statements'))
-        self.assertEquals(response.content.statements, [])
+        self.assertEqual(response.content.statements, [])
 
     def test_more_statements(self):
         s1 = Statement(
@@ -485,7 +458,7 @@ class RemoteLRSTest(unittest.TestCase):
             activity=self.activity,
             agent=self.agent,
             id="test",
-            content=bytearray("Test value", encoding="utf-8")
+            content="Test value"
         )
         saveResp = self.lrs.save_state(doc)
 
@@ -534,7 +507,7 @@ class RemoteLRSTest(unittest.TestCase):
         doc = ActivityProfileDocument(
             activity=self.activity,
             id="test",
-            content=bytearray("Test value", encoding="utf-8")
+            content="Test value"
         )
         saveResp = self.lrs.save_activity_profile(doc)
 
@@ -570,7 +543,7 @@ class RemoteLRSTest(unittest.TestCase):
         doc = AgentProfileDocument(
             agent=self.agent,
             id="test",
-            content=bytearray("Test value", encoding="utf-8")
+            content="Test value"
         )
         saveResp = self.lrs.save_agent_profile(doc)
         self.assertIsInstance(saveResp, LRSResponse)
@@ -594,7 +567,7 @@ class RemoteLRSTest(unittest.TestCase):
     def _vars_verifier(self, obj1, obj2, _ignored_attrs=None):
         if _ignored_attrs is None:
             _ignored_attrs = ['_authority', '_stored', '_id']
-        for k, v in vars(obj1).iteritems():
+        for k, v in vars(obj1).items():
             if k in _ignored_attrs:
                 continue
             elif isinstance(v, datetime):

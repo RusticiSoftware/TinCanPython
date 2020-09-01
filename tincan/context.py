@@ -78,7 +78,7 @@ class Context(SerializableBase):
     @registration.setter
     def registration(self, value):
         if value is not None and not isinstance(value, uuid.UUID):
-            if isinstance(value, basestring) and not self._UUID_REGEX.match(value):
+            if isinstance(value, str) and not self._UUID_REGEX.match(value):
                 raise ValueError("Invalid UUID string")
             value = uuid.UUID(value)
         self._registration = value
@@ -166,8 +166,8 @@ class Context(SerializableBase):
 
     @revision.setter
     def revision(self, value):
-        if value is not None and not isinstance(value, basestring):
-            value = unicode(value)
+        if value is not None and not isinstance(value, str):
+            value = str(value)
         self._revision = value
 
     @revision.deleter
@@ -187,8 +187,8 @@ class Context(SerializableBase):
 
     @platform.setter
     def platform(self, value):
-        if value is not None and not isinstance(value, basestring):
-            value = unicode(value)
+        if value is not None and not isinstance(value, str):
+            value = str(value)
         self._platform = value
 
     @platform.deleter
@@ -209,8 +209,8 @@ class Context(SerializableBase):
     @language.setter
     def language(self, value):
         if value is not None:
-            if not isinstance(value, basestring):
-                value = unicode(value)
+            if not isinstance(value, str):
+                value = str(value)
             if not self._LANG_REGEX.match(value):
                 raise ValueError("invalid regional identifier")
         self._language = value

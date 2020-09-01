@@ -16,11 +16,11 @@ import unittest
 from datetime import timedelta
 
 if __name__ == '__main__':
-    from main import setup_tincan_path
+    from test.main import setup_tincan_path
 
     setup_tincan_path()
 from tincan import Score, Extensions, Result
-from test_utils import TinCanBaseTestCase
+from test.test_utils import TinCanBaseTestCase
 
 
 class ResultTest(TinCanBaseTestCase):

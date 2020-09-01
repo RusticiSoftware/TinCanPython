@@ -40,7 +40,7 @@ class Verb(SerializableBase):
         super(Verb, self).__init__(*args, **kwargs)
 
     def __repr__(self):
-        return 'Verb: %s' % self.__dict__
+        return f'Verb: {self.__dict__}'
 
     @property
     def id(self):
@@ -58,9 +58,9 @@ class Verb(SerializableBase):
         if value is not None:
             if value == '':
                 raise ValueError(
-                    "Property 'id' in 'tincan.%s' object must be not empty."
-                    % self.__class__.__name__)
-        self._id = None if value is None else unicode(value)
+                    f"Property 'id' in 'tincan.{self.__class__.__name__}' object must be not empty."
+                )
+        self._id = None if value is None else str(value)
 
     @property
     def display(self):

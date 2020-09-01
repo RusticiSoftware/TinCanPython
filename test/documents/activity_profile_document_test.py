@@ -152,7 +152,7 @@ class ActivityProfileDocumentTest(unittest.TestCase):
         doc = ActivityProfileDocument()
         doc.activity = {"id": "http://tincanapi.com/TinCanPython/Test/Unit/0"}
 
-        self.assertEquals(doc.activity.id, "http://tincanapi.com/TinCanPython/Test/Unit/0")
+        self.assertEqual(doc.activity.id, "http://tincanapi.com/TinCanPython/Test/Unit/0")
 
 
 if __name__ == "__main__":

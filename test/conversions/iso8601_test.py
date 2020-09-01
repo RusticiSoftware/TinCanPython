@@ -31,14 +31,6 @@ from tincan.conversions.iso8601 import (
     make_datetime, _make_datetime, jsonify_datetime,
 )
 
-
-# make sure that pytz's db is loaded so that later accesses are faster.
-# to avoid long startup times, run:
-#       pip unzip pytz
-print (
-    "Loading timezone data (if this takes a few seconds, "
-    "run `pip unzip pytz` to speed it up)..."
-)
 timezone('US/Central')
 
 

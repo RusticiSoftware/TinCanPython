@@ -7,7 +7,7 @@ setup(
         'tincan/conversions',
         'tincan/documents',
     ],
-    version='0.0.5',
+    version='1.0.0',
     description='A Python library for implementing Tin Can API.',
     author='Rustici Software',
     author_email='mailto:support+tincanpython@tincanapi.com',

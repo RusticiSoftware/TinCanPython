@@ -34,7 +34,7 @@ class Base(object):
 
         """
         if hasattr(self, '_props_req') and self._props_req:
-            map(lambda (k): setattr(self, k, None), self._props_req)
+            list(map(lambda k: setattr(self, k, None), self._props_req))
 
         new_kwargs = {}
         for obj in args:
@@ -42,7 +42,7 @@ class Base(object):
 
         new_kwargs.update(kwargs)
 
-        for key, value in new_kwargs.iteritems():
+        for key, value in new_kwargs.items():
             setattr(self, key, value)
 
     def __setattr__(self, attr, value):
@@ -59,12 +59,9 @@ class Base(object):
             super(Base, self).__setattr__(attr, value)
         elif attr not in self._props:
             raise AttributeError(
-                "Property '%s' cannot be set on a 'tincan.%s' object. Allowed properties: %s" %
-                (
-                    attr,
-                    self.__class__.__name__,
-                    ', '.join(self._props)
-                ))
+                f"Property '{attr}' cannot be set on a 'tincan.{self.__class__.__name__}' object."
+                f"Allowed properties: {', '.join(self._props)}"
+            )
         else:
             super(Base, self).__setattr__(attr, value)
 

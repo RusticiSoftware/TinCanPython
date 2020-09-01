@@ -37,13 +37,14 @@ def check_tincan_importability():
     try:
         import tincan
     except ImportError as e:
+        tincan = None
         raise ImportError(
-            "Could not import tincan."
-            "\n\n"
-            "This probably means that the test directory is not a "
-            "sibling directory of tincan. Move test and tincan into "
-            "the same folder and try again."
-            "\n\n" + e.message
+            f"Could not import tincan."
+            f"\n\n"
+            f"This probably means that the test directory is not a "
+            f"sibling directory of tincan. Move test and tincan into "
+            f"the same folder and try again."
+            f"\n\n {repr(e)}"
         )
 
 
@@ -67,7 +68,7 @@ def setup_tincan_path():
         # as that was catching the system installed version, if virtualenv
         # is ever implemented for the test suite then this can go away
         #
-        print "Adding %s to PYTHONPATH" % repr(tincan_pardir)
+        print(f"Adding {repr(tincan_pardir)} to PYTHONPATH")
         sys.path.insert(1, tincan_pardir)
     check_tincan_importability()
 

@@ -79,7 +79,7 @@ class Statement(StatementBase):
     @id.setter
     def id(self, value):
         if value is not None and not isinstance(value, uuid.UUID):
-            if isinstance(value, basestring) and not self._UUID_REGEX.match(value):
+            if isinstance(value, str) and not self._UUID_REGEX.match(value):
                 raise ValueError("Invalid UUID string")
             value = uuid.UUID(value)
         self._id = value
@@ -164,17 +164,14 @@ class Statement(StatementBase):
         try:
             self._stored = make_datetime(value)
         except TypeError as e:
-            e.message = (
-                "Property 'stored' in a 'tincan.%s' "
-                "object must be set with a "
-                "datetime.datetime, str, unicode, int, float, dict "
-                "or None.\n\n%s" %
-                (
-                    self.__class__.__name__,
-                    e.message,
-                )
+            message = (
+                f"Property 'stored' in a 'tincan.{self.__class__.__name__}' "
+                f"object must be set with a "
+                f"datetime.datetime, str, unicode, int, float, dict "
+                f"or None.\n\n{repr(e)}"
             )
-            raise e
+            raise TypeError(message) from e
+
 
     @stored.deleter
     def stored(self):
@@ -238,8 +235,8 @@ class Statement(StatementBase):
         if value is not None:
             if value == '':
                 raise ValueError("Property version can not be set to an empty string")
-            elif not isinstance(value, unicode):
-                value = unicode(value)
+            elif not isinstance(value, str):
+                value = str(value)
         self._version = value
 
     @version.deleter

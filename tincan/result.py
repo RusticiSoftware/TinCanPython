@@ -78,15 +78,12 @@ class Result(SerializableBase):
             self._score = value if value is None or isinstance(value, Score) else Score(value)
         except Exception as e:
             msg = (
-                "Property 'score' in 'tincan.%s' object: could not create a"
-                " 'tincan.Score' object from value: %s\n\n" %
-                (
-                    self.__class__.__name__,
-                    repr(value)
-                ))
-            msg += e.message
+                f"Property 'score' in 'tincan.{self.__class__.__name__}' object: could not create a"
+                f" 'tincan.Score' object from value: {repr(value)}\n\n"
+            )
+            msg += repr(e)
             e_type = TypeError if not isinstance(value, dict) else ValueError
-            raise e_type(msg)
+            raise e_type(msg) from e
 
     @score.deleter
     def score(self):
@@ -162,15 +159,11 @@ class Result(SerializableBase):
         try:
             self._duration = make_timedelta(value)
         except Exception as e:
-            e.message = (
-                "Property 'duration' in a 'tincan.%s' object must be set with a "
-                "datetime.timedelta, str, unicode, int, float or None.\n\n%s" %
-                (
-                    self.__class__.__name__,
-                    e.message,
-                )
+            message = (
+                f"Property 'duration' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"datetime.timedelta, str, unicode, int, float or None.\n\n{repr(e)}"
             )
-            raise e
+            raise Exception(message) from e
 
     @duration.deleter
     def duration(self):
@@ -191,16 +184,15 @@ class Result(SerializableBase):
     @response.setter
     def response(self, value):
         try:
-            self._response = value if value is None else unicode(value)
+            self._response = value if value is None else str(value)
         except Exception as e:
             e_type = ValueError if isinstance(value, (list, tuple)) else TypeError
             msg = (
-                "Property 'response' in a 'tincan.%s' object must be set with a "
-                "string, unicode or None.\n\n" %
-                self.__class__.__name__,
+                f"Property 'response' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"string, unicode or None.\n\n"
             )
-            msg += e.message
-            raise e_type(msg)
+            msg += repr(e)
+            raise e_type(msg) from e
 
     @response.deleter
     def response(self):
@@ -226,15 +218,12 @@ class Result(SerializableBase):
         try:
             self._extensions = Extensions(value)
         except Exception as e:
-            msg = (
-                "Property 'extensions' in 'tincan.%s' object: could not create a"
-                " 'tincan.Extensions' object from value: %s\n\n" %
-                (
-                    self.__class__.__name__,
-                    repr(value)
-                ))
-            msg += e.message
             e_type = ValueError if isinstance(value, dict) else TypeError
+            msg = (
+                f"Property 'extensions' in 'tincan.{self.__class__.__name__}' object: could not create a"
+                f" 'tincan.Extensions' object from value: {repr(value)}\n\n"
+            )
+            msg += repr(e)
             raise e_type(msg)
 
     @extensions.deleter

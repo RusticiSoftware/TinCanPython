@@ -1,8 +1,8 @@
 language: python
 python:
-  - "2.7"
-install: easy_install aniso8601 pytz
+  - "3.6"
+install: pip3 install aniso8601 pytz
 before_script:
   - cd test
   - cp resources/lrs_properties.py.travis-ci resources/lrs_properties.py
-script: python main.py
+script: python3 main.py

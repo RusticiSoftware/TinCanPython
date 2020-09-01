@@ -2,7 +2,7 @@
 
 import uuid
 
-from resources import lrs_properties
+from test.resources import lrs_properties
 from tincan import (
     RemoteLRS,
     Statement,
@@ -17,33 +17,33 @@ from tincan import (
 
 
 # construct an LRS
-print "constructing the LRS..."
+print("constructing the LRS...")
 lrs = RemoteLRS(
     version=lrs_properties.version,
     endpoint=lrs_properties.endpoint,
     username=lrs_properties.username,
     password=lrs_properties.password,
 )
-print "...done"
+print("...done")
 
 # construct the actor of the statement
-print "constructing the Actor..."
+print("constructing the Actor...")
 actor = Agent(
     name='UserMan',
     mbox='mailto:tincanpython@tincanapi.com',
 )
-print "...done"
+print("...done")
 
 # construct the verb of the statement
-print "constructing the Verb..."
+print("constructing the Verb...")
 verb = Verb(
     id='http://adlnet.gov/expapi/verbs/experienced',
     display=LanguageMap({'en-US': 'experienced'}),
 )
-print "...done"
+print("...done")
 
 # construct the object of the statement
-print "constructing the Object..."
+print("constructing the Object...")
 object = Activity(
     id='http://tincanapi.com/TinCanPython/Example/0',
     definition=ActivityDefinition(
@@ -51,10 +51,10 @@ object = Activity(
         description=LanguageMap({'en-US': 'Use of, or interaction with, the TinCanPython Library'}),
     ),
 )
-print "...done"
+print("...done")
 
 # construct a context for the statement
-print "constructing the Context..."
+print("constructing the Context...")
 context = Context(
     registration=uuid.uuid4(),
     instructor=Agent(
@@ -63,46 +63,46 @@ context = Context(
     ),
     # language='en-US',
 )
-print "...done"
+print("...done")
 
 # construct the actual statement
-print "constructing the Statement..."
+print("constructing the Statement...")
 statement = Statement(
     actor=actor,
     verb=verb,
     object=object,
     context=context,
 )
-print "...done"
+print("...done")
 
 # save our statement to the remote_lrs and store the response in 'response'
-print "saving the Statement..."
+print("saving the Statement...")
 response = lrs.save_statement(statement)
 
 if not response:
     raise ValueError("statement failed to save")
-print "...done"
+print("...done")
 
 # retrieve our statement from the remote_lrs using the id returned in the response
-print "Now, retrieving statement..."
+print("Now, retrieving statement...")
 response = lrs.retrieve_statement(response.content.id)
 
 if not response.success:
     raise ValueError("statement could not be retrieved")
-print "...done"
+print("...done")
 
-print "constructing new Statement from retrieved statement data..."
+print("constructing new Statement from retrieved statement data...")
 ret_statement = response.content
-print "...done"
+print("...done")
 
 # now, using our old statement and our returned statement, we can send multiple statements
 # note: these statements are logically identical, but are 2 separate objects
-print "saving both Statements"
+print("saving both Statements")
 response = lrs.save_statements([statement, ret_statement])
 
 if not response:
     raise ValueError("statements failed to save")
-print "...done"
+print("...done")
 
 # we can query our statements using an object
 # constructing the query object with common fields
@@ -117,26 +117,26 @@ query = {
     "limit": 2,
 }
 
-print "querying statements..."
+print("querying statements...")
 response = lrs.query_statements(query)
 
 if not response:
     raise ValueError("statements could not be queried")
-print "...done"
+print("...done")
 
 # now we will explore saving a document, e.g. a state document
-print "constructing a state document..."
+print("constructing a state document...")
 state_document = StateDocument(
     activity=object,
     agent=actor,
     id='stateDoc',
     content=bytearray('stateDocValue', encoding='utf-8'),
 )
-print "...done"
+print("...done")
 
-print "saving state document..."
+print("saving state document...")
 response = lrs.save_state(state_document)
 
 if not response.success:
     raise ValueError("could not save state document")
-print "...done"
+print("...done")

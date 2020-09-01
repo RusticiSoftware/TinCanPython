@@ -68,11 +68,10 @@ class Score(SerializableBase):
             self._scaled = float(value)
         except Exception as e:
             msg = (
-                "Property 'scaled' in a 'tincan.%s' object must be set with a "
-                "float or None." %
-                self.__class__.__name__
+                f"Property 'scaled' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"float or None."
             )
-            msg += e.message
+            msg += repr(e)
             raise TypeError(msg)
 
     @scaled.deleter
@@ -100,11 +99,10 @@ class Score(SerializableBase):
             self._raw = float(value)
         except Exception as e:
             msg = (
-                "Property 'raw' in a 'tincan.%s' object must be set with a "
-                "float or None." %
-                self.__class__.__name__
+                f"Property 'raw' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"float or None."
             )
-            msg += e.message
+            msg += repr(e)
             raise TypeError(msg)
 
     @raw.deleter
@@ -132,11 +130,10 @@ class Score(SerializableBase):
             self._min = float(value)
         except Exception as e:
             msg = (
-                "Property 'min' in a 'tincan.%s' object must be set with a "
-                "float or None." %
-                self.__class__.__name__
+                f"Property 'min' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"float or None."
             )
-            msg += e.message
+            msg += repr(e)
             raise TypeError(msg)
 
     @min.deleter
@@ -164,11 +161,10 @@ class Score(SerializableBase):
             self._max = float(value)
         except Exception as e:
             msg = (
-                "Property 'max' in a 'tincan.%s' object must be set with a "
-                "float or None." %
-                self.__class__.__name__
+                f"Property 'max' in a 'tincan.{self.__class__.__name__}' object must be set with a "
+                f"float or None."
             )
-            msg += e.message
+            msg += repr(e)
             raise TypeError(msg)
 
     @max.deleter

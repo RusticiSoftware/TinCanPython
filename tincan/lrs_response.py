@@ -11,7 +11,8 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from httplib import HTTPResponse
+
+from http.client import HTTPResponse
 
 from tincan.http_request import HTTPRequest
 from tincan.base import Base
@@ -99,7 +100,7 @@ class LRSResponse(Base):
     def response(self, value):
         if value is not None and not isinstance(value, HTTPResponse):
             raise TypeError(
-                "Property 'response' in 'tincan.%s' must be set with an HTTPResponse object" % self.__class__.__name__
+                f"Property 'response' in 'tincan.{self.__class__.__name__}' must be set with an HTTPResponse object"
             )
         self._response = value
 
@@ -114,7 +115,7 @@ class LRSResponse(Base):
         :param value: The body of the response object for the LRSResponse
         :type value: unicode
         """
-        if value is not None and not isinstance(value, unicode):
+        if value is not None and isinstance(value, (bytes, bytearray)):
             value = value.decode('utf-8')
         self._data = value
 

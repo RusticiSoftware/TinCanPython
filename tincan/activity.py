@@ -59,9 +59,9 @@ class Activity(SerializableBase, StatementTargetable):
         if value is not None:
             if value == '':
                 raise ValueError(
-                    "Property 'id' in 'tincan.%s' object must be not empty."
-                    % self.__class__.__name__)
-        self._id = None if value is None else unicode(value)
+                    f"Property 'id' in 'tincan.{self.__class__.__name__}' object must be not empty."
+                )
+        self._id = None if value is None else str(value)
 
     @property
     def object_type(self):
