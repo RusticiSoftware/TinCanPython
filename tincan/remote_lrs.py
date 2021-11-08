@@ -15,6 +15,7 @@
 import http.client
 import json
 import base64
+import socket
 
 
 from urllib.parse import urlparse, urlencode
@@ -45,6 +46,7 @@ class RemoteLRS(Base):
     _props_req = [
         'version',
         'endpoint',
+        'timeout',
         'auth',
     ]
 
@@ -57,6 +59,8 @@ class RemoteLRS(Base):
 
         :param endpoint: lrs endpoint
         :type endpoint: str | unicode
+        :param timeout: Timeout (in seconds) used for lrs communication
+        :type timeout: float
         :param version: Version used for lrs communication
         :type version: str | unicode
         :param username: Username for lrs. Used to build the authentication string.
@@ -69,6 +73,7 @@ class RemoteLRS(Base):
 
         self._version = Version.latest
         self._endpoint = None
+        self._timeout = None
         self._auth = None
 
         if "username" in kwargs \
@@ -115,10 +120,11 @@ class RemoteLRS(Base):
 
         parsed = urlparse(url)
 
+        timeout = self.timeout or socket._GLOBAL_DEFAULT_TIMEOUT
         if parsed.scheme == "https":
-            web_req = http.client.HTTPSConnection(parsed.hostname, parsed.port)
+            web_req = http.client.HTTPSConnection(parsed.hostname, parsed.port, timeout=timeout)
         else:
-            web_req = http.client.HTTPConnection(parsed.hostname, parsed.port)
+            web_req = http.client.HTTPConnection(parsed.hostname, parsed.port, timeout=timeout)
 
         path = parsed.path
         if parsed.query or parsed.path:
@@ -853,6 +859,24 @@ class RemoteLRS(Base):
                 value = "http://" + value
 
         self._endpoint = value
+
+    @property
+    def timeout(self):
+        """The timeout to use when connecting to the Remote LRS
+
+        :setter type: float
+        :rtype: float
+        """
+        return self._timeout
+
+    @timeout.setter
+    def timeout(self, value):
+        if value:
+            if not isinstance(value, float):
+                value = float(value)
+            if value < 0:
+                raise ValueError("Timeout must be positive number", value)
+        self._timeout = value
 
     @property
     def version(self):
