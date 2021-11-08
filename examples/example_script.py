@@ -21,6 +21,7 @@ print("constructing the LRS...")
 lrs = RemoteLRS(
     version=lrs_properties.version,
     endpoint=lrs_properties.endpoint,
+    timeout=lrs_properties.timeout,
     username=lrs_properties.username,
     password=lrs_properties.password,
 )

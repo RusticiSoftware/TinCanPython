@@ -54,12 +54,14 @@ from tincan.documents import (
 class RemoteLRSTest(unittest.TestCase):
     def setUp(self):
         self.endpoint = lrs_properties.endpoint
+        self.timeout = lrs_properties.timeout
         self.version = lrs_properties.version
         self.username = lrs_properties.username
         self.password = lrs_properties.password
         self.lrs = RemoteLRS(
             version=self.version,
             endpoint=self.endpoint,
+            timeout=self.timeout,
             username=self.username,
             password=self.password,
         )
@@ -126,6 +128,7 @@ class RemoteLRSTest(unittest.TestCase):
         lrs = RemoteLRS()
         self.assertIsInstance(lrs, RemoteLRS)
         self.assertIsNone(lrs.endpoint)
+        self.assertIsNone(lrs.timeout)
         self.assertIsNone(lrs.auth)
         self.assertEqual(Version.latest, lrs.version)
 
@@ -141,6 +144,10 @@ class RemoteLRSTest(unittest.TestCase):
         response = lrs.about()
 
         self.assertFalse(response.success)
+
+    def test_operation_without_timeout(self):
+        self.lrs.timeout = None
+        self.test_about()
 
     def test_save_statement(self):
         statement = Statement(
